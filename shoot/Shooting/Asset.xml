@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Data Name="Asset.png" Path="C:\Users\Inha\Desktop\shoot\shoot\Shooting\Asset\Asset.png" Count="6">
+        <UV ID="0" Left="0.55952382" Top="0.03125" Right="0.95833331" Bottom="0.21130952"/>
+        <UV ID="1" Left="0.017857144" Top="0.026785715" Right="0.41666666" Bottom="0.20982143"/>
+        <UV ID="2" Left="0.050595239" Top="0.29166666" Right="0.25" Bottom="0.49107143"/>
+        <UV ID="3" Left="0.29166666" Top="0.28869048" Right="0.50148809" Bottom="0.48809522"/>
+        <UV ID="4" Left="0.049107142" Top="0.52678573" Right="0.24404761" Bottom="0.7098214"/>
+        <UV ID="5" Left="0.28720239" Top="0.50744045" Right="0.51190478" Bottom="0.72916669"/>
+    </Data>
+</Atlas>
