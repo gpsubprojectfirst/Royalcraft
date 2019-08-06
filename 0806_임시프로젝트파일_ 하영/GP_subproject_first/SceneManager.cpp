@@ -1,4 +1,6 @@
 #include "pch.h"
+#include "SceneManager.h"
+
 
 SceneManager::SceneManager()
 	: CurScene(nullptr)

@@ -34,14 +34,13 @@ public:
 	CString name;
 	int ID;
 	StateManager sm;
-
 	//static void SetBmp(std::vector<Gdiplus::Image*>* _pvecbmp) { m_pVecImg = _pvecbmp; }
 	//virtual void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
 	//virtual void Release();
 
 protected:
 	INFO		m_tInfo;
-	//static std::vector<Gdiplus::Image*>* m_pVecImg;
+	static std::vector<Gdiplus::Image*>* m_pVecImg;
 
 };
 

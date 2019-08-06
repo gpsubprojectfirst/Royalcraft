@@ -19,44 +19,5 @@ public:
 
 };
 
-class LobbyScene :
-	public Scene
-{
-public:
-	CImage* bgImg;
-	LobbyScene();
-
-	void Init();
-	void Update(float Delta, int frame);
-	void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
-	void Release();
-};
-
-class LogoScene :
-	public Scene
-{
-public:
-	LogoScene();
-
-	void Init();
-	void Update(float Delta, int frame);
-	void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
-	void Release();
-};
-
-class GameScene :
-	public Scene
-{
-public:
-	CImage* bgImg;
-	GameScene();
-
-	void Init();
-	void Update(float Delta, int frame);
-	void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
-	void Release();
-};
-
-
 
 

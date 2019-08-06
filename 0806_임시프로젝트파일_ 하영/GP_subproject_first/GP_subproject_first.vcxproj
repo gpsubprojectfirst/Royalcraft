@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\하영\source\repos\GP_subproject_first\tinyxml2</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>tinyxml2</AdditionalLibraryDirectories>
       <AdditionalDependencies>tinyxml2.lib</AdditionalDependencies>
     </Link>
     <Midl>
@@ -196,9 +196,13 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GP_subproject_first.h" />
+    <ClInclude Include="LobbyScene.h" />
+    <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -212,9 +216,13 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GP_subproject_first.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
+    <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
