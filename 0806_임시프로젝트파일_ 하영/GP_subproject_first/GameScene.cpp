@@ -5,13 +5,13 @@
 
 GameScene::GameScene()
 {
-	Init();
+
 }
 
 void GameScene::Init()
 {
-	bgImg = new CImage();
-	bgImg->Load(TEXT("Asset\\loading_tex_.png"));
+	SceneManager::GetInstance().LoadScene(CString("GameScene"));
+
 }
 
 void GameScene::Update(float Delta, int frame)

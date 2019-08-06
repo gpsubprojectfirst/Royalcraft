@@ -59,8 +59,8 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 
 	cs.style = WS_OVERLAPPED
 		;
-	cs.cx = 960;
-	cs.cy = 600;
+	cs.cx = WINSIZE_X;
+	cs.cy = WINSIZE_Y;
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;

@@ -8,12 +8,17 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Init()
 {
-	bgImg = new CImage();
-	bgImg->Load(TEXT("Asset\\loading_tex_.png"));
+	bgImg = new  Gdiplus::Image(TEXT("Asset\\loading_tex_.png"));
 }
 
 void LobbyScene::Update(float Delta, int frame)
 {
+
+	if (GetAsyncKeyState(VK_SPACE) & 0x8001)
+	{
+		SceneManager::GetInstance().SetState(SCENE_GAME);
+		return;
+	}
 
 }
 
@@ -21,22 +26,19 @@ void LobbyScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 {
 	if (MemG == nullptr) return;
 
-	for (auto& it : this->info)
+	//for (auto& it : this->info)
 	{
 
+		/*if (it == nullptr) continue;
+		if (it->Enable == false) continue;*/
 
-		if (it == nullptr) continue;
-		if (it->Enable == false) continue;
 
-
-		Gdiplus::Image* image = new Gdiplus::Image(TEXT("Asset\\loading_tex_.png"));
-
-		Rect Dst(0, 0, 800, 700);
-		Bitmap bm(800, 700, PixelFormat32bppARGB);
+		Rect Dst(0, 0, WINSIZE_X, WINSIZE_Y);
+		Bitmap bm(WINSIZE_X, WINSIZE_Y, PixelFormat32bppARGB);
 		Graphics test(&bm);
 
 
-		test.DrawImage(image, Dst, Dst.X, Dst.Y, Dst.Width, Dst.Height, Gdiplus::Unit::UnitPixel,
+		test.DrawImage(bgImg, Dst, Dst.X, Dst.Y, Dst.Width, Dst.Height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 
 		MemG->DrawImage(&bm, Dst);

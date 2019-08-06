@@ -44,7 +44,6 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	cs.lpszClass = AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS, 
 		::LoadCursor(nullptr, IDC_ARROW), reinterpret_cast<HBRUSH>(COLOR_WINDOW+1), nullptr);
 	ObjectManager::GetInstance();
-	//SceneManager::GetInstance().LoadScene(CString("GameScene"));
 	return TRUE;
 }
 
@@ -97,7 +96,7 @@ int CChildView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	SceneManager::GetInstance().LoadScene(CString("GameScene"));
+	SceneManager::GetInstance().LoadScene(CString("LogoScene"));
 	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
 	CWinThread* pThread = AfxBeginThread(&CGPsubprojectfirstApp::funcThread, NULL);
 	return 0;

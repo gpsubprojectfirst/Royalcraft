@@ -1,5 +1,7 @@
 #pragma once
 #define SAFE_DELETE(p)	if(p) {delete p; p = NULL;}
+#define WINSIZE_X 520
+#define WINSIZE_Y 860
 enum EState {
 	eState_Idle,
 	eState_Move,
