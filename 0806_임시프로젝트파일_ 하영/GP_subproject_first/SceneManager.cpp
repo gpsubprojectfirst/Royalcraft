@@ -44,6 +44,7 @@ void SceneManager::LoadScene(CString& pName)
 		if (!it->Name.CompareNoCase(pName))
 		{
 			CurScene = it;
+			std::wcout << (const wchar_t*)CurScene->Name <<std::endl;
 		}
 	}
 

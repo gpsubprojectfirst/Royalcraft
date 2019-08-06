@@ -14,7 +14,7 @@
 #include <string>
 #include <CString>
 
-
+#include <iostream>
 #include "common.h"
 #include "tinyxml2.h"
 #include "Object.h"
@@ -27,5 +27,8 @@
 
 using namespace Gdiplus;
 using namespace std;
+
+
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 #endif //PCH_H

@@ -5,12 +5,12 @@
 
 GameScene::GameScene()
 {
-
+	printf("GameScene init\n");
 }
 
 void GameScene::Init()
 {
-	SceneManager::GetInstance().LoadScene(CString("GameScene"));
+	//SceneManager::GetInstance().LoadScene(CString("GameScene"));
 
 }
 
