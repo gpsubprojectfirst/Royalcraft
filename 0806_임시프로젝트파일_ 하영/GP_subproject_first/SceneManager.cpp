@@ -20,7 +20,7 @@ SceneManager::SceneManager()
 
 	//특정 유닛의 에셋 로드
 	//ID: 0,name: knight
-	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\Knight.png"));
+	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 	
 	//ObjectManager의 유닛데이터 복사
 	myUnit* knight = new myUnit();

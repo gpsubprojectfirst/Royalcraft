@@ -11,7 +11,7 @@ LogoScene::LogoScene()
 
 void LogoScene::Init()
 {
-	m_vecImg.push_back(new Gdiplus::Image(TEXT("Asset\\supercell_logo.png")));
+	m_vecImg.push_back(new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png")));
 }
 
 void LogoScene::Update(float Delta, int frame)
