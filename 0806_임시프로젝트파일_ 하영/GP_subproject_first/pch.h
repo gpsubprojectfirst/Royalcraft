@@ -18,6 +18,7 @@
 #include "common.h"
 #include "tinyxml2.h"
 #include "Object.h"
+#include "myUnit.h"
 #include "LogoScene.h"
 #include "LobbyScene.h"
 #include "GameScene.h"

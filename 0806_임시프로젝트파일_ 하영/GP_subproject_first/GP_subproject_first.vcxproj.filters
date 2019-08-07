@@ -102,6 +102,9 @@
     <ClInclude Include="Actor.h">
       <Filter>소스 파일\Action</Filter>
     </ClInclude>
+    <ClInclude Include="myUnit.h">
+      <Filter>소스 파일\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>소스 파일\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="myUnit.cpp">
+      <Filter>소스 파일\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
