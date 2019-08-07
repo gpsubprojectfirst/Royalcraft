@@ -78,7 +78,7 @@ public:
 		}
 		else
 		{
-			//bleft = true;
+			bleft = true;
 			ChangeState(eState_Idle);
 		}
 	}

@@ -6,10 +6,11 @@ class myUnit : public Object
 public:
 	myUnit();
 	virtual void Update(float Delta);
+	virtual void Render(Gdiplus::Graphics* MemG);
 
 	virtual void Move(float Delta);
-	virtual void Attack();
-	virtual void ExtraAction();
+	virtual void Attack(float Delta);
+	virtual void ExtraAction(float Delta);
 
 	//¿Ø¥÷ Ω∫≈»
 	float damage;

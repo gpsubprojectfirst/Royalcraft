@@ -25,12 +25,13 @@ public:
 
 	virtual void Begin() {} // init
 	virtual void Update(float Delta) {} //frame 변수 추가
+	virtual void Render(Gdiplus::Graphics* MemG) {}
 	virtual void End() {} // release
 
 	//action 매서드
 	virtual void Move(float Delta) {}
-	virtual void Attack() {}
-	virtual void ExtraAction() {}
+	virtual void Attack(float Delta) {}
+	virtual void ExtraAction(float Delta) {}
 
 	//계속 변하는 변수
 	Gdiplus::Image* ParentImg;
