@@ -13,7 +13,7 @@ public:
 	
 	void Init();
 	void RenderScene(Gdiplus::Graphics* MemG);
-	void Update(float Delta, int frame);
+	void Update(float Delta);
 	void SendLButtonDown(UINT nFlags, CPoint point);	
 	
 private:

@@ -138,27 +138,17 @@ void CGPsubprojectfirstApp::OnAppAbout()
 // CGPsubprojectfirstApp 메시지 처리기
 
 UINT CGPsubprojectfirstApp::funcThread(LPVOID pParam)
-{
-	int frame = 0;
+{	
 	while (1)
 	{
 		DWORD tick = GetTickCount();
 		DWORD Delta = tick - PrevTick;
 
-		if (Delta > 0.8f)
-		{
-			Delta = 0;
-			++frame;
-			if (frame > 10)
-				frame = 0;
-		}
-
 		if (CMainFrame * MainFrm = static_cast<CMainFrame*>(theApp.GetMainWnd()))
 		{
 			{
-				
 				// Update
-				SceneManager::GetInstance().Update(Delta * 0.001f,frame);
+				SceneManager::GetInstance().Update(Delta * 0.001f);
 
 				// Render
 				CChildView* view = MainFrm->GetView();
@@ -170,8 +160,7 @@ UINT CGPsubprojectfirstApp::funcThread(LPVOID pParam)
 					view->InvalidateRect(rc);
 			}
 		}
-
-		Sleep(1000 / 40);
+		Sleep(1000 / 60);
 		PrevTick = tick;
 	}
 

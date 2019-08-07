@@ -14,27 +14,28 @@ void GameScene::Init()
 
 }
 
-void GameScene::Update(float Delta, int frame)
+void GameScene::Update(float Delta)
 {
 	for (auto& it : this->info)
 	{
 		if (it->Objtype == eObject_Unit)
 		{
-			myUnit* o = reinterpret_cast<myUnit*>(it);
-
-			//frame에따라 현재 오브젝트의 렉트 변화
-			o->sm.Update();
-			if (o->sm.GetCurState() == eState_Idle)
+			myUnit* unit = reinterpret_cast<myUnit*>(it);
+			
+			//state에따라 현재 오브젝트의 렉트 변화
+			unit->Update(Delta);
+			//unit->sm.Update();
+			if (unit->sm.GetCurState() == eState_Idle)
 			{
-				o->rc = o->moveRc[0];
+				unit->rc = unit->moveRc[unit->frame];
 			}
-			else if (o->sm.GetCurState() == eState_Move)
+			else if (unit->sm.GetCurState() == eState_Move)
 			{
-				o->rc = o->moveRc[frame];
+				unit->rc = unit->moveRc[unit->frame];
 			}
-			else if (o->sm.GetCurState() == eState_Attack)
+			else if (unit->sm.GetCurState() == eState_Attack)
 			{
-				o->rc = o->atkRc[frame];
+				unit->rc = unit->atkRc[unit->frame];
 			}
 		}
 	}
@@ -49,20 +50,15 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		if (it->Enable == false) continue;
 		if (it->Objtype == eObject_Unit)
 		{
-			myUnit* o = reinterpret_cast<myUnit*>(it);
-			Gdiplus::Rect Dst(0, 0, 108, 149);
-			Gdiplus::Bitmap bm(108, 149, PixelFormat32bppARGB);
-			Gdiplus::Graphics test(&bm);
-			test.DrawImage(o->ParentImg, Dst, o->rc.X, o->rc.Y, o->rc.Width, o->rc.Height, Gdiplus::Unit::UnitPixel,
+			myUnit* unit = reinterpret_cast<myUnit*>(it);
+			
+			int width = unit->rc.Width;
+			int height = unit->rc.Height;
+
+			Gdiplus::Rect Dst1(0, 0, width, height);
+			MemG->DrawImage(unit->ParentImg, Dst1 , unit->rc.X,unit->rc.Y,unit->rc.Width,unit->rc.Height, Gdiplus::Unit::UnitPixel,
 				nullptr, 0, nullptr);
-
-			// 회전
-			if (bleft)
-				bm.RotateFlip(Gdiplus::Rotate270FlipNone);
-
-			MemG->DrawImage(&bm, Dst);
 		}
-
 	}
 }
 

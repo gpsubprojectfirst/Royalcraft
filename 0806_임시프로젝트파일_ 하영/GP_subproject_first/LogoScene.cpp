@@ -14,7 +14,7 @@ void LogoScene::Init()
 	m_vecImg.push_back(new Gdiplus::Image(TEXT("Asset\\supercell_logo.png")));
 }
 
-void LogoScene::Update(float Delta, int frame)
+void LogoScene::Update(float Delta)
 {
 
 	if (GetAsyncKeyState(VK_RETURN) & 0x8001)

@@ -24,11 +24,14 @@ SceneManager::SceneManager()
 	
 	//ObjectManager의 유닛데이터 복사
 	myUnit* knight = new myUnit();
+	
 	knight->ID = om.GetMyUnit(0)->ID;
 	knight->name = om.GetMyUnit(0)->name;
 	knight->moveRc = om.GetMyUnit(0)->moveRc;
 	knight->atkRc = om.GetMyUnit(0)->atkRc;
 	knight->ParentImg = load;
+	Gdiplus::Rect Dst(0, 0, 108, 149);
+	knight->posRc = Dst;
 
 	game->info.emplace_back(knight);
 
@@ -120,32 +123,10 @@ void SceneManager::SendLButtonDown(UINT nFlags, CPoint point)
 	//CurScene->LeftButtonDown(nFlags, point);
 }
 
-void SceneManager::Update(float Delta, int frame)
+void SceneManager::Update(float Delta)
 {
 	if (CurScene == nullptr) return;
-	CurScene->Update(Delta, frame);
-	//for(auto& it : CurScene->info)
-	//{
-	//	if (it->Objtype == eObject_Unit)
-	//	{
-	//		myUnit* o = reinterpret_cast<myUnit*>(it);
-	//		
-	//		//frame에따라 현재 오브젝트의 렉트 변화
-	//		o->sm.Update();
-	//		if (o->sm.GetCurState() == eState_Idle)
-	//		{
-	//			o->rc = o->moveRc[0];
-	//		}
-	//		else if (o->sm.GetCurState() == eState_Move)
-	//		{
-	//			o->rc = o->moveRc[frame];
-	//		}
-	//		else if (o->sm.GetCurState() == eState_Attack)
-	//		{
-	//			o->rc = o->atkRc[frame];
-	//		}
-	//	}
-	//}
+	CurScene->Update(Delta);
 }
 
 Scene* SceneManager::GetCurScene()

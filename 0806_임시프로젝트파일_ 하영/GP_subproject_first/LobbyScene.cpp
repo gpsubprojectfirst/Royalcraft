@@ -12,7 +12,7 @@ void LobbyScene::Init()
 	bgImg = new  Gdiplus::Image(TEXT("Asset\\loading_tex_.png"));
 }
 
-void LobbyScene::Update(float Delta, int frame)
+void LobbyScene::Update(float Delta)
 {
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8001)

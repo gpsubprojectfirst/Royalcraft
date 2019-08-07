@@ -21,6 +21,14 @@ enum EObject
 	eObject_Cnt,
 };
 
+enum EAtkType
+{
+	eAttack_None,
+	eAttack_Melee,
+	eAttack_NonMelee,
+	eAttack_Cnt,
+};
+
 enum SCENE
 {
 	SCENE_LOGO,

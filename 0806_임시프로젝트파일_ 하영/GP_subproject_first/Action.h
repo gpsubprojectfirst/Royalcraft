@@ -6,17 +6,16 @@ class Action
 public:
 	Action();
 	virtual ~Action() {};
-	virtual void execute(Object& obj);
+	virtual void execute(Object& obj) {}
 };
 
 class moveAction : public Action
 {
 public:
-	virtual void execute(Object& obj)
+	virtual void execute(Object& obj,float Delta)
 	{
-		//obj.move()
+		obj.Move(Delta);
 	};
-	moveAction();
 };
 
 class AttackAction : public Action
@@ -24,6 +23,15 @@ class AttackAction : public Action
 public:
 	virtual void execute(Object& obj)
 	{
-		//obj.attak()
+		obj.Attack();
+	};
+};
+
+class ExtraAction : public Action
+{
+public:
+	virtual void execute(Object& obj)
+	{
+		obj.ExtraAction();
 	};
 };
