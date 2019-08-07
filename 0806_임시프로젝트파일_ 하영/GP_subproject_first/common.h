@@ -2,6 +2,10 @@
 #define SAFE_DELETE(p)	if(p) {delete p; p = NULL;}
 #define WINSIZE_X 520
 #define WINSIZE_Y 860
+
+#define REAL_WINSIZE_X 500
+#define REAL_WINSIZE_Y 797
+
 enum EState {
 	eState_Idle,
 	eState_Move,
