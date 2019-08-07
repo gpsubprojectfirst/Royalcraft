@@ -22,11 +22,17 @@
     <Filter Include="소스 파일\Scene">
       <UniqueIdentifier>{dd234ea0-9cf4-46fe-8a3f-37061efd8fba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\state">
-      <UniqueIdentifier>{83dfdb7d-7569-4461-af36-23eb2a2ae8bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Object">
       <UniqueIdentifier>{6991be74-db7b-4aad-8c86-fd24a612d548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\BehaviorTree">
+      <UniqueIdentifier>{8d191b6b-72a6-48a7-8b47-4323cb5ef81f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Action">
+      <UniqueIdentifier>{5873a599-4019-4cfd-b7a7-a8645699a9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State">
+      <UniqueIdentifier>{83dfdb7d-7569-4461-af36-23eb2a2ae8bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,12 +57,6 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Action.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -76,7 +76,7 @@
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="state.h">
-      <Filter>소스 파일\state</Filter>
+      <Filter>소스 파일\State</Filter>
     </ClInclude>
     <ClInclude Include="LobbyScene.h">
       <Filter>소스 파일\Scene</Filter>
@@ -89,6 +89,18 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>소스 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorTree.h">
+      <Filter>소스 파일\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>소스 파일\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>소스 파일\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>소스 파일\Action</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,14 +122,8 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Action.cpp">
-      <Filter>소스 파일\state</Filter>
-    </ClCompile>
     <ClCompile Include="state.cpp">
-      <Filter>소스 파일\state</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>소스 파일\state</Filter>
+      <Filter>소스 파일\State</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일\MainGame</Filter>
@@ -139,6 +145,15 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTree.cpp">
+      <Filter>소스 파일\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>소스 파일\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>소스 파일\Action</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

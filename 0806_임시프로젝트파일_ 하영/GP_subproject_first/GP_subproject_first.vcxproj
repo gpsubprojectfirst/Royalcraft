@@ -192,6 +192,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="BehaviorTree.h" />
     <ClInclude Include="ChildView.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
@@ -213,7 +215,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BehaviorTree.cpp" />
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="GameScene.cpp" />

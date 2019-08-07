@@ -4,6 +4,7 @@
 LobbyScene::LobbyScene()
 {
 	Init();
+	printf("LobbyScene init\n");
 }
 
 void LobbyScene::Init()
@@ -16,7 +17,7 @@ void LobbyScene::Update(float Delta, int frame)
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8001)
 	{
-		SceneManager::GetInstance().SetState(SCENE_GAME);
+		SceneManager::GetInstance().LoadScene(CString("GameScene"));
 		return;
 	}
 
@@ -42,21 +43,6 @@ void LobbyScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 			nullptr, 0, nullptr);
 
 		MemG->DrawImage(&bm, Dst);
-
-		//if (it->Objtype == eObject_Unit)
-		//{
-		//	myUnit* o = reinterpret_cast<myUnit*>(it);
-		//	Gdiplus::Rect Dst(0, 0, 108, 149);
-		//	Gdiplus::Bitmap bm(108, 149, PixelFormat32bppARGB);
-		//	Gdiplus::Graphics test(&bm);
-		//	test.DrawImage(o->ParentImg, Dst, o->rc.X, o->rc.Y, o->rc.Width, o->rc.Height, Gdiplus::Unit::UnitPixel,
-		//		nullptr, 0, nullptr);
-		//	
-		//	// È¸Àü
-		//	if (bleft)
-		//		bm.RotateFlip(Gdiplus::Rotate270FlipNone);
-		//	MemG->DrawImage(&bm, Dst); 
-		//}
 
 	}
 }

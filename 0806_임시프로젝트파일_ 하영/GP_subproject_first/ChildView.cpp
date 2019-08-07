@@ -61,7 +61,7 @@ void CChildView::OnPaint()
 	Gdiplus::Bitmap BackBuffer(rc.Width(), rc.Height(), PixelFormat32bppARGB);
 	Gdiplus::Graphics MemG(&BackBuffer);
 
-	Gdiplus::SolidBrush WhiteBrush(Gdiplus::Color(255, 255, 255, 255));
+	Gdiplus::SolidBrush WhiteBrush(Gdiplus::Color(255, 0, 0, 0));
 	MemG.FillRectangle(&WhiteBrush, rc2);
 	//sm.Update();
 	//그리기
