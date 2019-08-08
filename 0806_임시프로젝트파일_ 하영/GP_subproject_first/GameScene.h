@@ -5,7 +5,7 @@ class GameScene :
 	public Scene
 {
 public:
-	Gdiplus::Image* bgImg;
+	std::vector<Gdiplus::Image*>	m_vecGame;
 	GameScene();
 	myMap* mMap;
 

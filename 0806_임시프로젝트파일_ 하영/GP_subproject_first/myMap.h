@@ -8,8 +8,10 @@ public:
 };
 class myMap
 {
+	int size;
 public:
 	myMap();
 	void Init();
-	GridInfo Infos[101][163];
+	void set(CPoint pt,Object* obj);
+	GridInfo Infos[65][97];
 };

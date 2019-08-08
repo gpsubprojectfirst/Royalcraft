@@ -17,6 +17,7 @@
 #include <iostream>
 #include "common.h"
 #include "tinyxml2.h"
+#include "Define.h"
 #include "Object.h"
 #include "myUnit.h"
 #include "LogoScene.h"

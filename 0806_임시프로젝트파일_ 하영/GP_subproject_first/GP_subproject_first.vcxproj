@@ -197,6 +197,7 @@
     <ClInclude Include="ChildView.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GP_subproject_first.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MapEditor.h" />
     <ClInclude Include="myMap.h" />
     <ClInclude Include="myUnit.h" />
     <ClInclude Include="Object.h" />
@@ -228,6 +230,7 @@
     <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="myMap.cpp" />
     <ClCompile Include="myUnit.cpp" />
     <ClCompile Include="Object.cpp" />

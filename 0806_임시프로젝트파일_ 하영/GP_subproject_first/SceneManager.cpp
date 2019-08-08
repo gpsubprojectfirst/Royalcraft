@@ -16,7 +16,7 @@ SceneManager::SceneManager()
 
 	GameScene* game = new GameScene();
 	game->Name = "GameScene";
-	Init();
+
 
 	//특정 유닛의 에셋 로드
 	//ID: 0,name: knight
@@ -34,6 +34,7 @@ SceneManager::SceneManager()
 	knight->posRc = Dst;
 
 	game->info.emplace_back(knight);
+
 
 	mScene.emplace_back(logo);
 	mScene.emplace_back(lobby);
