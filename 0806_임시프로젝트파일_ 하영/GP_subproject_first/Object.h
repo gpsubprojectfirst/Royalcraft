@@ -2,18 +2,6 @@
 #include "pch.h"
 #include "state.h"
 #include "myMap.h"
-typedef struct tagInfo
-{
-	float	fX;
-	float	fY;
-	float	fSizeX;
-	float	fSizeY;
-
-	tagInfo(void) {}
-
-	tagInfo(float _fx, float _fy)
-		: fX(_fx), fY(_fy) {}
-}INFO;
 
 class Object
 {
@@ -52,7 +40,7 @@ public:
 	//virtual void Release();
 
 protected:
-	INFO		m_tInfo;
+	//INFO		m_tInfo;
 	static std::vector<Gdiplus::Image*>* m_pVecImg;
 
 };

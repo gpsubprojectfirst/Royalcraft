@@ -1,10 +1,13 @@
 #pragma once
 #include "pch.h"
+//#include "Object.h"
+class Object;
 class GridInfo
 {
 public:
 	Gdiplus::Rect rc;
 	int flags;
+
 };
 class myMap
 {

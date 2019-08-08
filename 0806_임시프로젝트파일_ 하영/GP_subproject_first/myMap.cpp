@@ -4,7 +4,6 @@
 
 myMap::myMap()
 {
-<<<<<<< HEAD
 	
 }
 void myMap::Init()
