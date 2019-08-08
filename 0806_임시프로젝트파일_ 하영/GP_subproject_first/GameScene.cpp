@@ -6,6 +6,8 @@
 GameScene::GameScene()
 {
 	printf("GameScene init\n");
+	mMap = new myMap();
+	mMap->Init();
 }
 
 void GameScene::Init()
@@ -46,6 +48,6 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
-		mMap.set(point, it);
+		it->Set(point,mMap);
 	}
 }

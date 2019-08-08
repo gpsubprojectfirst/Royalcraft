@@ -7,7 +7,7 @@ class GameScene :
 public:
 	Gdiplus::Image* bgImg;
 	GameScene();
-	myMap mMap;
+	myMap* mMap;
 
 	void Init();
 	void Update(float Delta);

@@ -37,6 +37,9 @@
     <Filter Include="소스 파일\Map">
       <UniqueIdentifier>{80bcb4f8-499e-4166-b405-beaaca736ee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\SearchTree">
+      <UniqueIdentifier>{5808dd02-95d5-4f91-82f6-2de995dd5880}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GP_subproject_first.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="myMap.h">
       <Filter>소스 파일\Map</Filter>
     </ClInclude>
+    <ClInclude Include="SearchTree.h">
+      <Filter>소스 파일\SearchTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -169,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="myMap.cpp">
       <Filter>소스 파일\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchTree.cpp">
+      <Filter>소스 파일\SearchTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

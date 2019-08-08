@@ -10,6 +10,6 @@ class myMap
 {
 public:
 	myMap();
-	void set(CPoint pt,Object* obj);
-	GridInfo Infos[19][33];
+	void Init();
+	GridInfo Infos[101][163];
 };
