@@ -2,18 +2,6 @@
 #include "pch.h"
 #include "state.h"
 
-typedef struct tagInfo
-{
-	float	fX;
-	float	fY;
-	float	fSizeX;
-	float	fSizeY;
-
-	tagInfo(void) {}
-
-	tagInfo(float _fx, float _fy)
-		: fX(_fx), fY(_fy) {}
-}INFO;
 
 class Object
 {

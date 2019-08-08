@@ -1,15 +1,19 @@
 #include "pch.h"
 #include "myMap.h"
 
+
 myMap::myMap()
 {
+	int width = REAL_WINSIZE_X; //640
+	int heigth = REAL_WINSIZE_Y;  //960
+	size = 30;
 	//testmap
 	int k = 0, l = 0;
-	for (int i = 0; i <= 1080; i += 60)
+	for (int i = 0; i <= REAL_WINSIZE_X; i += size)
 	{
-		for (int j = 0; j <= 1920; j += 60)
+		for (int j = 0; j <= REAL_WINSIZE_Y; j += size)
 		{
-			Infos[k][l].rc =Rect(i, j, 60, 60);
+			Infos[k][l].rc = Rect(i, j, size, size);
 			Infos[k][l].flags = 0;
 			++l;
 		}
@@ -17,21 +21,21 @@ myMap::myMap()
 		l = 0;
 	}
 }
-void myMap::set(CPoint pt,Object* obj)
+void myMap::set(CPoint pt, Object* obj)
 {
 	Point mPoint;
 	mPoint.X = pt.x;
 	mPoint.Y = pt.y;
 
-	for (int i = 0; i < 19; ++i)
+	for (int i = 0; i < REAL_WINSIZE_X/size; ++i)
 	{
-		for (int j = 0; j < 33; ++j)
+		for (int j = 0; j < REAL_WINSIZE_Y/size; ++j)
 		{
 			if (Infos[i][j].rc.Contains(mPoint) && Infos[i][j].flags == 0)
 			{
 				Infos[i][j].flags = 1;
 				obj->posRc = Infos[i][j].rc;
-				cout <<"move"<< i << ", " << j << endl;
+				cout << "move" << i << ", " << j << endl;
 				break;
 			}
 		}

@@ -1,10 +1,10 @@
 #pragma once
 #define SAFE_DELETE(p)	if(p) {delete p; p = NULL;}
-#define WINSIZE_X 520
-#define WINSIZE_Y 860
+#define WINSIZE_X  660//520
+#define WINSIZE_Y 1003//860
 
-#define REAL_WINSIZE_X 500
-#define REAL_WINSIZE_Y 797
+#define REAL_WINSIZE_X 640 //500
+#define REAL_WINSIZE_Y 960//797
 
 enum EState {
 	eState_Idle,
@@ -18,7 +18,7 @@ enum EObject
 	eObject_Unit,
 	eObject_Build,
 	eObject_Bullet,
-	eObject_Cnt,
+	eObject_Cnt, 
 };
 
 enum EAtkType

@@ -9,7 +9,7 @@ public:
 	Gdiplus::Image* img;
 
 public:
-	std::vector<Gdiplus::Image*>	m_vecImg;
+
 
 	virtual void Init() {}
 	virtual void Update(float Delta) {}
