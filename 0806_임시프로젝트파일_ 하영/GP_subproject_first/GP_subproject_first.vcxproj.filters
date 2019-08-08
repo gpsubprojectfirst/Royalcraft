@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\State">
       <UniqueIdentifier>{83dfdb7d-7569-4461-af36-23eb2a2ae8bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Map">
+      <UniqueIdentifier>{80bcb4f8-499e-4166-b405-beaaca736ee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GP_subproject_first.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="myUnit.h">
       <Filter>소스 파일\Object</Filter>
     </ClInclude>
+    <ClInclude Include="myMap.h">
+      <Filter>소스 파일\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -160,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="myUnit.cpp">
       <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="myMap.cpp">
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
