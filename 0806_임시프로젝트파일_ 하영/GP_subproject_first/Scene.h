@@ -16,7 +16,7 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/) {}
 	virtual void Release() {}
 
-	 
+	virtual void SendLButtonDown(UINT nFlags, CPoint point) {}
 };
 
 

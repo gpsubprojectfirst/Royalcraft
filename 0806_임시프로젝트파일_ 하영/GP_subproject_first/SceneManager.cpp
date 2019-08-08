@@ -89,38 +89,12 @@ void SceneManager::RenderScene(Gdiplus::Graphics* MemG)
 
  	CurScene->Render(MemG);
 
-	//if (CurScene == nullptr) return;
-	//if (MemG == nullptr) return;
-
-	//for (auto& it : CurScene->info)
-	//{
-	//	
-
-	//	if (it == nullptr) continue;
-	//	if (it->Enable == false) continue;
-	//	if (it->Objtype == eObject_Unit)
-	//	{
-	//		myUnit* o = reinterpret_cast<myUnit*>(it);
-	//		Gdiplus::Rect Dst(0, 0, 108, 149);
-	//		Gdiplus::Bitmap bm(108, 149, PixelFormat32bppARGB);
-	//		Gdiplus::Graphics test(&bm);
-	//		test.DrawImage(o->ParentImg, Dst, o->rc.X, o->rc.Y, o->rc.Width, o->rc.Height, Gdiplus::Unit::UnitPixel,
-	//			nullptr, 0, nullptr);
-	//		
-	//		// È¸Àü
-	//		if (bleft)
-	//			bm.RotateFlip(Gdiplus::Rotate270FlipNone);
-
-	//		MemG->DrawImage(&bm, Dst);
-	//	}
-	//	
-	//}
 }
 void SceneManager::SendLButtonDown(UINT nFlags, CPoint point)
 {
 	if (CurScene == nullptr) return;
 
-	//CurScene->LeftButtonDown(nFlags, point);
+	CurScene->SendLButtonDown(nFlags, point);
 }
 
 void SceneManager::Update(float Delta)
