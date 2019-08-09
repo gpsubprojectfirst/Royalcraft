@@ -4,11 +4,11 @@
 
 myMap::myMap()
 {
-	
+	Init();
 }
 void myMap::Init()
 {
-	
+	size = 30;
 	int k = 0, l = 0;
 	for (int i = 0; i <= REAL_WINSIZE_X; i += size)
 	{

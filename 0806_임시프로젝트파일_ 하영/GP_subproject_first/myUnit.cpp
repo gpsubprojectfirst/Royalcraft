@@ -51,9 +51,9 @@ void myUnit::Render(Gdiplus::Graphics* MemG)
 
 void myUnit::Set(CPoint pt, myMap* map)
 {
-	for (int i = 0; i < 101; ++i)
+	for (int i = 0; i < 65; ++i)
 	{
-		for (int j = 0; j < 163; ++j)
+		for (int j = 0; j < 97; ++j)
 		{
 
 			if (map->Infos[i][j].rc.Contains(pt.x,pt.y) && map->Infos[i][j].flags == 0)
