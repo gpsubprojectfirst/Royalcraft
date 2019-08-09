@@ -11,6 +11,7 @@ Object::Object()
 	, curPos{ 0, 0 }
 	,frame(0)
 {
+	
 };
 
 Object::Object(EObject InType)

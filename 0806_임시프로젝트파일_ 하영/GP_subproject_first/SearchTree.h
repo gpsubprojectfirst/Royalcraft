@@ -20,7 +20,7 @@ public:
 
 	SearchTree()
 		:strNode(nullptr)
-		,dstNode(nullptr)
+		, dstNode(nullptr)
 	{
 		Fcost = 0;
 		Hcost = 0;
@@ -33,22 +33,104 @@ public:
 				Map[i][j].visitF = false;
 				Map[i][j].x = i;
 				Map[i][j].y = j;
-				
+
 			}
 		}
 		for (int i = 0; i < 65; i++)
 		{
 			for (int j = 0; j < 97; j++)
 			{
-				SetChild(&Map[i][j],i,j);
+				SetChild(&Map[i][j], i, j);
 			}
 		}
 	}
-	
-	void SetChild(scNode* Node,int x,int y)
+
+	void SetChild(scNode* Node, int x, int y)
 	{
-		if (x < 65 && x > 0
-			&& y < 97 && y > 0)
+		//예외처리??
+		if (x == 0 && y == 0)
+		{
+			Node->child[0] = nullptr;
+			Node->child[1] = nullptr;
+			Node->child[2] = nullptr;
+			Node->child[3] = nullptr;
+			Node->child[4] = &Map[x + 1][y];
+			Node->child[5] = nullptr;
+			Node->child[6] = &Map[x][y + 1];
+			Node->child[7] = &Map[x + 1][y + 1];
+		}
+		if (x < 64 && x > 0
+			&& y == 0)
+		{
+			Node->child[0] = nullptr;
+			Node->child[1] = nullptr;
+			Node->child[2] = nullptr;
+			Node->child[3] = &Map[x - 1][y];
+			Node->child[4] = &Map[x + 1][y];
+			Node->child[5] = &Map[x - 1][y + 1];
+			Node->child[6] = &Map[x][y + 1];
+			Node->child[7] = &Map[x + 1][y + 1];
+		}
+		if (x == 0 &&
+			y < 96 && y > 0)
+		{
+			Node->child[0] = nullptr;
+			Node->child[1] = &Map[x][y - 1];
+			Node->child[2] = &Map[x + 1][y - 1];
+			Node->child[3] = nullptr;
+			Node->child[4] = &Map[x + 1][y];
+			Node->child[5] = nullptr;
+			Node->child[6] = &Map[x][y + 1];
+			Node->child[7] = &Map[x + 1][y + 1];
+		}
+		if (x == 64 &&
+			y < 96 && y > 0)
+		{
+			Node->child[0] = &Map[x - 1][y - 1];
+			Node->child[1] = &Map[x][y - 1];
+			Node->child[2] = nullptr;
+			Node->child[3] = &Map[x - 1][y];
+			Node->child[4] = nullptr;
+			Node->child[5] = &Map[x - 1][y + 1];
+			Node->child[6] = &Map[x][y + 1];
+			Node->child[7] = nullptr;
+		}
+		if (x == 0 && y == 96)
+		{
+			Node->child[0] = nullptr;
+			Node->child[1] = &Map[x][y - 1];
+			Node->child[2] = &Map[x + 1][y - 1];
+			Node->child[3] = nullptr;
+			Node->child[4] = &Map[x + 1][y];
+			Node->child[5] = nullptr;
+			Node->child[6] = nullptr;
+			Node->child[7] = nullptr;
+		}
+		if (x < 64 && x > 0
+			&& y == 96)
+		{
+			Node->child[0] = &Map[x - 1][y - 1];
+			Node->child[1] = &Map[x][y - 1];
+			Node->child[2] = &Map[x + 1][y - 1];
+			Node->child[3] = &Map[x - 1][y];
+			Node->child[4] = &Map[x + 1][y];
+			Node->child[5] = nullptr;
+			Node->child[6] = nullptr;
+			Node->child[7] = nullptr;
+		}
+		if (x == 64 && y == 96)
+		{
+			Node->child[0] = &Map[x - 1][y - 1];
+			Node->child[1] = &Map[x][y - 1];
+			Node->child[2] = nullptr;
+			Node->child[3] = &Map[x - 1][y];
+			Node->child[4] = nullptr;
+			Node->child[5] = nullptr;
+			Node->child[6] = nullptr;
+			Node->child[7] = nullptr;
+		}
+		if (x < 64 && x > 0
+			&& y < 96 && y > 0)
 		{
 			Node->child[0] = &Map[x - 1][y - 1];
 			Node->child[1] = &Map[x][y - 1];
@@ -67,19 +149,24 @@ public:
 
 	int callDist(scNode* str, scNode* dst)
 	{
-		return sqrt(dst->x - str->x) + sqrt(dst->y - str->x);
+		if (str)
+		{
+			//str->visitF = true;
+			return pow(dst->x - str->x,2) + pow(dst->y - str->y,2);
+		}
+			
+		else return 10000;
 	}
-	void NextNode(int n,scNode* InNode)
+	scNode* NextNode(int n,scNode* InNode)
 	{
-		InNode = InNode->child[n];
+		return InNode->child[n];
 	}
 	
-	std::vector<std::pair<int, int>> FindPath(std::pair<int,int> str, std::pair<int, int> dst)
+	void FindPath(std::pair<int,int> str, std::pair<int, int> dst,myUnit* mUnit)
 	{
-		int count = 0;
 		strNode = &Map[str.first][str.second];
 		dstNode = &Map[dst.first][dst.second];
-		while (str != dst)
+		while (strNode != dstNode)
 		{
 			scNode** child = GetChild(strNode);
 			std::pair<int, int> minPos = std::make_pair(str.first, str.second);
@@ -87,20 +174,23 @@ public:
 			int childNum = -1;
 			for (int i = 0; i < 8; i++)
 			{
-				if (min < callDist(GetChild(strNode)[i], dstNode))
+				int distance = callDist(GetChild(strNode)[i], dstNode);
+				//childNum = -1;
+				if (min > distance)
 				{
 					childNum = i;
-					min = callDist(GetChild(strNode)[i], dstNode);
+					min = distance;
 					minPos.first = GetChild(strNode)[i]->x;
 					minPos.second = GetChild(strNode)[i]->y;
 				}
 			}
-			NextNode(childNum,strNode);
-			path[count] = std::make_pair(minPos.first, minPos.second);
-			count++;
+
+			std::cout << "자식: " << childNum <<", 위치: " <<minPos.first<<", " <<minPos.second<<std::endl;
+			if (childNum != -1)
+			{
+				strNode = NextNode(childNum, strNode);
+				mUnit->moveTilePath.push(std::make_pair(minPos.first, minPos.second));
+			}
 		}
-		
-		return path;
 	}
-	std::vector<std::pair<int,int>> path;
 };
