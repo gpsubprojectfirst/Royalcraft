@@ -80,6 +80,8 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Objtype == eObject_Unit)
 		{
 			myUnit* mUnit = reinterpret_cast<myUnit*>(it);
+			while (!mUnit->moveTilePath.empty())
+				mUnit->moveTilePath.pop();
 			mTree.FindPath(mUnit->curTile, mUnit->dstTile,mUnit);	
 		}
 	}
