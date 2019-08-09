@@ -11,6 +11,7 @@
 #include "framework.h"
 #include <gdiplus.h>
 #include <vector>
+#include <queue>
 #include <string>
 #include <CString>
 

@@ -33,7 +33,7 @@ public:
 	bool Enable;
 	CString name;
 	int ID;
-	
+	myMap* mMap;
 	StateManager sm;
 	//static void SetBmp(std::vector<Gdiplus::Image*>* _pvecbmp) { m_pVecImg = _pvecbmp; }
 	//virtual void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);

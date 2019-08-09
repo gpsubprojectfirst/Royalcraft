@@ -71,14 +71,9 @@ public:
 			bleft = true;
 			ChangeState(eState_Attack);
 		}
-		else if (GetAsyncKeyState('A'||'a') & 0x8001)
-		{
-			bleft = false;
-			ChangeState(eState_Attack);
-		}
 		else
 		{
-			bleft = true;
+			bleft = false;
 			ChangeState(eState_Idle);
 		}
 	}

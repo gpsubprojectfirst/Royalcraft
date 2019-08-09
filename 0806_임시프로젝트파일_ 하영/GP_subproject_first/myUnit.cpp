@@ -8,6 +8,8 @@ myUnit::myUnit()
 	curTile = std::make_pair(0, 0);
 	dstTile = std::make_pair(0, 0);
 
+	move_speed = 1;
+
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
@@ -22,7 +24,12 @@ void myUnit::Update(float Delta)
 		if (frame > 10)
 			frame = 0;
 	}
-	sm.Update();
+	//상태 변화
+	if (curTile != dstTile)
+		sm.ChangeState(eState_Move);
+	else
+		sm.ChangeState(eState_Idle);
+	
 	if (sm.GetCurState() == eState_Idle)
 	{
 		rc = moveRc[0];
@@ -51,6 +58,11 @@ void myUnit::Render(Gdiplus::Graphics* MemG)
 
 void myUnit::Set(CPoint pt, myMap* map)
 {
+	/*if (curTile == dstTile)
+	{
+		dstTile.first = 0; 
+		dstTile.second = 0;
+	}*/
 	for (int i = 0; i < 65; ++i)
 	{
 		for (int j = 0; j < 97; ++j)
@@ -59,7 +71,6 @@ void myUnit::Set(CPoint pt, myMap* map)
 			if (map->Infos[i][j].rc.Contains(pt.x,pt.y) && map->Infos[i][j].flags == 0)
 			{
 				map->Infos[i][j].flags = 1;
-				posRc = map->Infos[i][j].rc; //현재 위치 이동
 			
 				dstTile.first = i;
 				dstTile.second = j;
@@ -71,17 +82,35 @@ void myUnit::Set(CPoint pt, myMap* map)
 	}
 	
 }
-void myUnit::SchPath(myMap* map)
-{
 
-}
 void myUnit::Move(float Delta)
 {
-	//길찾기 알고리즘, delta
-	//현위치 기준으로 갈수있는 타일 검색
-	//거리 계산
-	//this->curPos.first += this->move_speed * Delta;
+	//moveTilePath큐에 이동경로가 저장되어있음
+	if (curTile == moveTilePath.front())
+	{
+		moveTilePath.pop();
+	}
+	else
+	{
+		//시작 좌표의 타일 렉트 가져오기
+		Gdiplus::Rect strTile = mMap->Infos[curTile.first][curTile.second].rc;
+		//다음 목적지 좌표의 타일 렉트 가져오기
+		int dstX = moveTilePath.front().first;
+		int dstY = moveTilePath.front().second;
+		Gdiplus::Rect tempDstTile = mMap->Infos[dstX][dstY].rc;
+		
+		//거리 계산
+		//this->curPos.first += this->move_speed * Delta;
+		float distanceX = tempDstTile.X - strTile.X;
+		float distanceY = tempDstTile.Y - strTile.Y;
+		//posRc = map->Infos[i][j].rc; //현재 위치 이동
+		posRc.X += (distanceX )  * Delta * 5;
+		posRc.Y += (distanceY ) * Delta * 5;
+		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 
+		if (mMap->Infos[dstX][dstY].rc.Contains(posRc.X, posRc.Y))
+			curTile = moveTilePath.front();
+	}
 }
 
 void myUnit::Attack(float Delta)
