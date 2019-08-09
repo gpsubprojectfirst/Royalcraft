@@ -4,6 +4,7 @@ class LogoScene :
 	public Scene
 {
 public:
+	std::vector<Gdiplus::Image*>	m_vecLogo;
 	LogoScene();
 
 	void Init();

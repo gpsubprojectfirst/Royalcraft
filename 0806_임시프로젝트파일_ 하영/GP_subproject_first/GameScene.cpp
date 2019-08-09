@@ -6,12 +6,15 @@
 GameScene::GameScene()
 {
 	printf("GameScene init\n");
+	Init();
+	mMap = new myMap();
+	mMap->Init();
+
 }
 
 void GameScene::Init()
 {
-	//SceneManager::GetInstance().LoadScene(CString("GameScene"));
-	bgImg = new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\testmap.png"));
+	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex_.png")));
 }
 
 void GameScene::Update(float Delta)
@@ -24,7 +27,8 @@ void GameScene::Update(float Delta)
 
 void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 {
-
+	Gdiplus::Rect Dst1(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
+	MemG->DrawImage(m_vecGame[0], Dst1);
 	for (auto& it : this->info)
 	{
 		if (it == nullptr) continue;
@@ -32,6 +36,13 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		
 		it->Render(MemG);
 	}
+
+	if (m_vecGame.size() <= 0)
+		return;
+	int width = m_vecGame[0]->GetWidth();
+	int height = m_vecGame[0]->GetHeight();
+
+	
 }
 
 void GameScene::Release()
@@ -46,6 +57,6 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
-		mMap.set(point, it);
+		it->Set(point,mMap);
 	}
 }

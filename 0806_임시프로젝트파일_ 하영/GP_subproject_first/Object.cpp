@@ -12,6 +12,7 @@ Object::Object()
 	,frame(0)
 {
 };
+
 Object::Object(EObject InType)
 	:Objtype(InType)
 	, Enable(true)

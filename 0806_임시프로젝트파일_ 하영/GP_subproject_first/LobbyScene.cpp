@@ -34,8 +34,8 @@ void LobbyScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		if (it->Enable == false) continue;*/
 
 
-		Rect Dst(0, 0, WINSIZE_X, WINSIZE_Y);
-		Bitmap bm(WINSIZE_X, WINSIZE_Y, PixelFormat32bppARGB);
+		Rect Dst(0, 0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
+		Bitmap bm(REAL_WINSIZE_X, REAL_WINSIZE_Y, PixelFormat32bppARGB);
 		Graphics test(&bm);
 
 
