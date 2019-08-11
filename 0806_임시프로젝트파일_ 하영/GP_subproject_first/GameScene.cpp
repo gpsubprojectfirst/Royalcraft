@@ -2,17 +2,17 @@
 #include "GameScene.h"
 
 
-
 GameScene::GameScene()
 {
 	ObjectManager& om = ObjectManager::GetInstance();
 	printf("GameScene init\n");
 	Init();
+
 	mMap = new myMap();
 	mMap->Init();
 
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
-	//ID: 0,name: knight
+	//ID: 0,name: knight 
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 
 	//ObjectManager의 유닛데이터 복사
@@ -28,11 +28,12 @@ GameScene::GameScene()
 	knight->mMap = mMap;
 
 	info.emplace_back(knight);
+
 }
 
 void GameScene::Init()
 {
-	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex_.png")));
+	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
 }
 
 void GameScene::Update(float Delta)
@@ -41,12 +42,27 @@ void GameScene::Update(float Delta)
 	{
 		it->Update(Delta);
 	}
+
+	if (GetAsyncKeyState(VK_F1) & 0x8001)  //파일저장하기
+	{
+		mMap->SaveFile();
+	}
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 {
-	Gdiplus::Rect Dst1(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
+
+	if (m_vecGame.size() <= 0)
+		return;
+
+	// 배경
+	Gdiplus::Rect Dst1(0,0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
 	MemG->DrawImage(m_vecGame[0], Dst1);
+
+	// 타일
+	mMap->Render(MemG);
+
+	// 게임 오브젝트
 	for (auto& it : this->info)
 	{
 		if (it == nullptr) continue;
@@ -55,12 +71,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		it->Render(MemG);
 	}
 
-	if (m_vecGame.size() <= 0)
-		return;
-	int width = m_vecGame[0]->GetWidth();
-	int height = m_vecGame[0]->GetHeight();
 
-	
 }
 
 void GameScene::Release()
@@ -76,11 +87,14 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Enable == false) continue;
 
 		it->Set(point,mMap);
+		mMap->Set(point);
 		//나중에 오버라이딩
 		if (it->Objtype == eObject_Unit)
 		{
 			myUnit* mUnit = reinterpret_cast<myUnit*>(it);
 			mTree.FindPath(mUnit->curTile, mUnit->dstTile,mUnit);	
 		}
+		
 	}
+
 }

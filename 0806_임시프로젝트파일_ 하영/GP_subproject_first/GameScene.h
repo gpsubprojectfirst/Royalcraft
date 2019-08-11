@@ -2,9 +2,10 @@
 #include "Scene.h"
 #include "myMap.h"
 #include "SearchTree.h"
+
 class GameScene :
 	public Scene
-{
+{ 
 public:
 	std::vector<Gdiplus::Image*>	m_vecGame;
 	GameScene();
@@ -14,7 +15,6 @@ public:
 	void Update(float Delta);
 	void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
 	void Release();
-
 	void SendLButtonDown(UINT nFlags, CPoint point);
 	
 };

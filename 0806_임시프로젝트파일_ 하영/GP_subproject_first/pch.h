@@ -12,10 +12,11 @@
 #include <gdiplus.h>
 #include <vector>
 #include <queue>
-#include <string>
+#include <string>	
 #include <CString>
 
 #include <iostream>
+#include <fstream>
 #include "common.h"
 #include "tinyxml2.h"
 #include "Define.h"
