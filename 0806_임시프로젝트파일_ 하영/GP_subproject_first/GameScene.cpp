@@ -11,11 +11,11 @@ GameScene::GameScene()
 	mMap = new myMap();
 	mMap->Init();
 
-	//Æ¯Á¤ À¯´ÖÀÇ ¿¡¼Â ·Îµå, ³ªÁß¿¡ ¿ÀºêÁ§Æ® Å¬·¡½º ¾ÈÀ¸·Î ÀÌµ¿
+	//íŠ¹ì • ìœ ë‹›ì˜ ì—ì…‹ ë¡œë“œ, ë‚˜ì¤‘ì— ì˜¤ë¸Œì íŠ¸ í´ëž˜ìŠ¤ ì•ˆìœ¼ë¡œ ì´ë™
 	//ID: 0,name: knight 
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 
-	//ObjectManagerÀÇ À¯´Öµ¥ÀÌÅÍ º¹»ç
+	//ObjectManagerì˜ ìœ ë‹›ë°ì´í„° ë³µì‚¬
 	myUnit* knight = new myUnit();
 
 	knight->ID = om.GetMyUnit(0)->ID;
@@ -43,7 +43,7 @@ void GameScene::Update(float Delta)
 		it->Update(Delta);
 	}
 
-	if (GetAsyncKeyState(VK_F1) & 0x8001)  //ÆÄÀÏÀúÀåÇÏ±â
+	if (GetAsyncKeyState(VK_F1) & 0x8001)  //íŒŒì¼ì €ìž¥í•˜ê¸°
 	{
 		mMap->SaveFile();
 	}
@@ -55,14 +55,14 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 	if (m_vecGame.size() <= 0)
 		return;
 
-	// ¹è°æ
+	// ë°°ê²½
 	Gdiplus::Rect Dst1(0,0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
 	MemG->DrawImage(m_vecGame[0], Dst1);
 
-	// Å¸ÀÏ
+	// íƒ€ì¼
 	mMap->Render(MemG);
 
-	// °ÔÀÓ ¿ÀºêÁ§Æ®
+	// ê²Œìž„ ì˜¤ë¸Œì íŠ¸
 	for (auto& it : this->info)
 	{
 		if (it == nullptr) continue;
@@ -88,10 +88,13 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 
 		it->Set(point,mMap);
 		mMap->Set(point);
-		//³ªÁß¿¡ ¿À¹ö¶óÀÌµù
+    
+		//ë‚˜ì¤‘ì— ì˜¤ë²„ë¼ì´ë”©
 		if (it->Objtype == eObject_Unit)
 		{
 			myUnit* mUnit = reinterpret_cast<myUnit*>(it);
+			while(!mUnit->moveTilePath.empty())
+				mUnit->moveTilePath.pop();
 			mTree.FindPath(mUnit->curTile, mUnit->dstTile,mUnit);	
 		}
 		
