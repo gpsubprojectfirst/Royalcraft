@@ -16,7 +16,9 @@ void SearchTree::Init()
 			Map[i][j].visitF = false;
 			Map[i][j].x = i;
 			Map[i][j].y = j;
-
+			Map[i][j].Gcost = 0;
+			Map[i][j].Hcost = 0;
+			Map[i][j].parent = nullptr;
 		}
 	}
 	for (int i = 0; i < 65; i++)
@@ -29,6 +31,7 @@ void SearchTree::Init()
 }
 void SearchTree::Delete()
 {
+	Init();
 	openList.clear();
 }
 void SearchTree::SetChild(scNode* Node, int x, int y)
@@ -145,10 +148,8 @@ int SearchTree::callHcost(scNode* str, scNode* dst)
 		//str->visitF = true;
 		
 		//양수 계산
-		return  10 * abs(dst->x - str->x) + 10 * abs(dst->y - str->y);
+		return  10 * sqrt(pow(dst->x - str->x,2) + pow(dst->y - str->y,2));
 	}
-
-	else return 10000;
 }
 
 scNode* SearchTree::NextNode(int n, scNode* InNode)
@@ -196,14 +197,11 @@ void SearchTree::SortList()
 			}
 
 		}
-
 	}
 }
 
 void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUnit* mUnit)
 {
-	Init();
-
 	strNode = &Map[str.first][str.second];
 	dstNode = &Map[dst.first][dst.second];
 	
@@ -218,7 +216,7 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUn
 	{
 		strNode = openList.front();
 		openList.pop_front();
-		cout << strNode->x << " , " << strNode->y << endl;
+		//cout << strNode->x << " , " << strNode->y << endl;
 		if (strNode == dstNode)
 		{
 			while (strNode != nullptr)

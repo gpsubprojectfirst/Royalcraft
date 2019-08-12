@@ -76,6 +76,7 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Enable == false) continue;
 
 		it->Set(point,mMap);
+
 		//나중에 오버라이딩
 		if (it->Objtype == eObject_Unit)
 		{
