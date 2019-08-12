@@ -32,11 +32,11 @@ void myUnit::Update(float Delta)
 	
 	if (sm.GetCurState() == eState_Idle)
 	{
-		rc = moveRc[0];
+		rc = moveRc[direction][0];
 	}
 	else if (sm.GetCurState() == eState_Move)
 	{
-		rc = moveRc[frame];
+		rc = moveRc[direction][frame];
 		Move(Delta);
 	}
 	else if (sm.GetCurState() == eState_Attack)
@@ -65,26 +65,36 @@ void myUnit::parserXML()
 		tinyxml2::XMLElement* Root = doc->RootElement();
 		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
 		// 이동
+		for (int k = 0; k < 4;k++)
+		{
+			for (int i = 0; i < 12; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 12; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
 		for (int i = 0; i < 12; i++)
 		{
-			moveRc.emplace_back(Node->IntAttribute("x")
+			moveRc[4].emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
 				, Node->IntAttribute("h"));
 			Node = Node->NextSiblingElement();
 		}
-		for (int i = 12; i < 25; i++)
+		// idle
+		for (int i = 108; i < 116;i++)
 		{
-			//다른 방향
-			Node = Node->NextSiblingElement();
-		}
-		for (int i = 25; i < 36; i++)
-		{
-			//다른 방향
 			Node = Node->NextSiblingElement();
 		}
 		//공격
-		for (int i = 117; i < 131; i++)
+		for (int i = 116; i < 130; i++)
 		{
 			atkRc.emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
@@ -158,6 +168,28 @@ void myUnit::Move(float Delta)
 		//this->curPos.first += this->move_speed * Delta;
 		float distanceX = tempDstTile.X - strTile.X;
 		float distanceY = tempDstTile.Y - strTile.Y;
+
+		//방향
+		if (distanceX == 0 && distanceY > 0)
+		{
+			direction = 0;
+		}
+		if (distanceX > 0 && distanceY > 0)
+		{
+			direction = 1;
+		}
+		if (distanceX > 0 && distanceY == 0)
+		{
+			direction = 2;
+		}
+		if (distanceX > 0 && distanceY < 0)
+		{
+			direction = 3;
+		}
+		if (distanceX == 0 && distanceY < 0)
+		{
+			direction = 4;
+		}
 		//posRc = map->Infos[i][j].rc; //현재 위치 이동
 		
 		posRc.X += (distanceX )  * 0.1;

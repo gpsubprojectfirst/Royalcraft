@@ -31,6 +31,7 @@ public:
 	std::stack<std::pair<int,int>> moveTilePath;
 
 	//Asset Position
-	std::vector<Gdiplus::Rect> moveRc; // 이동에 쓰일 이미지 위치
+	int direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
+	std::vector<Gdiplus::Rect> moveRc[5]; // 이동에 쓰일 이미지 위치
 	std::vector<Gdiplus::Rect> atkRc; // 공격에 쓰일 이미지 위치
 };
