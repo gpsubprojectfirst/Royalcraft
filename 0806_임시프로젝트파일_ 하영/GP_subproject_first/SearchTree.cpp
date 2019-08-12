@@ -7,11 +7,12 @@ SearchTree::SearchTree()
 {
 	Init();
 }
+
 void SearchTree::Init()
 {
-	for (int i = 0; i < 65; i++)
+	for (int i = 0; i < TILECNTX; i++)
 	{
-		for (int j = 0; j < 97; j++)
+		for (int j = 0; j < TILECNTY; j++)
 		{
 			Map[i][j].visitF = false;
 			Map[i][j].x = i;
@@ -21,14 +22,27 @@ void SearchTree::Init()
 			Map[i][j].parent = nullptr;
 		}
 	}
-	for (int i = 0; i < 65; i++)
+	for (int i = 0; i < TILECNTX; i++)
 	{
-		for (int j = 0; j < 97; j++)
+		for (int j = 0; j < TILECNTY; j++)
 		{
 			SetChild(&Map[i][j], i, j);
 		}
 	}
 }
+
+void SearchTree::Set(myMap* mMap)
+{
+	for (int i = 0; i < TILECNTX; i++)
+	{
+		for (int j = 0; j < TILECNTY; j++)
+		{
+			if(mMap->Infos[i][j].flags == 1)
+				Map[i][j].visitF = true;
+		}
+	}
+}
+
 void SearchTree::Delete()
 {
 	Init();
@@ -48,7 +62,7 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = &Map[x][y + 1];
 		Node->child[7] = &Map[x + 1][y + 1];
 	}
-	if (x < 64 && x > 0
+	if (x < TILECNTX-1 && x > 0
 		&& y == 0)
 	{
 		Node->child[0] = nullptr;
@@ -61,7 +75,7 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[7] = &Map[x + 1][y + 1];
 	}
 	if (x == 0 &&
-		y < 96 && y > 0)
+		y < TILECNTY-1 && y > 0)
 	{
 		Node->child[0] = nullptr;
 		Node->child[1] = &Map[x][y - 1];
@@ -72,8 +86,8 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = &Map[x][y + 1];
 		Node->child[7] = &Map[x + 1][y + 1];
 	}
-	if (x == 64 &&
-		y < 96 && y > 0)
+	if (x == TILECNTX-1 &&
+		y < TILECNTY-1 && y > 0)
 	{
 		Node->child[0] = &Map[x - 1][y - 1];
 		Node->child[1] = &Map[x][y - 1];
@@ -84,7 +98,7 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = &Map[x][y + 1];
 		Node->child[7] = nullptr;
 	}
-	if (x == 0 && y == 96)
+	if (x == 0 && y == TILECNTY -1 )
 	{
 		Node->child[0] = nullptr;
 		Node->child[1] = &Map[x][y - 1];
@@ -95,8 +109,8 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = nullptr;
 		Node->child[7] = nullptr;
 	}
-	if (x < 64 && x > 0
-		&& y == 96)
+	if (x < TILECNTX - 1 && x > 0
+		&& y == TILECNTY - 1)
 	{
 		Node->child[0] = &Map[x - 1][y - 1];
 		Node->child[1] = &Map[x][y - 1];
@@ -107,7 +121,7 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = nullptr;
 		Node->child[7] = nullptr;
 	}
-	if (x == 64 && y == 96)
+	if (x == TILECNTX - 1 && y == TILECNTY - 1)
 	{
 		Node->child[0] = &Map[x - 1][y - 1];
 		Node->child[1] = &Map[x][y - 1];
@@ -118,8 +132,8 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[6] = nullptr;
 		Node->child[7] = nullptr;
 	}
-	if (x < 64 && x > 0
-		&& y < 96 && y > 0)
+	if (x < TILECNTX - 1 && x > 0
+		&& y < TILECNTY - 1 && y > 0)
 	{
 		Node->child[0] = &Map[x - 1][y - 1];
 		Node->child[1] = &Map[x][y - 1];
@@ -200,7 +214,7 @@ void SearchTree::SortList()
 	}
 }
 
-void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUnit* mUnit)
+void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std::stack<std::pair<int, int>>* vecPath)
 {
 	strNode = &Map[str.first][str.second];
 	dstNode = &Map[dst.first][dst.second];
@@ -221,7 +235,7 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUn
 		{
 			while (strNode != nullptr)
 			{
-				mUnit->moveTilePath.push(std::make_pair(strNode->x, strNode->y));
+				vecPath->push(std::make_pair(strNode->x, strNode->y));
 				strNode = GetParent(strNode);
 			}
 			break;

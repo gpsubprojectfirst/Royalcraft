@@ -30,7 +30,6 @@ void myMap::Init()
 
 void myMap::Set(CPoint pt)
 {
-
 	Point mPoint;
 	mPoint.X = pt.x;
 	mPoint.Y = pt.y;
@@ -50,7 +49,6 @@ void myMap::Set(CPoint pt)
 			}
 		}
 	}
-
 }
 
 void myMap::Render(Gdiplus::Graphics* MemG)

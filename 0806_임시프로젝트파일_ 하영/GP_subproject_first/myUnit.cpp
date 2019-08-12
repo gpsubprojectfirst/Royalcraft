@@ -56,16 +56,16 @@ void myUnit::Render(Gdiplus::Graphics* MemG)
 		nullptr, 0, nullptr);
 }
 
-void myUnit::Set(CPoint pt, myMap* map)
+void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
 	{
 		dstTile.first = 0; 
 		dstTile.second = 0;
 	}*/
-	for (int i = 0; i < 65; ++i)
+	for (int i = 0; i < TILECNTX; ++i)
 	{
-		for (int j = 0; j < 97; ++j)
+		for (int j = 0; j < TILECNTY; ++j)
 		{
 
 			if (map->Infos[i][j].rc.Contains(pt.x,pt.y) && map->Infos[i][j].flags == 0)
@@ -80,7 +80,9 @@ void myUnit::Set(CPoint pt, myMap* map)
 			}
 		}
 	}
-	
+	while (!moveTilePath.empty())
+		moveTilePath.pop();
+	mTree->FindPath(curTile, dstTile, &moveTilePath);
 }
 
 void myUnit::Move(float Delta)
@@ -107,6 +109,7 @@ void myUnit::Move(float Delta)
 	{
 		//시작 좌표의 타일 렉트 가져오기
 		Gdiplus::Rect strTile = mMap->Infos[curTile.first][curTile.second].rc;
+		
 		//다음 목적지 좌표의 타일 렉트 가져오기
 		int dstX = moveTilePath.top().first;
 		int dstY = moveTilePath.top().second;
@@ -117,12 +120,21 @@ void myUnit::Move(float Delta)
 		float distanceX = tempDstTile.X - strTile.X;
 		float distanceY = tempDstTile.Y - strTile.Y;
 		//posRc = map->Infos[i][j].rc; //현재 위치 이동
-		posRc.X += (distanceX )  * 0.1 ;
-		posRc.Y += (distanceY ) * 0.1 ;
-		//cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
+		
+		posRc.X += (distanceX )  * 0.1;
+		posRc.Y += (distanceY ) * 0.1;
+		
+		cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
+		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 
-		if (mMap->Infos[dstX][dstY].rc.Contains( posRc.X,posRc.Y))
+		//현재 목적지에 캐릭터가 들어왔는지
+		if(abs(posRc.X - tempDstTile.X) < 10 &&
+			abs(posRc.Y - tempDstTile.Y) < 10)
+		{
 			curTile = moveTilePath.top();
+			posRc.X = tempDstTile.X;
+			posRc.Y = tempDstTile.Y;
+		}
 	}
 }
 
