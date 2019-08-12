@@ -5,40 +5,11 @@ ObjectManager::ObjectManager()
 	, curUnit(nullptr)
 {
 	//test unit knight
-	/*CString obj_name;
-	obj_name =  "knight";*/
 	myUnit* knight = new myUnit();
 	knight->name = "knight";
 	knight->ID = 0;
-	//myUnit* knight = reinterpret_cast<myUnit*>(CreateObj(eObject_Unit, obj_name, 0));
-	//parserXML(knight);
-	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
-	doc->LoadFile("Xml\\knight.xml");
-
-	tinyxml2::XMLElement* Root = doc->RootElement();
-	tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-
-	for (int i = 0; i < 12; i++)
-	{
-		knight->moveRc.emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
-		Node = Node->NextSiblingElement();
-	}
-	for (int i = 12; i < 117; i++)
-	{
-		Node = Node->NextSiblingElement();
-	}
-	for (int i = 117; i < 131; i++)
-	{
-		knight->atkRc.emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
-		Node = Node->NextSiblingElement();
-	}
-
+	knight->parserXML();
+	
 	mObj.emplace_back(knight);
 	UnitObj.emplace_back(knight);
 }
@@ -86,9 +57,4 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 		newObj->ID = ID;
 		return newObj;
 	}	
-}
-
-void parserXML(Object* obj)
-{
-	
 }

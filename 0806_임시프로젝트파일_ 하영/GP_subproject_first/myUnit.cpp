@@ -55,7 +55,46 @@ void myUnit::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 }
+void myUnit::parserXML()
+{
+	if (ID == 0)
+	{
+		tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
+		doc->LoadFile("Xml\\knight.xml");
 
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		// 이동
+		for (int i = 0; i < 12; i++)
+		{
+			moveRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 12; i < 25; i++)
+		{
+			//다른 방향
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 25; i < 36; i++)
+		{
+			//다른 방향
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 117; i < 131; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	
+}
 void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)

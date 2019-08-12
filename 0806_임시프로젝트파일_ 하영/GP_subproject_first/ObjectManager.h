@@ -11,7 +11,7 @@ public:
 	Object* GetObj(int n);
 	myUnit* GetMyUnit(int n);
 	Object* CreateObj(EObject _obj_type, CString name, int ID);
-	void parserXML(Object* obj);
+	
 	//static ObjectManager& GetInstance();
 	//void Update(float Delta);
 private:

@@ -8,7 +8,7 @@ public:
 	myUnit();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
-
+	virtual void parserXML();
 	virtual void Set(CPoint pt,myMap* map,SearchTree* mTree);
 	void SchPath(myMap* map);
 
