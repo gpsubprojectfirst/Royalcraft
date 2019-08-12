@@ -1,7 +1,7 @@
 #pragma once
 #define SAFE_DELETE(p)	if(p) {delete p; p = NULL;}
-#define WINSIZE_X  660//520
-#define WINSIZE_Y 1003//860
+#define WINSIZE_X  613
+#define WINSIZE_Y 1003
 
 #define REAL_WINSIZE_X 593//640
 #define REAL_WINSIZE_Y 960
@@ -39,6 +39,7 @@ enum SCENE
 {
 	SCENE_LOGO,
 	SCENE_LOBBY,
+	SCENE_EDITOR,
 	SCENE_GAME,
 	SCENE_END,
 };
