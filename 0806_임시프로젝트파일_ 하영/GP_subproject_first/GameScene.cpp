@@ -2,20 +2,20 @@
 #include "GameScene.h"
 
 
-
 GameScene::GameScene()
 {
 	ObjectManager& om = ObjectManager::GetInstance();
 	printf("GameScene init\n");
 	Init();
+
 	mMap = new myMap();
 	mMap->Init();
 
-	//Æ¯Á¤ À¯´ÖÀÇ ¿¡¼Â ·Îµå, ³ªÁß¿¡ ¿ÀºêÁ§Æ® Å¬·¡½º ¾ÈÀ¸·Î ÀÌµ¿
-	//ID: 0,name: knight
+	//íŠ¹ì • ìœ ë‹›ì˜ ì—ì…‹ ë¡œë“œ, ë‚˜ì¤‘ì— ì˜¤ë¸Œì íŠ¸ í´ëž˜ìŠ¤ ì•ˆìœ¼ë¡œ ì´ë™
+	//ID: 0,name: knight 
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 
-	//ObjectManagerÀÇ À¯´Öµ¥ÀÌÅÍ º¹»ç
+	//ObjectManagerì˜ ìœ ë‹›ë°ì´í„° ë³µì‚¬
 	myUnit* knight = new myUnit();
 
 	knight->ID = om.GetMyUnit(0)->ID;
@@ -28,11 +28,12 @@ GameScene::GameScene()
 	knight->mMap = mMap;
 
 	info.emplace_back(knight);
+
 }
 
 void GameScene::Init()
 {
-	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex_.png")));
+	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
 }
 
 void GameScene::Update(float Delta)
@@ -41,12 +42,27 @@ void GameScene::Update(float Delta)
 	{
 		it->Update(Delta);
 	}
+
+	if (GetAsyncKeyState(VK_F1) & 0x8001)  //íŒŒì¼ì €ìž¥í•˜ê¸°
+	{
+		mMap->SaveFile();
+	}
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 {
-	Gdiplus::Rect Dst1(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
+
+	if (m_vecGame.size() <= 0)
+		return;
+
+	// ë°°ê²½
+	Gdiplus::Rect Dst1(0,0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
 	MemG->DrawImage(m_vecGame[0], Dst1);
+
+	// íƒ€ì¼
+	mMap->Render(MemG);
+
+	// ê²Œìž„ ì˜¤ë¸Œì íŠ¸
 	for (auto& it : this->info)
 	{
 		if (it == nullptr) continue;
@@ -55,12 +71,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		it->Render(MemG);
 	}
 
-	if (m_vecGame.size() <= 0)
-		return;
-	int width = m_vecGame[0]->GetWidth();
-	int height = m_vecGame[0]->GetHeight();
 
-	
 }
 
 void GameScene::Release()
@@ -76,8 +87,9 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Enable == false) continue;
 
 		it->Set(point,mMap);
-
-		//³ªÁß¿¡ ¿À¹ö¶óÀÌµù
+		mMap->Set(point);
+    
+		//ë‚˜ì¤‘ì— ì˜¤ë²„ë¼ì´ë”©
 		if (it->Objtype == eObject_Unit)
 		{
 			myUnit* mUnit = reinterpret_cast<myUnit*>(it);
@@ -85,5 +97,7 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 				mUnit->moveTilePath.pop();
 			mTree.FindPath(mUnit->curTile, mUnit->dstTile,mUnit);	
 		}
+		
 	}
+
 }
