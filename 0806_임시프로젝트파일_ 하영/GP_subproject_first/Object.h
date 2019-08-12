@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "state.h"
 #include "myMap.h"
-
+#include "SearchTree.h"
 class Object
 {
 public:
@@ -16,7 +16,7 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG) {}
 	virtual void End() {} // release
 	//맵 좌표 계산 메서드
-	virtual void Set(CPoint pt,myMap* map) {}
+	virtual void Set(CPoint pt,myMap* map, SearchTree* mTree) {}
 	//action 매서드
 	virtual void Move(float Delta) {}
 	virtual void Attack(float Delta) {}
