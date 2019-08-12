@@ -5,10 +5,10 @@ SearchTree::SearchTree()
 	:strNode(nullptr)
 	, dstNode(nullptr)
 {
-	Fcost = 0;
-	Hcost = 0;
-	Gcost = 0;
-
+	Init();
+}
+void SearchTree::Init()
+{
 	for (int i = 0; i < 65; i++)
 	{
 		for (int j = 0; j < 97; j++)
@@ -27,7 +27,10 @@ SearchTree::SearchTree()
 		}
 	}
 }
-
+void SearchTree::Delete()
+{
+	openList.clear();
+}
 void SearchTree::SetChild(scNode* Node, int x, int y)
 {
 	//예외처리??
@@ -125,18 +128,24 @@ void SearchTree::SetChild(scNode* Node, int x, int y)
 		Node->child[7] = &Map[x + 1][y + 1];
 	}
 }
-
+//void SearchTree::SetParent();
 scNode** SearchTree::GetChild(scNode* parentNode)
 {
 	return parentNode->child;
 };
-
-int SearchTree::callDist(scNode* str, scNode* dst)
+scNode* GetParent(scNode* Node)
 {
-	if (str)
+	return Node->parent;
+}
+//
+int SearchTree::callHcost(scNode* str, scNode* dst)
+{
+	if (str)//장애물 검사
 	{
 		//str->visitF = true;
-		return pow(dst->x - str->x, 2) + pow(dst->y - str->y, 2);
+		
+		//양수 계산
+		return  10 * abs(dst->x - str->x) + 10 * abs(dst->y - str->y);
 	}
 
 	else return 10000;
@@ -147,36 +156,117 @@ scNode* SearchTree::NextNode(int n, scNode* InNode)
 	return InNode->child[n];
 }
 
+void copyNode(scNode& src, scNode& dst)
+{
+	dst.x = src.x;
+	dst.y = src.y;
+	dst.visitF = src.visitF;
+	dst.parent = src.parent;
+	
+	for(int i =0 ; i<8 ; i++)
+		dst.child[i] = src.child[i];
+}
+bool SearchTree::CompareCost(const scNode* first,const scNode* second)
+{
+	return first->Hcost + first->Gcost <= second->Hcost + second->Gcost;
+}
+void SearchTree::SortList()
+{
+	if (openList.size() < 2) return;
+	scNode* temp;
+	bool bContinue = true;
+	
+	//openList.sort();
+
+	while (bContinue)
+	{
+		bContinue = false;
+		for (auto& it : openList)
+		{
+			if (!CompareCost(openList.front(),it))
+			{			
+				temp = it;
+
+				it = openList.front();
+
+				openList.front() = temp;
+
+				bContinue = true;
+
+			}
+
+		}
+
+	}
+}
+
 void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUnit* mUnit)
 {
+	Init();
+
 	strNode = &Map[str.first][str.second];
 	dstNode = &Map[dst.first][dst.second];
+	
+	openList.push_front(strNode);
+	int Fcost = 0;
+	int Hcost = 0;
 
-	while (strNode != dstNode)
+	strNode->visitF = true;
+	strNode->Gcost = 0;
+
+	while (!openList.empty())
 	{
-		scNode** child = GetChild(strNode);
-		std::pair<int, int> minPos = std::make_pair(str.first, str.second);
-		int min = 10000;
-		int childNum = -1;
-		for (int i = 0; i < 8; i++)
+		strNode = openList.front();
+		openList.pop_front();
+		cout << strNode->x << " , " << strNode->y << endl;
+		if (strNode == dstNode)
 		{
-			int distance = callDist(GetChild(strNode)[i], dstNode);
-			//childNum = -1;
-			//child를 돌며 최소거리 계산
-			if (min > distance)
+			while (strNode != nullptr)
 			{
-				childNum = i;
-				min = distance;
-				minPos.first = GetChild(strNode)[i]->x;
-				minPos.second = GetChild(strNode)[i]->y;
+				mUnit->moveTilePath.push(std::make_pair(strNode->x, strNode->y));
+				strNode = GetParent(strNode);
 			}
+			break;
 		}
-
-		//std::cout << "자식: " << childNum <<", 위치: " <<minPos.first<<", " <<minPos.second<<std::endl;
-		if (childNum != -1)
+		else
 		{
-			strNode = NextNode(childNum, strNode);
-			mUnit->moveTilePath.push(std::make_pair(minPos.first, minPos.second));
+			for (int i = 0; i < 8; i++)
+			{
+				scNode* tempChild = GetChild(strNode)[i];
+
+				if (tempChild == nullptr)
+				{
+					continue;
+				}
+				if (tempChild->visitF)
+				{
+					continue;
+				}
+				else
+				{
+					tempChild->visitF = true;
+					tempChild->parent = strNode;
+
+					//자식 노드 위치에 따라 Gcost 증가
+					if (i == 0 || i == 2 || i == 5 || i == 7)
+					{
+						tempChild->Gcost = tempChild->parent->Gcost + 14;
+					}
+					else
+					{
+						tempChild->Gcost = tempChild->parent->Gcost + 10;
+					}
+
+					Hcost = callHcost(tempChild, dstNode);
+					tempChild->Hcost = Hcost;
+
+					openList.push_back(tempChild);
+				}
+			}
+			//열린리스트 정렬
+			SortList();
+			//openList.sort();
 		}
 	}
+	Delete();
 }
