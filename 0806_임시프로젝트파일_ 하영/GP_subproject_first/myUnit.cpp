@@ -24,7 +24,7 @@ void myUnit::Update(float Delta)
 		if (frame > 10)
 			frame = 0;
 	}
-	//상태 변화
+	//상태 변화, 추후 행동 트리에 추가
 	if (curTile != dstTile)
 		sm.ChangeState(eState_Move);
 	else
@@ -85,8 +85,21 @@ void myUnit::Set(CPoint pt, myMap* map)
 
 void myUnit::Move(float Delta)
 {
+	if (moveTilePath.empty())
+	{
+		return;
+	}
+
+	float AddDelta = 0;
+	AddDelta += Delta;
+	
+	if (AddDelta > 0.1f)
+	{
+		AddDelta = 0;
+	}
+
 	//moveTilePath큐에 이동경로가 저장되어있음
-	if (curTile == moveTilePath.front())
+	if (curTile == moveTilePath.top())
 	{
 		moveTilePath.pop();
 	}
@@ -95,8 +108,8 @@ void myUnit::Move(float Delta)
 		//시작 좌표의 타일 렉트 가져오기
 		Gdiplus::Rect strTile = mMap->Infos[curTile.first][curTile.second].rc;
 		//다음 목적지 좌표의 타일 렉트 가져오기
-		int dstX = moveTilePath.front().first;
-		int dstY = moveTilePath.front().second;
+		int dstX = moveTilePath.top().first;
+		int dstY = moveTilePath.top().second;
 		Gdiplus::Rect tempDstTile = mMap->Infos[dstX][dstY].rc;
 		
 		//거리 계산
@@ -104,12 +117,12 @@ void myUnit::Move(float Delta)
 		float distanceX = tempDstTile.X - strTile.X;
 		float distanceY = tempDstTile.Y - strTile.Y;
 		//posRc = map->Infos[i][j].rc; //현재 위치 이동
-		posRc.X += (distanceX )  * Delta * 5;
-		posRc.Y += (distanceY ) * Delta * 5;
-		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
+		posRc.X += (distanceX )  * 0.1 ;
+		posRc.Y += (distanceY ) * 0.1 ;
+		//cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 
-		if (mMap->Infos[dstX][dstY].rc.Contains(posRc.X, posRc.Y))
-			curTile = moveTilePath.front();
+		if (mMap->Infos[dstX][dstY].rc.Contains( posRc.X,posRc.Y))
+			curTile = moveTilePath.top();
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "myMap.h"
-
+#include "stack"
 class myUnit : public Object
 {
 public:
@@ -28,7 +28,7 @@ public:
 	//Tile Position
 	std::pair<int,int> curTile; //현재 타일의 좌표
 	std::pair<int,int> dstTile; //목적 타일의 좌표
-	std::queue<std::pair<int,int>> moveTilePath;
+	std::stack<std::pair<int,int>> moveTilePath;
 
 	//Asset Position
 	std::vector<Gdiplus::Rect> moveRc; // 이동에 쓰일 이미지 위치
