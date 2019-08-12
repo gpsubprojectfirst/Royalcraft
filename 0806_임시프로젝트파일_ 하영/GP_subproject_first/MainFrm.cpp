@@ -61,6 +61,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 		;
 	cs.cx = WINSIZE_X;
 	cs.cy = WINSIZE_Y;
+	cs.hMenu = NULL;
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;

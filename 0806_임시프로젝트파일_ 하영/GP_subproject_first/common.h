@@ -3,8 +3,14 @@
 #define WINSIZE_X  660//520
 #define WINSIZE_Y 1003//860
 
-#define REAL_WINSIZE_X 640 //500
-#define REAL_WINSIZE_Y 960//797
+#define REAL_WINSIZE_X 593//640
+#define REAL_WINSIZE_Y 960
+
+const static int TILESIZEX = 27;
+const static int TILESIZEY = 22;
+
+const static int TILECNTX = 22;
+const static int TILECNTY = 44;
 
 enum EState {
 	eState_Idle,

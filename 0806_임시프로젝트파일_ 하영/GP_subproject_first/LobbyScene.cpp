@@ -4,6 +4,7 @@
 LobbyScene::LobbyScene()
 {
 	Init();
+
 	printf("LobbyScene init\n");
 }
 
