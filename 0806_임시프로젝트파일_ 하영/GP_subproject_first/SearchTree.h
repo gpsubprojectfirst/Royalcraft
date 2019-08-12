@@ -1,5 +1,6 @@
 #pragma once
 #include<list>
+#include<stack>
 class scNode
 {
 public:
@@ -18,13 +19,13 @@ public:
 class SearchTree
 {
 public:
-	scNode Map[65][97];
+	scNode Map[TILECNTX][TILECNTY];
 	scNode* strNode;
 	scNode* dstNode;
 	
 	SearchTree();
-	
 	void Init();
+	void Set(myMap* mMap);
 	void Delete();
 
 	std::list<scNode*> openList;
@@ -38,6 +39,5 @@ public:
 	int callHcost(scNode* str, scNode* dst);
 	
 	scNode* NextNode(int n, scNode* InNode);
-	void copyNode(scNode& src, scNode& dst);
-	void FindPath(std::pair<int, int> str, std::pair<int, int> dst, myUnit* mUnit);
+	void FindPath(std::pair<int, int> str, std::pair<int, int> dst, std::stack<std::pair<int, int>>* vecPath);
 };

@@ -9,7 +9,7 @@ public:
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 
-	virtual void Set(CPoint pt,myMap* map);
+	virtual void Set(CPoint pt,myMap* map,SearchTree* mTree);
 	void SchPath(myMap* map);
 
 	virtual void Move(float Delta);
