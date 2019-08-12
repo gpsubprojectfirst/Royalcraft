@@ -4,12 +4,15 @@
 
 GameScene::GameScene()
 {
-	ObjectManager& om = ObjectManager::GetInstance();
 	printf("GameScene init\n");
-	Init();
 
 	mMap = new myMap();
-	mMap->Init();
+	mMap->LoadFile();
+
+	ObjectManager& om = ObjectManager::GetInstance();
+	
+	Init();
+
 	//mTree = new SearchTree(mMap);
 	mTree = new SearchTree();
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
@@ -44,10 +47,11 @@ void GameScene::Update(float Delta)
 		it->Update(Delta);
 	}
 
-	if (GetAsyncKeyState(VK_F1) & 0x8001)  //파일저장하기
+	if (GetAsyncKeyState(VK_F1) & 0x8001)
 	{
-		mMap->SaveFile();
+		bRender = !bRender;
 	}
+	
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
@@ -61,7 +65,10 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 	MemG->DrawImage(m_vecGame[0], Dst1);
 
 	// 타일
-	mMap->Render(MemG);
+	if (bRender)
+	{
+		mMap->Render(MemG);
+	}
 
 	// 게임 오브젝트
 	for (auto& it : this->info)
@@ -71,8 +78,6 @@ void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
 		
 		it->Render(MemG);
 	}
-
-
 }
 
 void GameScene::Release()
@@ -88,7 +93,6 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Enable == false) continue;
 
 		it->Set(point,mMap,mTree);
-		mMap->Set(point);
 		mTree->Set(mMap);
 	}
 }

@@ -4,7 +4,7 @@
 LobbyScene::LobbyScene()
 {
 	Init();
-
+	
 	printf("LobbyScene init\n");
 }
 
@@ -22,9 +22,16 @@ void LobbyScene::Update(float Delta)
 		return;
 	}
 
+	if (GetAsyncKeyState(VK_F1) & 0x8001)
+	{
+		SceneManager::GetInstance().LoadScene(CString("EditorScene"));
+		return;
+	}
+
+
 }
 
-void LobbyScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
+void LobbyScene::Render(Gdiplus::Graphics* MemG)
 {
 	if (MemG == nullptr) return;
 
