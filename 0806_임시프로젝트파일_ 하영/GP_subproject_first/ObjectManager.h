@@ -11,14 +11,11 @@ public:
 	Object* GetObj(int n);
 
 	MyUnit* GetMyUnit(int n);
-	Object* CreateObj(EObject _obj_type, CString name, int ID);
-	void parserXML(Object* obj);
 
+	//Object* CreateObj(EObject _obj_type, CString name, int ID);
 	//static ObjectManager& GetInstance();
 	//void Update(float Delta);
 private:
 	std::vector<Object*> mObj;
 	std::vector<MyUnit*> UnitObj;
-	Object* curObj;
-	MyUnit* curUnit;
 };
