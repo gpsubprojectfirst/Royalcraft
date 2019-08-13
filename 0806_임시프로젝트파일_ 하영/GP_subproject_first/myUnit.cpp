@@ -24,7 +24,7 @@ void MyUnit::Update(float Delta)
 		if (frame > 10)
 			frame = 0;
 	}
-	//»óÅÂ º¯È­, ÃßÈÄ Çàµ¿ Æ®¸®¿¡ Ãß°¡
+	//ìƒíƒœ ë³€í™”, ì¶”í›„ í–‰ë™ íŠ¸ë¦¬ì— ì¶”ê°€
 	if (curTile != dstTile)
 		sm.ChangeState(eState_Move);
 	else
@@ -32,11 +32,11 @@ void MyUnit::Update(float Delta)
 	
 	if (sm.GetCurState() == eState_Idle)
 	{
-		rc = moveRc[0];
+		rc = moveRc[direction][0];
 	}
 	else if (sm.GetCurState() == eState_Move)
 	{
-		rc = moveRc[frame];
+		rc = moveRc[direction][frame];
 		Move(Delta);
 	}
 	else if (sm.GetCurState() == eState_Attack)
@@ -55,8 +55,57 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 }
+void myUnit::parserXML()
+{
+	if (ID == 0)
+	{
+		tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
+		doc->LoadFile("Xml\\knight.xml");
 
-void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		// ì´ë™
+		for (int k = 0; k < 4;k++)
+		{
+			for (int i = 0; i < 12; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 12; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 12; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 108; i < 116;i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//ê³µê²©
+		for (int i = 116; i < 130; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	
+}
+void MyUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
 	{
@@ -100,26 +149,48 @@ void MyUnit::Move(float Delta)
 		AddDelta = 0;
 	}
 
-	//moveTilePathÅ¥¿¡ ÀÌµ¿°æ·Î°¡ ÀúÀåµÇ¾îÀÖÀ½
+	//moveTilePathíì— ì´ë™ê²½ë¡œê°€ ì €ì¥ë˜ì–´ìˆìŒ
 	if (curTile == moveTilePath.top())
 	{
 		moveTilePath.pop();
 	}
 	else
 	{
-		//½ÃÀÛ ÁÂÇ¥ÀÇ Å¸ÀÏ ·ºÆ® °¡Á®¿À±â
+		//ì‹œì‘ ì¢Œí‘œì˜ íƒ€ì¼ ë ‰íŠ¸ ê°€ì ¸ì˜¤ê¸°
 		Gdiplus::Rect strTile = mMap->Infos[curTile.first][curTile.second].rc;
 		
-		//´ÙÀ½ ¸ñÀûÁö ÁÂÇ¥ÀÇ Å¸ÀÏ ·ºÆ® °¡Á®¿À±â
+		//ë‹¤ìŒ ëª©ì ì§€ ì¢Œí‘œì˜ íƒ€ì¼ ë ‰íŠ¸ ê°€ì ¸ì˜¤ê¸°
 		int dstX = moveTilePath.top().first;
 		int dstY = moveTilePath.top().second;
 		Gdiplus::Rect tempDstTile = mMap->Infos[dstX][dstY].rc;
 		
-		//°Å¸® °è»ê
+		//ê±°ë¦¬ ê³„ì‚°
 		//this->curPos.first += this->move_speed * Delta;
 		float distanceX = tempDstTile.X - strTile.X;
 		float distanceY = tempDstTile.Y - strTile.Y;
-		//posRc = map->Infos[i][j].rc; //ÇöÀç À§Ä¡ ÀÌµ¿
+
+		//ë°©í–¥
+		if (distanceX == 0 && distanceY > 0)
+		{
+			direction = 0;
+		}
+		if (distanceX > 0 && distanceY > 0)
+		{
+			direction = 1;
+		}
+		if (distanceX > 0 && distanceY == 0)
+		{
+			direction = 2;
+		}
+		if (distanceX > 0 && distanceY < 0)
+		{
+			direction = 3;
+		}
+		if (distanceX == 0 && distanceY < 0)
+		{
+			direction = 4;
+		}
+		//posRc = map->Infos[i][j].rc; //í˜„ì¬ ìœ„ì¹˜ ì´ë™
 		
 		posRc.X += (distanceX )  * 0.1;
 		posRc.Y += (distanceY ) * 0.1;
@@ -127,7 +198,7 @@ void MyUnit::Move(float Delta)
 		cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 
-		//ÇöÀç ¸ñÀûÁö¿¡ Ä³¸¯ÅÍ°¡ µé¾î¿Ô´ÂÁö
+		//í˜„ì¬ ëª©ì ì§€ì— ìºë¦­í„°ê°€ ë“¤ì–´ì™”ëŠ”ì§€
 		if(abs(posRc.X - tempDstTile.X) < 10 &&
 			abs(posRc.Y - tempDstTile.Y) < 10)
 		{

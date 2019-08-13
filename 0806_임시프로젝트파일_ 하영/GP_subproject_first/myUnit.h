@@ -8,15 +8,15 @@ public:
 	MyUnit();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
-
 	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
 	void SchPath(MyMap* map);
+	virtual void parserXML();
 
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void ExtraAction(float Delta);
 	
-	//À¯´Ö ½ºÅÈ
+	//ìœ ë‹› ìŠ¤íƒ¯
 	float damage;
 	float hp;
 	EAtkType atk_type;
@@ -26,11 +26,12 @@ public:
 	float AddDelta;
 
 	//Tile Position
-	std::pair<int,int> curTile; //ÇöÀç Å¸ÀÏÀÇ ÁÂÇ¥
-	std::pair<int,int> dstTile; //¸ñÀû Å¸ÀÏÀÇ ÁÂÇ¥
+	std::pair<int,int> curTile; //í˜„ì¬ íƒ€ì¼ì˜ ì¢Œí‘œ
+	std::pair<int,int> dstTile; //ëª©ì  íƒ€ì¼ì˜ ì¢Œí‘œ
 	std::stack<std::pair<int,int>> moveTilePath;
 
 	//Asset Position
-	std::vector<Gdiplus::Rect> moveRc; // ÀÌµ¿¿¡ ¾²ÀÏ ÀÌ¹ÌÁö À§Ä¡
-	std::vector<Gdiplus::Rect> atkRc; // °ø°İ¿¡ ¾²ÀÏ ÀÌ¹ÌÁö À§Ä¡
+	int direction; // 0 -í•˜, 1-ì¢Œí•˜ë‹¨, 2- ì¢Œ, 3- ìš°ìƒë‹¨, 4-ìƒ
+	std::vector<Gdiplus::Rect> moveRc[5]; // ì´ë™ì— ì“°ì¼ ì´ë¯¸ì§€ ìœ„ì¹˜
+	std::vector<Gdiplus::Rect> atkRc; // ê³µê²©ì— ì“°ì¼ ì´ë¯¸ì§€ ìœ„ì¹˜
 };

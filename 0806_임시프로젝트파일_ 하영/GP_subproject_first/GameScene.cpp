@@ -24,7 +24,10 @@ GameScene::GameScene()
 
 	knight->ID = om.GetMyUnit(0)->ID;
 	knight->name = om.GetMyUnit(0)->name;
-	knight->moveRc = om.GetMyUnit(0)->moveRc;
+	for (int i = 0;i < 5;i++)
+	{
+		knight->moveRc[i] = om.GetMyUnit(0)->moveRc[i];
+	}
 	knight->atkRc = om.GetMyUnit(0)->atkRc;
 	knight->ParentImg = load;
 	Gdiplus::Rect Dst(0, 0, 50, 50);

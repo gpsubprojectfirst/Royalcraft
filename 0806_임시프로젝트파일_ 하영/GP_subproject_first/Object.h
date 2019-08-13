@@ -15,6 +15,7 @@ public:
 	virtual void Update(float Delta) {} //frame 변수 추가
 	virtual void Render(Gdiplus::Graphics* MemG) {}
 	virtual void End() {} // release
+	virtual void parserXML(Object* obj) {}
 	//맵 좌표 계산 메서드
 	virtual void Set(CPoint pt,MyMap* map, SearchTree* mTree) {}
 	//action 매서드
