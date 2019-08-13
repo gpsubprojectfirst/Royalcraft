@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\MainGame">
-      <UniqueIdentifier>{72346a6b-3f38-4da8-8ae6-75f980eb2fb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Manager">
       <UniqueIdentifier>{88f2ef41-7f86-47fc-a07d-fd18d40b9792}</UniqueIdentifier>
     </Filter>
@@ -66,9 +63,6 @@
     <ClInclude Include="common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>소스 파일\MainGame</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
@@ -117,6 +111,12 @@
     <ClInclude Include="SearchTree.h">
       <Filter>소스 파일\SearchTree</Filter>
     </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditor.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -139,9 +139,6 @@
     </ClCompile>
     <ClCompile Include="state.cpp">
       <Filter>소스 파일\State</Filter>
-    </ClCompile>
-    <ClCompile Include="MainGame.cpp">
-      <Filter>소스 파일\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>소스 파일\Scene</Filter>
@@ -178,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="SearchTree.cpp">
       <Filter>소스 파일\SearchTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditor.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

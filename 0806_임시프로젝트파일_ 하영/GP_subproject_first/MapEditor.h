@@ -2,23 +2,28 @@
 #include "Scene.h"
 #include "pch.h"
 
+
+class MyMap;
+
 class MapEditor :
-	public Object
+	public Scene
 {
 public:
-	std::vector<PTile>			m_vecTile;
-	int		size;
+	MyMap* map;
+	std::vector<Gdiplus::Image*>	m_vecEditor;
+	//map xml
+	tinyxml2::XMLElement* element;
+	tinyxml2::XMLElement* subelement;
+
 
 public:
-	//void InitTile();
-	//PTile CreateTile(int ix, int iy);
-
-public:
-	//virtual void Initialize(void);
-	//virtual void Progress(void);
-	//virtual void Render(Gdiplus::Graphics* MemG);
-	//virtual void Release(void);
-
+	void Set(CPoint pt);
+	void Render(Gdiplus::Graphics* MemG);
+	void SaveFile();
+	void SetMapData(tinyxml2::XMLElement* node);
+	void LoadFile();
+	void Update(float Delta);
+	void SendLButtonDown(UINT nFlags, CPoint point);
 
 	MapEditor();
 	//~MapEditor();

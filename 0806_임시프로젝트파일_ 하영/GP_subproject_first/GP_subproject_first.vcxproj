@@ -204,7 +204,6 @@
     <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="MainGame.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="myMap.h" />
     <ClInclude Include="myUnit.h" />
@@ -229,7 +228,6 @@
     <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="myMap.cpp" />
     <ClCompile Include="myUnit.cpp" />

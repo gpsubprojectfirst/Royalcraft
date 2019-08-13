@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "myUnit.h"
+#include "MyUnit.h"
 
-myUnit::myUnit()
+MyUnit::MyUnit()
 	: Object(EObject::eObject_Unit)
 	, AddDelta(0.f)
 {
@@ -14,7 +14,7 @@ myUnit::myUnit()
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
 }
-void myUnit::Update(float Delta)
+void MyUnit::Update(float Delta)
 {
 	AddDelta += Delta;
 	if (AddDelta > 0.2f)
@@ -24,7 +24,7 @@ void myUnit::Update(float Delta)
 		if (frame > 10)
 			frame = 0;
 	}
-	//»óÅÂ º¯È­, ÃßÈÄ Çàµ¿ Æ®¸®¿¡ Ãß°¡
+	//ìƒíƒœ ë³€í™”, ì¶”í›„ í–‰ë™ íŠ¸ë¦¬ì— ì¶”ê°€
 	if (curTile != dstTile)
 		sm.ChangeState(eState_Move);
 	else
@@ -46,7 +46,7 @@ void myUnit::Update(float Delta)
 	}
 }
 
-void myUnit::Render(Gdiplus::Graphics* MemG)
+void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
 	int width = rc.Width;
 	int height = rc.Height;
@@ -64,7 +64,7 @@ void myUnit::parserXML()
 
 		tinyxml2::XMLElement* Root = doc->RootElement();
 		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-		// ÀÌµ¿
+		// ì´ë™
 		for (int k = 0; k < 4;k++)
 		{
 			for (int i = 0; i < 12; i++)
@@ -93,7 +93,7 @@ void myUnit::parserXML()
 		{
 			Node = Node->NextSiblingElement();
 		}
-		//°ø°İ
+		//ê³µê²©
 		for (int i = 116; i < 130; i++)
 		{
 			atkRc.emplace_back(Node->IntAttribute("x")
@@ -105,7 +105,7 @@ void myUnit::parserXML()
 	}
 	
 }
-void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
+void MyUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
 	{
@@ -134,7 +134,7 @@ void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 	mTree->FindPath(curTile, dstTile, &moveTilePath);
 }
 
-void myUnit::Move(float Delta)
+void MyUnit::Move(float Delta)
 {
 	if (moveTilePath.empty())
 	{
@@ -149,27 +149,27 @@ void myUnit::Move(float Delta)
 		AddDelta = 0;
 	}
 
-	//moveTilePathÅ¥¿¡ ÀÌµ¿°æ·Î°¡ ÀúÀåµÇ¾îÀÖÀ½
+	//moveTilePathíì— ì´ë™ê²½ë¡œê°€ ì €ì¥ë˜ì–´ìˆìŒ
 	if (curTile == moveTilePath.top())
 	{
 		moveTilePath.pop();
 	}
 	else
 	{
-		//½ÃÀÛ ÁÂÇ¥ÀÇ Å¸ÀÏ ·ºÆ® °¡Á®¿À±â
+		//ì‹œì‘ ì¢Œí‘œì˜ íƒ€ì¼ ë ‰íŠ¸ ê°€ì ¸ì˜¤ê¸°
 		Gdiplus::Rect strTile = mMap->Infos[curTile.first][curTile.second].rc;
 		
-		//´ÙÀ½ ¸ñÀûÁö ÁÂÇ¥ÀÇ Å¸ÀÏ ·ºÆ® °¡Á®¿À±â
+		//ë‹¤ìŒ ëª©ì ì§€ ì¢Œí‘œì˜ íƒ€ì¼ ë ‰íŠ¸ ê°€ì ¸ì˜¤ê¸°
 		int dstX = moveTilePath.top().first;
 		int dstY = moveTilePath.top().second;
 		Gdiplus::Rect tempDstTile = mMap->Infos[dstX][dstY].rc;
 		
-		//°Å¸® °è»ê
+		//ê±°ë¦¬ ê³„ì‚°
 		//this->curPos.first += this->move_speed * Delta;
 		float distanceX = tempDstTile.X - strTile.X;
 		float distanceY = tempDstTile.Y - strTile.Y;
 
-		//¹æÇâ
+		//ë°©í–¥
 		if (distanceX == 0 && distanceY > 0)
 		{
 			direction = 0;
@@ -190,7 +190,7 @@ void myUnit::Move(float Delta)
 		{
 			direction = 4;
 		}
-		//posRc = map->Infos[i][j].rc; //ÇöÀç À§Ä¡ ÀÌµ¿
+		//posRc = map->Infos[i][j].rc; //í˜„ì¬ ìœ„ì¹˜ ì´ë™
 		
 		posRc.X += (distanceX )  * 0.1;
 		posRc.Y += (distanceY ) * 0.1;
@@ -198,7 +198,7 @@ void myUnit::Move(float Delta)
 		cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 
-		//ÇöÀç ¸ñÀûÁö¿¡ Ä³¸¯ÅÍ°¡ µé¾î¿Ô´ÂÁö
+		//í˜„ì¬ ëª©ì ì§€ì— ìºë¦­í„°ê°€ ë“¤ì–´ì™”ëŠ”ì§€
 		if(abs(posRc.X - tempDstTile.X) < 10 &&
 			abs(posRc.Y - tempDstTile.Y) < 10)
 		{
@@ -209,12 +209,12 @@ void myUnit::Move(float Delta)
 	}
 }
 
-void myUnit::Attack(float Delta)
+void MyUnit::Attack(float Delta)
 {
 
 }
 
-void myUnit::ExtraAction(float Delta)
+void MyUnit::ExtraAction(float Delta)
 {
 
 }

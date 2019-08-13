@@ -5,7 +5,7 @@ ObjectManager::ObjectManager()
 	, curUnit(nullptr)
 {
 	//test unit knight
-	myUnit* knight = new myUnit();
+	MyUnit* knight = new MyUnit();
 	knight->name = "knight";
 	knight->ID = 0;
 	knight->parserXML();
@@ -19,7 +19,7 @@ Object* ObjectManager::GetObj(int InID)
 	return mObj.at(InID);
 }
 
-myUnit* ObjectManager::GetMyUnit(int InID)
+MyUnit* ObjectManager::GetMyUnit(int InID)
 {
 	return UnitObj.at(InID);
 }
@@ -28,7 +28,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 {
 	if (_obj_type == eObject_Unit)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Unit;
@@ -36,7 +36,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 	}
 	if (_obj_type == eObject_Build)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Build;
@@ -44,7 +44,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 	}
 	if (_obj_type == eObject_Bullet)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Bullet;

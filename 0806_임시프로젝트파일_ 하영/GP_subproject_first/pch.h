@@ -21,7 +21,7 @@
 #include "tinyxml2.h"
 #include "Define.h"
 #include "Object.h"
-#include "myUnit.h"
+#include "MyUnit.h"
 #include "LogoScene.h"
 #include "LobbyScene.h"
 #include "GameScene.h"

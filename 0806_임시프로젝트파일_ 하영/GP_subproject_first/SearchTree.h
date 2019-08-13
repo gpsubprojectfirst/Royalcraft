@@ -25,7 +25,7 @@ public:
 	
 	SearchTree();
 	void Init();
-	void Set(myMap* mMap);
+	void Set(MyMap* mMap);
 	void Delete();
 
 	std::list<scNode*> openList;

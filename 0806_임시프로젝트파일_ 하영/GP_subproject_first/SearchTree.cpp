@@ -31,7 +31,7 @@ void SearchTree::Init()
 	}
 }
 
-void SearchTree::Set(myMap* mMap)
+void SearchTree::Set(MyMap* mMap)
 {
 	for (int i = 0; i < TILECNTX; i++)
 	{

@@ -14,11 +14,15 @@ SceneManager::SceneManager()
 	LobbyScene* lobby = new LobbyScene();
 	lobby->Name = "LobbyScene";
 
+	MapEditor* editor = new MapEditor();
+	editor->Name = "EditorScene";
+	
 	GameScene* game = new GameScene();
 	game->Name = "GameScene";
 
 	mScene.emplace_back(logo);
 	mScene.emplace_back(lobby);
+	mScene.emplace_back(editor);
 	mScene.emplace_back(game);
 }
 
@@ -32,35 +36,12 @@ void SceneManager::LoadScene(CString& pName)
 			std::wcout << (const wchar_t*)CurScene->Name <<std::endl;
 		}
 	}
-
 	//CurScene = nullptr;
 }
-void SceneManager::SetState(SCENE _SceneState)
-{
-	switch (_SceneState)
-	{
-	case SCENE_LOGO:
-		CurScene = new LogoScene;
-		break;
 
-	case SCENE_LOBBY:
-		CurScene = new LobbyScene;
-		break;
-
-	case SCENE_GAME:
-		CurScene = new GameScene;
-		break;
-
-	case SCENE_END:
-		break;
-	}
-
-	CurScene->Init();
-}
 void SceneManager::Init()
 {
 	if (CurScene == nullptr) return;
-
 }
 
 void SceneManager::RenderScene(Gdiplus::Graphics* MemG)

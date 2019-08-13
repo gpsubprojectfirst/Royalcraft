@@ -1,4 +1,6 @@
 #pragma once
+
+class Object;
 class Scene
 {
 
@@ -9,8 +11,6 @@ public:
 	Gdiplus::Image* img;
 
 public:
-
-
 	virtual void Init() {}
 	virtual void Update(float Delta) {}
 	virtual void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/) {}
