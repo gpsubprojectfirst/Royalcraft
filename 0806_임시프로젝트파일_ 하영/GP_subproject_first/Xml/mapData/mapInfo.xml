@@ -238,8 +238,8 @@
         <info flag="0" rcY="308" rcX="135" Yidx="14" Xidx="5"/>
         <info flag="0" rcY="330" rcX="135" Yidx="15" Xidx="5"/>
         <info flag="0" rcY="352" rcX="135" Yidx="16" Xidx="5"/>
-        <info flag="1" rcY="374" rcX="135" Yidx="17" Xidx="5"/>
-        <info flag="1" rcY="396" rcX="135" Yidx="18" Xidx="5"/>
+        <info flag="0" rcY="374" rcX="135" Yidx="17" Xidx="5"/>
+        <info flag="0" rcY="396" rcX="135" Yidx="18" Xidx="5"/>
         <info flag="0" rcY="418" rcX="135" Yidx="19" Xidx="5"/>
         <info flag="0" rcY="440" rcX="135" Yidx="20" Xidx="5"/>
         <info flag="0" rcY="462" rcX="135" Yidx="21" Xidx="5"/>
@@ -722,8 +722,8 @@
         <info flag="0" rcY="308" rcX="432" Yidx="14" Xidx="16"/>
         <info flag="0" rcY="330" rcX="432" Yidx="15" Xidx="16"/>
         <info flag="0" rcY="352" rcX="432" Yidx="16" Xidx="16"/>
-        <info flag="1" rcY="374" rcX="432" Yidx="17" Xidx="16"/>
-        <info flag="1" rcY="396" rcX="432" Yidx="18" Xidx="16"/>
+        <info flag="0" rcY="374" rcX="432" Yidx="17" Xidx="16"/>
+        <info flag="0" rcY="396" rcX="432" Yidx="18" Xidx="16"/>
         <info flag="0" rcY="418" rcX="432" Yidx="19" Xidx="16"/>
         <info flag="0" rcY="440" rcX="432" Yidx="20" Xidx="16"/>
         <info flag="0" rcY="462" rcX="432" Yidx="21" Xidx="16"/>
