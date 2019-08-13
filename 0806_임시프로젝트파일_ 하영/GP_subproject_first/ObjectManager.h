@@ -9,14 +9,16 @@ class ObjectManager
 public:
 	ObjectManager();
 	Object* GetObj(int n);
-	myUnit* GetMyUnit(int n);
+
+	MyUnit* GetMyUnit(int n);
 	Object* CreateObj(EObject _obj_type, CString name, int ID);
 	void parserXML(Object* obj);
+
 	//static ObjectManager& GetInstance();
 	//void Update(float Delta);
 private:
 	std::vector<Object*> mObj;
-	std::vector<myUnit*> UnitObj;
+	std::vector<MyUnit*> UnitObj;
 	Object* curObj;
-	myUnit* curUnit;
+	MyUnit* curUnit;
 };

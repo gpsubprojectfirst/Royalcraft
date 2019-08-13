@@ -7,11 +7,12 @@ ObjectManager::ObjectManager()
 	//test unit knight
 	/*CString obj_name;
 	obj_name =  "knight";*/
-	myUnit* knight = new myUnit();
+	MyUnit* knight = new MyUnit()
 	knight->name = "knight";
 	knight->ID = 0;
 	//myUnit* knight = reinterpret_cast<myUnit*>(CreateObj(eObject_Unit, obj_name, 0));
 	//parserXML(knight);
+
 	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
 	doc->LoadFile("Xml\\knight.xml");
 
@@ -48,7 +49,7 @@ Object* ObjectManager::GetObj(int InID)
 	return mObj.at(InID);
 }
 
-myUnit* ObjectManager::GetMyUnit(int InID)
+MyUnit* ObjectManager::GetMyUnit(int InID)
 {
 	return UnitObj.at(InID);
 }

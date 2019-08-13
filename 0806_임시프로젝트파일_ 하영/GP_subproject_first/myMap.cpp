@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "myMap.h"
+#include "MyMap.h"
 
 
-myMap::myMap()
+MyMap::MyMap()
 {
 	Init();
 }
-void myMap::Init()
+void MyMap::Init()
 {
 	int k = 0, l = 0;
 	for (int i = 0; i <= REAL_WINSIZE_X; i += TILESIZEX)
@@ -26,7 +26,7 @@ void myMap::Init()
 
 }
 
-void myMap::Render(Gdiplus::Graphics* MemG)
+void MyMap::Render(Gdiplus::Graphics* MemG)
 {
 	for each (GridInfo info in Infos)
 	{
@@ -34,7 +34,7 @@ void myMap::Render(Gdiplus::Graphics* MemG)
 	}
 }
 
-void myMap::SetMapData(tinyxml2::XMLElement* node)
+void MyMap::SetMapData(tinyxml2::XMLElement* node)
 {
 	int flag = atoi(node->ToElement()->Attribute("flag"));
 	int rcY = atoi(node->ToElement()->Attribute("rcY"));
@@ -60,7 +60,7 @@ void myMap::SetMapData(tinyxml2::XMLElement* node)
 	}
 }
 
-void myMap::LoadFile()
+void MyMap::LoadFile()
 {
 	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
 	doc->LoadFile("Xml\\mapData\\mapInfo.xml");
