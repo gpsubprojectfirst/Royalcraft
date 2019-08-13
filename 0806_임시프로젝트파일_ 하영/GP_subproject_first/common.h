@@ -3,7 +3,7 @@
 #define WINSIZE_X  613
 #define WINSIZE_Y 1003
 
-#define REAL_WINSIZE_X 593//640
+#define REAL_WINSIZE_X 593
 #define REAL_WINSIZE_Y 960
 
 const static int TILESIZEX = 27;

@@ -39,33 +39,6 @@ void SceneManager::LoadScene(CString& pName)
 	//CurScene = nullptr;
 }
 
-//TODO
-void SceneManager::SetState(SCENE _SceneState)
-{
-	switch (_SceneState)
-	{
-	case SCENE_LOGO:
-		CurScene = new LogoScene;
-		break;
-
-	case SCENE_LOBBY:
-		CurScene = new LobbyScene;
-		break;
-
-	case SCENE_EDITOR:
-		CurScene = new MapEditor;
-		break;
-
-	case SCENE_GAME:
-		CurScene = new GameScene;
-		break;
-
-	case SCENE_END:
-		break;
-	}
-
-	CurScene->Init();
-}
 void SceneManager::Init()
 {
 	if (CurScene == nullptr) return;
