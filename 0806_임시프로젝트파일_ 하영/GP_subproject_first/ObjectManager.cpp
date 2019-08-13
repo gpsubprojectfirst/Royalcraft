@@ -7,10 +7,10 @@ ObjectManager::ObjectManager()
 	//test unit knight
 	/*CString obj_name;
 	obj_name =  "knight";*/
-	MyUnit* knight = new MyUnit()
+	MyUnit* knight = new MyUnit();
 	knight->name = "knight";
 	knight->ID = 0;
-	//myUnit* knight = reinterpret_cast<myUnit*>(CreateObj(eObject_Unit, obj_name, 0));
+	//MyUnit* knight = reinterpret_cast<MyUnit*>(CreateObj(eObject_Unit, obj_name, 0));
 	//parserXML(knight);
 
 	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
@@ -58,7 +58,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 {
 	if (_obj_type == eObject_Unit)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Unit;
@@ -66,7 +66,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 	}
 	if (_obj_type == eObject_Build)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Build;
@@ -74,7 +74,7 @@ Object* CreateObj(EObject _obj_type,CString name,int ID)
 	}
 	if (_obj_type == eObject_Bullet)
 	{
-		myUnit* newUnit = new myUnit();
+		MyUnit* newUnit = new MyUnit();
 		newUnit->name = name;
 		newUnit->ID = ID;
 		newUnit->Objtype = eObject_Bullet;
