@@ -1,16 +1,16 @@
 #pragma once
 #include "Object.h"
-#include "myMap.h"
+#include "MyMap.h"
 #include "stack"
-class myUnit : public Object
+class MyUnit : public Object
 {
 public:
-	myUnit();
+	MyUnit();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 
-	virtual void Set(CPoint pt,myMap* map,SearchTree* mTree);
-	void SchPath(myMap* map);
+	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
+	void SchPath(MyMap* map);
 
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);

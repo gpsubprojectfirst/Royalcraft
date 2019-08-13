@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "myUnit.h"
+#include "MyUnit.h"
 
-myUnit::myUnit()
+MyUnit::MyUnit()
 	: Object(EObject::eObject_Unit)
 	, AddDelta(0.f)
 {
@@ -14,7 +14,7 @@ myUnit::myUnit()
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
 }
-void myUnit::Update(float Delta)
+void MyUnit::Update(float Delta)
 {
 	AddDelta += Delta;
 	if (AddDelta > 0.2f)
@@ -46,7 +46,7 @@ void myUnit::Update(float Delta)
 	}
 }
 
-void myUnit::Render(Gdiplus::Graphics* MemG)
+void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
 	int width = rc.Width;
 	int height = rc.Height;
@@ -56,7 +56,7 @@ void myUnit::Render(Gdiplus::Graphics* MemG)
 		nullptr, 0, nullptr);
 }
 
-void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
+void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
 	{
@@ -85,7 +85,7 @@ void myUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
 	mTree->FindPath(curTile, dstTile, &moveTilePath);
 }
 
-void myUnit::Move(float Delta)
+void MyUnit::Move(float Delta)
 {
 	if (moveTilePath.empty())
 	{
@@ -138,12 +138,12 @@ void myUnit::Move(float Delta)
 	}
 }
 
-void myUnit::Attack(float Delta)
+void MyUnit::Attack(float Delta)
 {
 
 }
 
-void myUnit::ExtraAction(float Delta)
+void MyUnit::ExtraAction(float Delta)
 {
 
 }

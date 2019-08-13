@@ -12,7 +12,7 @@ public:
 	int flags;
 };
 
-class myMap
+class MyMap
 {
 public:
 	GridInfo Infos[TILECNTX][TILECNTY];
@@ -22,6 +22,6 @@ public:
 	void Render(Gdiplus::Graphics* MemG);
 	void LoadFile();
 	void SetMapData(tinyxml2::XMLElement* node);
-	myMap();
+	MyMap();
 	void Init();
 };

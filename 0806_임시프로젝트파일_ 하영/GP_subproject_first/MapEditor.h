@@ -3,13 +3,13 @@
 #include "pch.h"
 
 
-class myMap;
+class MyMap;
 
 class MapEditor :
 	public Scene
 {
 public:
-	myMap* map;
+	MyMap* map;
 	std::vector<Gdiplus::Image*>	m_vecEditor;
 	//map xml
 	tinyxml2::XMLElement* element;

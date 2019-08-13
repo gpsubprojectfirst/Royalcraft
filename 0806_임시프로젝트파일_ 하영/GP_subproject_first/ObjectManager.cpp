@@ -5,7 +5,7 @@ ObjectManager::ObjectManager()
 	, curUnit(nullptr)
 {
 	//test unit knight
-	myUnit* knight = new myUnit();
+	MyUnit* knight = new MyUnit();
 
 	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
 	doc->LoadFile("Xml\\knight.xml");
@@ -46,7 +46,7 @@ Object* ObjectManager::GetObj(int InID)
 	return mObj.at(InID);
 }
 
-myUnit* ObjectManager::GetMyUnit(int InID)
+MyUnit* ObjectManager::GetMyUnit(int InID)
 {
 	return UnitObj.at(InID);
 }

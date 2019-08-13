@@ -6,7 +6,7 @@ GameScene::GameScene()
 {
 	printf("GameScene init\n");
 
-	mMap = new myMap();
+	mMap = new MyMap();
 	mMap->LoadFile();
 
 	ObjectManager& om = ObjectManager::GetInstance();
@@ -20,7 +20,7 @@ GameScene::GameScene()
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 
 	//ObjectManager의 유닛데이터 복사
-	myUnit* knight = new myUnit();
+	MyUnit* knight = new MyUnit();
 
 	knight->ID = om.GetMyUnit(0)->ID;
 	knight->name = om.GetMyUnit(0)->name;
@@ -54,7 +54,7 @@ void GameScene::Update(float Delta)
 	
 }
 
-void GameScene::Render(Gdiplus::Graphics* MemG /*CDC* pDC*/)
+void GameScene::Render(Gdiplus::Graphics* MemG)
 {
 
 	if (m_vecGame.size() <= 0)

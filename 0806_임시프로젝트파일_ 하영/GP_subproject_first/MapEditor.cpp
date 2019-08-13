@@ -4,7 +4,7 @@
 
 MapEditor::MapEditor()
 {
-	map = new myMap();
+	map = new MyMap();
 	m_vecEditor.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
 	LoadFile();
 }
