@@ -55,7 +55,7 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 }
-void myUnit::parserXML()
+void MyUnit::parserXML()
 {
 	if (ID == 0)
 	{
@@ -105,7 +105,7 @@ void myUnit::parserXML()
 	}
 	
 }
-void MyUnit::Set(CPoint pt, myMap* map,SearchTree* mTree)
+void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
 	{
