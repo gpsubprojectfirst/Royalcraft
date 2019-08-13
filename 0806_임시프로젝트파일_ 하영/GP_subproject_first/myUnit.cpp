@@ -55,16 +55,16 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 }
-void MyUnit::CopyObj(MyUnit* dst)
+void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 {
-	ID = dst->ID;
+ 	ID = dst->ID;
 	name = dst->name;
 	for (int i = 0; i < 5; i++)
 	{
 		moveRc[i] = dst->moveRc[i];
 	}
 	atkRc = dst->atkRc;
-	Gdiplus::Rect Dst(0, 0, 50, 50);
+	Gdiplus::Rect Dst(ix, iy, ix+50, iy+50);
 	posRc = Dst;
 }
 
