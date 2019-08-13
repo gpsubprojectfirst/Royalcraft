@@ -55,7 +55,20 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 }
-void MyUnit::parserXML()
+void MyUnit::CopyObj(MyUnit* dst)
+{
+	ID = dst->ID;
+	name = dst->name;
+	for (int i = 0; i < 5; i++)
+	{
+		moveRc[i] = dst->moveRc[i];
+	}
+	atkRc = dst->atkRc;
+	Gdiplus::Rect Dst(0, 0, 50, 50);
+	posRc = Dst;
+}
+
+void MyUnit::ParserXML()
 {
 	if (ID == 0)
 	{
@@ -119,7 +132,7 @@ void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
 
 			if (map->Infos[i][j].rc.Contains(pt.x,pt.y) && map->Infos[i][j].flags == 0)
 			{
-				map->Infos[i][j].flags = 1;
+				//map->Infos[i][j].flags = 1;
 			
 				dstTile.first = i;
 				dstTile.second = j;
@@ -141,7 +154,6 @@ void MyUnit::Move(float Delta)
 		return;
 	}
 
-	float AddDelta = 0;
 	AddDelta += Delta;
 	
 	if (AddDelta > 0.1f)
@@ -195,9 +207,9 @@ void MyUnit::Move(float Delta)
 		posRc.X += (distanceX )  * 0.1;
 		posRc.Y += (distanceY ) * 0.1;
 		
-		cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
+		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
-
+*/
 		//현재 목적지에 캐릭터가 들어왔는지
 		if(abs(posRc.X - tempDstTile.X) < 10 &&
 			abs(posRc.Y - tempDstTile.Y) < 10)

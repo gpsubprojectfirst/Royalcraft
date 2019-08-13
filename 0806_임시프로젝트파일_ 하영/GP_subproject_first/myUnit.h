@@ -9,9 +9,8 @@ public:
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
-	void SchPath(MyMap* map);
-	virtual void parserXML();
-
+	virtual void ParserXML();
+	virtual void CopyObj( MyUnit* dst);
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void ExtraAction(float Delta);
