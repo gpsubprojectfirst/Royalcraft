@@ -9,7 +9,7 @@ GameScene::GameScene()
 	mMap = new MyMap();
 	mMap->LoadFile();
 
-	ObjectManager& om = ObjectManager::GetInstance();
+	//ObjectManager& om = ObjectManager::GetInstance();
 	
 	Init();
 
@@ -17,20 +17,29 @@ GameScene::GameScene()
 	mTree = new SearchTree();
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
 	//ID: 0,name: knight 
+	knight = new MyUnit();
+	//ObjectManager의 유닛데이터 복사
+	
+}
+
+void GameScene::CreateObj(int ix, int iy)
+{
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
 
-	//ObjectManager의 유닛데이터 복사
-	MyUnit* knight = new MyUnit();
-
-	knight->ID = om.GetMyUnit(0)->ID;
-	knight->name = om.GetMyUnit(0)->name;
-	knight->moveRc = om.GetMyUnit(0)->moveRc;
-	knight->atkRc = om.GetMyUnit(0)->atkRc;
+	knight->ID = ObjectManager::GetInstance().GetMyUnit(0)->ID;
+	knight->name = ObjectManager::GetInstance().GetMyUnit(0)->name;
+	knight->moveRc = ObjectManager::GetInstance().GetMyUnit(0)->moveRc;
+	knight->atkRc = ObjectManager::GetInstance().GetMyUnit(0)->atkRc;
 	knight->ParentImg = load;
-	Gdiplus::Rect Dst(0, 0, 50, 50);
+
+	int iSizeX = 50;
+	int iSizeY = 50;
+
+	//Pos  100,100,150,150
+
+	Gdiplus::Rect Dst(ix, iy, ix+iSizeX, iy + iSizeY);
 	knight->posRc = Dst;
 	knight->mMap = mMap;
-
 	info.emplace_back(knight);
 
 }
@@ -87,12 +96,14 @@ void GameScene::Release()
 
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
+	CreateObj(point.x, point.y);
 	for (auto& it : this->info)
 	{
+		std::cout << "x: " << point.x << "y: " << point.y << endl;
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
-		it->Set(point,mMap,mTree);
+		it->Set(point, mMap, mTree);
 		mTree->Set(mMap);
 	}
 }
