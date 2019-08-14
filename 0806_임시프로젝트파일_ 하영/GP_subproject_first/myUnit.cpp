@@ -13,6 +13,8 @@ MyUnit::MyUnit()
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
+
+	//bt추가
 }
 void MyUnit::Update(float Delta)
 {
