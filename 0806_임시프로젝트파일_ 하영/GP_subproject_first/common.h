@@ -18,6 +18,7 @@ enum EState {
 	eState_Attack,
 	eState_Cnt
 };
+
 enum EObject
 {
 	eObject_None,
