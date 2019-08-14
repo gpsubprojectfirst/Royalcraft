@@ -24,3 +24,9 @@ typedef struct tagTile
 	bool bEnable;
 
 }TILEINFO, *PTile;
+
+typedef struct tagDeck
+{
+	bool		bCanUse;
+	int			iCoolTIme;
+}DECKINFO;

@@ -8,18 +8,18 @@ ObjectManager::ObjectManager()
 	knight->ID = 0;
 	knight->ParserXML();
 	
-	mObj.emplace_back(knight);
-	UnitObj.emplace_back(knight);
+	mObj[eObject_Unit].emplace_back(knight);
+	//UnitObj.emplace_back(knight);
 }
 
 Object* ObjectManager::GetObj(int InID)
 {
-	return mObj.at(InID);
+	return mObj[eObject_Cnt].at(InID);
 }
 
-MyUnit* ObjectManager::GetMyUnit(int InID)
+Object* ObjectManager::GetMyUnit(int InID)
 {
-	return UnitObj.at(InID);
+	return mObj[eObject_Unit].at(InID);
 }
 
 //Object* CreateObj(EObject _obj_type,CString name,int ID)

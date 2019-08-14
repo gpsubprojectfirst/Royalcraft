@@ -22,7 +22,7 @@ public:
 	void Render(Gdiplus::Graphics* MemG);
 	void Release();
 
-	void CreateObj(int ix, int iy);
+	void CreateObj(CPoint pt);
 	void SendLButtonDown(UINT nFlags, CPoint point);
 };
 
