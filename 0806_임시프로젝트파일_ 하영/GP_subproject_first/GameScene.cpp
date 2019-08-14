@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
+#include "UIDeck.h"
 
 
 GameScene::GameScene()
@@ -8,21 +9,48 @@ GameScene::GameScene()
 
 	mMap = new MyMap();
 	mMap->LoadFile();
+
 	mTree = new SearchTree();
 	ObjectManager& om = ObjectManager::GetInstance();
 	
+	UIDeck* deck = new UIDeck();
+	deck->Init();
 	Init();
 
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
 	//ID: 0,name: knight 
-	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
-
+	//knight = new MyUnit();
 	//ObjectManager의 유닛데이터 복사
-	MyUnit* knight = new MyUnit();
-	knight->CopyObj(om.GetMyUnit(0));
-	knight->ParentImg = load;
+	info.emplace_back(deck);
+	
+}
 
-	info.emplace_back(knight);
+void GameScene::CreateObj(CPoint pt)
+{			
+	Point mPoint;
+	mPoint.X = pt.x;
+	mPoint.Y = pt.y;
+
+	int xIdx;
+	int yIdx;
+
+	for (int i = 0; i < TILECNTX; ++i)
+	{
+		for (int j = 0; j < TILECNTY; ++j)
+		{
+			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
+			{
+				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
+
+				MyUnit* knight = new MyUnit();
+				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
+				knight->ParentImg = load;
+				info.emplace_back(knight);
+			}
+		
+		}
+	}
+	
 }
 
 void GameScene::Init()
@@ -77,13 +105,18 @@ void GameScene::Release()
 
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
+	CreateObj(point);
 	for (auto& it : this->info)
 	{
+		std::cout << "x: " << point.x << "y: " << point.y << endl;
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
+		//it->Set(point, mMap, mTree);
+		//mTree->Set(mMap);
 		//쓰레드 계산 버그
 		//it->Set(point,mMap,mTree);
 		//mTree->Set(mMap);
+
 	}
 }

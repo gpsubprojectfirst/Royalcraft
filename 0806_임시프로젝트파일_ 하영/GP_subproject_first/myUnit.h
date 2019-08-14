@@ -11,7 +11,7 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
 	virtual void ParserXML();
-	virtual void CopyObj( MyUnit* dst);
+	virtual void CopyObj( MyUnit* dst, int ix, int iy );
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void ExtraAction(float Delta);
