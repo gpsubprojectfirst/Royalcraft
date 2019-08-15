@@ -1,6 +1,11 @@
 #pragma once
-#include "pch.h"
 #include "Action.h"
+#include "Actor.h"
+#include "Command.h"
+
+class MyUnit;
+class BlackBoard;
+
 enum BTState {
 	eBTState_SUCC,
 	eBTState_FAIL,
@@ -10,33 +15,54 @@ enum BTState {
 class BtNode
 {
 public:
-	BtNode();
+	BtNode()
+	{
+		node_state = eBTState_FAIL;
+		actor = new Actor();
+	}
 	virtual bool Invoke() = 0;
+	void Set(Command* cmQ)
+	{
+		cmQueue = cmQ;
+	}
 	BTState node_state; //= eBTState_FAIL;
+	Actor* actor;
+	Command* cmQueue;
+	BlackBoard* bbData;
 };
 
 class ActionNode : public BtNode
 {
 public:
+	/*virtual bool Invoke()
+	{
+		return true;
+	}*/
 	//void doActor();
 private:
-	
+	//EAction action_num;
 };
 class CheckUnit : public ActionNode
 {
 public:
 	virtual bool Invoke()
 	{
-		//À¯´ÖÀ» Ã¼Å©
+		node_state = eBTState_RUN;
+
+		//
+		
+		node_state = eBTState_SUCC;
 		return true;
 	}
 };
 class AttackUnit : public ActionNode
 {
 public:
+	
 	virtual bool Invoke()
 	{
-		//À¯´ÖÀ» °ø°Ý
+		EAction action = eAction_Attack;
+		cmQueue->Push(actor,action);
 		return true;
 	}
 };
@@ -45,7 +71,8 @@ class RestUnit : public ActionNode
 public:
 	virtual bool Invoke()
 	{
-		//À¯´Ö ÈÞ½Ä
+		EAction action = eAction_Rest;
+		cmQueue->Push(actor, action);
 		return true;
 	}
 };
@@ -54,7 +81,8 @@ class MoveUnit : public ActionNode
 public:
 	virtual bool Invoke()
 	{
-		//À¯´Ö ÀÌµ¿
+		EAction action = eAction_Move;
+		cmQueue->Push(actor, action);
 		return true;
 	}
 };
@@ -63,6 +91,8 @@ class CompositeNode : public BtNode
 public:
 	void AddChild(BtNode* node)
 	{
+		node->actor->obj = this->actor->obj;
+		node->Set(this->cmQueue);
 		mChildren.emplace_back(node);
 	}
 	const std::vector<BtNode*>& GetChildren()
@@ -109,47 +139,71 @@ public:
 		return true;
 	}
 };
+class IsNearObj : public ConditionNode
+{
+public:
+	virtual bool Invoke() override
+	{
+		
+		//if(actor->obj->target)
+			return true;
+		//return false;
+	}
+};
+class IsAbleAtk : public ConditionNode
+{
+public:
+	virtual bool Invoke() override
+	{
+		return true;
+	}
+};
 class BehaviorTree
 {
 public:
-	BehaviorTree()
+	BehaviorTree(MyUnit* InActor,Command* cmQ)
 		:root(nullptr)
 	{
-		Init();
+		Init(InActor,cmQ);
 	}
-	void Init()
+	void SetActor(MyUnit* InActor)
+	{
+		root->actor->obj = InActor;
+	}
+	void Init(MyUnit* InActor,Command* cmQ)
 	{
 		root = new Sequence();
-		
+		root->cmQueue = cmQ;
+		SetActor(InActor);
 		//composite
 		Selector* RootSelector = new Selector();
-		Sequence* sequence = new Sequence();
 		Sequence* seqMove = new Sequence();
+		Sequence* seqNearObj = new Sequence();
+		Selector* selMoveTarget = new Selector();
 		Sequence* seqAttack = new Sequence();
-		Selector* selAtktype = new Selector();
 		//action
 		AttackUnit* actAtkUnit = new AttackUnit();
 		MoveUnit* actMoveUnit = new MoveUnit();
 		//condition
-		ConditionNode* IsNearTarget = new ConditionNode();
-		ConditionNode* IsMelee = new ConditionNode();
+		IsNearObj* IsNear = new IsNearObj();
+		IsAbleAtk* IsAttack = new IsAbleAtk();
 		
 		//Æ®¸® ±¸¼º xml·Î ¸ÊÇÎ
 		root->AddChild(RootSelector);
 		
-		RootSelector->AddChild(seqAttack);
+		RootSelector->AddChild(seqNearObj);
 		RootSelector->AddChild(seqMove);
 
-		seqAttack->AddChild(IsNearTarget);
-		seqAttack->AddChild(selAtktype);
+		seqNearObj->AddChild(IsNear);
+		seqNearObj->AddChild(selMoveTarget);
 		
-		selAtktype->AddChild(IsMelee);
-		
-		seqAttack->AddChild(actMoveUnit);
+		selMoveTarget->AddChild(seqAttack);
+		selMoveTarget->AddChild(seqMove);
+
+		seqAttack->AddChild(IsAttack);
 		seqAttack->AddChild(actAtkUnit);
-		
-		seqMove->AddChild(actMoveUnit);
-		
+
+		seqMove->AddChild(actMoveUnit);		
 		//Tick();
 	}
 	void RunSelector(Selector _InSelector)
@@ -177,11 +231,13 @@ public:
 	{
 		while (!root->Invoke())
 		{
-			//Æ®¸® ¼øÈ¸
+			RunSequencer(*root);
 		}
+	}
+	void TraverseTree()
+	{
+
 	}
 private:
 	Sequence* root;
-	//Actor actor;
-	//std::vector<Action*> actionQueue;
 };

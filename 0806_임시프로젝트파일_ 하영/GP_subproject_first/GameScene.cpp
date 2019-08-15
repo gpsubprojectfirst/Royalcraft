@@ -2,7 +2,6 @@
 #include "GameScene.h"
 #include "UIDeck.h"
 
-
 GameScene::GameScene()
 {
 	printf("GameScene init\n");
@@ -45,9 +44,10 @@ void GameScene::CreateObj(CPoint pt)
 				MyUnit* knight = new MyUnit();
 				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				knight->ParentImg = load;
+				knight->CreateBT(&CommandQueue);
 				info.emplace_back(knight);
+				//playUnit.emplace_back(*knight);
 			}
-		
 		}
 	}
 	
@@ -69,7 +69,8 @@ void GameScene::Update(float Delta)
 	{
 		bRender = !bRender;
 	}
-	
+ 	while(!CommandQueue.Empty())
+		CommandQueue.Pop(Delta);
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG)

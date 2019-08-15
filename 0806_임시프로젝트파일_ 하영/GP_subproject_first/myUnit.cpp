@@ -13,8 +13,6 @@ MyUnit::MyUnit()
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
-
-	//bt추가
 }
 void MyUnit::Update(float Delta)
 {
@@ -27,24 +25,21 @@ void MyUnit::Update(float Delta)
 			frame = 0;
 	}
 	//상태 변화, 추후 행동 트리에 추가
-	if (curTile != dstTile)
-		sm.ChangeState(eState_Move);
-	else
-		sm.ChangeState(eState_Idle);
+	UnitBt->Tick();
 	
 	if (sm.GetCurState() == eState_Idle)
 	{
-		rc = moveRc[direction][0];
+		rc = moveRc[0][0];
 	}
 	else if (sm.GetCurState() == eState_Move)
 	{
-		rc = moveRc[direction][frame];
-		Move(Delta);
+		rc = moveRc[0][frame];
+		//Move(Delta);
 	}
 	else if (sm.GetCurState() == eState_Attack)
 	{
 		rc = atkRc[frame];
-		Attack(Delta);
+		//Attack(Delta);
 	}
 }
 
@@ -120,6 +115,7 @@ void MyUnit::ParserXML()
 	}
 	
 }
+
 void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
 {
 	/*if (curTile == dstTile)
@@ -231,4 +227,9 @@ void MyUnit::Attack(float Delta)
 void MyUnit::ExtraAction(float Delta)
 {
 
+}
+
+void MyUnit::CreateBT(Command* cmQ)
+{
+	UnitBt = new BehaviorTree(this,cmQ);
 }

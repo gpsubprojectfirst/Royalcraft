@@ -3,6 +3,7 @@
 #include "MyMap.h"
 #include "BehaviorTree.h"
 #include "stack"
+
 class MyUnit : public Object
 {
 public:
@@ -12,18 +13,25 @@ public:
 	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
 	virtual void ParserXML();
 	virtual void CopyObj( MyUnit* dst, int ix, int iy );
+	
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void ExtraAction(float Delta);
-	
-	//유닛 스탯
+	void CreateBT(Command* cmQ);
+	//유닛 스탯, 추후 csv에서 로드
 	float damage;
 	float hp;
 	EAtkType atk_type;
 	float atk_speed;
 	float move_speed;
 	int cost;
+	float atk_distance;
+
+	//utill
 	float AddDelta;
+	//Behavior Tree
+	BehaviorTree* UnitBt;
+	Object* target; //목적 오브젝트
 
 	//Tile Position
 	std::pair<int,int> curTile; //현재 타일의 좌표
@@ -34,7 +42,4 @@ public:
 	int direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
 	std::vector<Gdiplus::Rect> moveRc[5]; // 이동에 쓰일 이미지 위치
 	std::vector<Gdiplus::Rect> atkRc; // 공격에 쓰일 이미지 위치
-
-	//Behavior Tree
-	BehaviorTree UnitBt;
 };

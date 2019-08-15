@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "MyMap.h"
 #include "SearchTree.h"
+#include "Command.h"
+
 
 class GameScene :
 	public Scene
@@ -11,9 +13,10 @@ public:
 	MyMap* mMap;
 	MapEditor* editor;
 	SearchTree* mTree;
+	Command CommandQueue;
 	MyUnit* knight;
+	std::vector<MyUnit> playUnit;
 	bool bRender = false;
-
 
 public:
 	GameScene();
@@ -24,6 +27,7 @@ public:
 
 	void CreateObj(CPoint pt);
 	void SendLButtonDown(UINT nFlags, CPoint point);
+
 };
 
 
