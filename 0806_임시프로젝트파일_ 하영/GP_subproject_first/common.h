@@ -12,11 +12,16 @@ const static int TILESIZEY = 22;
 const static int TILECNTX = 22;
 const static int TILECNTY = 44;
 
+const DWORD		KEY_LBUTTON = 0x00000001;
+const DWORD		KEY_RBUTTON = 0x00000002;
+const DWORD		KEY_SPACE = 0x00000004;
+const DWORD		KEY_Z = 0x00000008;
+
 enum EState {
 	eState_Idle,
 	eState_Move,
 	eState_Attack,
-	eState_Cnt
+	eState_Cnt,
 };
 
 enum EObject
@@ -25,7 +30,8 @@ enum EObject
 	eObject_Unit,
 	eObject_Build,
 	eObject_Bullet,
-	eObject_Cnt, 
+	eObject_Ui,
+	eObject_Cnt,
 };
 
 enum EAtkType
@@ -36,11 +42,19 @@ enum EAtkType
 	eAttack_Cnt,
 };
 
-enum SCENE
+enum EScene
 {
-	SCENE_LOGO,
-	SCENE_LOBBY,
-	SCENE_EDITOR,
-	SCENE_GAME,
-	SCENE_END,
+	EScene_LOGO,
+	EScene_LOBBY,
+	EScene_EDITOR,
+	EScene_GAME,
+	EScene_END,
+};
+
+enum EUnit_ID
+{
+	UNIT_Knight,
+	UNIT_Barbarian,
+	UNIT_Giant,
+	UNIT_END,
 };

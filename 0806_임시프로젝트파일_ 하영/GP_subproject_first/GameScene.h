@@ -13,7 +13,7 @@ public:
 	SearchTree* mTree;
 	MyUnit* knight;
 	bool bRender = false;
-
+	bool	m_IsSelectMode;
 
 public:
 	GameScene();

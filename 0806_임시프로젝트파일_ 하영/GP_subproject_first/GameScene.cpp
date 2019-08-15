@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
-#include "UIDeck.h"
+#include "UIDeckWnd.h"
 
 
 GameScene::GameScene()
@@ -13,7 +13,9 @@ GameScene::GameScene()
 	mTree = new SearchTree();
 	ObjectManager& om = ObjectManager::GetInstance();
 	
-	UIDeck* deck = new UIDeck();
+
+	Object::SetMode(&m_IsSelectMode);
+	UIDeckWnd* deck = new UIDeckWnd();
 	deck->Init();
 	Init();
 
@@ -53,6 +55,7 @@ void GameScene::CreateObj(CPoint pt)
 	
 }
 
+
 void GameScene::Init()
 {
 	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
@@ -60,6 +63,7 @@ void GameScene::Init()
 
 void GameScene::Update(float Delta)
 {
+	KeyMgr::GetInstance().CheckKey();
 	for (auto& it : this->info)
 	{
 		it->Update(Delta);
@@ -96,6 +100,11 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		
 		it->Render(MemG);
 	}
+
+	if (m_IsSelectMode)
+	{
+		MouseMgr::GetInstance().Render(MemG);
+	}
 }
 
 void GameScene::Release()
@@ -105,15 +114,13 @@ void GameScene::Release()
 
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	CreateObj(point);
+	//CreateObj(point);
 	for (auto& it : this->info)
 	{
-		std::cout << "x: " << point.x << "y: " << point.y << endl;
+		//std::cout <<"x:" <<point.x << "," << point.y << endl;
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
-		//it->Set(point, mMap, mTree);
-		//mTree->Set(mMap);
 		//쓰레드 계산 버그
 		//it->Set(point,mMap,mTree);
 		//mTree->Set(mMap);

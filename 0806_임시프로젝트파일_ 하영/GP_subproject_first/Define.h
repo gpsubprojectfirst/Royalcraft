@@ -16,13 +16,8 @@ typedef struct tagInfo
 
 typedef struct tagTile
 {
-	float	iX;
-	float	iY;
-	float	iSizeX;
-	float	iSizeY;
-
-	bool bEnable;
-
+	bool		IsMouseOn;
+	int			IsUse;
 }TILEINFO, *PTile;
 
 typedef struct tagDeck
@@ -30,3 +25,12 @@ typedef struct tagDeck
 	bool		bCanUse;
 	int			iCoolTIme;
 }DECKINFO;
+
+
+typedef struct tagMouse
+{
+	DWORD	unitID;
+	int		iSize;			//차지하는 타일 갯수
+	POINT	ptTemp;
+	int		iElixir;		//자원
+}MOUSEINFO;

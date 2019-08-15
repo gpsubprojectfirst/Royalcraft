@@ -7,7 +7,7 @@ class SceneManager
 public:
 	SceneManager();
 	void LoadScene(CString& pName);
-	void SetState(SCENE _SceneState);
+	void SetState(EScene _SceneState);
 	//static SceneManager& GetInstance();
 	Scene* GetCurScene();
 	
