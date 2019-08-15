@@ -1,10 +1,25 @@
 #pragma once
-#include "Action.h"
-#include "Actor.h"
 #include "Command.h"
+//#include "GameScene.h"
+//class MyUnit;
+//class GameScene;
 
-class MyUnit;
-class BlackBoard;
+//Behavior Tree에 필요한 정보를 가지고 있는 클래스
+class BlackBoard
+{
+public:
+	BlackBoard(Command& InCmQ)
+	{
+		cmQ = &InCmQ;
+	};
+	void UpdateData(std::vector<MyUnit>& vec)
+	{
+		//벡터 복사
+		//playUnit.copy = vec;
+	};
+	Command* cmQ;
+	std::vector<MyUnit> playUnit;
+};
 
 enum BTState {
 	eBTState_SUCC,
@@ -21,13 +36,12 @@ public:
 		actor = new Actor();
 	}
 	virtual bool Invoke() = 0;
-	void Set(Command* cmQ)
+	void Set(BlackBoard* InBB)
 	{
-		cmQueue = cmQ;
+		bbData = InBB;
 	}
 	BTState node_state; //= eBTState_FAIL;
 	Actor* actor;
-	Command* cmQueue;
 	BlackBoard* bbData;
 };
 
@@ -62,7 +76,7 @@ public:
 	virtual bool Invoke()
 	{
 		EAction action = eAction_Attack;
-		cmQueue->Push(actor,action);
+		bbData->cmQ->Push(actor,action);
 		return true;
 	}
 };
@@ -72,7 +86,7 @@ public:
 	virtual bool Invoke()
 	{
 		EAction action = eAction_Rest;
-		cmQueue->Push(actor, action);
+		bbData->cmQ->Push(actor, action);
 		return true;
 	}
 };
@@ -82,7 +96,7 @@ public:
 	virtual bool Invoke()
 	{
 		EAction action = eAction_Move;
-		cmQueue->Push(actor, action);
+		bbData->cmQ->Push(actor, action);
 		return true;
 	}
 };
@@ -92,7 +106,7 @@ public:
 	void AddChild(BtNode* node)
 	{
 		node->actor->obj = this->actor->obj;
-		node->Set(this->cmQueue);
+		node->Set(this->bbData);
 		mChildren.emplace_back(node);
 	}
 	const std::vector<BtNode*>& GetChildren()
@@ -134,20 +148,24 @@ public:
 class ConditionNode : public BtNode
 {
 public:
-	virtual bool Invoke() override
-	{
-		return true;
-	}
 };
 class IsNearObj : public ConditionNode
 {
 public:
 	virtual bool Invoke() override
 	{
-		
-		//if(actor->obj->target)
-			return true;
-		//return false;
+		//일정 거리 내에 있으면 target으로 없으면 false
+		/*for (auto& it : bbData->playUnit)
+		{
+			if (abs(it->posRc.X < 3
+				&& abs(it->posRc.Y < 3)))
+			{
+				actor->obj->target = it;
+				return true;
+			}
+		}*/
+		return true;
+		return false;
 	}
 };
 class IsAbleAtk : public ConditionNode
@@ -161,19 +179,19 @@ public:
 class BehaviorTree
 {
 public:
-	BehaviorTree(MyUnit* InActor,Command* cmQ)
+	BehaviorTree(MyUnit* InActor,BlackBoard* InBB)
 		:root(nullptr)
 	{
-		Init(InActor,cmQ);
+		Init(InActor,InBB);
 	}
 	void SetActor(MyUnit* InActor)
 	{
 		root->actor->obj = InActor;
 	}
-	void Init(MyUnit* InActor,Command* cmQ)
+	void Init(MyUnit* InActor,BlackBoard* InBB)
 	{
 		root = new Sequence();
-		root->cmQueue = cmQ;
+		root->bbData = InBB;
 		SetActor(InActor);
 		//composite
 		Selector* RootSelector = new Selector();

@@ -229,7 +229,7 @@ void MyUnit::ExtraAction(float Delta)
 
 }
 
-void MyUnit::CreateBT(Command* cmQ)
+void MyUnit::CreateBT(BlackBoard* InBB)
 {
-	UnitBt = new BehaviorTree(this,cmQ);
+	UnitBt = new BehaviorTree(this,InBB);
 }

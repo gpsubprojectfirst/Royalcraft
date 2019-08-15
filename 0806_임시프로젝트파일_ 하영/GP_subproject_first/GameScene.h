@@ -16,6 +16,7 @@ public:
 	Command CommandQueue;
 	MyUnit* knight;
 	std::vector<MyUnit> playUnit;
+	BlackBoard* blackBoard;
 	bool bRender = false;
 
 public:

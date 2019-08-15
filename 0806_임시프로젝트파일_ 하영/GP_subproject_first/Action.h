@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
 class Action
 {
 public:
+	Action() {};
 	virtual void execute(Actor* actor, float Delta) {}
 };
 
@@ -10,14 +10,14 @@ class MoveAction : public Action
 {
 public:
 	MoveAction() {};
-	void execute(Actor* actor, float Delta);
+	virtual void execute(Actor* actor, float Delta);
 };
 
 class AttackAction : public Action
 {
 public:
 	AttackAction() {};
-	void execute(Actor* actor, float Delta);
+	virtual void execute(Actor* actor, float Delta);
 };
 
 class RestAction : public Action

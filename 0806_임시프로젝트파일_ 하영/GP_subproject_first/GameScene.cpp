@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
+#include "BehaviorTree.h"
 #include "UIDeck.h"
 
 GameScene::GameScene()
@@ -12,6 +13,9 @@ GameScene::GameScene()
 	mTree = new SearchTree();
 	ObjectManager& om = ObjectManager::GetInstance();
 	
+	blackBoard = new BlackBoard(this->CommandQueue);
+	blackBoard->UpdateData(this->playUnit);
+
 	UIDeck* deck = new UIDeck();
 	deck->Init();
 	Init();
@@ -44,9 +48,10 @@ void GameScene::CreateObj(CPoint pt)
 				MyUnit* knight = new MyUnit();
 				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				knight->ParentImg = load;
-				knight->CreateBT(&CommandQueue);
+				knight->CreateBT(blackBoard);
 				info.emplace_back(knight);
-				//playUnit.emplace_back(*knight);
+				playUnit.emplace_back(*knight);
+				blackBoard->UpdateData(playUnit);
 			}
 		}
 	}

@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 //action À» ÇÏ´Â obj, unit, build, bullet
 class MyUnit;
 class Actor
