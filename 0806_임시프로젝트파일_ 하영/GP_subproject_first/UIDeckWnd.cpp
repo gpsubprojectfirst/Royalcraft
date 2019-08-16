@@ -51,11 +51,6 @@ void UIDeckWnd::Update(float Delta)
 {
 	POINT pt = MouseMgr::GetMousePos();
 	m_dwKey = KeyMgr::GetInstance().GetKey();
-	if (m_dwKey==  1)
-	{
-		std::cout << m_dwKey;
-	}
-	std::cout << pt.x << "," << pt.y << endl;
 	
 	m_pt.x = LONG(pt.x);
 	m_pt.y = LONG(pt.y);
@@ -71,9 +66,9 @@ void UIDeckWnd::Update(float Delta)
 
 	if (m_bOnItem)
 	{
-		pSet.x = 8 + (31 * (m_pt.x / 31)) + 72;
-		pSet.y = 28 + (31 * (m_pt.y / 31)) - 92;
-		SetArray();
+		//pSet.x = 8 + (31 * (m_pt.x / 31)) + 72;
+		//pSet.y = 28 + (31 * (m_pt.y / 31)) - 92;
+		//SetArray();
 	}
 	else
 	{
@@ -81,11 +76,11 @@ void UIDeckWnd::Update(float Delta)
 		m_iSelectedCell = -1;
 	}
 
-
+	MouseMgr::GetInstance().GetMouseInfo().ptTemp.x = m_pt.x;
+	MouseMgr::GetInstance().GetMouseInfo().ptTemp.y = m_pt.y;
 	if (m_dwKey & KEY_LBUTTON)
 	{
-		MouseMgr::GetInstance().GetMouseInfo().ptTemp.x = m_pt.x;
-		MouseMgr::GetInstance().GetMouseInfo().ptTemp.y = m_pt.y;
+		
 		SelectItem();
 	}
 }
@@ -97,13 +92,13 @@ void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 		//167,808 slot1 Knight
 		Gdiplus::Pen pen(Color(255, 0, 0), 10.0f);
 		MemG->DrawRectangle(&pen, 167, 808, 72, 92);
+
 	}
 
 	//Knight Image
+
 	Gdiplus::Rect rc(167, 808, 72, 92);
 	MemG->DrawImage(deckIcon, rc);
-
-	
 }
 
 
@@ -138,6 +133,7 @@ void UIDeckWnd::SelectItem()
 
 	if (!m_bOnItem)
 		return;
+
 
 	MOUSEINFO tempInfo;
 	memset(&tempInfo, 0, sizeof(tempInfo));

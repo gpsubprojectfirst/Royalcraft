@@ -19,6 +19,8 @@ GameScene::GameScene()
 	deck->Init();
 	Init();
 
+	MouseMgr::GetInstance().Init();
+
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
 	//ID: 0,name: knight 
 	//knight = new MyUnit();
@@ -32,9 +34,6 @@ void GameScene::CreateObj(CPoint pt)
 	Point mPoint;
 	mPoint.X = pt.x;
 	mPoint.Y = pt.y;
-
-	int xIdx;
-	int yIdx;
 
 	for (int i = 0; i < TILECNTX; ++i)
 	{
@@ -64,6 +63,7 @@ void GameScene::Init()
 void GameScene::Update(float Delta)
 {
 	KeyMgr::GetInstance().CheckKey();
+
 	for (auto& it : this->info)
 	{
 		it->Update(Delta);
@@ -114,7 +114,7 @@ void GameScene::Release()
 
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	//CreateObj(point);
+	CreateObj(point);
 	for (auto& it : this->info)
 	{
 		//std::cout <<"x:" <<point.x << "," << point.y << endl;

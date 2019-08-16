@@ -8,6 +8,7 @@ class GameScene :
 { 
 public:
 	std::vector<Gdiplus::Image*>	m_vecGame;
+
 	MyMap* mMap;
 	MapEditor* editor;
 	SearchTree* mTree;
@@ -16,7 +17,7 @@ public:
 	bool	m_IsSelectMode;
 
 public:
-	GameScene();
+
 	void Init();
 	void Update(float Delta);
 	void Render(Gdiplus::Graphics* MemG);
@@ -24,6 +25,9 @@ public:
 
 	void CreateObj(CPoint pt);
 	void SendLButtonDown(UINT nFlags, CPoint point);
+
+	GameScene();
+	~GameScene();
 };
 
 
