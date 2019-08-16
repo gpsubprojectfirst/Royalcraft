@@ -21,7 +21,7 @@ MyUnit::MyUnit()
 void MyUnit::Update(float Delta)
 {
 	AddDelta += Delta;
-	if (AddDelta > 0.2f)
+	if (AddDelta > 0.1f)
 	{
 		frame++;
 		AddDelta = 0;
