@@ -1,11 +1,22 @@
 #pragma once
+//action 을 하는 obj, unit, build, bullet
+class MyUnit;
+class Actor
+{
+public:
+	Actor()
+	{
 
-//action 을 하는 obj
-//class Actor
-//{
-//public:
-//	Actor();
-//private:
-//	Object& actor;
-//};
+	}
+
+	Actor(EObject _Intype)
+	{
+		if(_Intype == eObject_Unit ||
+			_Intype == eObject_Build ||
+			_Intype == eObject_Bullet)
+		actor_type = _Intype;
+	}
+	MyUnit* obj;
+	EObject actor_type;
+};
 

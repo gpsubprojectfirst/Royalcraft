@@ -1,36 +1,36 @@
 #pragma once
-#include "Object.h"
-
 class Action
 {
 public:
-	Action();
-	virtual ~Action() {};
-	virtual void execute(Object& obj) {}
+	Action() {};
+	virtual void execute(Actor* actor, float Delta) {}
 };
 
-class moveAction : public Action
+class MoveAction : public Action
 {
 public:
-	virtual void execute(Object& obj,float Delta)
-	{
-		//obj.Move(Delta);
-	};
+	MoveAction() {};
+	virtual void execute(Actor* actor, float Delta);
 };
 
 class AttackAction : public Action
 {
 public:
-	virtual void execute(Object& obj)
-	{
-		//obj.Attack();
-	};
+	AttackAction() {};
+	virtual void execute(Actor* actor, float Delta);
 };
 
+class RestAction : public Action
+{
+public:
+	RestAction() {};
+	//void execute(Actor* actor, float Delta);
+};
 class ExtraAction : public Action
 {
 public:
-	virtual void execute(Object& obj)
+	ExtraAction() {};
+	void execute(Object* obj,float Delta)
 	{
 		//obj.ExtraAction();
 	};

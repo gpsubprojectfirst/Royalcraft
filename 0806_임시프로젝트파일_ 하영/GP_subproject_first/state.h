@@ -37,7 +37,7 @@ class StateManager
 {
 public:
 	StateManager()
-		: CurState(eState_Attack)
+		: CurState(eState_Idle)
 	{
 
 	}
@@ -60,22 +60,7 @@ public:
 
 	void Update()
 	{
-		bleft = false;
-		if (GetAsyncKeyState(VK_LEFT) & 0x8001)
-		{
-			bleft = false;
-			ChangeState(eState_Move);
-		}
-		else if (GetAsyncKeyState(VK_RIGHT) & 0x8001)
-		{
-			bleft = true;
-			ChangeState(eState_Attack);
-		}
-		else
-		{
-			bleft = false;
-			ChangeState(eState_Idle);
-		}
+		
 	}
 
 	EState GetCurState()

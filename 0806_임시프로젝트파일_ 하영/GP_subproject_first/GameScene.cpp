@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GameScene.h"
 #include "UIDeckWnd.h"
-
+#include "BehaviorTree.h"
 
 GameScene::GameScene()
 {
@@ -11,11 +11,14 @@ GameScene::GameScene()
 	mMap->LoadFile();
 
 	mTree = new SearchTree();
+	mTree->Set(mMap);
+
 	ObjectManager& om = ObjectManager::GetInstance();
 	
-
 	Object::SetMode(&m_IsSelectMode);
 	UIDeckWnd* deck = new UIDeckWnd();
+	blackBoard = new BlackBoard(this->CommandQueue,this->mTree);
+	blackBoard->UpdateData(this->playUnit);
 	deck->Init();
 	Init();
 
@@ -46,9 +49,16 @@ void GameScene::CreateObj(CPoint pt)
 				MyUnit* knight = new MyUnit();
 				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				knight->ParentImg = load;
+
+				knight->curTile.first = i;
+				knight->curTile.second = j;
+				mTree->Set(mMap);
+				knight->mMap = mMap;
 				info.emplace_back(knight);
+				playUnit.emplace_back(knight);
+				blackBoard->UpdateData(playUnit);
+				knight->CreateBT(blackBoard);
 			}
-		
 		}
 	}
 	
@@ -73,7 +83,8 @@ void GameScene::Update(float Delta)
 	{
 		bRender = !bRender;
 	}
-	
+ 	while(!CommandQueue.Empty())
+		CommandQueue.Pop(Delta);
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG)
@@ -121,7 +132,9 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
-		//쓰레드 계산 버그
+		//it->Set(point, mMap, mTree);
+		//mTree->Set(mMap);
+	//쓰레드 계산 버그
 		//it->Set(point,mMap,mTree);
 		//mTree->Set(mMap);
 

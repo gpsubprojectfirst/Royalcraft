@@ -1,74 +1,70 @@
 #pragma once
-#include "pch.h"
-#include "Action.h"
+#include "Command.h"
+//#include "GameScene.h"
+class MyUnit;
+//class GameScene;
+
 enum BTState {
 	eBTState_SUCC,
 	eBTState_FAIL,
 	eBTState_RUN,
 };
 
+//Behavior Tree에 필요한 정보를 가지고 있는 클래스
+class BlackBoard
+{
+public:
+	BlackBoard(Command& InCmQ,SearchTree* InTree);
+	void UpdateData(std::vector<MyUnit*>& vec);
+	Command* cmQ;
+	SearchTree* mTree;
+	std::vector<MyUnit*>* playUnit;
+};
+
+
+
 class BtNode
 {
 public:
 	BtNode();
 	virtual bool Invoke() = 0;
+	void Set(BlackBoard* InBB);
 	BTState node_state; //= eBTState_FAIL;
+	Actor* actor;
+	BlackBoard* bbData;
 };
 
 class ActionNode : public BtNode
 {
 public:
-	//void doActor();
 private:
-	
+	//EAction action_num;
 };
 class CheckUnit : public ActionNode
 {
 public:
-	virtual bool Invoke()
-	{
-		//유닛을 체크
-		return true;
-	}
+	virtual bool Invoke();
 };
 class AttackUnit : public ActionNode
 {
 public:
-	virtual bool Invoke()
-	{
-		//유닛을 공격
-		return true;
-	}
+	virtual bool Invoke();
 };
 class RestUnit : public ActionNode
 {
 public:
-	virtual bool Invoke()
-	{
-		//유닛 휴식
-		return true;
-	}
+	virtual bool Invoke();
 };
 class MoveUnit : public ActionNode
 {
 public:
-	virtual bool Invoke()
-	{
-		//유닛 이동
-		return true;
-	}
+	virtual bool Invoke();
 };
 class CompositeNode : public BtNode
 {
 public:
-	void AddChild(BtNode* node)
-	{
-		mChildren.emplace_back(node);
-	}
-	const std::vector<BtNode*>& GetChildren()
-	{
-		return mChildren;
-	}
+	void AddChild(BtNode* node);
+	const std::vector<BtNode*>& GetChildren();
 
 private:
 	std::vector<BtNode*> mChildren;
@@ -77,111 +73,49 @@ private:
 class Selector : public CompositeNode
 {
 public:
-	virtual bool Invoke() override
-	{
-		for (auto node : GetChildren())
-		{
-			if (node->Invoke())
-				return true;
-		}
-		return false;
-	}
+	virtual bool Invoke() override;
 };
 
 class Sequence : public CompositeNode
 {
 public:
-	virtual bool Invoke() override
-	{
-		for (auto node : GetChildren())
-		{
-			if (!node->Invoke())
-				return false;
-		}
-		return true;
-	}
+	virtual bool Invoke() override;
 };
 class ConditionNode : public BtNode
 {
 public:
-	virtual bool Invoke() override
-	{
-		return true;
-	}
+};
+class IsNearObj : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
+class IsAbleAtk : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
+class IsTargetHas : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
+class IsBuilt : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
 };
 class BehaviorTree
 {
 public:
-	BehaviorTree()
-		:root(nullptr)
-	{
-		Init();
-	}
-	void Init()
-	{
-		root = new Sequence();
-		
-		//composite
-		Selector* RootSelector = new Selector();
-		Sequence* sequence = new Sequence();
-		Sequence* seqMove = new Sequence();
-		Sequence* seqAttack = new Sequence();
-		Selector* selAtktype = new Selector();
-		//action
-		AttackUnit* actAtkUnit = new AttackUnit();
-		MoveUnit* actMoveUnit = new MoveUnit();
-		//condition
-		ConditionNode* IsNearTarget = new ConditionNode();
-		ConditionNode* IsMelee = new ConditionNode();
-		
-		//트리 구성 xml로 맵핑
-		root->AddChild(RootSelector);
-		
-		RootSelector->AddChild(seqAttack);
-		RootSelector->AddChild(seqMove);
+	BehaviorTree(MyUnit* InActor, BlackBoard* InBB);
+	void SetActor(MyUnit* InActor);
+	void Init(MyUnit* InActor, BlackBoard* InBB);
+	void RunSelector(Selector _InSelector);
+	void RunSequencer(Sequence _InSequence);
 
-		seqAttack->AddChild(IsNearTarget);
-		seqAttack->AddChild(selAtktype);
-		
-		selAtktype->AddChild(IsMelee);
-		
-		seqAttack->AddChild(actMoveUnit);
-		seqAttack->AddChild(actAtkUnit);
-		
-		seqMove->AddChild(actMoveUnit);
-		
-		//Tick();
-	}
-	void RunSelector(Selector _InSelector)
-	{
-		for (auto& it : _InSelector.GetChildren())
-		{
-			if (it->Invoke())
-			{
-				;
-			}
-		}
-	}
-	void RunSequencer(Sequence _InSequence)
-	{
-		for (auto& it : _InSequence.GetChildren())
-		{
-			if (!it->Invoke())
-			{
-				;
-			}
-		}
-	}
-
-	void Tick()
-	{
-		while (!root->Invoke())
-		{
-			//트리 순회
-		}
-	}
+	void Tick();
+	void TraverseTree();
 private:
 	Sequence* root;
-	//Actor actor;
-	//std::vector<Action*> actionQueue;
 };

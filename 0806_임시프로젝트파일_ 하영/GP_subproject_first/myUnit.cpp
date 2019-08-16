@@ -8,13 +8,15 @@ MyUnit::MyUnit()
 	curTile = std::make_pair(0, 0);
 	dstTile = std::make_pair(0, 0);
 
+	hp = 100;
 	move_speed = 1;
+	atk_distance = 10;
+	damage = 10;
+	Isdead = false;
 
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
-
-	//bt추가
 }
 void MyUnit::Update(float Delta)
 {
@@ -27,10 +29,7 @@ void MyUnit::Update(float Delta)
 			frame = 0;
 	}
 	//상태 변화, 추후 행동 트리에 추가
-	if (curTile != dstTile)
-		sm.ChangeState(eState_Move);
-	else
-		sm.ChangeState(eState_Idle);
+	UnitBt->Tick();
 	
 	if (sm.GetCurState() == eState_Idle)
 	{
@@ -39,23 +38,26 @@ void MyUnit::Update(float Delta)
 	else if (sm.GetCurState() == eState_Move)
 	{
 		rc = moveRc[direction][frame];
-		Move(Delta);
+		//Move(Delta);
 	}
 	else if (sm.GetCurState() == eState_Attack)
 	{
 		rc = atkRc[frame];
-		Attack(Delta);
+		//Attack(Delta);
 	}
 }
 
 void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
-	int width = rc.Width;
-	int height = rc.Height;
+	//if (!Isdead)
+	{
+		int width = rc.Width;
+		int height = rc.Height;
 
-	Gdiplus::Rect Dst1(posRc.X, posRc.Y, width, height);
-	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
-		nullptr, 0, nullptr);
+		Gdiplus::Rect Dst1(posRc.X, posRc.Y, width, height);
+		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
+			nullptr, 0, nullptr);
+	}
 }
 void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 {
@@ -120,33 +122,29 @@ void MyUnit::ParserXML()
 	}
 	
 }
-void MyUnit::Set(CPoint pt, MyMap* map,SearchTree* mTree)
+
+void MyUnit::Set(SearchTree* mTree)
 {
-	/*if (curTile == dstTile)
+	if (target != nullptr)
 	{
-		dstTile.first = 0; 
-		dstTile.second = 0;
-	}*/
-	for (int i = 0; i < TILECNTX; ++i)
-	{
-		for (int j = 0; j < TILECNTY; ++j)
+		if (moveTilePath.empty())
 		{
-
-			if (map->Infos[i][j].rc.Contains(pt.x,pt.y) && map->Infos[i][j].flags == 0)
-			{
-				//map->Infos[i][j].flags = 1;
-			
-				dstTile.first = i;
-				dstTile.second = j;
-
-				cout << "dst" << i << ", " << j << endl;
-				break;
-			}
+			dstTile.first = target->curTile.first;
+			dstTile.second = target->curTile.second;
+			mTree->FindPath(curTile, dstTile, &moveTilePath);
 		}
 	}
-	while (!moveTilePath.empty())
-		moveTilePath.pop();
-	mTree->FindPath(curTile, dstTile, &moveTilePath);
+	else
+	{
+		if (moveTilePath.empty())
+		{
+			dstTile.first = 10;
+			dstTile.second = 3;
+
+			mTree->FindPath(curTile, dstTile, &moveTilePath);
+		}
+	}
+	
 }
 
 void MyUnit::Move(float Delta)
@@ -158,7 +156,7 @@ void MyUnit::Move(float Delta)
 
 	AddDelta += Delta;
 	
-	if (AddDelta > 0.1f)
+	if (AddDelta > 0.4f)
 	{
 		AddDelta = 0;
 	}
@@ -206,15 +204,15 @@ void MyUnit::Move(float Delta)
 		}
 		//posRc = map->Infos[i][j].rc; //현재 위치 이동
 		
-		posRc.X += (distanceX )  * 0.1;
-		posRc.Y += (distanceY ) * 0.1;
+		posRc.X += (distanceX )  * 0.05;
+		posRc.Y += (distanceY ) * 0.05;
 		
 		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 */
 		//현재 목적지에 캐릭터가 들어왔는지
-		if(abs(posRc.X - tempDstTile.X) < 10 &&
-			abs(posRc.Y - tempDstTile.Y) < 10)
+		if(abs(posRc.X - tempDstTile.X) < 11 &&
+			abs(posRc.Y - tempDstTile.Y) < 15 )
 		{
 			curTile = moveTilePath.top();
 			posRc.X = tempDstTile.X;
@@ -225,10 +223,23 @@ void MyUnit::Move(float Delta)
 
 void MyUnit::Attack(float Delta)
 {
+	if (target == nullptr) std::cout << "targetnull" << std::endl;
 
+	if (target->hp > 0)
+		target->hp -= this->damage;
+	else
+	{
+		target->Isdead = true;
+		std::cout << "target is dead" << std::endl;
+	}
 }
 
 void MyUnit::ExtraAction(float Delta)
 {
 
+}
+
+void MyUnit::CreateBT(BlackBoard* InBB)
+{
+	UnitBt = new BehaviorTree(this,InBB);
 }

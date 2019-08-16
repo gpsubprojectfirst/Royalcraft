@@ -216,6 +216,7 @@ void SearchTree::SortList()
 
 void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std::stack<std::pair<int, int>>* vecPath)
 {
+	assert(str.first < TILECNTX || str.second < TILECNTY);
 	strNode = &Map[str.first][str.second];
 	dstNode = &Map[dst.first][dst.second];
 	
@@ -244,8 +245,8 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std:
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				scNode* tempChild = GetChild(strNode)[i];
-
+				auto temp = GetChild(strNode);
+				auto tempChild = temp[i];
 				if (tempChild == nullptr)
 				{
 					continue;

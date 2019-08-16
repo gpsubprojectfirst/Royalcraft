@@ -7,7 +7,7 @@ ObjectManager::ObjectManager()
 	knight->name = "knight";
 	knight->ID = 0;
 	knight->ParserXML();
-	
+
 	mObj[eObject_Unit].emplace_back(knight);
 	//UnitObj.emplace_back(knight);
 }

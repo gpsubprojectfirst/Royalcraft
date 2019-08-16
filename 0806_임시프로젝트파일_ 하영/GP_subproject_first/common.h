@@ -34,6 +34,12 @@ enum EObject
 	eObject_Cnt,
 };
 
+enum EAction
+{
+	eAction_Rest,
+	eAction_Move,
+	eAction_Attack,
+};
 enum EAtkType
 {
 	eAttack_None,

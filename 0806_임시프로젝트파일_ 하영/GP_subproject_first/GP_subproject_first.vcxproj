@@ -222,6 +222,7 @@
     <ClInclude Include="UIDeckWnd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
     <ClCompile Include="ChildView.cpp" />
