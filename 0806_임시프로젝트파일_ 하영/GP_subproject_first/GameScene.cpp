@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GameScene.h"
+#include "UIDeckWnd.h"
 #include "BehaviorTree.h"
-#include "UIDeck.h"
 
 GameScene::GameScene()
 {
@@ -15,12 +15,14 @@ GameScene::GameScene()
 
 	ObjectManager& om = ObjectManager::GetInstance();
 	
+	Object::SetMode(&m_IsSelectMode);
+	UIDeckWnd* deck = new UIDeckWnd();
 	blackBoard = new BlackBoard(this->CommandQueue,this->mTree);
 	blackBoard->UpdateData(this->playUnit);
-
-	UIDeck* deck = new UIDeck();
 	deck->Init();
 	Init();
+
+	MouseMgr::GetInstance().Init();
 
 	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
 	//ID: 0,name: knight 
@@ -35,9 +37,6 @@ void GameScene::CreateObj(CPoint pt)
 	Point mPoint;
 	mPoint.X = pt.x;
 	mPoint.Y = pt.y;
-
-	int xIdx;
-	int yIdx;
 
 	for (int i = 0; i < TILECNTX; ++i)
 	{
@@ -65,6 +64,7 @@ void GameScene::CreateObj(CPoint pt)
 	
 }
 
+
 void GameScene::Init()
 {
 	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
@@ -72,6 +72,8 @@ void GameScene::Init()
 
 void GameScene::Update(float Delta)
 {
+	KeyMgr::GetInstance().CheckKey();
+
 	for (auto& it : this->info)
 	{
 		it->Update(Delta);
@@ -109,6 +111,11 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		
 		it->Render(MemG);
 	}
+
+	if (m_IsSelectMode)
+	{
+		MouseMgr::GetInstance().Render(MemG);
+	}
 }
 
 void GameScene::Release()
@@ -121,13 +128,13 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 	CreateObj(point);
 	for (auto& it : this->info)
 	{
-		std::cout << "x: " << point.x << "y: " << point.y << endl;
+		//std::cout <<"x:" <<point.x << "," << point.y << endl;
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 
 		//it->Set(point, mMap, mTree);
-		mTree->Set(mMap);
-		//쓰레드 계산 버그
+		//mTree->Set(mMap);
+	//쓰레드 계산 버그
 		//it->Set(point,mMap,mTree);
 		//mTree->Set(mMap);
 

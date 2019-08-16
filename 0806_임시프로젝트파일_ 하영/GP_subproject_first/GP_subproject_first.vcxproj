@@ -201,11 +201,12 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GP_subproject_first.h" />
+    <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="LogoScene.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MapEditor.h" />
-    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="myMap.h" />
     <ClInclude Include="myUnit.h" />
     <ClInclude Include="Object.h" />
@@ -218,7 +219,7 @@
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="UIDeck.h" />
+    <ClInclude Include="UIDeckWnd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
@@ -228,11 +229,12 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GP_subproject_first.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="LogoScene.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MapEditor.cpp" />
-    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="myMap.cpp" />
     <ClCompile Include="myUnit.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -248,7 +250,7 @@
     <ClCompile Include="SearchTree.cpp" />
     <ClCompile Include="SingleTon.cpp" />
     <ClCompile Include="state.cpp" />
-    <ClCompile Include="UIDeck.cpp" />
+    <ClCompile Include="UIDeckWnd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GPsubprojectfirst.rc" />
