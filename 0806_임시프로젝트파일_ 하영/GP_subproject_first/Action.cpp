@@ -9,5 +9,9 @@ void MoveAction::execute(Actor* actor, float Delta)
 void AttackAction::execute(Actor* actor, float Delta)
 {
 	actor->obj->sm.ChangeState(eState_Attack);
-	actor->obj->Attack(Delta);
+	if (actor->obj->frame == 10)
+	{
+		actor->obj->Attack(Delta);
+		actor->obj->frame++;
+	}
 };

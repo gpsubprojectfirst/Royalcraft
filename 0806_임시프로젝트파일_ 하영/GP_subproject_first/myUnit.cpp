@@ -49,7 +49,7 @@ void MyUnit::Update(float Delta)
 
 void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
-	if (!Isdead)
+	//if (!Isdead)
 	{
 		int width = rc.Width;
 		int height = rc.Height;
@@ -204,15 +204,15 @@ void MyUnit::Move(float Delta)
 		}
 		//posRc = map->Infos[i][j].rc; //현재 위치 이동
 		
-		posRc.X += (distanceX )  * 0.1;
-		posRc.Y += (distanceY ) * 0.1;
+		posRc.X += (distanceX )  * 0.05;
+		posRc.Y += (distanceY ) * 0.05;
 		
 		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 */
 		//현재 목적지에 캐릭터가 들어왔는지
-		if(abs(posRc.X - tempDstTile.X) < 10 &&
-			abs(posRc.Y - tempDstTile.Y) < 10)
+		if(abs(posRc.X - tempDstTile.X) < 11 &&
+			abs(posRc.Y - tempDstTile.Y) < 15 )
 		{
 			curTile = moveTilePath.top();
 			posRc.X = tempDstTile.X;
@@ -224,15 +224,14 @@ void MyUnit::Move(float Delta)
 void MyUnit::Attack(float Delta)
 {
 	if (target == nullptr) std::cout << "targetnull" << std::endl;
-	if (Delta > 0.5f)
-	{
-		
-	}
 
 	if (target->hp > 0)
 		target->hp -= this->damage;
 	else
+	{
 		target->Isdead = true;
+		std::cout << "target is dead" << std::endl;
+	}
 }
 
 void MyUnit::ExtraAction(float Delta)

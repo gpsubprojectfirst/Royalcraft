@@ -159,7 +159,8 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsAbleAtk* IsAttack = new IsAbleAtk();
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsBuilt* IsBuild = new IsBuilt();
-	//트리 구성 xml로 맵핑
+
+	//트리 구성 추후 xml로 맵핑
 	root->AddChild(RootSelector);
 
 	RootSelector->AddChild(seqNearObj);
