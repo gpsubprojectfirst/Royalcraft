@@ -12,7 +12,6 @@ private:
 	int			m_iSelectedCell;
 	int			m_itempCell;
 	int			m_iIndex;
-	bool		m_bOnItem;
 
 	DWORD	m_dwKey;
 	bool	m_bOpenComplete;   //  ¿µ¿ª¿¡¼­ ¹þ¾î³´À» ¶§
@@ -24,7 +23,7 @@ private:
 */
 public:
 	Gdiplus::Image* deckIcon;
-
+    static bool		m_bOnItem;
 
 public:
 	virtual void Init();

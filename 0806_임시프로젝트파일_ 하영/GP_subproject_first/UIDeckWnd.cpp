@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "UIDeckWnd.h"
 
+
+bool UIDeckWnd::m_bOnItem = false;
 enum ICON
 {
 	ICON_SLOT,
@@ -30,7 +32,6 @@ void UIDeckWnd::Init()
 
 	}*/
 
-	
 	m_dwKey = 0x00000000;
 	pSet.x = 0;
 	pSet.y = 0;
@@ -57,14 +58,15 @@ void UIDeckWnd::Update(float Delta)
 
 	if ((m_pt.x > 167) && (m_pt.x < 239) && (m_pt.y > 808) && (m_pt.y < 900))
 	{
-		m_bOnItem = true;
+		UIDeckWnd::m_bOnItem = true;
+		m_iSelectedCell = 1;
 	}
 	else
 	{
-		m_bOnItem = false;
+		UIDeckWnd::m_bOnItem = false;
 	}
 
-	if (m_bOnItem)
+	if (UIDeckWnd::m_bOnItem)
 	{
 		//pSet.x = 8 + (31 * (m_pt.x / 31)) + 72;
 		//pSet.y = 28 + (31 * (m_pt.y / 31)) - 92;
@@ -87,7 +89,7 @@ void UIDeckWnd::Update(float Delta)
 
 void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 {
-	if (m_bOnItem)
+	if (UIDeckWnd::m_bOnItem)
 	{
 		//167,808 slot1 Knight
 		Gdiplus::Pen pen(Color(255, 0, 0), 10.0f);
@@ -131,15 +133,15 @@ void UIDeckWnd::SelectItem()
 {
 	KeyMgr::GetInstance().SetKey();
 
-	if (!m_bOnItem)
+	if (!UIDeckWnd::m_bOnItem)
 		return;
 
 
 	MOUSEINFO tempInfo;
 	memset(&tempInfo, 0, sizeof(tempInfo));
-	if (m_iSelectedCell < 5 && m_bOnItem)
+	//if (m_iSelectedCell < 5 && m_bOnItem)
 		*m_pIsSelectMode = true;
-	m_iSelectedCell = 1;
+	
 	switch (m_iSelectedCell)
 	{
 	case ICON_KNIGHT:

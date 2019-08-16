@@ -64,9 +64,9 @@ void GameScene::CreateObj(CPoint pt)
 	
 }
 
-
 void GameScene::Init()
 {
+	Object::SetMode(&m_IsSelectMode);
 	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
 }
 
@@ -79,7 +79,23 @@ void GameScene::Update(float Delta)
 		it->Update(Delta);
 	}
 
-	if (GetAsyncKeyState(VK_F1) & 0x8001)
+	if (m_IsSelectMode)
+	{
+		POINT pt = MouseMgr::GetInstance().GetMousePos();
+
+		MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
+
+		//TODO : KEY_LBUTTON
+		if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+		{
+			m_IsSelectMode = false;
+			CPoint _cPt(pt.x, pt.y);
+			//캐릭터 생성
+			CreateObj(_cPt);
+		}
+	}
+
+	if (KeyMgr::GetInstance().GetKey() & VK_F1)
 	{
 		bRender = !bRender;
 	}
@@ -112,7 +128,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		it->Render(MemG);
 	}
 
-	if (m_IsSelectMode)
+	if (m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
 	{
 		MouseMgr::GetInstance().Render(MemG);
 	}
@@ -125,7 +141,7 @@ void GameScene::Release()
 
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	CreateObj(point);
+	//CreateObj(point);
 	for (auto& it : this->info)
 	{
 		//std::cout <<"x:" <<point.x << "," << point.y << endl;

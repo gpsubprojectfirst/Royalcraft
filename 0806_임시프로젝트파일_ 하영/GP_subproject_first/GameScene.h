@@ -20,6 +20,7 @@ public:
 	BlackBoard* blackBoard;
 	bool bRender = false;
 	bool	m_IsSelectMode;
+	bool	m_Renderflag;
 
 public:
 
