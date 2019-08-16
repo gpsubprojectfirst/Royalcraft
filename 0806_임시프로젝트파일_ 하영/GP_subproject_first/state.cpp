@@ -41,6 +41,8 @@ bool State_Move::ChangeState(EState InState)
 	{
 	case eState_Idle:
 		return true;
+	case eState_Attack:
+		return true;
 	}
 	return false;
 };

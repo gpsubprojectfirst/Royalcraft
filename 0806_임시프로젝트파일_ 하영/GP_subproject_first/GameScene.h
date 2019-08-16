@@ -15,7 +15,7 @@ public:
 	SearchTree* mTree;
 	Command CommandQueue;
 	MyUnit* knight;
-	std::vector<MyUnit> playUnit;
+	std::vector<MyUnit*> playUnit;
 	BlackBoard* blackBoard;
 	bool bRender = false;
 

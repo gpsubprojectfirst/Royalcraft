@@ -10,7 +10,7 @@ public:
 	MyUnit();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
-	virtual void Set(CPoint pt,MyMap* map,SearchTree* mTree);
+	virtual void Set(SearchTree* mTree);
 	virtual void ParserXML();
 	virtual void CopyObj( MyUnit* dst, int ix, int iy );
 	
@@ -19,19 +19,19 @@ public:
 	virtual void ExtraAction(float Delta);
 	void CreateBT(BlackBoard* InBB);
 	//유닛 스탯, 추후 csv에서 로드
-	float damage;
-	float hp;
+	int damage;
+	int hp;
 	EAtkType atk_type;
 	float atk_speed;
 	float move_speed;
 	int cost;
-	float atk_distance;
-
+	int atk_distance;
+	bool Isdead;
 	//utill
 	float AddDelta;
 	//Behavior Tree
 	BehaviorTree* UnitBt;
-	Object* target; //목적 오브젝트
+	MyUnit* target; //목적 오브젝트
 
 	//Tile Position
 	std::pair<int,int> curTile; //현재 타일의 좌표

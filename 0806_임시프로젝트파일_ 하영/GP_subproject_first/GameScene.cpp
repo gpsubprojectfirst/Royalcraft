@@ -11,9 +11,11 @@ GameScene::GameScene()
 	mMap->LoadFile();
 
 	mTree = new SearchTree();
+	mTree->Set(mMap);
+
 	ObjectManager& om = ObjectManager::GetInstance();
 	
-	blackBoard = new BlackBoard(this->CommandQueue);
+	blackBoard = new BlackBoard(this->CommandQueue,this->mTree);
 	blackBoard->UpdateData(this->playUnit);
 
 	UIDeck* deck = new UIDeck();
@@ -48,10 +50,15 @@ void GameScene::CreateObj(CPoint pt)
 				MyUnit* knight = new MyUnit();
 				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				knight->ParentImg = load;
-				knight->CreateBT(blackBoard);
+
+				knight->curTile.first = i;
+				knight->curTile.second = j;
+				mTree->Set(mMap);
+				knight->mMap = mMap;
 				info.emplace_back(knight);
-				playUnit.emplace_back(*knight);
+				playUnit.emplace_back(knight);
 				blackBoard->UpdateData(playUnit);
+				knight->CreateBT(blackBoard);
 			}
 		}
 	}
@@ -119,7 +126,7 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		if (it->Enable == false) continue;
 
 		//it->Set(point, mMap, mTree);
-		//mTree->Set(mMap);
+		mTree->Set(mMap);
 		//쓰레드 계산 버그
 		//it->Set(point,mMap,mTree);
 		//mTree->Set(mMap);
