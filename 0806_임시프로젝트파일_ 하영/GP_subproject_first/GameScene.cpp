@@ -44,20 +44,36 @@ void GameScene::CreateObj(CPoint pt)
 		{
 			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 			{
-				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\Knight.png"));
+				/*
+				ID:
+				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+				*/
+				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png"));
 
-				MyUnit* knight = new MyUnit();
-				knight->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
-				knight->ParentImg = load;
+				MyUnit* mUnit = new MyUnit();
+				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
+				mUnit->ParentImg = load;
 
-				knight->curTile.first = i;
-				knight->curTile.second = j;
+				mUnit->curTile.first = i;
+				mUnit->curTile.second = j;
 				mTree->Set(mMap);
-				knight->mMap = mMap;
-				info.emplace_back(knight);
-				playUnit.emplace_back(knight);
+				mUnit->mMap = mMap;
+				info.emplace_back(mUnit);
+				playUnit.emplace_back(mUnit);
 				blackBoard->UpdateData(playUnit);
-				knight->CreateBT(blackBoard);
+				mUnit->CreateBT(blackBoard);
 			}
 		}
 	}

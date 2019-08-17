@@ -21,10 +21,11 @@ MyUnit::MyUnit()
 void MyUnit::Update(float Delta)
 {
 	AddDelta += Delta;
-	if (AddDelta > 0.2f)
+	if (AddDelta > 0.1f)
 	{
 		frame++;
 		AddDelta = 0;
+		
 		if (frame > 10)
 			frame = 0;
 	}
@@ -37,12 +38,14 @@ void MyUnit::Update(float Delta)
 	}
 	else if (sm.GetCurState() == eState_Move)
 	{
-		rc = moveRc[direction][frame];
+		int frame_ = frame % moveRc[direction].size();
+		rc = moveRc[direction][frame_];
 		//Move(Delta);
 	}
 	else if (sm.GetCurState() == eState_Attack)
 	{
-		rc = atkRc[frame];
+		int frame_ = frame % atkRc.size();
+		rc = atkRc[frame_];
 		//Attack(Delta);
 	}
 }
@@ -74,15 +77,19 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 
 void MyUnit::ParserXML()
 {
+	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
+	//doc->LoadFile("Xml\\knight.xml");
+	/*
+	ID:
+	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+	*/
 	if (ID == 0)
 	{
-		tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
 		doc->LoadFile("Xml\\knight.xml");
-
 		tinyxml2::XMLElement* Root = doc->RootElement();
 		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-		// 이동
-		for (int k = 0; k < 4;k++)
+		for (int k = 0; k < 4; k++)
 		{
 			for (int i = 0; i < 12; i++)
 			{
@@ -97,6 +104,7 @@ void MyUnit::ParserXML()
 				Node = Node->NextSiblingElement();
 			}
 		}
+
 		for (int i = 0; i < 12; i++)
 		{
 			moveRc[4].emplace_back(Node->IntAttribute("x")
@@ -106,7 +114,7 @@ void MyUnit::ParserXML()
 			Node = Node->NextSiblingElement();
 		}
 		// idle
-		for (int i = 108; i < 116;i++)
+		for (int i = 108; i < 116; i++)
 		{
 			Node = Node->NextSiblingElement();
 		}
@@ -120,6 +128,562 @@ void MyUnit::ParserXML()
 			Node = Node->NextSiblingElement();
 		}
 	}
+	if (ID == 1)
+	{
+		doc->LoadFile("Xml\\axeman.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 72; i < 90; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 90; i < 100; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 2)
+	{
+		doc->LoadFile("Xml\\darknight.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 10; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 91; i < 100; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 100; i < 108; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 3)
+	{
+		doc->LoadFile("Xml\\electric.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int i = 0; i < 8; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[2].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[0].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[1].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[3].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 72; i < 81; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 81; i < 89; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 4)
+	{
+		doc->LoadFile("Xml\\giant.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 16; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 16; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+
+		for (int i = 0; i < 16; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		//공격
+		for (int i = 144; i < 154; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 5)
+	{
+		doc->LoadFile("Xml\\archer.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 72; i < 82; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 82; i < 87; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 6)
+	{
+		doc->LoadFile("Xml\\lumberjack.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 3; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[3].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 64; i < 73; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 73; i < 82; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 7)
+	{
+		doc->LoadFile("Xml\\musket.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int i = 0; i < 10; i++)
+		{
+			moveRc[0].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 10; i < 23; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 23; i < 35; i++)
+		{
+			moveRc[1].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 35; i < 47; i++)
+		{
+			moveRc[2].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 47; i < 59; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 59; i < 71; i++)
+		{
+			moveRc[3].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 71; i < 95; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 95; i < 107; i++)
+		{
+			moveRc[3].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 107; i < 116; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 116; i < 126; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 8)
+	{
+		doc->LoadFile("Xml\\varkirey.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 73; i < 82; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 82; i < 91; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 9)
+	{
+		doc->LoadFile("Xml\\vavarian.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 73; i < 82; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 82; i < 92; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 10)
+	{
+		doc->LoadFile("Xml\\vendit.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 73; i < 92; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 92; i < 100; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 11)
+	{
+		doc->LoadFile("Xml\\wizard.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		for (int k = 0; k < 4; k++)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				moveRc[k].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				Node = Node->NextSiblingElement();
+			}
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			moveRc[4].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		// idle
+		for (int i = 73; i < 86; i++)
+		{
+			Node = Node->NextSiblingElement();
+		}
+		//공격
+		for (int i = 86; i < 93; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	
 	
 }
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:46aecd179fd805ffcac453e13a3f04d0:9e144300e553a914557372c2e656022c:3a3f1c41fa724cdf1902fbff723391ed$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="archer.png" width="509" height="1991">
+    <sprite n="chr_electro_wizard_sprite_  (1).png" x="258" y="1680" w="81" h="100" oX="29" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (2).png" x="80" y="1680" w="75" h="98" oX="37" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (3).png" x="85" y="1291" w="72" h="93" oX="38" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (4).png" x="1" y="1386" w="68" h="93" oX="41" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (5).png" x="130" y="1103" w="66" h="91" oX="45" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (6).png" x="301" y="1291" w="67" h="93" oX="45" oY="11" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (7).png" x="127" y="1010" w="73" h="91" oX="39" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (8).png" x="1" y="1581" w="76" h="96" oX="36" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (9).png" x="198" y="1103" w="68" h="91" oX="45" oY="7" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (10).png" x="83" y="827" w="64" h="89" oX="45" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (11).png" x="364" y="1010" w="58" h="91" oX="39" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (12).png" x="70" y="918" w="60" h="89" oX="44" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (13).png" x="438" y="391" w="67" h="82" oX="44" oY="7" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (14).png" x="140" y="475" w="61" h="83" oX="47" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (15).png" x="159" y="1291" w="62" h="93" oX="43" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (16).png" x="440" y="1291" w="63" h="93" oX="47" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (17).png" x="410" y="561" w="65" h="85" oX="46" oY="5" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (18).png" x="303" y="391" w="58" h="82" oX="50" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (19).png" x="1" y="737" w="49" h="87" oX="44" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (20).png" x="73" y="1103" w="55" h="91" oX="48" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (21).png" x="426" y="648" w="62" h="87" oX="48" oY="6" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (22).png" x="264" y="737" w="57" h="87" oX="48" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (23).png" x="268" y="1103" w="50" h="91" oX="45" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (24).png" x="132" y="918" w="51" h="89" oX="50" oY="7" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (25).png" x="68" y="475" w="70" h="83" oX="43" oY="6" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (26).png" x="354" y="148" w="63" h="76" oX="48" oY="11" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (27).png" x="1" y="391" w="58" h="81" oX="43" oY="22" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (28).png" x="1" y="1010" w="64" h="90" oX="44" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (29).png" x="1" y="918" w="67" h="89" oX="45" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (30).png" x="359" y="648" w="65" h="87" oX="45" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (31).png" x="371" y="475" w="62" h="84" oX="41" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (32).png" x="447" y="308" w="56" h="81" oX="46" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (33).png" x="435" y="475" w="63" h="84" oX="42" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (34).png" x="289" y="148" w="63" h="76" oX="41" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (35).png" x="334" y="73" w="71" h="72" oX="32" oY="25" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (36).png" x="1" y="561" w="79" h="84" oX="26" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (37).png" x="1" y="827" w="80" h="88" oX="25" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (38).png" x="227" y="391" w="74" h="82" oX="31" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (39).png" x="280" y="1" w="70" h="69" oX="35" oY="22" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (40).png" x="74" y="308" w="65" h="80" oX="41" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (41).png" x="324" y="1483" w="74" h="96" oX="27" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (42).png" x="142" y="1386" w="71" h="93" oX="32" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (43).png" x="149" y="827" w="74" h="89" oX="35" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (44).png" x="79" y="1581" w="76" h="97" oX="35" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (45).png" x="1" y="1196" w="76" h="92" oX="36" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (46).png" x="408" y="1386" w="74" h="95" oX="37" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (47).png" x="402" y="737" w="73" h="88" oX="35" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (48).png" x="185" y="918" w="71" h="90" oX="31" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (49).png" x="157" y="1581" w="80" h="97" oX="36" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (50).png" x="305" y="1581" w="70" h="97" oX="44" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (51).png" x="71" y="1386" w="69" h="93" oX="37" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (52).png" x="295" y="648" w="62" h="86" oX="40" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (53).png" x="1" y="475" w="65" h="83" oX="43" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (54).png" x="64" y="648" w="62" h="85" oX="44" oY="11" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (55).png" x="370" y="1291" w="68" h="93" oX="42" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (56).png" x="377" y="1581" w="72" h="97" oX="43" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (57).png" x="1" y="227" w="67" h="77" oX="42" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (58).png" x="88" y="148" w="60" h="73" oX="46" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (59).png" x="407" y="73" w="63" h="73" oX="43" oY="27" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (60).png" x="333" y="561" w="75" h="85" oX="32" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (61).png" x="412" y="827" w="76" h="89" oX="33" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (62).png" x="262" y="561" w="69" h="84" oX="40" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (63).png" x="150" y="148" w="65" h="74" oX="41" oY="22" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (64).png" x="228" y="227" w="58" h="77" oX="43" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (65).png" x="128" y="648" w="74" h="86" oX="34" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (66).png" x="1" y="308" w="71" h="79" oX="32" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (67).png" x="352" y="1" w="74" h="69" oX="26" oY="24" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (68).png" x="369" y="308" w="76" h="81" oX="24" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (69).png" x="184" y="561" w="76" h="84" oX="22" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (70).png" x="70" y="227" w="74" h="77" oX="24" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (71).png" x="428" y="1" w="73" h="70" oX="27" oY="24" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (72).png" x="154" y="391" w="71" h="82" oX="33" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (73).png" x="1" y="1680" w="77" h="98" oX="29" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (74).png" x="1" y="1483" w="75" h="95" oX="31" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (75).png" x="258" y="918" w="70" h="90" oX="34" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (76).png" x="374" y="1196" w="66" h="93" oX="33" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (77).png" x="202" y="1010" w="63" h="91" oX="32" oY="21" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (78).png" x="1" y="648" w="61" h="85" oX="30" oY="28" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (79).png" x="220" y="308" w="67" h="80" oX="34" oY="31" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (80).png" x="217" y="148" w="70" h="74" oX="34" oY="33" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (81).png" x="255" y="73" w="77" h="72" oX="30" oY="32" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (82).png" x="105" y="1782" w="98" h="101" oX="14" oY="4" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (83).png" x="292" y="1782" w="82" h="102" oX="23" oY="3" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (84).png" x="232" y="1196" w="85" h="93" oX="25" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (85).png" x="81" y="73" w="92" h="70" oX="35" oY="37" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (86).png" x="61" y="391" w="91" h="82" oX="35" oY="31" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (87).png" x="204" y="648" w="89" h="86" oX="34" oY="22" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (88).png" x="1" y="1291" w="82" h="93" oX="33" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (89).png" x="78" y="1483" w="88" h="96" oX="19" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (90).png" x="168" y="1483" w="88" h="96" oX="10" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (91).png" x="320" y="1103" w="74" h="91" oX="27" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (92).png" x="386" y="227" w="86" h="79" oX="44" oY="34" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (93).png" x="330" y="918" w="82" h="90" oX="44" oY="30" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (94).png" x="52" y="737" w="76" h="87" oX="43" oY="21" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (95).png" x="323" y="737" w="77" h="88" oX="36" oY="16" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (96).png" x="147" y="1196" w="83" h="93" oX="17" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (97).png" x="157" y="1680" w="99" h="99" oX="4" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (98).png" x="400" y="1483" w="75" h="96" oX="25" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (99).png" x="141" y="308" w="77" h="80" oX="48" oY="29" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (100).png" x="396" y="1103" w="72" h="91" oX="47" oY="26" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (101).png" x="199" y="737" w="63" h="87" oX="47" oY="22" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (102).png" x="1" y="1103" w="70" h="91" oX="36" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (103).png" x="326" y="827" w="84" h="89" oX="14" oY="23" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (104).png" x="1" y="1782" w="102" h="100" oX="0" oY="12" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (105).png" x="376" y="1782" w="74" h="102" oX="25" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (106).png" x="79" y="1196" w="66" h="92" oX="49" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (107).png" x="258" y="1483" w="64" h="96" oX="50" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (108).png" x="319" y="1196" w="53" h="93" oX="48" oY="18" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (109).png" x="67" y="1010" w="58" h="91" oX="37" oY="21" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (110).png" x="414" y="918" w="80" h="90" oX="13" oY="23" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (111).png" x="215" y="1386" w="94" h="94" oX="2" oY="18" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (112).png" x="341" y="1680" w="71" h="100" oX="22" oY="13" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (113).png" x="1" y="1886" w="79" h="103" oX="48" oY="10" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (114).png" x="82" y="1886" w="76" h="104" oX="48" oY="8" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (115).png" x="239" y="1581" w="64" h="97" oX="47" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (116).png" x="130" y="737" w="67" h="87" oX="35" oY="26" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (117).png" x="297" y="475" w="72" h="84" oX="19" oY="26" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (118).png" x="289" y="308" w="78" h="81" oX="10" oY="29" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (119).png" x="424" y="1010" w="79" h="91" oX="27" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (120).png" x="160" y="1886" w="89" h="104" oX="44" oY="6" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (121).png" x="205" y="1782" w="85" h="101" oX="45" oY="9" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (122).png" x="223" y="1291" w="76" h="93" oX="43" oY="17" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (123).png" x="363" y="391" w="73" h="82" oX="37" oY="29" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (124).png" x="175" y="73" w="78" h="72" oX="29" oY="34" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (125).png" x="1" y="73" w="78" h="70" oX="20" oY="43" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (126).png" x="419" y="148" w="89" h="77" oX="26" oY="30" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (127).png" x="311" y="1386" w="95" h="95" oX="37" oY="11" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (128).png" x="267" y="1010" w="95" h="91" oX="33" oY="15" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (129).png" x="203" y="475" w="92" h="83" oX="28" oY="24" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (130).png" x="146" y="227" w="80" h="77" oX="33" oY="30" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (131).png" x="1" y="1" w="94" h="58" oX="22" oY="46" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (132).png" x="97" y="1" w="86" h="63" oX="22" oY="52" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (133).png" x="185" y="1" w="93" h="67" oX="22" oY="36" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (134).png" x="225" y="827" w="99" h="89" oX="21" oY="14" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (135).png" x="82" y="561" w="100" h="84" oX="17" oY="19" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (136).png" x="288" y="227" w="96" h="78" oX="16" oY="25" oW="134" oH="124"/>
+    <sprite n="chr_electro_wizard_sprite_  (137).png" x="1" y="148" w="85" h="73" oX="23" oY="30" oW="134" oH="124"/>
+</TextureAtlas>
