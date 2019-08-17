@@ -2,14 +2,14 @@
 
 ObjectManager::ObjectManager()
 {
-	//test unit knight
-	MyUnit* knight = new MyUnit();
-	knight->name = "knight";
-	knight->ID = 0;
-	knight->ParserXML();
-
-	mObj[eObject_Unit].emplace_back(knight);
-	//UnitObj.emplace_back(knight);
+	//ÀüÃ¼ À¯´Ö ÆÄ½Ì
+	for (int i = 0; i < 12; i++)
+	{
+		MyUnit* mUnit = new MyUnit();
+		mUnit->ID = i;
+		mUnit->ParserXML();
+		mObj[eObject_Unit].emplace_back(mUnit);
+	}
 }
 
 Object* ObjectManager::GetObj(int InID)
