@@ -37,7 +37,7 @@ void SearchTree::Set(MyMap* mMap)
 	{
 		for (int j = 0; j < TILECNTY; j++)
 		{
-			if(mMap->Infos[i][j].flags == 1)
+			if(mMap->Infos[i][j].flags == 1 )
 				Map[i][j].visitF = true;
 		}
 	}

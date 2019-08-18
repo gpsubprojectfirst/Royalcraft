@@ -17,6 +17,7 @@ MyUnit::MyUnit()
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
+	sm.Add(new State_Dead);
 }
 void MyUnit::Update(float Delta)
 {
@@ -698,7 +699,7 @@ void MyUnit::ParserXML()
 
 void MyUnit::Set(SearchTree* mTree)
 {
-	if (!moveTilePath.empty())
+	while (!moveTilePath.empty())
 		moveTilePath.pop();
 	mTree->FindPath(curTile, dstTile, &moveTilePath);
 	mTree->Set(mMap);
@@ -818,4 +819,5 @@ void MyUnit::ExtraAction(float Delta)
 void MyUnit::CreateBT(BlackBoard* InBB)
 {
 	UnitBt = new BehaviorTree(this,InBB);
+	UnitBt->Init(this, InBB);
 }

@@ -21,3 +21,13 @@
 		<seqMoveToBuild>
 			<IsBuild>
 			<actMoveUnit>
+
+<root>
+ <rootSelector>
+	<seqNearObj>
+		<IsNear>
+		<seqAttack>
+			<IsAttack>
+			<actAtkUnit>
+ <IsDeadUnit>
+ <actRestUnit>

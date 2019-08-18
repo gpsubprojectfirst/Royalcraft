@@ -94,8 +94,9 @@ bool IsNearObj::Invoke()
 	for (auto it : *bbData->playUnit)
 	{
 		if (sqrt(pow(it->curPos.X - actor->obj->curPos.X,2)
-			+ pow(it->curPos.Y - actor->obj->curPos.Y,2)) < 100 &&
+			+ pow(it->curPos.Y - actor->obj->curPos.Y,2)) < 300 &&
 			it != actor->obj &&
+			it->teamBlue != actor->obj->teamBlue &&
 			!it->Isdead )
 		{
 			if(actor->obj->target == nullptr)
@@ -157,8 +158,8 @@ bool IsDead::Invoke()
 BehaviorTree::BehaviorTree(MyUnit* InActor, BlackBoard* InBB)
 	:root(nullptr)
 {
-	Init(InActor, InBB);
 }
+
 void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 {
 	root = new Sequence();
@@ -183,8 +184,8 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
 	//트리 구성 추후 xml로 맵핑
-	root->AddChild(RootSelector);
 	root->AddChild(IsDeadUnit);
+	root->AddChild(RootSelector);
 
 	RootSelector->AddChild(seqNearObj);
 	RootSelector->AddChild(selMoveTarget);
@@ -207,6 +208,38 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	seqMoveToBuild->AddChild(IsBuild);
 	seqMoveToBuild->AddChild(actMoveUnit);
 	//Tick();
+}
+
+void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
+{
+	root = new Sequence();
+	root->bbData = InBB;
+	SetActor(InActor);
+
+	Selector* RootSelector = new Selector();
+	Sequence* seqNearObj = new Sequence();
+	Sequence* seqAttack = new Sequence();
+	
+	AttackUnit* actAtkUnit = new AttackUnit();
+	RestUnit* actRestUnit = new RestUnit();
+
+	IsNearObj* IsNear = new IsNearObj();
+	IsAbleAtk* IsAttack = new IsAbleAtk();
+	IsTargetHas* IsTarget = new IsTargetHas();
+	IsDead* IsDeadUnit = new IsDead();
+
+	root->AddChild(RootSelector);
+	root->AddChild(IsDeadUnit);
+	root->AddChild(actRestUnit);
+
+	RootSelector->AddChild(seqNearObj);
+	//
+	seqNearObj->AddChild(IsNear);
+	seqNearObj->AddChild(seqAttack);
+	////
+	seqAttack->AddChild(IsAttack);
+	seqAttack->AddChild(actAtkUnit);
+	/////
 }
 void BehaviorTree::SetActor(MyUnit* InActor)
 {
