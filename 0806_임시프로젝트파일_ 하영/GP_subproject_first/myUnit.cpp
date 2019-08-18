@@ -56,8 +56,9 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 	{
 		int width = rc.Width;
 		int height = rc.Height;
-
-		Gdiplus::Rect Dst1(posRc.X, posRc.Y, width, height);
+		
+		Gdiplus::Rect Dst1(curPos.X - width/4, curPos.Y - height/4, width / 2, height / 2);
+		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 	}
@@ -71,8 +72,9 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 		moveRc[i] = dst->moveRc[i];
 	}
 	atkRc = dst->atkRc;
-	Gdiplus::Rect Dst(ix, iy, ix+50, iy+50);
-	posRc = Dst;
+
+	curPos.X = ix;
+	curPos.Y = iy;
 }
 
 void MyUnit::ParserXML()
@@ -696,6 +698,7 @@ void MyUnit::Set(SearchTree* mTree)
 			dstTile.first = target->curTile.first;
 			dstTile.second = target->curTile.second;
 			mTree->FindPath(curTile, dstTile, &moveTilePath);
+			mTree->Set(mMap);
 		}
 	}
 	else
@@ -706,6 +709,7 @@ void MyUnit::Set(SearchTree* mTree)
 			dstTile.second = 3;
 
 			mTree->FindPath(curTile, dstTile, &moveTilePath);
+			mTree->Set(mMap);
 		}
 	}
 	
@@ -742,45 +746,51 @@ void MyUnit::Move(float Delta)
 		
 		//거리 계산
 		//this->curPos.first += this->move_speed * Delta;
-		float distanceX = tempDstTile.X - strTile.X;
-		float distanceY = tempDstTile.Y - strTile.Y;
+		int distanceX = tempDstTile.X - strTile.X;
+		int distanceY = tempDstTile.Y - strTile.Y;
 
 		//방향
-		if (distanceX == 0 && distanceY > 0)
 		{
-			direction = 0;
+			if (distanceX == 0 && distanceY > 0)
+			{
+				direction = 0;
+			}
+			if (distanceX > 0 && distanceY > 0)
+			{
+				direction = 1;
+			}
+			if (distanceX > 0 && distanceY == 0)
+			{
+				direction = 2;
+			}
+			if (distanceX > 0 && distanceY < 0)
+			{
+				direction = 3;
+			}
+			if (distanceX == 0 && distanceY < 0)
+			{
+				direction = 4;
+			}
 		}
-		if (distanceX > 0 && distanceY > 0)
-		{
-			direction = 1;
-		}
-		if (distanceX > 0 && distanceY == 0)
-		{
-			direction = 2;
-		}
-		if (distanceX > 0 && distanceY < 0)
-		{
-			direction = 3;
-		}
-		if (distanceX == 0 && distanceY < 0)
-		{
-			direction = 4;
-		}
-		//posRc = map->Infos[i][j].rc; //현재 위치 이동
+		//posRc = map->Infos[i][j].rc; //현재 
+		 //위치 이동
 		
-		posRc.X += (distanceX )  * 0.05;
-		posRc.Y += (distanceY ) * 0.05;
-		
+		curPos.X += (distanceX) / 27 * move_speed;
+		curPos.Y += (distanceY) / 22 * move_speed;
+
 		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 */
 		//현재 목적지에 캐릭터가 들어왔는지
-		if(abs(posRc.X - tempDstTile.X) < 11 &&
-			abs(posRc.Y - tempDstTile.Y) < 15 )
+		if(tempDstTile.Contains(curPos.X,curPos.Y))
 		{
 			curTile = moveTilePath.top();
+
 			posRc.X = tempDstTile.X;
 			posRc.Y = tempDstTile.Y;
+
+			curPos.X = posRc.X + TILESIZEX/2;
+			curPos.Y = posRc.Y + TILESIZEY/2;
 		}
 	}
 }

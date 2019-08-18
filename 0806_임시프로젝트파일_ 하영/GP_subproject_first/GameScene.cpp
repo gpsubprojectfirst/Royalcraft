@@ -65,10 +65,11 @@ void GameScene::CreateObj(CPoint pt)
 				MyUnit* mUnit = new MyUnit();
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				mUnit->ParentImg = load;
-
 				mUnit->curTile.first = i;
 				mUnit->curTile.second = j;
-				mTree->Set(mMap);
+				mUnit->posRc = mMap->Infos[i][j].rc;
+				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
 				mUnit->mMap = mMap;
 				info.emplace_back(mUnit);
 				playUnit.emplace_back(mUnit);

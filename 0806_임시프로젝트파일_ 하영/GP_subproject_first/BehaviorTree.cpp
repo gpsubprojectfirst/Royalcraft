@@ -93,8 +93,8 @@ bool IsNearObj::Invoke()
 	
 	for (auto& it : *bbData->playUnit)
 	{
-		if (sqrt(abs(it->posRc.X - actor->obj->posRc.X)
-			+ abs(it->posRc.Y - actor->obj->posRc.Y)) < 30 &&
+		if (sqrt(pow(it->curPos.X - actor->obj->curPos.X,2)
+			+ pow(it->curPos.Y - actor->obj->curPos.Y,2)) < 1000 &&
 			it != actor->obj)
 		{
 			actor->obj->target = it;
@@ -111,8 +111,8 @@ bool IsAbleAtk::Invoke()
 	for (auto& it : *bbData->playUnit)
 	{
 		//제곱근 연산 느리면 변경
-		if (sqrt(abs(it->posRc.X - actor->obj->posRc.X)
-			+ abs(it->posRc.Y - actor->obj->posRc.Y)) < actor->obj->atk_distance &&
+		if (sqrt(pow(it->curPos.X - actor->obj->curPos.X,2)
+			+ pow(it->curPos.Y - actor->obj->curPos.Y,2)) < actor->obj->atk_distance &&
 			it != actor->obj)
 		{
 			return true;
