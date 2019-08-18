@@ -20,39 +20,46 @@ MyUnit::MyUnit()
 }
 void MyUnit::Update(float Delta)
 {
-	AddDelta += Delta;
-	if (AddDelta > 0.1f)
+	if (!Isdead)
 	{
-		frame++;
-		AddDelta = 0;
-		
-		if (frame > 10)
-			frame = 0;
-	}
-	//상태 변화, 추후 행동 트리에 추가
-	UnitBt->Tick();
-	
-	if (sm.GetCurState() == eState_Idle)
-	{
-		rc = moveRc[direction][0];
-	}
-	else if (sm.GetCurState() == eState_Move)
-	{
-		int frame_ = frame % moveRc[direction].size();
-		rc = moveRc[direction][frame_];
-		//Move(Delta);
-	}
-	else if (sm.GetCurState() == eState_Attack)
-	{
-		int frame_ = frame % atkRc.size();
-		rc = atkRc[frame_];
-		//Attack(Delta);
+		AddDelta += Delta;
+		if (AddDelta > 0.1f)
+		{
+			frame++;
+			AddDelta = 0;
+
+			if (frame > 10)
+				frame = 0;
+		}
+		//상태 변화, 추후 행동 트리에 추가
+		UnitBt->Tick();
+
+		if (sm.GetCurState() == eState_Idle)
+		{
+			rc = moveRc[direction][0];
+		}
+		else if (sm.GetCurState() == eState_Move)
+		{
+			int frame_ = frame % moveRc[direction].size();
+			rc = moveRc[direction][frame_];
+			//Move(Delta);
+		}
+		else if (sm.GetCurState() == eState_Attack)
+		{
+			int frame_ = frame % atkRc.size();
+			rc = atkRc[frame_];
+			//Attack(Delta);
+		}
+		else if (sm.GetCurState() == eState_Dead)
+		{
+			rc = moveRc[0][0];
+		}
 	}
 }
 
 void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
-	//if (!Isdead)
+	if (!Isdead)
 	{
 		int width = rc.Width;
 		int height = rc.Height;
@@ -691,17 +698,11 @@ void MyUnit::ParserXML()
 
 void MyUnit::Set(SearchTree* mTree)
 {
-	if (target != nullptr)
-	{
-		if (moveTilePath.empty())
-		{
-			dstTile.first = target->curTile.first;
-			dstTile.second = target->curTile.second;
-			mTree->FindPath(curTile, dstTile, &moveTilePath);
-			mTree->Set(mMap);
-		}
-	}
-	else
+	if (!moveTilePath.empty())
+		moveTilePath.pop();
+	mTree->FindPath(curTile, dstTile, &moveTilePath);
+	mTree->Set(mMap);
+	/*else
 	{
 		if (moveTilePath.empty())
 		{
@@ -711,7 +712,7 @@ void MyUnit::Set(SearchTree* mTree)
 			mTree->FindPath(curTile, dstTile, &moveTilePath);
 			mTree->Set(mMap);
 		}
-	}
+	}*/
 	
 }
 
@@ -804,6 +805,7 @@ void MyUnit::Attack(float Delta)
 	else
 	{
 		target->Isdead = true;
+		target = nullptr;
 		std::cout << "target is dead" << std::endl;
 	}
 }

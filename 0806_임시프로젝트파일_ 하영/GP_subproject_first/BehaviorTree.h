@@ -105,6 +105,11 @@ class IsBuilt : public ConditionNode
 public:
 	virtual bool Invoke() override;
 };
+class IsDead : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
 class BehaviorTree
 {
 public:
