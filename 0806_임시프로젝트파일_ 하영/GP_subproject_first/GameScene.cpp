@@ -13,25 +13,79 @@ GameScene::GameScene()
 	mTree = new SearchTree();
 	mTree->Set(mMap);
 
+
+	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
+	blackBoard->UpdateData(this->playUnit);
+
 	ObjectManager& om = ObjectManager::GetInstance();
 	
 	Object::SetMode(&m_IsSelectMode);
 	UIDeckWnd* deck = new UIDeckWnd();
-	blackBoard = new BlackBoard(this->CommandQueue,this->mTree);
-	blackBoard->UpdateData(this->playUnit);
 	deck->Init();
 	Init();
 
 	MouseMgr::GetInstance().Init();
 
-	//특정 유닛의 에셋 로드, 나중에 오브젝트 클래스 안으로 이동
-	//ID: 0,name: knight 
-	//knight = new MyUnit();
-	//ObjectManager의 유닛데이터 복사
 	info.emplace_back(deck);
 	
+	CreateTower();
+
+	//playUnit.emplace_back();
+	//blackBoard->UpdateData(playUnit);
+	//mUnit->CreateBT(blackBoard);
 }
 
+void GameScene::CreateTower()
+{
+	//tower
+	Build* towerKing = new Build();
+	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(0)
+		, mMap->Infos[10][3].rc.X + TILESIZEX / 2
+		, mMap->Infos[11][3].rc.Y + TILESIZEY / 2);
+	Build* towerSubA = new Build();
+	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(1)
+		, mMap->Infos[5][7].rc.X + TILESIZEX / 2
+		, mMap->Infos[5][7].rc.Y + TILESIZEY / 2);
+	Build* towerSubB = new Build();
+	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(2)
+		, mMap->Infos[16][7].rc.X + TILESIZEX / 2
+		, mMap->Infos[16][7].rc.Y + TILESIZEY / 2);
+
+	towerKing->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\Idle\\1.png"));
+	towerSubA->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\subtower\\red\\1.png"));
+	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\subtower\\red\\1.png"));
+
+	info.emplace_back(towerKing);
+	info.emplace_back(towerSubA);
+	info.emplace_back(towerSubB);
+
+	playUnit.emplace_back(towerKing);
+	playUnit.emplace_back(towerSubA);
+	playUnit.emplace_back(towerSubB);
+
+	towerKing->curTile.first = 11;
+	towerKing->curTile.second = 3;
+
+	towerSubA->curTile.first = 5;
+	towerSubA->curTile.second = 7;
+
+	towerSubB->curTile.first = 16;
+	towerSubB->curTile.second = 7;
+
+	towerKing->posRc = mMap->Infos[11][3].rc;
+	towerSubA->posRc = mMap->Infos[5][7].rc;
+	towerSubB->posRc = mMap->Infos[16][7].rc;
+
+	towerKing->teamBlue = false;
+	towerSubA->teamBlue = false;
+	towerSubB->teamBlue = false;
+
+	blackBoard->UpdateData(playUnit);
+
+	towerKing->CreateBT(blackBoard);
+	towerSubA->CreateBT(blackBoard);
+	towerSubB->CreateBT(blackBoard);
+}
 void GameScene::CreateObj(CPoint pt)
 {			
 	Point mPoint;
@@ -71,6 +125,7 @@ void GameScene::CreateObj(CPoint pt)
 				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
 				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
 				mUnit->mMap = mMap;
+				mUnit->teamBlue = true;
 				info.emplace_back(mUnit);
 				playUnit.emplace_back(mUnit);
 				blackBoard->UpdateData(playUnit);

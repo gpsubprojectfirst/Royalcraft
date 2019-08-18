@@ -10,49 +10,25 @@ ObjectManager::ObjectManager()
 		mUnit->ParserXML();
 		mObj[eObject_Unit].emplace_back(mUnit);
 	}
+	for (int i = 0; i < 3; i++)
+	{
+		Build* tower = new Build();
+		tower->ID = i;
+		mObj[eObject_Build].emplace_back(tower);
+	}
+	
 }
 
 Object* ObjectManager::GetObj(int InID)
 {
-	return mObj[eObject_Cnt].at(InID);
+	return mObj[eObject_Cnt - 1].at(InID);
 }
 
 Object* ObjectManager::GetMyUnit(int InID)
 {
 	return mObj[eObject_Unit].at(InID);
 }
-
-//Object* CreateObj(EObject _obj_type,CString name,int ID)
-//{
-//	if (_obj_type == eObject_Unit)
-//	{
-//		MyUnit* newUnit = new MyUnit();
-//		newUnit->name = name;
-//		newUnit->ID = ID;
-//		newUnit->Objtype = eObject_Unit;
-//		return newUnit;
-//	}
-//	if (_obj_type == eObject_Build)
-//	{
-//		MyUnit* newUnit = new MyUnit();
-//		newUnit->name = name;
-//		newUnit->ID = ID;
-//		newUnit->Objtype = eObject_Build;
-//		return newUnit;
-//	}
-//	if (_obj_type == eObject_Bullet)
-//	{
-//		MyUnit* newUnit = new MyUnit();
-//		newUnit->name = name;
-//		newUnit->ID = ID;
-//		newUnit->Objtype = eObject_Bullet;
-//		return newUnit;
-//	}
-//	if (_obj_type == eObject_None)
-//	{
-//		Object* newObj = new Object();
-//		newObj->name = name;
-//		newObj->ID = ID;
-//		return newObj;
-//	}	
-//}
+Object* ObjectManager::GetBuild(int InID)
+{
+	return mObj[eObject_Build].at(InID);
+}

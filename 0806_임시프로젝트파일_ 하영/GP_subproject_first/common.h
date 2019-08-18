@@ -22,6 +22,7 @@ enum EState {
 	eState_Idle,
 	eState_Move,
 	eState_Attack,
+	eState_Dead,
 	eState_Cnt,
 };
 

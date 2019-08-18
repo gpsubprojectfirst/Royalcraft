@@ -15,7 +15,6 @@ public:
 	MapEditor* editor;
 	SearchTree* mTree;
 	Command CommandQueue;
-	MyUnit* knight;
 	std::vector<MyUnit*> playUnit;
 	BlackBoard* blackBoard;
 	bool bRender = false;
@@ -30,6 +29,7 @@ public:
 	void Release();
 
 	void CreateObj(CPoint pt);
+	void CreateTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);
 
 	GameScene();

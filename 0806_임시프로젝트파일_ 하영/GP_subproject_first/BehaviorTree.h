@@ -105,12 +105,18 @@ class IsBuilt : public ConditionNode
 public:
 	virtual bool Invoke() override;
 };
+class IsDead : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
 class BehaviorTree
 {
 public:
 	BehaviorTree(MyUnit* InActor, BlackBoard* InBB);
 	void SetActor(MyUnit* InActor);
 	void Init(MyUnit* InActor, BlackBoard* InBB);
+	void InitTower(MyUnit* InActor, BlackBoard* InBB);
 	void RunSelector(Selector _InSelector);
 	void RunSequencer(Sequence _InSequence);
 

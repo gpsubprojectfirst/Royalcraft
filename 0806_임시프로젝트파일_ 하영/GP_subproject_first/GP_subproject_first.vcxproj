@@ -194,6 +194,7 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BehaviorTree.h" />
+    <ClInclude Include="Build.h" />
     <ClInclude Include="ChildView.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
+    <ClCompile Include="Build.cpp" />
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="GameScene.cpp" />

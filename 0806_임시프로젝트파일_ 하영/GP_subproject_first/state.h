@@ -1,5 +1,4 @@
 #pragma once
-static bool bleft = false;
 
 class State
 {
@@ -32,7 +31,12 @@ public:
 	State_Attack();
 	virtual bool ChangeState(EState InState) override;
 };
-
+class State_Dead : public State
+{
+public:
+	State_Dead();
+	virtual bool ChangeState(EState InState) override;
+};
 class StateManager
 {
 public:
