@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "UIDeckWnd.h"
 #include "BehaviorTree.h"
+#include "SoundMgr.h"
 
 GameScene::GameScene()
 {
@@ -26,7 +27,7 @@ GameScene::GameScene()
 	Init();
 
 	MouseMgr::GetInstance().Init();
-
+	//SoundMgr::GetInstance()->SoundPlay(0, 0);
 	info.emplace_back(deck);
 	
 	//임시 위치
