@@ -24,6 +24,7 @@ GameScene::GameScene()
 
 	UIDeckWnd* deck = new UIDeckWnd();
 	deck->Init();
+	
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
 
@@ -141,7 +142,7 @@ void GameScene::CreateTower()
 	towerSubB->CreateBT(blackBoard);
 }
 
-void GameScene::CreateObj(CPoint pt)
+void GameScene::CreateObj(CPoint pt,int unitID)
 {
 	Point mPoint;
 	mPoint.X = pt.x;
@@ -153,27 +154,9 @@ void GameScene::CreateObj(CPoint pt)
 		{
 			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 			{
-				/*
-				ID:
-				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
-				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
-				*/
-				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png"));
-
 				MyUnit* mUnit = new MyUnit();
-				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
-				mUnit->ParentImg = load;
+				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
+				mUnit->ParentImg = m_vecGame[unitID +1];
 				mUnit->curTile.first = i;
 				mUnit->curTile.second = j;
 				mUnit->posRc = mMap->Infos[i][j].rc;
@@ -194,6 +177,23 @@ void GameScene::CreateObj(CPoint pt)
 void GameScene::Init()
 {
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
+	/*
+	ID:
+	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+`	*/
+	m_vecGame.push_back (new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
 }
 
 void GameScene::Update(float Delta)
@@ -227,9 +227,9 @@ void GameScene::Update(float Delta)
 				//unitInfo = nullptr;
 				UIDeckWnd::m_IsSelectMode = 0;
 				CPoint _cPt(pt.x, pt.y);
-
+				
 				//캐릭터 생성
-				CreateObj(_cPt);
+				CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
 			}
 		}
 

@@ -50,7 +50,9 @@ void MouseMgr::Render(Gdiplus::Graphics* MemG)
 		break;
 	
 	}
-	
-	
+}
 
+int MouseMgr::GetUnitID()
+{
+	return m_MouseInfo.unitID;
 }

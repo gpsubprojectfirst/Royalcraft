@@ -22,13 +22,16 @@ public:
 		return pt;
 	}
 
-	static void SetMouseInfo(MOUSEINFO _mouseInfo) { m_MouseInfo = _mouseInfo; }
-
+	static void SetMouseInfo(MOUSEINFO _mouseInfo) 
+	{
+		m_MouseInfo =  _mouseInfo;
+	}
+	
 	MOUSEINFO& GetMouseInfo() { return m_MouseInfo; }
 
 	void Init();
 	void Render(Gdiplus::Graphics* MemG);
-	
+	int GetUnitID();
 public:
 	MouseMgr();
 	~MouseMgr();

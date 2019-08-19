@@ -33,17 +33,40 @@ void UIDeckWnd::Init()
 	CreateDeck(EDeck_type::EDeck_Wizard,TEXT("Asset\\3.game\\4.ui\\Deck\\wizard.png"));
 	
 
-	DECKINFO* deckInfo = new DECKINFO();
-	Deck* tempDeck = new Deck();
-	deckInfo->pDeck = m_mDeck.at(EDeck_KNIGHT);
-	deckInfo->pDeck->CopyObj(167, 808);
-	m_liDeckInfo.push_back(deckInfo);
+	for (int i = 0;i < 12;i++)
+	{
+		DECKINFO* deckInfo = new DECKINFO();
+		deckInfo->pDeck = m_mDeck.at((EDeck_type)i);
+		m_liDeckInfo.push_back(deckInfo);
+	}
 	
-
+	ChooseDeck();
 	m_dwKey = 0x00000000;
 
+	m_iSelectedCell = -1;
 }
+void UIDeckWnd::ChooseDeck()
+{
+	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
+	viewArray = new Deck*[4];
+	srand(time(nullptr));
+	int k = rand() % 12;
+	for (int i = 0; i < 4; i++)
+	{
+		arrayNum[i] = (EDeck_type)(k % 12);
+		k++;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		viewArray[i] = m_mDeck.at(arrayNum[i]);
+		viewArray[i]->typeNum = arrayNum[i];
+	}
+	viewArray[0]->CopyObj(167, 808);
+	viewArray[1]->CopyObj(269, 808);
+	viewArray[2]->CopyObj(371, 808);
+	viewArray[3]->CopyObj(473, 808);
 
+}
 void UIDeckWnd::Update(float Delta)
 {
 	POINT pt = MouseMgr::GetMousePos();
@@ -53,14 +76,29 @@ void UIDeckWnd::Update(float Delta)
 	m_pt.x = LONG(pt.x);
 	m_pt.y = LONG(pt.y);
 
+	//167,808 slot1
+	//slot 2 269,808
+	//slot 371,808
+	//slot 473,808
 	if ((m_pt.x > 167) && (m_pt.x < 239) && (m_pt.y > 808) && (m_pt.y < 900))
+	{
+		m_iSelectedCell = 0;
+		UIDeckWnd::m_bOnItem = true;
+	}
+	if ((m_pt.x > 269) && (m_pt.x < 341) && (m_pt.y > 808) && (m_pt.y < 900))
 	{
 		m_iSelectedCell = 1;
 		UIDeckWnd::m_bOnItem = true;
 	}
-	else
+	if ((m_pt.x > 371) && (m_pt.x < 443) && (m_pt.y > 808) && (m_pt.y < 900))
 	{
-		UIDeckWnd::m_bOnItem = false;
+		m_iSelectedCell = 2;
+		UIDeckWnd::m_bOnItem = true;
+	}
+	if ((m_pt.x > 473) && (m_pt.x < 545) && (m_pt.y > 808) && (m_pt.y < 900))
+	{
+		m_iSelectedCell = 3;
+		UIDeckWnd::m_bOnItem = true;
 	}
 
 	if (m_dwKey & KEY_LBUTTON)
@@ -69,10 +107,10 @@ void UIDeckWnd::Update(float Delta)
 	}
 
 	
-	for (auto& it : this->m_liDeckInfo)
+	for (int i = 0; i<4; i++)
 	{
-		if (it == nullptr) continue;
-		it->pDeck->Update(Delta);
+		if (viewArray == nullptr) continue;
+		viewArray[i]->Update(Delta);
 	}
 }
 
@@ -89,29 +127,31 @@ void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 
 	if (UIDeckWnd::m_bOnItem)
 	{
-		//167,808 slot1 Knight
-		MemG->DrawRectangle(&pen, 167, 808, 72, 92);
-
+		//167,808 slot1
+		if (m_iSelectedCell == 0)
+		{
+			MemG->DrawRectangle(&pen, 167, 808, 72, 92);
+		}
+		if (m_iSelectedCell == 1)
+		{
+			//slot 2 269,808
+			MemG->DrawRectangle(&pen, 269, 808, 72, 92);
+		}
+		if (m_iSelectedCell == 2)
+		{
+			//slot 371,808
+			MemG->DrawRectangle(&pen, 371, 808, 72, 92);
+		}
+		if (m_iSelectedCell == 3)
+		{
+			//slot 473,808
+			MemG->DrawRectangle(&pen, 473, 808, 72, 92);
+		}
 	}
-
-	//slot 2 269,808
-	Gdiplus::Pen pen1(Color(255, 255, 255), 5.0f);
-	MemG->DrawRectangle(&pen, 269, 808, 72, 92);
-
-
-	//slot 371,808
-	Gdiplus::Pen pen2(Color(255, 255, 255), 5.0f);
-	MemG->DrawRectangle(&pen, 371, 808, 72, 92);
-
-
-	//slot 473,808
-	Gdiplus::Pen pen3(Color(255, 255, 255), 5.0f);
-	MemG->DrawRectangle(&pen, 473, 808, 72, 92);
-
-	for (auto& it : this->m_liDeckInfo)
+	
+	for (int i = 0; i<4 ; i++)
 	{
-		if (it == nullptr) continue;
-		it->pDeck->Render(MemG);
+		viewArray[i]->Render(MemG);
 	}
 }
 
@@ -125,20 +165,35 @@ void UIDeckWnd::SelectItem()
 	MOUSEINFO tempInfo;
 	memset(&tempInfo, 0, sizeof(tempInfo));
 	m_IsSelectMode = 1;
-	m_iSelectedCell = 0;
+	
 	switch (m_iSelectedCell)
 	{
-	/*case ICON_KNIGHT:
+	case 0:
+		tempInfo.unitID = viewArray[0]->typeNum;
+		//tempInfo.iSize = viewArray[0]->iSize;
+		//tempInfo.iElixir = 3;
+		break;
+	case 1:
+		tempInfo.unitID = viewArray[1]->typeNum;
+		//tempInfo.iSize = viewArray[0]->iSize;
+		//tempInfo.iElixir = 3;
+		break;
+	case 2:
+		tempInfo.unitID = viewArray[2]->typeNum;
+		//tempInfo.iSize = viewArray[0]->iSize;
+		//tempInfo.iElixir = 3;
+		break;
+	case 3:
+		tempInfo.unitID = viewArray[3]->typeNum;
+		//tempInfo.iSize = viewArray[0]->iSize;
+		//tempInfo.iElixir = 3;
+		break;
 
-		tempInfo.unitID = UNIT_Knight;
-		tempInfo.iSize = 1;
-		tempInfo.iElixir = 3;
-		break;*/
-	
 	default:
 		break;
 	}
-	//MouseMgr::GetInstance().SetMouseInfo(tempInfo);
+	
+	MouseMgr::GetInstance().SetMouseInfo(tempInfo);
 }
 
 
