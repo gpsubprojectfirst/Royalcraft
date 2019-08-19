@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "LogoScene.h"
+#include "SoundMgr.h"
 
 
 
@@ -11,12 +12,14 @@ LogoScene::LogoScene()
 
 void LogoScene::Init()
 {
+	//sound load
+	//SoundMgr::GetInstance()->Init();
+	//SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\1st_crown_01.wav"));
 	m_vecLogo.push_back(new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png")));
 }
 
 void LogoScene::Update(float Delta)
 {
-
 	if (GetAsyncKeyState(VK_RETURN) & 0x8001)
 	{
 		SceneManager::GetInstance().LoadScene(CString("LobbyScene"));

@@ -5,17 +5,18 @@
 
 #define REAL_WINSIZE_X 593
 #define REAL_WINSIZE_Y 960
-
+#define KING CString("king")
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
 
 const static int TILECNTX = 22;
 const static int TILECNTY = 44;
 
-const DWORD		KEY_LBUTTON = 0x00000001;
+const DWORD		KEY_LBUTTON = 0x00000004;
 const DWORD		KEY_RBUTTON = 0x00000002;
-const DWORD		KEY_SPACE = 0x00000004;
+const DWORD		KEY_SPACE = 0x00000001;
 const DWORD		KEY_Z = 0x00000008;
+const DWORD		KEY_F1 = 0x00000010;
 
 enum EState {
 	eState_Idle,
@@ -64,4 +65,20 @@ enum EUnit_ID
 	UNIT_Barbarian,
 	UNIT_Giant,
 	UNIT_END,
+};
+
+enum EDeck_type
+{
+	EDeck_KNIGHT,
+	EDeck_Axeman,
+	EDeck_Darknight,
+	EDeck_Electric,
+	EDeck_Giant,
+	EDeck_Archer,
+	EDeck_Lumberjack,
+	EDeck_Musket,
+	EDeck_Varkirey,
+	EDeck_Vavarian,
+	EDeck_Vendit,
+	EDeck_Wizard,
 };

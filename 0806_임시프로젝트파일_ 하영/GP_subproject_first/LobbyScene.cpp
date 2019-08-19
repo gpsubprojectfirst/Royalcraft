@@ -10,7 +10,7 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Init()
 {
-	bgImg = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex_.png"));
+	bgImg = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex.png"));
 }
 
 void LobbyScene::Update(float Delta)

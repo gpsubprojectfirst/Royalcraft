@@ -11,8 +11,8 @@ Build::Build()
 	damage = 45;
 	Isdead = false;
 
-	this->Object::sm.Add(new State_Idle);
-	this->Object::sm.Add(new State_Attack);
+	sm.Add(new State_Idle);
+	sm.Add(new State_Attack);
 }
 
 void Build::Update(float Delta)
@@ -31,12 +31,13 @@ void Build::Update(float Delta)
 		UnitBt->Tick();
 		if (sm.GetCurState() == eState_Idle)
 		{
-		//	rc = atkRc[0];
+			int frame_ = frame % restRc.size();
+			rc = restRc[frame_];
 		}
 		else if (sm.GetCurState() == eState_Attack)
 		{
-			//int frame_ = frame % atkRc.size();
-			//rc = atkRc[frame_];
+			int frame_ = frame % atkRc.size();
+			rc = atkRc[frame_];
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
@@ -48,13 +49,60 @@ void Build::Render(Gdiplus::Graphics* MemG)
 {
 	if (!Isdead)
 	{
-		int width = ParentImg->GetWidth();
-		int height = ParentImg->GetWidth();
+		int width = rc.Width;
+		int height = rc.Height;
 
 		Gdiplus::Rect Dst1(curPos.X - width / 4, curPos.Y - height / 4 , width /2, height/2);
 		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
+	}
+}
+void Build::ParserXML()
+{
+	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
+	if (ID == 0)
+	{
+		doc->LoadFile("Xml\\kingtower.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+
+		for (int i = 0; i < 13; i++)
+		{
+			restRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		for (int i = 0; i < 15 ; i++)
+		{
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+	}
+	if (ID == 1 || ID == 2)
+	{
+		doc->LoadFile("Xml\\subtower.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+
+		for (int i = 0; i < 17; i++)
+		{
+			restRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			atkRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+
+			Node = Node->NextSiblingElement();
+		}
 	}
 }
 void Build::CopyObj(MyUnit* dst, int ix, int iy)
@@ -64,7 +112,7 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 	name - dst->name;
 
 	atkRc = dst->atkRc;
-
+	restRc = ((Build*)dst)->restRc;
 	curPos.X = ix;
 	curPos.Y = iy;
 }
@@ -73,4 +121,9 @@ void Build::CreateBT(BlackBoard* InBB)
 {
 	UnitBt = new BehaviorTree(this, InBB);
 	UnitBt->InitTower(this, InBB);
+}
+
+void Build::Rest(float Delta)
+{
+
 }

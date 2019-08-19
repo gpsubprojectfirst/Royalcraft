@@ -24,4 +24,7 @@ void KeyMgr::CheckKey(void)
 
 	if (GetAsyncKeyState('Z') & 0x0001)
 		m_dwKey |= KEY_Z;
+
+	if (GetAsyncKeyState(VK_F1) & 0x8001)
+		m_dwKey |= KEY_F1;
 }

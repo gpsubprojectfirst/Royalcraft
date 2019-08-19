@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:7703898c76fd9a89fca66468d940cd47:2ea0ec06911e76032992149d1552f269:d5b62294ceb9931f1f5f46cc070fa9f8$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="kingtower.png" width="1000" height="1785">
+    <sprite n="1.png" x="1" y="289" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="2.png" x="801" y="289" w="198" h="287" oX="102" oY="16" oW="407" oH="471"/>
+    <sprite n="3.png" x="401" y="1" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="4.png" x="801" y="1" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="5.png" x="601" y="1" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="6.png" x="201" y="1" w="198" h="285" oX="102" oY="18" oW="407" oH="471"/>
+    <sprite n="7.png" x="401" y="289" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="8.png" x="601" y="289" w="198" h="287" oX="102" oY="16" oW="407" oH="471"/>
+    <sprite n="9.png" x="1" y="578" w="198" h="288" oX="102" oY="15" oW="407" oH="471"/>
+    <sprite n="10.png" x="401" y="578" w="198" h="289" oX="102" oY="14" oW="407" oH="471"/>
+    <sprite n="11.png" x="201" y="578" w="198" h="288" oX="102" oY="15" oW="407" oH="471"/>
+    <sprite n="12.png" x="201" y="289" w="198" h="286" oX="102" oY="17" oW="407" oH="471"/>
+    <sprite n="13.png" x="1" y="1" w="198" h="285" oX="102" oY="18" oW="407" oH="471"/>
+    <sprite n="15.png" x="401" y="880" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="16.png" x="201" y="880" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="17.png" x="1" y="880" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="18.png" x="601" y="578" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="19.png" x="601" y="880" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="20.png" x="1" y="1182" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="21.png" x="201" y="1182" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="22.png" x="601" y="1182" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="23.png" x="801" y="1182" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="24.png" x="201" y="1484" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="25.png" x="201" y="1484" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="26.png" x="401" y="1484" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="27.png" x="1" y="1484" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="28.png" x="401" y="1182" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="29.png" x="801" y="880" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+    <sprite n="30.png" x="801" y="578" w="198" h="300" oX="102" oY="3" oW="407" oH="471"/>
+</TextureAtlas>
