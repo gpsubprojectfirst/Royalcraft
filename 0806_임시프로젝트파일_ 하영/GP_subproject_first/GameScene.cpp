@@ -5,6 +5,7 @@
 
 GameScene::GameScene()
 {
+	endflag = false;
 	printf("GameScene init\n");
 
 	mMap = new MyMap();
@@ -28,8 +29,12 @@ GameScene::GameScene()
 
 	info.emplace_back(deck);
 	
-	CreateTower();
+	//임시 위치
+	endUI = new UICrown();
+	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->ParserXML();
 
+	CreateTower();
 	//playUnit.emplace_back();
 	//blackBoard->UpdateData(playUnit);
 	//mUnit->CreateBT(blackBoard);
@@ -40,8 +45,9 @@ void GameScene::CreateTower()
 	//tower
 	Build* towerKing = new Build();
 	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(0)
-		, mMap->Infos[10][3].rc.X + TILESIZEX / 2
-		, mMap->Infos[11][3].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[11][3].rc.X + TILESIZEX /2
+		, mMap->Infos[11][3].rc.Y + TILESIZEY /2);
+	towerKing->name = "king";
 	Build* towerSubA = new Build();
 	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(1)
 		, mMap->Infos[5][7].rc.X + TILESIZEX / 2
@@ -144,45 +150,57 @@ void GameScene::Init()
 
 void GameScene::Update(float Delta)
 {
-	KeyMgr::GetInstance().CheckKey();
-
-	for (auto& it : this->info)
+	if (!endflag)
 	{
-		it->Update(Delta);
-	}
 
-	if (m_IsSelectMode)
-	{
-		POINT pt = MouseMgr::GetInstance().GetMousePos();
+		KeyMgr::GetInstance().CheckKey();
 
-		MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
-
-		//TODO : KEY_LBUTTON
-		if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+		for (auto& it : this->info)
 		{
-			m_IsSelectMode = false;
-			CPoint _cPt(pt.x, pt.y);
-			//캐릭터 생성
-			CreateObj(_cPt);
-		}
-	}
+			it->Update(Delta);
 
-	if (KeyMgr::GetInstance().GetKey() & VK_F1)
-	{
-		bRender = !bRender;
+			//str비교연산 추후 수정 필요
+			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
+				endflag = true;
+		}
+
+		if (m_IsSelectMode)
+		{
+			POINT pt = MouseMgr::GetInstance().GetMousePos();
+
+			MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
+
+			//TODO : KEY_LBUTTON
+			if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+			{
+				m_IsSelectMode = false;
+				CPoint _cPt(pt.x, pt.y);
+				//캐릭터 생성
+				CreateObj(_cPt);
+			}
+		}
+
+		if (KeyMgr::GetInstance().GetKey() & VK_F1)
+		{
+			bRender = !bRender;
+		}
+		while (!CommandQueue.Empty())
+			CommandQueue.Pop(Delta);
 	}
- 	while(!CommandQueue.Empty())
-		CommandQueue.Pop(Delta);
+	else
+	{
+		//게임이 끝났으면 업데이트 멈춤
+		endUI->Update(Delta);
+	}
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG)
 {
-
 	if (m_vecGame.size() <= 0)
 		return;
 
 	// 배경
-	Gdiplus::Rect Dst1(0,0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
+	Gdiplus::Rect Dst1(0, 0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
 	MemG->DrawImage(m_vecGame[0], Dst1);
 
 	// 타일
@@ -196,7 +214,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	{
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
-		
+
 		it->Render(MemG);
 	}
 
@@ -204,15 +222,46 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	{
 		MouseMgr::GetInstance().Render(MemG);
 	}
+
+	if (endflag)
+	{
+		BitmapData pt;
+		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
+		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
+		grayscale(rc.Width , rc.Height, pt);
+		backBuffer->UnlockBits(&pt);
+
+		endUI->Render(MemG);
+	}
 }
 
 void GameScene::Release()
 {
 
 }
-
+void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
+{
+	this->backBuffer = _Buffer;
+}
+void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
+{
+	BYTE* pt = static_cast<BYTE*>(pData.Scan0);
+	BYTE* pt2 = pt;
+	for (int i = 0; i < height; ++i)
+	{
+		pt = pt2 + i * pData.Width * 4;
+		for (int j = 0; j < width; ++j)
+		{
+			BYTE calc = *(pt) * 0.299 + *(pt + 1) * 0.587 + *(pt + 2) * 0.114;
+			*(pt) = calc;
+			*(pt + 1) = calc;
+			*(pt + 2) = calc;
+			pt += 4;
+		}
+	}
+}
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	//CreateObj(point);
+	CreateObj(point);
 	
 }

@@ -5,7 +5,7 @@
 
 #define REAL_WINSIZE_X 593
 #define REAL_WINSIZE_Y 960
-
+#define KING CString("king")
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
 

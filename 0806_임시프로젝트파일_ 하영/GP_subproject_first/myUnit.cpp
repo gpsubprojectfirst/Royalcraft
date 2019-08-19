@@ -23,7 +23,9 @@ void MyUnit::Update(float Delta)
 {
 	if (!Isdead)
 	{
+		
 		AddDelta += Delta;
+		
 		if (AddDelta > 0.1f)
 		{
 			frame++;
@@ -724,13 +726,6 @@ void MyUnit::Move(float Delta)
 		return;
 	}
 
-	AddDelta += Delta;
-	
-	if (AddDelta > 0.4f)
-	{
-		AddDelta = 0;
-	}
-
 	//moveTilePath큐에 이동경로가 저장되어있음
 	if (curTile == moveTilePath.top())
 	{
@@ -807,7 +802,6 @@ void MyUnit::Attack(float Delta)
 	{
 		target->Isdead = true;
 		target = nullptr;
-		std::cout << "target is dead" << std::endl;
 	}
 }
 

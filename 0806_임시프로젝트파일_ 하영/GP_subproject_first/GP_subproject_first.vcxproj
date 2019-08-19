@@ -220,6 +220,7 @@
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UICrown.h" />
     <ClInclude Include="UIDeckWnd.h" />
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +253,7 @@
     <ClCompile Include="SearchTree.cpp" />
     <ClCompile Include="SingleTon.cpp" />
     <ClCompile Include="state.cpp" />
+    <ClCompile Include="UICrown.cpp" />
     <ClCompile Include="UIDeckWnd.cpp" />
   </ItemGroup>
   <ItemGroup>

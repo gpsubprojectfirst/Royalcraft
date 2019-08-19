@@ -135,6 +135,9 @@
     <ClInclude Include="Build.h">
       <Filter>소스 파일\Object\Animate</Filter>
     </ClInclude>
+    <ClInclude Include="UICrown.h">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Build.cpp">
       <Filter>소스 파일\Object\Animate</Filter>
+    </ClCompile>
+    <ClCompile Include="UICrown.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
