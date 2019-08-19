@@ -198,79 +198,53 @@ void GameScene::Init()
 
 void GameScene::Update(float Delta)
 {
-	KeyMgr::GetInstance().CheckKey();
-	for (auto& it : this->info)
-		if (!endflag)
+	if (!endflag)
+	{
+
+		KeyMgr::GetInstance().CheckKey();
+		POINT pt = MouseMgr::GetInstance().GetMousePos();
+		for (auto& it : this->info)
 		{
-			if (unitInfo != nullptr)
-			{
-				unitInfo->Update(Delta);
-			}
+			it->Update(Delta);
+			//str비교연산 추후 수정 필요
+			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
+				endflag = true;
+		}
 
-			POINT pt = MouseMgr::GetInstance().GetMousePos();
+		if (UIDeckWnd::m_IsSelectMode == 1)
+		{
+			CPoint _cPt(pt.x, pt.y);
+			//CreateViewUnit(_cPt);
+			UIDeckWnd::m_IsSelectMode = 2;
+		}
 
-			if (UIDeckWnd::m_IsSelectMode == 1)
+		if (UIDeckWnd::m_IsSelectMode == 2)
+		{
+			//TODO : KEY_LBUTTON
+			if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
 			{
-				//MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
+				//delete(unitInfo);
+				//unitInfo = nullptr;
+				UIDeckWnd::m_IsSelectMode = 0;
 				CPoint _cPt(pt.x, pt.y);
-				CreateViewUnit(_cPt);
 
-			}
-
-			if (UIDeckWnd::m_IsSelectMode == 2)
-			{
-				//TODO : KEY_LBUTTON
-				if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
-				{
-					delete(unitInfo);
-					unitInfo = nullptr;
-					UIDeckWnd::m_IsSelectMode = 0;
-					CPoint _cPt(pt.x, pt.y);
-
-					//캐릭터 생성
-					CreateObj(_cPt);
-				}
-			}
-
-					for (auto& it : this->info)
-					{
-						it->Update(Delta);
-
-						//str비교연산 추후 수정 필요
-						if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
-							endflag = true;
-					}
-
-					if (m_IsSelectMode)
-					{
-						POINT pt = MouseMgr::GetInstance().GetMousePos();
-
-						MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
-
-						//TODO : KEY_LBUTTON
-						if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
-						{
-							m_IsSelectMode = false;
-							CPoint _cPt(pt.x, pt.y);
-							//캐릭터 생성
-							CreateObj(_cPt);
-						}
-					}
-
-					if (KeyMgr::GetInstance().GetKey() & VK_F1)
-					{
-						bRender = !bRender;
-					}
-					while (!CommandQueue.Empty())
-						CommandQueue.Pop(Delta);
-				}
-				else
-				{
-					//게임이 끝났으면 업데이트 멈춤
-					endUI->Update(Delta);
-				}
+				//캐릭터 생성
+				CreateObj(_cPt);
 			}
 		}
+
+		if (KeyMgr::GetInstance().GetKey() & VK_F1)
+		{
+			bRender = !bRender;
+		}
+		while (!CommandQueue.Empty())
+			CommandQueue.Pop(Delta);
+	}
+	else
+	{
+		//게임이 끝났으면 업데이트 멈춤
+		endUI->Update(Delta);
+	}
 }
 
 void GameScene::Render(Gdiplus::Graphics* MemG)
@@ -327,22 +301,13 @@ void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
 {
 	this->backBuffer = _Buffer;
 }
+
 void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 {
 	BYTE* pt = static_cast<BYTE*>(pData.Scan0);
 	BYTE* pt2 = pt;
 	for (int i = 0; i < height; ++i)
 	{
-		std::cout << "x:" << point.x << "," << point.y << endl;
-		if (it == nullptr) continue;
-		if (it->Enable == false) continue;
-
-		//it->Set(point, mMap, mTree);
-		//mTree->Set(mMap);
-	//쓰레드 계산 버그
-		//it->Set(point,mMap,mTree);
-		//mTree->Set(mMap);
-
 		pt = pt2 + i * pData.Width * 4;
 		for (int j = 0; j < width; ++j)
 		{
@@ -356,6 +321,6 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 }
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	CreateObj(point);
+	//CreateObj(point);
 
 }

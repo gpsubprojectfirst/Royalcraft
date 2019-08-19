@@ -19,7 +19,6 @@ void ViewUnit::Update(float Delta)
 
 void ViewUnit::Render(Gdiplus::Graphics* MemG)
 {
-	//if (!Isdead)
 	{
 		int width = rc.Width;
 		int height = rc.Height;

@@ -35,25 +35,13 @@ void UIDeckWnd::Init()
 
 	DECKINFO* deckInfo = new DECKINFO();
 	Deck* tempDeck = new Deck();
-	deckInfo->pDeck = m_mDeck.at(EDeck_Archer);
+	deckInfo->pDeck = m_mDeck.at(EDeck_KNIGHT);
 	deckInfo->pDeck->CopyObj(167, 808);
 	m_liDeckInfo.push_back(deckInfo);
 	
 
 	m_dwKey = 0x00000000;
-	pSet.x = 0;
-	pSet.y = 0;
 
-	m_iSelectedCell = 0;
-	m_itempCell = 0;
-	m_iIndex = 0;
-
-	for (int i = 0; i < 4; ++i)
-	{
-		m_bArray[i] = false;
-	}
-
-	m_bOpenComplete = false;
 }
 
 void UIDeckWnd::Update(float Delta)
@@ -74,23 +62,6 @@ void UIDeckWnd::Update(float Delta)
 	{
 		UIDeckWnd::m_bOnItem = false;
 	}
-
-	if (UIDeckWnd::m_bOnItem)
-	{
-		//pSet.x = 8 + (31 * (m_pt.x / 31)) + 72;
-		//pSet.y = 28 + (31 * (m_pt.y / 31)) - 92;
-		//SetArray();
-	}
-	else
-	{
-		m_bArray[m_iSelectedCell] = false;
-		m_iSelectedCell = -1;
-	}
-
-	MouseMgr::GetInstance().GetMouseInfo().ptTemp.x = m_pt.x;
-	MouseMgr::GetInstance().GetMouseInfo().ptTemp.y = m_pt.y;
-
-	
 
 	if (m_dwKey & KEY_LBUTTON)
 	{
@@ -114,36 +85,28 @@ void UIDeckWnd::CreateDeck(EDeck_type _eType, const WCHAR* str)
 
 void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 {
+	Gdiplus::Pen pen(Color(255, 255, 255), 5.0f);
+
 	if (UIDeckWnd::m_bOnItem)
 	{
 		//167,808 slot1 Knight
-	/*	Gdiplus::Pen pen(Color(255, 0, 0), 10.0f);
-		MemG->DrawRectangle(&pen, 167, 808, 72, 92);*/
+		MemG->DrawRectangle(&pen, 167, 808, 72, 92);
 
 	}
 
-	//slot 1 167,808
-	Gdiplus::Pen pen(Color(255, 0, 0), 10.0f);
-	MemG->DrawRectangle(&pen, 167, 808, 72, 92);
-
 	//slot 2 269,808
-	Gdiplus::Pen pen1(Color(255, 0, 0), 10.0f);
+	Gdiplus::Pen pen1(Color(255, 255, 255), 5.0f);
 	MemG->DrawRectangle(&pen, 269, 808, 72, 92);
 
 
 	//slot 371,808
-	Gdiplus::Pen pen2(Color(255, 0, 0), 10.0f);
+	Gdiplus::Pen pen2(Color(255, 255, 255), 5.0f);
 	MemG->DrawRectangle(&pen, 371, 808, 72, 92);
 
 
 	//slot 473,808
-	Gdiplus::Pen pen3(Color(255, 0, 0), 10.0f);
+	Gdiplus::Pen pen3(Color(255, 255, 255), 5.0f);
 	MemG->DrawRectangle(&pen, 473, 808, 72, 92);
-
-	//Knight Image
-
-	//Gdiplus::Rect rc(167, 808, 72, 92);
-	//MemG->DrawImage(deckIcon, rc);
 
 	for (auto& it : this->m_liDeckInfo)
 	{
@@ -152,32 +115,6 @@ void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 	}
 }
 
-
-void UIDeckWnd::SetArray()
-{
-	/*int x, y;
-
-	if (m_itempCell != m_iSelectedCell)
-	{
-		m_itempCell = m_iSelectedCell;
-	}
-
-	m_bArray[m_iSelectedCell] = false;
-
-	x = (pSet.x) / 72;
-	y = (pSet.y) / 92;
-	m_iSelectedCell = (y - 1) * 4 + x;
-
-	if (m_iSelectedCell > 4)
-		m_iSelectedCell = 4;
-
-	if (!m_bArray[m_iSelectedCell])
-	{
-		m_bArray[m_iSelectedCell] = true;
-	}*/
-}
-
-
 void UIDeckWnd::SelectItem()
 {
 	KeyMgr::GetInstance().SetKey();
@@ -185,12 +122,10 @@ void UIDeckWnd::SelectItem()
 	/*if (!UIDeckWnd::m_bOnItem)
 		return;*/
 
-
 	MOUSEINFO tempInfo;
 	memset(&tempInfo, 0, sizeof(tempInfo));
-	//if (m_iSelectedCell < 5 && m_bOnItem)
-		m_IsSelectMode = 1;
-	
+	m_IsSelectMode = 1;
+	m_iSelectedCell = 0;
 	switch (m_iSelectedCell)
 	{
 	/*case ICON_KNIGHT:
@@ -203,8 +138,7 @@ void UIDeckWnd::SelectItem()
 	default:
 		break;
 	}
-
-	MouseMgr::GetInstance().SetMouseInfo(tempInfo);
+	//MouseMgr::GetInstance().SetMouseInfo(tempInfo);
 }
 
 
