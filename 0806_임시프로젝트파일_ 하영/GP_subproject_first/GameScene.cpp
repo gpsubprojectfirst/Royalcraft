@@ -51,17 +51,9 @@ void GameScene::CreateTower()
 		, mMap->Infos[16][7].rc.X + TILESIZEX / 2
 		, mMap->Infos[16][7].rc.Y + TILESIZEY / 2);
 
-	towerKing->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\Idle\\1.png"));
-	towerSubA->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\subtower\\red\\1.png"));
-	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\subtower\\red\\1.png"));
-
-	info.emplace_back(towerKing);
-	info.emplace_back(towerSubA);
-	info.emplace_back(towerSubB);
-
-	playUnit.emplace_back(towerKing);
-	playUnit.emplace_back(towerSubA);
-	playUnit.emplace_back(towerSubB);
+	towerKing->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\kingtower.png"));
+	towerSubA->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtower.png"));
+	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtower.png"));
 
 	towerKing->curTile.first = 11;
 	towerKing->curTile.second = 3;
@@ -79,6 +71,14 @@ void GameScene::CreateTower()
 	towerKing->teamBlue = false;
 	towerSubA->teamBlue = false;
 	towerSubB->teamBlue = false;
+
+	info.emplace_back(towerKing);
+	info.emplace_back(towerSubA);
+	info.emplace_back(towerSubB);
+
+	playUnit.emplace_back(towerKing);
+	playUnit.emplace_back(towerSubA);
+	playUnit.emplace_back(towerSubB);
 
 	blackBoard->UpdateData(playUnit);
 
@@ -214,17 +214,5 @@ void GameScene::Release()
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
 	//CreateObj(point);
-	for (auto& it : this->info)
-	{
-		//std::cout <<"x:" <<point.x << "," << point.y << endl;
-		if (it == nullptr) continue;
-		if (it->Enable == false) continue;
-
-		//it->Set(point, mMap, mTree);
-		//mTree->Set(mMap);
-	//쓰레드 계산 버그
-		//it->Set(point,mMap,mTree);
-		//mTree->Set(mMap);
-
-	}
+	
 }

@@ -16,6 +16,7 @@ public:
 	
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
+	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
 	//유닛 스탯, 추후 csv에서 로드

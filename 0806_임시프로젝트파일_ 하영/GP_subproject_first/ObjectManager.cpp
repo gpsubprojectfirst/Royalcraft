@@ -14,6 +14,7 @@ ObjectManager::ObjectManager()
 	{
 		Build* tower = new Build();
 		tower->ID = i;
+		tower->ParserXML();
 		mObj[eObject_Build].emplace_back(tower);
 	}
 	
