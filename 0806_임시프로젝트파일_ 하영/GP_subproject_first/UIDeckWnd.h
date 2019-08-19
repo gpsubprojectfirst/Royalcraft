@@ -1,11 +1,13 @@
 #pragma once
 #include "Object.h"
+#include "Deck.h"
 
 class UIDeckWnd :
 	public Object
 {
 private:
-	DECKINFO	m_tDeckInfo[4];
+	std::map<EDeck_type, Deck*> m_mDeck;
+	std::list<DECKINFO*>	m_liDeckInfo;		//slot
 	bool		m_bArray[4];
 	POINT		m_pt;
 	POINT		pSet;
@@ -19,18 +21,20 @@ private:
 private:
 	void SetArray();
 	void SelectItem();
-	/*void RenderIcon(Gdiplus::Graphics* MemG);
-*/
+	/*void RenderIcon(Gdiplus::Graphics* MemG);*/
+
 public:
-	Gdiplus::Image* deckIcon;
+	
     static bool		m_bOnItem;
+	static int		m_IsSelectMode;
+
 
 public:
 	virtual void Init();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Release();
-
+	void CreateDeck(EDeck_type _eType, const WCHAR* str);
 	//void Open();
 	//void Close();
 

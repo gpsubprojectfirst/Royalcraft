@@ -24,7 +24,6 @@ public:
 	virtual void Move(float Delta) {}
 	virtual void Attack(float Delta) {}
 	virtual void ExtraAction(float Delta) {}
-	static void SetMode(bool* _pIsSelectMode) { m_pIsSelectMode = _pIsSelectMode; }
 
 	//계속 변하는 변수
 	Gdiplus::Image* ParentImg;
@@ -37,6 +36,7 @@ public:
 	bool Enable;
 	CString name;
 	int ID;
+
 	MyMap* mMap;
 	StateManager sm;
 
@@ -46,9 +46,9 @@ public:
 	//virtual void Release();
 
 protected:
-	INFO		m_tInfo;
+	//INFO		m_tInfo;
 	static std::vector<Gdiplus::Image*>* m_pVecImg;
-	static bool* m_pIsSelectMode;
+
 
 };
 

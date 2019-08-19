@@ -3,7 +3,7 @@
 #include "MyMap.h"
 #include "SearchTree.h"
 #include "Command.h"
-
+#include "ViewUnit.h"
 
 class GameScene :
 	public Scene
@@ -19,8 +19,8 @@ public:
 	std::vector<MyUnit*> playUnit;
 	BlackBoard* blackBoard;
 	bool bRender = false;
-	bool	m_IsSelectMode;
 	bool	m_Renderflag;
+	ViewUnit* unitInfo;
 
 public:
 
@@ -30,6 +30,7 @@ public:
 	void Release();
 
 	void CreateObj(CPoint pt);
+	void CreateViewUnit(CPoint pt);
 	void SendLButtonDown(UINT nFlags, CPoint point);
 
 	GameScene();

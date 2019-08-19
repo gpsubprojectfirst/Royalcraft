@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Object.h"
 
-bool* Object::m_pIsSelectMode;
 
 Object::Object()
 	: Objtype(eObject_None)

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Deck.h"
 typedef struct tagInfo
 {
 	float	fX;
@@ -24,8 +25,12 @@ typedef struct tagDeck
 {
 	bool		bCanUse;
 	int			iCoolTIme;
+	int			iDeckPosX;
+	int			iDeckPosY;
+	int			iDeckSizeX;
+	int			iDeckSizeY;
+	Deck*		pDeck;
 }DECKINFO;
-
 
 typedef struct tagMouse
 {

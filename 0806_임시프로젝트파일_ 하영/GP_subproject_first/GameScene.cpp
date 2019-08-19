@@ -3,6 +3,7 @@
 #include "UIDeckWnd.h"
 #include "BehaviorTree.h"
 
+
 GameScene::GameScene()
 {
 	printf("GameScene init\n");
@@ -15,11 +16,9 @@ GameScene::GameScene()
 
 	ObjectManager& om = ObjectManager::GetInstance();
 	
-	Object::SetMode(&m_IsSelectMode);
 	UIDeckWnd* deck = new UIDeckWnd();
 	blackBoard = new BlackBoard(this->CommandQueue,this->mTree);
 	blackBoard->UpdateData(this->playUnit);
-	deck->Init();
 	Init();
 
 	MouseMgr::GetInstance().Init();
@@ -30,6 +29,48 @@ GameScene::GameScene()
 	//ObjectManager의 유닛데이터 복사
 	info.emplace_back(deck);
 	
+}
+
+void GameScene::CreateViewUnit(CPoint pt)
+{
+	Point mPoint;
+	mPoint.X = pt.x;
+	mPoint.Y = pt.y;
+
+	for (int i = 0; i < TILECNTX; ++i)
+	{
+		for (int j = 0; j < TILECNTY; ++j)
+		{
+			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
+			{
+				/*
+				ID:
+				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+				*/
+				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png"));
+				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png"));
+
+				ViewUnit* mUnit = new ViewUnit();
+				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
+				mUnit->ParentImg = load;
+				unitInfo = mUnit;
+				UIDeckWnd::m_IsSelectMode = 2;
+				
+			}
+		}
+	}
+
 }
 
 void GameScene::CreateObj(CPoint pt)
@@ -71,7 +112,7 @@ void GameScene::CreateObj(CPoint pt)
 				mTree->Set(mMap);
 				mUnit->mMap = mMap;
 				info.emplace_back(mUnit);
-				playUnit.emplace_back(mUnit);
+				playUnit.emplace_back(mUnit); 
 				blackBoard->UpdateData(playUnit);
 				mUnit->CreateBT(blackBoard);
 			}
@@ -82,32 +123,46 @@ void GameScene::CreateObj(CPoint pt)
 
 void GameScene::Init()
 {
-	Object::SetMode(&m_IsSelectMode);
 	m_vecGame.push_back( new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
 }
 
 void GameScene::Update(float Delta)
 {
 	KeyMgr::GetInstance().CheckKey();
-
+	
 	for (auto& it : this->info)
 	{
 		it->Update(Delta);
 	}
 
-	if (m_IsSelectMode)
+	if (unitInfo != nullptr)
 	{
-		POINT pt = MouseMgr::GetInstance().GetMousePos();
+		unitInfo->Update(Delta);
+	}
 
-		MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
+	POINT pt = MouseMgr::GetInstance().GetMousePos();
 
+ 	if (UIDeckWnd::m_IsSelectMode == 1)
+	{
+		//MOUSEINFO _mouseInfo = MouseMgr::GetInstance().GetMouseInfo();
+		CPoint _cPt(pt.x, pt.y);
+		CreateViewUnit(_cPt);
+		
+	}
+	
+	if (UIDeckWnd::m_IsSelectMode == 2)
+	{
 		//TODO : KEY_LBUTTON
 		if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
 		{
-			m_IsSelectMode = false;
+			delete(unitInfo);
+			unitInfo = nullptr;
+			UIDeckWnd::m_IsSelectMode = 0;
 			CPoint _cPt(pt.x, pt.y);
+			
 			//캐릭터 생성
 			CreateObj(_cPt);
+
 		}
 	}
 
@@ -144,10 +199,14 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		it->Render(MemG);
 	}
 
-	if (m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
+	if (unitInfo != nullptr)
+	{
+		unitInfo->Render(MemG);
+	}
+	/*if (UIDeckWnd::m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
 	{
 		MouseMgr::GetInstance().Render(MemG);
-	}
+	}*/
 }
 
 void GameScene::Release()
@@ -160,7 +219,7 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 	//CreateObj(point);
 	for (auto& it : this->info)
 	{
-		//std::cout <<"x:" <<point.x << "," << point.y << endl;
+		std::cout <<"x:" <<point.x << "," << point.y << endl;
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
 

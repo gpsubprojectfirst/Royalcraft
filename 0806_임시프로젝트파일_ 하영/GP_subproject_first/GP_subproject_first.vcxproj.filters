@@ -132,6 +132,12 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="ViewUnit.h">
+      <Filter>소스 파일\Object\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -205,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>소스 파일\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewUnit.cpp">
+      <Filter>소스 파일\Object\Animate</Filter>
+    </ClCompile>
+    <ClCompile Include="Deck.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

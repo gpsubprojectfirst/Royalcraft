@@ -12,6 +12,7 @@
 #include <gdiplus.h>
 #include <vector>
 #include <queue>
+#include <map>
 #include <string>	
 #include <CString>
 
