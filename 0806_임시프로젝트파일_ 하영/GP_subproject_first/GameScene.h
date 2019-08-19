@@ -4,6 +4,7 @@
 #include "SearchTree.h"
 #include "Command.h"
 #include "ViewUnit.h"
+#include "UICrown.h"
 
 class GameScene :
 	public Scene
@@ -15,13 +16,17 @@ public:
 	MapEditor* editor;
 	SearchTree* mTree;
 	Command CommandQueue;
-	MyUnit* knight;
 	std::vector<MyUnit*> playUnit;
 	BlackBoard* blackBoard;
 	bool bRender = false;
 	bool	m_Renderflag;
 	ViewUnit* unitInfo;
+	bool m_IsSelectMode;
+	bool m_Renderflag;
+	bool endflag;
 
+	//끝났을 때 에니메이션을 위한 변수
+	UICrown* endUI;
 public:
 
 	void Init();
@@ -29,10 +34,13 @@ public:
 	void Render(Gdiplus::Graphics* MemG);
 	void Release();
 
+	void GetBuffer(Gdiplus::Bitmap* _Buffer);
+	void grayscale(int width, int height, Gdiplus::BitmapData& pData);
 	void CreateObj(CPoint pt);
 	void CreateViewUnit(CPoint pt);
+	void CreateTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);
-
+	
 	GameScene();
 	~GameScene();
 };

@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\Object\UI">
       <UniqueIdentifier>{e97f9ebe-f055-49d3-90cd-c2f9de919adc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Sound">
+      <UniqueIdentifier>{9acbf5d9-cf16-41e5-ad51-ca8999596e2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GP_subproject_first.h">
@@ -132,12 +135,24 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ViewUnit.h">
       <Filter>소스 파일\Object\Animate</Filter>
     </ClInclude>
     <ClInclude Include="Deck.h">
       <Filter>소스 파일\Object\UI</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="Build.h">
+      <Filter>소스 파일\Object\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="UICrown.h">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>소스 파일\Sound</Filter>
+    </ClInclude>
+>>>>>>> 013aea1317c624399a5f5aa7cec27dfec1fde820
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GP_subproject_first.cpp">
@@ -212,12 +227,24 @@
     <ClCompile Include="Action.cpp">
       <Filter>소스 파일\Action</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ViewUnit.cpp">
       <Filter>소스 파일\Object\Animate</Filter>
     </ClCompile>
     <ClCompile Include="Deck.cpp">
       <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="Build.cpp">
+      <Filter>소스 파일\Object\Animate</Filter>
+    </ClCompile>
+    <ClCompile Include="UICrown.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>소스 파일\Sound</Filter>
+    </ClCompile>
+>>>>>>> 013aea1317c624399a5f5aa7cec27dfec1fde820
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GPsubprojectfirst.rc">

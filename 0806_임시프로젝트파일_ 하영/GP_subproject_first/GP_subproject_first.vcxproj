@@ -194,6 +194,7 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BehaviorTree.h" />
+    <ClInclude Include="Build.h" />
     <ClInclude Include="ChildView.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
@@ -218,8 +219,10 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SearchTree.h" />
     <ClInclude Include="SingleTon.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UICrown.h" />
     <ClInclude Include="UIDeckWnd.h" />
     <ClInclude Include="ViewUnit.h" />
   </ItemGroup>
@@ -227,6 +230,7 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
+    <ClCompile Include="Build.cpp" />
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Deck.cpp" />
@@ -252,7 +256,9 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SearchTree.cpp" />
     <ClCompile Include="SingleTon.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="state.cpp" />
+    <ClCompile Include="UICrown.cpp" />
     <ClCompile Include="UIDeckWnd.cpp" />
     <ClCompile Include="ViewUnit.cpp" />
   </ItemGroup>

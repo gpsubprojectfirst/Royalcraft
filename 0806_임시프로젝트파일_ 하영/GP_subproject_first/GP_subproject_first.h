@@ -14,6 +14,7 @@
 // 이 클래스의 구현에 대해서는 GP_subproject_first.cpp을(를) 참조하세요.
 //
 
+
 class CGPsubprojectfirstApp : public CWinApp
 {
 public:
@@ -26,13 +27,15 @@ public:
 	virtual int ExitInstance();
 
 // 구현입니다.
-	static DWORD PrevTick;
-	static bool bRender;
+
+	static DWORD StaticTick;
+	static int CallCount;
 
 public:
 	afx_msg void OnAppAbout();
 	static UINT funcThread(LPVOID pParam);
 	DECLARE_MESSAGE_MAP()
 };
+
 
 extern CGPsubprojectfirstApp theApp;

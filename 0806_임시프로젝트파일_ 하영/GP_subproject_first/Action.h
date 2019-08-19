@@ -24,7 +24,7 @@ class RestAction : public Action
 {
 public:
 	RestAction() {};
-	//void execute(Actor* actor, float Delta);
+	virtual void execute(Actor* actor, float Delta);
 };
 class ExtraAction : public Action
 {

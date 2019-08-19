@@ -16,8 +16,9 @@ public:
 	
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
+	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
-	void CreateBT(BlackBoard* InBB);
+	virtual void CreateBT(BlackBoard* InBB);
 	//유닛 스탯, 추후 csv에서 로드
 	int damage;
 	int hp;
@@ -27,6 +28,7 @@ public:
 	int cost;
 	int atk_distance;
 	bool Isdead;
+	bool teamBlue; //true = blud, false = red
 	//utill
 	float AddDelta;
 	//Behavior Tree

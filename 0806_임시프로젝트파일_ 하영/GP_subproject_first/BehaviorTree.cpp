@@ -91,14 +91,17 @@ bool IsNearObj::Invoke()
 {
 	//일정 거리 내에 있으면 target으로 없으면 false
 	
-	for (auto& it : *bbData->playUnit)
+	for (auto it : *bbData->playUnit)
 	{
-		if (sqrt(abs(it->posRc.X - actor->obj->posRc.X)
-			+ abs(it->posRc.Y - actor->obj->posRc.Y)) < 30 &&
-			it != actor->obj)
+		if (sqrt(pow(it->curPos.X - actor->obj->curPos.X,2)
+			+ pow(it->curPos.Y - actor->obj->curPos.Y,2)) < 300 &&
+			it != actor->obj &&
+			it->teamBlue != actor->obj->teamBlue &&
+			!it->Isdead )
 		{
-			actor->obj->target = it;
-			actor->obj->Set(bbData->mTree);
+			if(actor->obj->target == nullptr)
+				actor->obj->target = it;
+			//actor->obj->Set(bbData->mTree);*/
 			return true;
 		}
 	}
@@ -107,36 +110,56 @@ bool IsNearObj::Invoke()
 
 bool IsAbleAtk::Invoke()
 {
-	//유닛 사거리내에 다른 유닛이 있으면 true
-	for (auto& it : *bbData->playUnit)
+	//유닛 사거리내에 타겟이 있으면 true
+	if (sqrt(pow(actor->obj->target->curPos.X - actor->obj->curPos.X,2)
+			+ pow(actor->obj->target->curPos.Y - actor->obj->curPos.Y,2)) 
+		< actor->obj->atk_distance
+	)
 	{
-		//제곱근 연산 느리면 변경
-		if (sqrt(abs(it->posRc.X - actor->obj->posRc.X)
-			+ abs(it->posRc.Y - actor->obj->posRc.Y)) < actor->obj->atk_distance &&
-			it != actor->obj)
-		{
 			return true;
-		}
 	}
 	return false;
 }
 bool IsTargetHas::Invoke()
 {
-	if (actor->obj->target != nullptr)
+	if (actor->obj->target != nullptr )
+	{
+		if (actor->obj->frame == 0)
+		{
+			actor->obj->frame++;
+			actor->obj->dstTile.first = actor->obj->target->curTile.first;
+			actor->obj->dstTile.second = actor->obj->target->curTile.second;
+			actor->obj->Set(bbData->mTree);
+		}
 		return true;
+	}
 	else
 		return false;
 }
 bool IsBuilt::Invoke()
 {
-	actor->obj->Set(bbData->mTree);
+	//가까운 건물을 목적지로지정
+	//test경로
+	if (actor->obj->moveTilePath.empty())
+	{
+		actor->obj->dstTile.first = 10;
+		actor->obj->dstTile.second = 3;
+		actor->obj->Set(bbData->mTree);
+	}
 	return true;
+}
+
+bool IsDead::Invoke()
+{
+	if (!actor->obj->Isdead)
+		return true;
+	return false;
 }
 BehaviorTree::BehaviorTree(MyUnit* InActor, BlackBoard* InBB)
 	:root(nullptr)
 {
-	Init(InActor, InBB);
 }
+
 void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 {
 	root = new Sequence();
@@ -159,8 +182,9 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsAbleAtk* IsAttack = new IsAbleAtk();
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsBuilt* IsBuild = new IsBuilt();
-
+	IsDead* IsDeadUnit = new IsDead();
 	//트리 구성 추후 xml로 맵핑
+	root->AddChild(IsDeadUnit);
 	root->AddChild(RootSelector);
 
 	RootSelector->AddChild(seqNearObj);
@@ -184,6 +208,38 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	seqMoveToBuild->AddChild(IsBuild);
 	seqMoveToBuild->AddChild(actMoveUnit);
 	//Tick();
+}
+
+void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
+{
+	root = new Sequence();
+	root->bbData = InBB;
+	SetActor(InActor);
+
+	Selector* RootSelector = new Selector();
+	Sequence* seqNearObj = new Sequence();
+	Sequence* seqAttack = new Sequence();
+	
+	AttackUnit* actAtkUnit = new AttackUnit();
+	RestUnit* actRestUnit = new RestUnit();
+
+	IsNearObj* IsNear = new IsNearObj();
+	IsAbleAtk* IsAttack = new IsAbleAtk();
+	IsTargetHas* IsTarget = new IsTargetHas();
+	IsDead* IsDeadUnit = new IsDead();
+
+	root->AddChild(RootSelector);
+	root->AddChild(IsDeadUnit);
+	root->AddChild(actRestUnit);
+
+	RootSelector->AddChild(seqNearObj);
+	//
+	seqNearObj->AddChild(IsNear);
+	seqNearObj->AddChild(seqAttack);
+	////
+	seqAttack->AddChild(IsAttack);
+	seqAttack->AddChild(actAtkUnit);
+	/////
 }
 void BehaviorTree::SetActor(MyUnit* InActor)
 {
@@ -214,10 +270,7 @@ void BehaviorTree::RunSequencer(Sequence _InSequence)
 
 void BehaviorTree::Tick()
 {
-	while (!root->Invoke())
-	{
-		RunSequencer(*root);
-	}
+	root->Invoke();
 }
 
 void BehaviorTree::TraverseTree()

@@ -24,6 +24,8 @@ bool State_Idle::ChangeState(EState InState)
 		return true;
 	case eState_Attack:
 		return true;
+	case eState_Dead:
+		return true;
 	}
 	return	false;
 };
@@ -43,6 +45,8 @@ bool State_Move::ChangeState(EState InState)
 		return true;
 	case eState_Attack:
 		return true;
+	case eState_Dead:
+		return true;
 	}
 	return false;
 };
@@ -59,6 +63,21 @@ bool State_Attack::ChangeState(EState InState)
 	{
 	case eState_Idle:
 		return true;
+	case eState_Move:
+		return true;
+	case eState_Dead:
+		return true;
+
 	}
+	return false;
+};
+
+State_Dead::State_Dead()
+{
+
+}
+
+bool State_Dead::ChangeState(EState InState)
+{
 	return false;
 };

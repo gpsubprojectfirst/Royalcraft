@@ -40,8 +40,9 @@ CGPsubprojectfirstApp theApp;
 
 
 // CGPsubprojectfirstApp 초기화
-DWORD CGPsubprojectfirstApp::PrevTick = 0;
-bool CGPsubprojectfirstApp::bRender = false;
+
+DWORD CGPsubprojectfirstApp::StaticTick = 0;
+int CGPsubprojectfirstApp::CallCount = 0;
 ULONG_PTR gpToken;
 
 BOOL CGPsubprojectfirstApp::InitInstance()
@@ -137,16 +138,43 @@ void CGPsubprojectfirstApp::OnAppAbout()
 
 // CGPsubprojectfirstApp 메시지 처리기
 
+static DWORD PrevTick;
+static bool bRender;
 UINT CGPsubprojectfirstApp::funcThread(LPVOID pParam)
 {	
 	while (1)
 	{
 		DWORD tick = GetTickCount();
 		DWORD Delta = tick - PrevTick;
+		static DWORD AddDelta = 0;
+		PrevTick = tick;
+		StaticTick += Delta;
+		AddDelta += Delta;
+		static DWORD minDelta = 1000 / 60;
+
 
 		if (CMainFrame * MainFrm = static_cast<CMainFrame*>(theApp.GetMainWnd()))
 		{
-			{
+		
+
+				if (AddDelta < minDelta)
+				{
+					continue;
+					//   Sleep(minDelta - AddDelta);
+				}
+				else
+				{
+					if (AddDelta > 100)
+						AddDelta = 0;
+					else
+						AddDelta = AddDelta - minDelta;
+					Delta = minDelta;
+				}
+
+				// Update
+				++CallCount;
+
+
 				// Update
 				SceneManager::GetInstance().Update(Delta * 0.001f);
 
@@ -158,10 +186,17 @@ UINT CGPsubprojectfirstApp::funcThread(LPVOID pParam)
 				
 				if (!rc.IsRectNull())
 					view->InvalidateRect(rc);
-			}
+
+
+				if (StaticTick > 1000)
+				{
+					CallCount = 0;
+					StaticTick = 0;
+				}
+
+	
 		}
-		Sleep(1000 / 60);
-		PrevTick = tick;
+		Sleep(1);
 	}
 
 	return  -1;

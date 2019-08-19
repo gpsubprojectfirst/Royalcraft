@@ -17,47 +17,58 @@ MyUnit::MyUnit()
 	sm.Add(new State_Idle);
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
+	sm.Add(new State_Dead);
 }
 void MyUnit::Update(float Delta)
 {
-	AddDelta += Delta;
-	if (AddDelta > 0.1f)
+	if (!Isdead)
 	{
-		frame++;
-		AddDelta = 0;
 		
-		if (frame > 10)
-			frame = 0;
-	}
-	//상태 변화, 추후 행동 트리에 추가
-	UnitBt->Tick();
-	
-	if (sm.GetCurState() == eState_Idle)
-	{
-		rc = moveRc[direction][0];
-	}
-	else if (sm.GetCurState() == eState_Move)
-	{
-		int frame_ = frame % moveRc[direction].size();
-		rc = moveRc[direction][frame_];
-		//Move(Delta);
-	}
-	else if (sm.GetCurState() == eState_Attack)
-	{
-		int frame_ = frame % atkRc.size();
-		rc = atkRc[frame_];
-		//Attack(Delta);
+		AddDelta += Delta;
+		
+		if (AddDelta > 0.1f)
+		{
+			frame++;
+			AddDelta = 0;
+
+			if (frame > 10)
+				frame = 0;
+		}
+		//상태 변화, 추후 행동 트리에 추가
+		UnitBt->Tick();
+
+		if (sm.GetCurState() == eState_Idle)
+		{
+			rc = moveRc[direction][0];
+		}
+		else if (sm.GetCurState() == eState_Move)
+		{
+			int frame_ = frame % moveRc[direction].size();
+			rc = moveRc[direction][frame_];
+			//Move(Delta);
+		}
+		else if (sm.GetCurState() == eState_Attack)
+		{
+			int frame_ = frame % atkRc.size();
+			rc = atkRc[frame_];
+			//Attack(Delta);
+		}
+		else if (sm.GetCurState() == eState_Dead)
+		{
+			rc = moveRc[0][0];
+		}
 	}
 }
 
 void MyUnit::Render(Gdiplus::Graphics* MemG)
 {
-	//if (!Isdead)
+	if (!Isdead)
 	{
 		int width = rc.Width;
 		int height = rc.Height;
-
-		Gdiplus::Rect Dst1(posRc.X, posRc.Y, width, height);
+		
+		Gdiplus::Rect Dst1(curPos.X - width/4, curPos.Y - height/4, width / 2, height / 2);
+		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 	}
@@ -71,8 +82,9 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 		moveRc[i] = dst->moveRc[i];
 	}
 	atkRc = dst->atkRc;
-	Gdiplus::Rect Dst(ix, iy, ix+50, iy+50);
-	posRc = Dst;
+
+	curPos.X = ix;
+	curPos.Y = iy;
 }
 
 void MyUnit::ParserXML()
@@ -689,16 +701,11 @@ void MyUnit::ParserXML()
 
 void MyUnit::Set(SearchTree* mTree)
 {
-	if (target != nullptr)
-	{
-		if (moveTilePath.empty())
-		{
-			dstTile.first = target->curTile.first;
-			dstTile.second = target->curTile.second;
-			mTree->FindPath(curTile, dstTile, &moveTilePath);
-		}
-	}
-	else
+	while (!moveTilePath.empty())
+		moveTilePath.pop();
+	mTree->FindPath(curTile, dstTile, &moveTilePath);
+	mTree->Set(mMap);
+	/*else
 	{
 		if (moveTilePath.empty())
 		{
@@ -706,8 +713,9 @@ void MyUnit::Set(SearchTree* mTree)
 			dstTile.second = 3;
 
 			mTree->FindPath(curTile, dstTile, &moveTilePath);
+			mTree->Set(mMap);
 		}
-	}
+	}*/
 	
 }
 
@@ -716,13 +724,6 @@ void MyUnit::Move(float Delta)
 	if (moveTilePath.empty())
 	{
 		return;
-	}
-
-	AddDelta += Delta;
-	
-	if (AddDelta > 0.4f)
-	{
-		AddDelta = 0;
 	}
 
 	//moveTilePath큐에 이동경로가 저장되어있음
@@ -742,45 +743,51 @@ void MyUnit::Move(float Delta)
 		
 		//거리 계산
 		//this->curPos.first += this->move_speed * Delta;
-		float distanceX = tempDstTile.X - strTile.X;
-		float distanceY = tempDstTile.Y - strTile.Y;
+		int distanceX = tempDstTile.X - strTile.X;
+		int distanceY = tempDstTile.Y - strTile.Y;
 
 		//방향
-		if (distanceX == 0 && distanceY > 0)
 		{
-			direction = 0;
+			if (distanceX == 0 && distanceY > 0)
+			{
+				direction = 0;
+			}
+			if (distanceX > 0 && distanceY > 0)
+			{
+				direction = 1;
+			}
+			if (distanceX > 0 && distanceY == 0)
+			{
+				direction = 2;
+			}
+			if (distanceX > 0 && distanceY < 0)
+			{
+				direction = 3;
+			}
+			if (distanceX == 0 && distanceY < 0)
+			{
+				direction = 4;
+			}
 		}
-		if (distanceX > 0 && distanceY > 0)
-		{
-			direction = 1;
-		}
-		if (distanceX > 0 && distanceY == 0)
-		{
-			direction = 2;
-		}
-		if (distanceX > 0 && distanceY < 0)
-		{
-			direction = 3;
-		}
-		if (distanceX == 0 && distanceY < 0)
-		{
-			direction = 4;
-		}
-		//posRc = map->Infos[i][j].rc; //현재 위치 이동
+		//posRc = map->Infos[i][j].rc; //현재 
+		 //위치 이동
 		
-		posRc.X += (distanceX )  * 0.05;
-		posRc.Y += (distanceY ) * 0.05;
-		
+		curPos.X += (distanceX) / 27 * move_speed;
+		curPos.Y += (distanceY) / 22 * move_speed;
+
 		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
 		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
 */
 		//현재 목적지에 캐릭터가 들어왔는지
-		if(abs(posRc.X - tempDstTile.X) < 11 &&
-			abs(posRc.Y - tempDstTile.Y) < 15 )
+		if(tempDstTile.Contains(curPos.X,curPos.Y))
 		{
 			curTile = moveTilePath.top();
+
 			posRc.X = tempDstTile.X;
 			posRc.Y = tempDstTile.Y;
+
+			curPos.X = posRc.X + TILESIZEX/2;
+			curPos.Y = posRc.Y + TILESIZEY/2;
 		}
 	}
 }
@@ -794,7 +801,7 @@ void MyUnit::Attack(float Delta)
 	else
 	{
 		target->Isdead = true;
-		std::cout << "target is dead" << std::endl;
+		target = nullptr;
 	}
 }
 
@@ -806,4 +813,5 @@ void MyUnit::ExtraAction(float Delta)
 void MyUnit::CreateBT(BlackBoard* InBB)
 {
 	UnitBt = new BehaviorTree(this,InBB);
+	UnitBt->Init(this, InBB);
 }

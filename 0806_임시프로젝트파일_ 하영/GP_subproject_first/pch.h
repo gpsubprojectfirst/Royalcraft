@@ -25,6 +25,7 @@
 #include "MouseMgr.h"
 #include "KeyMgr.h"
 #include "MyUnit.h"
+#include "Build.h"
 #include "LogoScene.h"
 #include "LobbyScene.h"
 #include "GameScene.h"

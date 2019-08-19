@@ -1,0 +1,33 @@
+<root>
+ <IsDeadUnit>
+ <rootselector>
+	<seqNearObj>
+		<IsNear>
+		<selAttackTarget>
+			<seqAttack>
+				<IsAttack>
+				<actAtkUnit>
+			<selMoveToTarget>
+				<seqMoveToTarget>
+					<IsTarget>
+					<actMoveUnit>
+				<seqMoveToBuild>
+					<IsBuild>
+					<actMoveUnit>
+	<selMoveTarget>
+		<seqMoveToTarget>
+			<IsTarget>
+			<actMoveUnit>
+		<seqMoveToBuild>
+			<IsBuild>
+			<actMoveUnit>
+
+<root>
+ <rootSelector>
+	<seqNearObj>
+		<IsNear>
+		<seqAttack>
+			<IsAttack>
+			<actAtkUnit>
+ <IsDeadUnit>
+ <actRestUnit>

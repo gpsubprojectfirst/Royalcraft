@@ -8,10 +8,10 @@ class ObjectManager
 {
 public:
 	ObjectManager();
+
 	Object* GetObj(int n);
-
 	Object* GetMyUnit(int n);
-
+	Object* GetBuild(int n);
 	//Object* CreateObj(EObject _obj_type, CString name, int ID);
 	//static ObjectManager& GetInstance();
 	//void Update(float Delta);
