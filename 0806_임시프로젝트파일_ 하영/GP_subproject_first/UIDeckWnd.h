@@ -8,6 +8,10 @@ class UIDeckWnd :
 private:
 	std::map<EDeck_type, Deck*> m_mDeck;
 	std::list<DECKINFO*>	m_liDeckInfo;		//slot
+	
+	Deck** viewArray;
+	EDeck_type arrayNum[4];
+	
 	POINT		m_pt;
 	//POINT		pSet;
 	int			m_iSelectedCell;
@@ -26,7 +30,7 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Release();
 	void CreateDeck(EDeck_type _eType, const WCHAR* str);
-
+	void ChooseDeck();
 
 public:
 	UIDeckWnd(void);
