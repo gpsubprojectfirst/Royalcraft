@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "ViewUnit.h"
 
+ColorMatrix colorMatrix = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+						   0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+						   0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+						   0.0f, 0.0f, 0.0f, 0.5f, 0.0f,
+						   0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+
 ViewUnit::ViewUnit()
 	: Object(EObject::eObject_Unit)
 {
@@ -23,9 +29,13 @@ void ViewUnit::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 
-		Gdiplus::Rect Dst1(posRc.X, posRc.Y, width, height);
+		Gdiplus::Rect Dst1(curPos.X - width / 4, curPos.Y - height / 4, width / 2, height / 2);
+		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
+		ImageAttributes imageAtt;
+		imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault,
+			ColorAdjustTypeBitmap);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
-			nullptr, 0, nullptr);
+			&imageAtt);
 	}
 }
 void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
@@ -39,6 +49,6 @@ void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
 	
 	rc = moveRc[4][0];
 	
-	Gdiplus::Rect Dst(ix, iy, ix + 50, iy + 50);
-	posRc = Dst;
+	curPos.X = ix;
+	curPos.Y = iy;
 }
