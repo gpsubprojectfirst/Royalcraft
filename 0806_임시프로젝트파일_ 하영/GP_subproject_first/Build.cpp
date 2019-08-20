@@ -110,7 +110,11 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	ID = dst->ID;
 	name = dst->name;
-	atkRc = dst->atkRc;
+	mUnitInfo = dst->mUnitInfo;
+	for (int i = 0; i < 5; i++)
+	{
+		atkRc[i] = dst->atkRc[i];
+	}
 	mUnitInfo = dst->mUnitInfo;
 	for (int i = 0; i < 5; i++)
 	{
