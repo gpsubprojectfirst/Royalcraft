@@ -192,13 +192,14 @@ void GameScene::Init()
 
 void GameScene::Update(float Delta)
 {
+	KeyMgr::GetInstance().CheckKey();
+	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
+	{
+		m_bExit = true;
+	}
+
 	if (!endflag && !m_bExit) 
 	{
-		KeyMgr::GetInstance().CheckKey();
-		if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
-		{
-			m_bExit = true;
-		}
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
 		{
@@ -215,7 +216,7 @@ void GameScene::Update(float Delta)
 		}
 
 		//TODO : KEY_LBUTTON
-		if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+		if (KeyMgr::GetInstance().GetKey() & KEY_LBUTTON)
 		{
 			UIDeckWnd::m_IsSelectMode = 2;
 			if (UIDeckWnd::m_IsSelectMode == 2)
@@ -282,12 +283,6 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
-
-	/*if (UIDeckWnd::m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
-	{
-		MouseMgr::GetInstance().Render(MemG);
-	}*/
-
 	if (endflag || m_bExit)
 	{
 		BitmapData pt;
@@ -301,11 +296,12 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 			endUI->Render(MemG);
 		}
 			
-		m_uiPopup->Render(MemG);
+		if (m_bExit)
+		{
+			m_uiPopup->Render(MemG);
+		}
 	}
 
-	
-	
 }
 
 void GameScene::Release()

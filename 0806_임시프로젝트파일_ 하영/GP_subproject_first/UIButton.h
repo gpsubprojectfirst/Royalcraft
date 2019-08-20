@@ -1,11 +1,10 @@
 #pragma once
 #include "Object.h"
-class UIPopup :
+class UIButton :
 	public Object
 {
 private:
-	Gdiplus::Image*			m_popupWnd;
-	std::vector<Object*>	m_vecPopup;
+	Gdiplus::Image* m_popupWnd;
 
 public:
 	virtual void Init(void);
@@ -13,7 +12,7 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG);
 
 public:
-	UIPopup();
-	~UIPopup();
+	UIButton();
+	~UIButton();
 };
 
