@@ -113,7 +113,7 @@ bool IsAbleAtk::Invoke()
 	//유닛 사거리내에 타겟이 있으면 true
 	if (sqrt(pow(actor->obj->target->curPos.X - actor->obj->curPos.X,2)
 			+ pow(actor->obj->target->curPos.Y - actor->obj->curPos.Y,2)) 
-		< actor->obj->atk_distance
+		< actor->obj->mUnitInfo.atk_distance * 30
 	)
 	{
 			return true;

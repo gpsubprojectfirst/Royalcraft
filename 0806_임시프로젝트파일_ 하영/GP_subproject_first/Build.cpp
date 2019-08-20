@@ -5,10 +5,11 @@ Build::Build()
 	Objtype = eObject_Build;
 	curTile = std::make_pair(0, 0);
 	
-	hp = 500;
-	move_speed = 0;
-	atk_distance = 300;
-	damage = 45;
+	/*mUnitInfo.hp = 500;
+	mUnitInfo.move_speed = 0;
+	mUnitInfo.atk_distance = 300;
+	mUnitInfo.damage = 45;
+	*/
 	Isdead = false;
 
 	sm.Add(new State_Idle);
@@ -36,8 +37,8 @@ void Build::Update(float Delta)
 		}
 		else if (sm.GetCurState() == eState_Attack)
 		{
-			int frame_ = frame % atkRc.size();
-			rc = atkRc[frame_];
+			int frame_ = frame % atkRc[direction].size();
+			rc = atkRc[0][frame_];
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
@@ -77,7 +78,7 @@ void Build::ParserXML()
 		}
 		for (int i = 0; i < 15 ; i++)
 		{
-			atkRc.emplace_back(Node->IntAttribute("x")
+			atkRc[0].emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
 				, Node->IntAttribute("h"));
@@ -96,7 +97,7 @@ void Build::ParserXML()
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
 				, Node->IntAttribute("h"));
-			atkRc.emplace_back(Node->IntAttribute("x")
+			atkRc[0].emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
 				, Node->IntAttribute("h"));
@@ -107,11 +108,15 @@ void Build::ParserXML()
 }
 void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {
-	
 	ID = dst->ID;
 	name = dst->name;
-
 	atkRc = dst->atkRc;
+	mUnitInfo = dst->mUnitInfo;
+	for (int i = 0; i < 5; i++)
+	{
+		atkRc[i] = dst->atkRc[i];
+	}
+
 	restRc = ((Build*)dst)->restRc;
 	curPos.X = ix;
 	curPos.Y = iy;
