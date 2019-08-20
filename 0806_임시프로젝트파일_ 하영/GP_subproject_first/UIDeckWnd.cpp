@@ -19,6 +19,11 @@ UIDeckWnd::~UIDeckWnd()
 
 void UIDeckWnd::Init()
 {
+	/*
+				ID:
+				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+	*/
 	CreateDeck(EDeck_type::EDeck_KNIGHT,TEXT("Asset\\3.game\\4.ui\\Deck\\Knight.png"));
 	CreateDeck(EDeck_type::EDeck_Axeman,TEXT("Asset\\3.game\\4.ui\\Deck\\axeman.png"));
 	CreateDeck(EDeck_type::EDeck_Darknight,TEXT("Asset\\3.game\\4.ui\\Deck\\darknight.png"));
