@@ -12,11 +12,12 @@ const static int TILESIZEY = 22;
 const static int TILECNTX = 22;
 const static int TILECNTY = 44;
 
-const DWORD		KEY_LBUTTON = 0x00000004;
-const DWORD		KEY_RBUTTON = 0x00000002;
 const DWORD		KEY_SPACE = 0x00000001;
+const DWORD		KEY_RBUTTON = 0x00000002;
+const DWORD		KEY_LBUTTON = 0x00000004;
 const DWORD		KEY_Z = 0x00000008;
 const DWORD		KEY_F1 = 0x00000010;
+const DWORD		KEY_ESC = 0x00000020;
 
 enum EState {
 	eState_Idle,

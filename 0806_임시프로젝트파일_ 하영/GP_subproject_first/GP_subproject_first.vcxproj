@@ -224,6 +224,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UICrown.h" />
     <ClInclude Include="UIDeckWnd.h" />
+    <ClInclude Include="UIPopup.h" />
     <ClInclude Include="ViewUnit.h" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +261,7 @@
     <ClCompile Include="state.cpp" />
     <ClCompile Include="UICrown.cpp" />
     <ClCompile Include="UIDeckWnd.cpp" />
+    <ClCompile Include="UIPopup.cpp" />
     <ClCompile Include="ViewUnit.cpp" />
   </ItemGroup>
   <ItemGroup>

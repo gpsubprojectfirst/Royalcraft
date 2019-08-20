@@ -109,7 +109,7 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	
 	ID = dst->ID;
-	name - dst->name;
+	name = dst->name;
 
 	atkRc = dst->atkRc;
 	restRc = ((Build*)dst)->restRc;

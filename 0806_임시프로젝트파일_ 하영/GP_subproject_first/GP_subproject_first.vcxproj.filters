@@ -1,264 +1,273 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="소스 파일\Manager">
-      <UniqueIdentifier>{88f2ef41-7f86-47fc-a07d-fd18d40b9792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Scene">
-      <UniqueIdentifier>{dd234ea0-9cf4-46fe-8a3f-37061efd8fba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Object">
-      <UniqueIdentifier>{6991be74-db7b-4aad-8c86-fd24a612d548}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\BehaviorTree">
-      <UniqueIdentifier>{8d191b6b-72a6-48a7-8b47-4323cb5ef81f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Action">
-      <UniqueIdentifier>{5873a599-4019-4cfd-b7a7-a8645699a9f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\State">
-      <UniqueIdentifier>{83dfdb7d-7569-4461-af36-23eb2a2ae8bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Map">
-      <UniqueIdentifier>{80bcb4f8-499e-4166-b405-beaaca736ee0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\SearchTree">
-      <UniqueIdentifier>{5808dd02-95d5-4f91-82f6-2de995dd5880}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Object\Animate">
-      <UniqueIdentifier>{39c71004-abf1-4ccc-9104-9cd3e72a4277}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Object\UI">
-      <UniqueIdentifier>{e97f9ebe-f055-49d3-90cd-c2f9de919adc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Sound">
-      <UniqueIdentifier>{9acbf5d9-cf16-41e5-ad51-ca8999596e2c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GP_subproject_first.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ChildView.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="common.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SingleTon.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="state.h">
-      <Filter>소스 파일\State</Filter>
-    </ClInclude>
-    <ClInclude Include="LobbyScene.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoScene.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>소스 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="BehaviorTree.h">
-      <Filter>소스 파일\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="Action.h">
-      <Filter>소스 파일\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>소스 파일\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>소스 파일\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="myMap.h">
-      <Filter>소스 파일\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="SearchTree.h">
-      <Filter>소스 파일\SearchTree</Filter>
-    </ClInclude>
-    <ClInclude Include="Define.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditor.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="myUnit.h">
-      <Filter>소스 파일\Object\Animate</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseMgr.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="UIDeckWnd.h">
-      <Filter>소스 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyMgr.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="ViewUnit.h">
-      <Filter>소스 파일\Object\Animate</Filter>
-    </ClInclude>
-    <ClInclude Include="Deck.h">
-      <Filter>소스 파일\Object\UI</Filter>
-    </ClInclude>
-=======
-    <ClInclude Include="Build.h">
-      <Filter>소스 파일\Object\Animate</Filter>
-    </ClInclude>
-    <ClInclude Include="UICrown.h">
-      <Filter>소스 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundMgr.h">
-      <Filter>소스 파일\Sound</Filter>
-    </ClInclude>
->>>>>>> 013aea1317c624399a5f5aa7cec27dfec1fde820
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GP_subproject_first.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ChildView.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="state.cpp">
-      <Filter>소스 파일\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SingleTon.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoScene.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="LobbyScene.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BehaviorTree.cpp">
-      <Filter>소스 파일\BehaviorTree</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>소스 파일\Action</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>소스 파일\Action</Filter>
-    </ClCompile>
-    <ClCompile Include="myMap.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="SearchTree.cpp">
-      <Filter>소스 파일\SearchTree</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditor.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="myUnit.cpp">
-      <Filter>소스 파일\Object\Animate</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseMgr.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="UIDeckWnd.cpp">
-      <Filter>소스 파일\Object\UI</Filter>
+    <ClCompile Include="Deck.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Action.cpp">
-      <Filter>소스 파일\Action</Filter>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="ViewUnit.cpp">
-      <Filter>소스 파일\Object\Animate</Filter>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Deck.cpp">
-      <Filter>소스 파일\Object\UI</Filter>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
-=======
+    <ClCompile Include="MapEditor.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseMgr.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="myMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
     <ClCompile Include="Build.cpp">
-      <Filter>소스 파일\Object\Animate</Filter>
+      <Filter>Object\Build</Filter>
+    </ClCompile>
+    <ClCompile Include="myUnit.cpp">
+      <Filter>Object\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="UICrown.cpp">
-      <Filter>소스 파일\Object\UI</Filter>
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDeckWnd.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTon.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="SoundMgr.cpp">
-      <Filter>소스 파일\Sound</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
->>>>>>> 013aea1317c624399a5f5aa7cec27dfec1fde820
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="GP_subproject_first.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildView.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchTree.cpp">
+      <Filter>Pattern\1.SearchTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewUnit.cpp">
+      <Filter>Object\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTree.cpp">
+      <Filter>Pattern\4.BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="state.cpp">
+      <Filter>Pattern\3.State</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Pattern\5.Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Pattern\6.Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Pattern\6.Action</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPopup.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GPsubprojectfirst.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
+    <ClInclude Include="Deck.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditor.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="myMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Build.h">
+      <Filter>Object\Build</Filter>
+    </ClInclude>
+    <ClInclude Include="myUnit.h">
+      <Filter>Object\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UICrown.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDeckWnd.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTon.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="GP_subproject_first.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildView.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchTree.h">
+      <Filter>Pattern\1.SearchTree</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewUnit.h">
+      <Filter>Object\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorTree.h">
+      <Filter>Pattern\4.BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="state.h">
+      <Filter>Pattern\3.State</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Pattern\5.Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Pattern\6.Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Pattern\6.Action</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPopup.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{1da3e5bb-3b11-4d8d-8b63-5d530aa28219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{aa461e8e-90c7-443e-ad71-355a7656697c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{378d2aec-e3ec-4161-b3d8-21d1ef4525ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Astar">
+      <UniqueIdentifier>{cbf85ebf-987e-4b31-a033-a21692811dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{ec34d80e-bdc7-426c-a4a7-9520ee66b942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{85f7b98c-9c8d-421f-8616-c5e32ef4efd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Unit">
+      <UniqueIdentifier>{663e3ce6-4b21-499d-8e98-1ce10f54f13a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Deck">
+      <UniqueIdentifier>{9ce0fddf-a68f-44ed-9233-0c0544a92714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Build">
+      <UniqueIdentifier>{79c3a083-1f0f-4092-aab8-6da20341349a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern">
+      <UniqueIdentifier>{e65f60b0-435c-471e-9ec7-08d7e20a5466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{6657b20b-752a-4a60-86be-2b50953336f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{975e1d89-618a-4eb5-9b5a-d7a9e8837184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\1.SearchTree">
+      <UniqueIdentifier>{9499c62a-f93c-4d29-bb7c-2e84ea079ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\2.Singleton">
+      <UniqueIdentifier>{7dc0d4a2-1310-4f58-af92-6c7565caec5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\3.State">
+      <UniqueIdentifier>{eaa780ad-da16-48f9-a508-31957a9be8f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\4.BehaviorTree">
+      <UniqueIdentifier>{e74a6064-fa14-4933-871b-3d443575f5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\5.Command">
+      <UniqueIdentifier>{39b78873-424e-45bd-bb35-e9ef5b1bc045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pattern\6.Action">
+      <UniqueIdentifier>{00076d26-e9be-485a-a473-93be1b96d91c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GPsubprojectfirst.rc2">
-      <Filter>리소스 파일</Filter>
+      <Filter>App</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="GPsubprojectfirst.rc">
+      <Filter>App</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
     <Image Include="res\GP_subproject_first.ico">
-      <Filter>리소스 파일</Filter>
+      <Filter>App</Filter>
     </Image>
   </ItemGroup>
 </Project>

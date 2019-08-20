@@ -5,9 +5,11 @@
 #include "SoundMgr.h"
 
 
+
 GameScene::GameScene()
 {
 	endflag = false;
+	m_bExit = false;
 	printf("GameScene init\n");
 
 	mMap = new MyMap();
@@ -24,6 +26,7 @@ GameScene::GameScene()
 
 	UIDeckWnd* deck = new UIDeckWnd();
 	deck->Init();
+	info.emplace_back(deck);
 	
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
@@ -32,12 +35,15 @@ GameScene::GameScene()
 
 	MouseMgr::GetInstance().Init();
 	//SoundMgr::GetInstance()->SoundPlay(0, 0);
-	info.emplace_back(deck);
+
 
 	//임시 위치
 	endUI = new UICrown();
 	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->ParserXML();
+
+	m_uiPopup = new UIPopup();
+	//info.push_back(m_uiPopup);
 
 	CreateTower();
 	//playUnit.emplace_back();
@@ -179,14 +185,20 @@ void GameScene::Init()
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
+
+
+
 }
 
 void GameScene::Update(float Delta)
 {
-	if (!endflag)
+	if (!endflag && !m_bExit) 
 	{
-
 		KeyMgr::GetInstance().CheckKey();
+		if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
+		{
+			m_bExit = true;
+		}
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
 		{
@@ -214,12 +226,12 @@ void GameScene::Update(float Delta)
 				CPoint _cPt(pt.x, pt.y);
 
 				//캐릭터 생성
-				CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
+				//CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
 			}
 			
 		}
 
-		if (KeyMgr::GetInstance().GetKey() & VK_F1)
+		if (KeyMgr::GetInstance().GetKey() & KEY_F1)
 		{
 			bRender = !bRender;
 		}
@@ -228,8 +240,16 @@ void GameScene::Update(float Delta)
 	}
 	else
 	{
-		//게임이 끝났으면 업데이트 멈춤
-		endUI->Update(Delta);
+		if (endflag)
+		{
+			//게임이 끝났으면 업데이트 멈춤
+			endUI->Update(Delta);
+		}
+		if (m_bExit)
+		{
+			m_uiPopup->Update(Delta);
+		}
+		
 	}
 }
 
@@ -262,21 +282,30 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
+
 	/*if (UIDeckWnd::m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
 	{
 		MouseMgr::GetInstance().Render(MemG);
 	}*/
 
-	if (endflag)
+	if (endflag || m_bExit)
 	{
 		BitmapData pt;
 		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
 		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
-
-		endUI->Render(MemG);
+		
+		if (endflag)
+		{
+			endUI->Render(MemG);
+		}
+			
+		m_uiPopup->Render(MemG);
 	}
+
+	
+	
 }
 
 void GameScene::Release()
@@ -307,6 +336,5 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 }
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	//CreateObj(point);
-
+	CreateObj(point, MouseMgr::GetInstance().GetUnitID());
 }
