@@ -502,7 +502,7 @@ void MyUnit::ParserXML()
 		}
 		for (int i = 95; i < 107; i++)
 		{
-			moveRc[3].emplace_back(Node->IntAttribute("x")
+			moveRc[4].emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
 				, Node->IntAttribute("h"));
