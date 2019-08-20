@@ -28,13 +28,17 @@ public:
 	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
-	//유닛 스탯, 추후 csv에서 로드
+
+	void CalcDirection(int xvec,int yvec);
+	//unit status
 	UnitInfo mUnitInfo;
+	
+	//game flag
 	bool Isdead;
 	bool teamBlue; //true = blud, false = red
+	
 	//utill
 	float AddDelta;
-	//Behavior Tree
 	BehaviorTree* UnitBt;
 	MyUnit* target; //목적 오브젝트
 
@@ -45,6 +49,7 @@ public:
 
 	//Asset Position
 	int direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
+	bool flipF; //true면 이미지 대칭 flip
 	std::vector<Gdiplus::Rect> moveRc[5]; // 이동에 쓰일 이미지 위치
 	std::vector<Gdiplus::Rect> atkRc[5]; // 공격에 쓰일 이미지 위치
 };

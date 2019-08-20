@@ -32,7 +32,7 @@ void MyUnit::Update(float Delta)
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 10)
+			if (frame > 20)
 				frame = 0;
 		}
 		//상태 변화, 추후 행동 트리에 추가
@@ -69,8 +69,17 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 		int height = rc.Height;
 		
 		Gdiplus::Rect Dst1(curPos.X - width/4, curPos.Y - height/4, width / 2, height / 2);
-		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
-		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
+	
+		Gdiplus::Bitmap* tempBmp = new Bitmap(width, height);
+		Gdiplus::Graphics* tempG = new Gdiplus::Graphics(tempBmp);
+		Gdiplus::Rect tempRc(0, 0, width, height);
+		tempG->DrawImage(ParentImg,tempRc,rc.X,rc.Y,width,height, Gdiplus::Unit::UnitPixel,
+			nullptr, 0, nullptr);
+		
+		if(flipF)
+			tempBmp->RotateFlip(RotateNoneFlipX);
+
+		MemG->DrawImage(tempBmp, Dst1, 0, 0, width, height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 	}
 }
@@ -267,7 +276,7 @@ void MyUnit::ParserXML()
 			}
 		}
 		//공격
-		for (int k = 0; k < 4; k++)
+		for (int k = 0; k < 5; k++)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -462,17 +471,6 @@ void MyUnit::Set(SearchTree* mTree)
 		moveTilePath.pop();
 	mTree->FindPath(curTile, dstTile, &moveTilePath);
 	mTree->Set(mMap);
-	/*else
-	{
-		if (moveTilePath.empty())
-		{
-			dstTile.first = 10;
-			dstTile.second = 3;
-
-			mTree->FindPath(curTile, dstTile, &moveTilePath);
-			mTree->Set(mMap);
-		}
-	}*/
 	
 }
 
@@ -503,38 +501,13 @@ void MyUnit::Move(float Delta)
 		int distanceX = tempDstTile.X - strTile.X;
 		int distanceY = tempDstTile.Y - strTile.Y;
 
-		//방향
-		{
-			if (distanceX == 0 && distanceY > 0)
-			{
-				direction = 0;
-			}
-			if (distanceX > 0 && distanceY > 0)
-			{
-				direction = 1;
-			}
-			if (distanceX > 0 && distanceY == 0)
-			{
-				direction = 2;
-			}
-			if (distanceX > 0 && distanceY < 0)
-			{
-				direction = 3;
-			}
-			if (distanceX == 0 && distanceY < 0)
-			{
-				direction = 4;
-			}
-		}
-		//posRc = map->Infos[i][j].rc; //현재 
+		CalcDirection(distanceX, distanceY);
+		
 		 //위치 이동
 		
 		curPos.X += (distanceX) / 27 * mUnitInfo.move_speed;
 		curPos.Y += (distanceY) / 22 * mUnitInfo.move_speed;
 
-		/*cout << "dstX: " << dstX << ",	dstY: " << dstY << endl;
-		cout << "posRc.X: " << posRc.X << ",	posRc.Y: " << posRc.Y << endl;
-*/
 		//현재 목적지에 캐릭터가 들어왔는지
 		if(tempDstTile.Contains(curPos.X,curPos.Y))
 		{
@@ -571,4 +544,48 @@ void MyUnit::CreateBT(BlackBoard* InBB)
 {
 	UnitBt = new BehaviorTree(this,InBB);
 	UnitBt->Init(this, InBB);
+}
+
+void MyUnit::CalcDirection(int xvec,int yvec)
+{
+	if (xvec == 0 && yvec > 0)
+	{
+		flipF = true;
+		direction = 0;
+	}
+	if (xvec == 0 && yvec < 0)
+	{
+		flipF = false;
+		direction = 4;
+	}
+	if (xvec > 0 && yvec > 0)
+	{
+		flipF = false;
+		direction = 1;
+	}
+	if (xvec > 0 && yvec == 0)
+	{
+		flipF = false;
+		direction = 2;
+	}
+	if (xvec > 0 && yvec < 0)
+	{
+		flipF = false;
+		direction = 3;
+	}
+	if (xvec < 0 && yvec > 0)
+	{
+		flipF = true;
+		direction = 1;
+	}
+	if (xvec < 0 && yvec == 0)
+	{
+		flipF = true;
+		direction = 2;
+	}
+	if (xvec < 0 && yvec < 0)
+	{
+		flipF = true;
+		direction = 3;
+	}
 }
