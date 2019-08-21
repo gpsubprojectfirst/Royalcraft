@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Data Name="ddd.png" Count="3">
+        <UV ID="0" Left="0.15178572" Top="0.14136904" Right="0.82738096" Bottom="0.55654764"/>
+        <UV ID="1" Left="0.21428572" Top="0.68898809" Right="0.37202382" Bottom="0.88690478"/>
+        <UV ID="2" Left="0.71279764" Top="0.68898809" Right="0.82886904" Bottom="0.88839287"/>
+    </Data>
+</Atlas>
