@@ -7,9 +7,38 @@
 
 GameScene::GameScene()
 {
+	std::cout << "GameScene()" << endl;
+}
+
+GameScene::~GameScene()
+{
+	//Release();
+}
+
+void GameScene::Init()
+{
+	std::cout << "GameScene Init()" << endl;
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
+	/*
+	ID:
+	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+`	*/
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
+
 	endflag = false;
 	m_bExit = false;
-	printf("GameScene init\n");
 
 	mMap = new MyMap();
 	mMap->LoadFile();
@@ -26,11 +55,9 @@ GameScene::GameScene()
 	UIDeckWnd* deck = new UIDeckWnd();
 	deck->Init();
 	info.emplace_back(deck);
-	
+
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
-
-	Init();
 
 	MouseMgr::GetInstance().Init();
 	//SoundMgr::GetInstance()->SoundPlay(0, 0);
@@ -42,19 +69,13 @@ GameScene::GameScene()
 	endUI->ParserXML();
 
 	m_uiPopup = new UIPopup();
-	m_uiHpbar = new UIHpbar();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
 	//playUnit.emplace_back();
 	//blackBoard->UpdateData(playUnit);
 	//mUnit->CreateBT(blackBoard);
-	std::cout << "LobbyScene()" << std::endl;
-}
 
-GameScene::~GameScene()
-{
-	//Release();
 }
 
 void GameScene::CreateViewUnit(CPoint pt, int unitID)
@@ -83,7 +104,6 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 	}
 
 }
-
 
 void GameScene::CreateTower()
 {
@@ -170,68 +190,7 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 
 }
 
-void GameScene::Init()
-{
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
-	/*
-	ID:
-	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
-	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
-`	*/
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
 
-	printf("GameScene ()\n");
-	endflag = false;
-	m_bExit = false;
-
-	mMap = new MyMap();
-	mMap->LoadFile();
-
-	mTree = new SearchTree();
-	mTree->Set(mMap);
-
-
-	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
-	blackBoard->UpdateData(this->playUnit);
-
-	ObjectManager& om = ObjectManager::GetInstance();
-
-	UIDeckWnd* deck = new UIDeckWnd();
-	deck->Init();
-	info.emplace_back(deck);
-
-	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
-	blackBoard->UpdateData(this->playUnit);
-
-	MouseMgr::GetInstance().Init();
-	//SoundMgr::GetInstance()->SoundPlay(0, 0);
-
-
-	//임시 위치
-	endUI = new UICrown();
-	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
-	endUI->ParserXML();
-
-	m_uiPopup = new UIPopup();
-	//info.push_back(m_uiPopup);
-
-	CreateTower();
-	//playUnit.emplace_back();
-	//blackBoard->UpdateData(playUnit);
-	//mUnit->CreateBT(blackBoard);
-
-}
 
 void GameScene::Update(float Delta)
 {
@@ -328,6 +287,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
+	if(m_uiHpbar!=nullptr)
 	m_uiHpbar->Render(MemG);
 
 	if (endflag || m_bExit)

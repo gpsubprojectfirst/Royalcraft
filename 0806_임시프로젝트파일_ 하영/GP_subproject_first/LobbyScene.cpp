@@ -8,40 +8,31 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Init()
 {
-	printf("LobbyScene() Init\n");
+	std::cout << "LobbyScene Init()" << std::endl;
 	bgImg = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex.png"));
 
 }
 
 void LobbyScene::Update(float Delta)
 {
-
 	if (GetAsyncKeyState(VK_SPACE) & 0x8001)
 	{
 		SceneManager::GetInstance().LoadScene(CString("GameScene"));
 		return;
 	}
-	
+
 	if (GetAsyncKeyState(VK_F1) & 0x8001)
 	{
 		SceneManager::GetInstance().LoadScene(CString("EditorScene"));
 		return;
 	}
-
-
 }
 
 void LobbyScene::Render(Gdiplus::Graphics* MemG)
 {
 	if (MemG == nullptr) return;
 
-	//for (auto& it : this->info)
 	{
-
-		/*if (it == nullptr) continue;
-		if (it->Enable == false) continue;*/
-
-
 		Rect Dst(0, 0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
 		Bitmap bm(REAL_WINSIZE_X, REAL_WINSIZE_Y, PixelFormat32bppARGB);
 		Graphics test(&bm);

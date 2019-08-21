@@ -5,7 +5,7 @@
 
 LogoScene::LogoScene()
 {
-	printf("LogoScene init\n");
+	std::cout << "LogoScene()" << endl;
 }
 
 void LogoScene::Init()
@@ -13,6 +13,7 @@ void LogoScene::Init()
 	//sound load
 	//SoundMgr::GetInstance()->Init();
 	//SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\1st_crown_01.wav"));
+	std::cout << "LogoScene Init()" << endl;
 	m_vecLogo.push_back(new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png")));
 }
 
