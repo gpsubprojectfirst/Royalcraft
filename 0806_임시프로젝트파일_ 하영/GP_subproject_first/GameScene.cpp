@@ -43,6 +43,7 @@ GameScene::GameScene()
 	endUI->ParserXML();
 
 	m_uiPopup = new UIPopup();
+	m_uiHpbar = new UIHpbar();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
@@ -282,6 +283,8 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	{
 		unitInfo->Render(MemG);
 	}
+
+	m_uiHpbar->Render(MemG);
 
 	if (endflag || m_bExit)
 	{
