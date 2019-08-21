@@ -3,14 +3,14 @@
 
 LobbyScene::LobbyScene()
 {
-	Init();
-	
-	printf("LobbyScene init\n");
+	std::cout << "LobbyScene()" << std::endl;
 }
 
 void LobbyScene::Init()
 {
+	printf("LobbyScene() Init\n");
 	bgImg = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex.png"));
+
 }
 
 void LobbyScene::Update(float Delta)
@@ -21,7 +21,7 @@ void LobbyScene::Update(float Delta)
 		SceneManager::GetInstance().LoadScene(CString("GameScene"));
 		return;
 	}
-
+	
 	if (GetAsyncKeyState(VK_F1) & 0x8001)
 	{
 		SceneManager::GetInstance().LoadScene(CString("EditorScene"));

@@ -81,6 +81,9 @@ void CChildView::OnPaint()
 	MemG.FillRectangle(&WhiteBrush, rc2);
 	//sm.Update();
 	//그리기
+
+	if (SceneManager::GetInstance().GetCurScene() == nullptr)
+		return;
 	SceneManager::GetInstance().GetCurScene()->GetBuffer(&BackBuffer);
  	SceneManager::GetInstance().RenderScene(&MemG);
 

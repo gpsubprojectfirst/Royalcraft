@@ -2,7 +2,12 @@
 #include "MapEditor.h"
 
 
+
 MapEditor::MapEditor()
+{
+}
+
+void MapEditor::Init()
 {
 	map = new MyMap();
 	m_vecEditor.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
