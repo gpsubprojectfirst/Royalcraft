@@ -7,6 +7,7 @@ private:
 	Gdiplus::Image*	 m_ImgBefore;
 	Gdiplus::Image*	 m_ImgAfter;
 	int		 m_iBtnID;
+	bool	 m_bColBtn;
 
 
 public:

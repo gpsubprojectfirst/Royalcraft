@@ -26,14 +26,15 @@ Object::Object(EObject InType)
 
 }
 
+//중점 -> GdiPlus Rect변환
 RECT Object::GetRect(void)
 {
 	RECT rc =
 	{
-		long(m_tInfo.fX - m_tInfo.fSizeX / 2),
-		long(m_tInfo.fY - m_tInfo.fSizeY / 2),
-		long(m_tInfo.fX + m_tInfo.fSizeX / 2),
-		long(m_tInfo.fY + m_tInfo.fSizeY / 2)
+		long(m_tInfo.fX),
+		long(m_tInfo.fY),
+		long(m_tInfo.fX + m_tInfo.fSizeX ),
+		long(m_tInfo.fY + m_tInfo.fSizeY )
 	};
 
 	return rc;

@@ -97,8 +97,7 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
 				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
 				unitInfo = mUnit;
-				//UIDeckWnd::m_IsSelectMode = 2;
-
+				UIDeckWnd::m_IsSelectMode = 2;
 			}
 		}
 	}
@@ -184,13 +183,12 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 				playUnit.emplace_back(mUnit);
 				blackBoard->UpdateData(playUnit);
 				mUnit->CreateBT(blackBoard);
+				UIDeckWnd::m_IsSelectMode = 3;
 			}
 		}
 	}
 
 }
-
-
 
 void GameScene::Update(float Delta)
 {
@@ -211,28 +209,40 @@ void GameScene::Update(float Delta)
 				endflag = true;
 		}
 
+		/*if (unitInfo != nullptr)
+		{
+			unitInfo->Update(Delta);
+		}*/
+
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
 			CreateViewUnit(_cPt, MouseMgr::GetInstance().GetUnitID());
+			
 		}
+		
 
+		/*
 		//TODO : KEY_LBUTTON
 		if (KeyMgr::GetInstance().GetKey() & KEY_LBUTTON)
 		{
 			UIDeckWnd::m_IsSelectMode = 2;
 			if (UIDeckWnd::m_IsSelectMode == 2)
 			{
-				delete(unitInfo);
-				unitInfo = nullptr;
+				if (unitInfo != nullptr)
+				{
+					delete(unitInfo);
+					unitInfo = nullptr;
+				}
+
 				UIDeckWnd::m_IsSelectMode = 0;
 				CPoint _cPt(pt.x, pt.y);
 
 				//캐릭터 생성
 				//CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
 			}
-			
 		}
+		*/
 
 		if (KeyMgr::GetInstance().GetKey() & KEY_F1)
 		{
@@ -343,7 +353,18 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 		}
 	}
 }
+
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	CreateObj(point, MouseMgr::GetInstance().GetUnitID());
+	if (UIDeckWnd::m_IsSelectMode == 2)
+	{
+		if (unitInfo != nullptr)
+		{
+			delete(unitInfo);
+			unitInfo = nullptr;
+		}
+
+		
+		CreateObj(point, MouseMgr::GetInstance().GetUnitID());
+	}
 }
