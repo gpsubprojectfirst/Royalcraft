@@ -44,7 +44,8 @@ public:
 	Gdiplus::Image* ParentImg;
 	Gdiplus::Rect rc; // 현재 로드된 Asset에서 불러올 이미지의 rect
 	Gdiplus::Rect posRc; //현재 타일의 렉트
-	COORD curPos;
+	float curPosX;
+	float curPosY;
 	int frame;
 	//한번 선언되면 잘 변하지 않는 변수
 	EObject Objtype;

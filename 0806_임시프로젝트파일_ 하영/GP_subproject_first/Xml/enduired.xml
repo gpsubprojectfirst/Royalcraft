@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:2c037e288481d28b1c8dd8dde4d72307:4e435f5af9eac4ed403e787e77dc379e:ce2eae73186b198902acf9646fd4cd50$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="enduired.png" width="1782" height="1038">
+    <sprite n="ui_battle_end_sprite_115.png" x="1072" y="647" w="178" h="128" oX="55" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_116.png" x="1235" y="387" w="179" h="127" oX="55" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_117.png" x="531" y="387" w="177" h="127" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_118.png" x="1429" y="647" w="177" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_119.png" x="178" y="129" w="175" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_120.png" x="1" y="387" w="174" h="127" oX="59" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_121.png" x="178" y="908" w="174" h="129" oX="59" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_122.png" x="355" y="129" w="173" h="126" oX="59" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_123.png" x="177" y="777" w="172" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_124.png" x="1416" y="777" w="172" h="129" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_125.png" x="1608" y="647" w="172" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_126.png" x="710" y="387" w="172" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_127.png" x="1" y="777" w="174" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_128.png" x="355" y="387" w="174" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_129.png" x="1252" y="647" w="175" h="128" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_130.png" x="1232" y="258" w="175" h="127" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_131.png" x="531" y="1" w="176" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_132.png" x="709" y="1" w="176" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_133.png" x="891" y="647" w="179" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_134.png" x="1599" y="517" w="179" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_135.png" x="177" y="647" w="178" h="128" oX="55" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_136.png" x="1416" y="387" w="179" h="127" oX="55" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_137.png" x="712" y="647" w="177" h="128" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_138.png" x="357" y="647" w="176" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_139.png" x="1058" y="258" w="172" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_140.png" x="351" y="777" w="172" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_141.png" x="534" y="908" w="172" h="129" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_142.png" x="1237" y="129" w="172" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_143.png" x="1" y="647" w="174" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_144.png" x="888" y="908" w="174" h="129" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_145.png" x="881" y="129" w="175" h="127" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_146.png" x="887" y="1" w="175" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_147.png" x="1411" y="129" w="175" h="127" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_148.png" x="1064" y="1" w="175" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_149.png" x="1065" y="777" w="173" h="128" oX="60" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_150.png" x="883" y="258" w="173" h="127" oX="60" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_151.png" x="1415" y="1" w="175" h="126" oX="59" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_152.png" x="353" y="1" w="176" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_153.png" x="1245" y="908" w="179" h="129" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_154.png" x="525" y="777" w="179" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_155.png" x="354" y="908" w="178" h="129" oX="55" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_156.png" x="706" y="777" w="179" h="128" oX="55" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_157.png" x="887" y="777" w="176" h="128" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_158.png" x="1590" y="777" w="174" h="129" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_159.png" x="179" y="258" w="174" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_160.png" x="1240" y="777" w="174" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_161.png" x="535" y="647" w="175" h="128" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_162.png" x="1" y="129" w="175" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_163.png" x="704" y="129" w="175" h="127" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_164.png" x="1597" y="387" w="175" h="128" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_165.png" x="1588" y="129" w="173" h="127" oX="60" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_166.png" x="1592" y="1" w="172" h="126" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_167.png" x="355" y="258" w="172" h="127" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_168.png" x="530" y="129" w="172" h="126" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_169.png" x="1426" y="908" w="174" h="129" oX="59" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_170.png" x="707" y="258" w="174" h="127" oX="59" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_171.png" x="1" y="258" w="176" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_172.png" x="529" y="258" w="176" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_173.png" x="1602" y="908" w="179" h="129" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_174.png" x="1064" y="908" w="179" h="129" oX="56" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_175.png" x="708" y="908" w="178" h="129" oX="55" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_176.png" x="182" y="517" w="179" h="128" oX="55" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_177.png" x="1058" y="129" w="177" h="127" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_178.png" x="889" y="517" w="177" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_179.png" x="176" y="1" w="175" h="126" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_180.png" x="1058" y="387" w="175" h="127" oX="58" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_181.png" x="363" y="517" w="173" h="128" oX="60" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_182.png" x="1241" y="1" w="172" h="126" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_183.png" x="884" y="387" w="172" h="127" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_184.png" x="715" y="517" w="172" h="128" oX="61" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_185.png" x="1242" y="517" w="174" h="128" oX="59" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_186.png" x="1" y="1" w="173" h="126" oX="59" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_187.png" x="1068" y="517" w="172" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_188.png" x="1409" y="258" w="172" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_189.png" x="1" y="908" w="175" h="129" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_190.png" x="538" y="517" w="175" h="128" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_191.png" x="177" y="387" w="176" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_192.png" x="1583" y="258" w="176" h="127" oX="58" oY="72" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_193.png" x="1" y="517" w="179" h="128" oX="56" oY="73" oW="342" oH="230"/>
+    <sprite n="ui_battle_end_sprite_194.png" x="1418" y="517" w="179" h="128" oX="56" oY="73" oW="342" oH="230"/>
+</TextureAtlas>

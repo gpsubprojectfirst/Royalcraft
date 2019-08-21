@@ -29,7 +29,7 @@ void ViewUnit::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 
-		Gdiplus::Rect Dst1(curPos.X - width / 4, curPos.Y - height / 4, width / 2, height / 2);
+		Gdiplus::Rect Dst1(curPosX - width / 4, curPosY - height / 4, width / 2, height / 2);
 		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		ImageAttributes imageAtt;
 		imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault,
@@ -49,6 +49,6 @@ void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
 	
 	rc = moveRc[4][0];
 	
-	curPos.X = ix;
-	curPos.Y = iy;
+	curPosX = ix;
+	curPosY = iy;
 }

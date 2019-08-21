@@ -227,6 +227,7 @@
     <ClInclude Include="UIDeckWnd.h" />
     <ClInclude Include="UIHpbar.h" />
     <ClInclude Include="UIPopup.h" />
+    <ClInclude Include="UITime.h" />
     <ClInclude Include="ViewUnit.h" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +267,7 @@
     <ClCompile Include="UIDeckWnd.cpp" />
     <ClCompile Include="UIHpbar.cpp" />
     <ClCompile Include="UIPopup.cpp" />
+    <ClCompile Include="UITime.cpp" />
     <ClCompile Include="ViewUnit.cpp" />
   </ItemGroup>
   <ItemGroup>

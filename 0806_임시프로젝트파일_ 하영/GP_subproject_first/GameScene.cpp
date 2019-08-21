@@ -4,10 +4,10 @@
 #include "BehaviorTree.h"
 #include "SoundMgr.h"
 
-
 GameScene::GameScene()
 {
 	std::cout << "GameScene()" << endl;
+  Init();
 }
 
 GameScene::~GameScene()
@@ -59,14 +59,15 @@ void GameScene::Init()
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
 
+
 	MouseMgr::GetInstance().Init();
 	//SoundMgr::GetInstance()->SoundPlay(0, 0);
 
 
-	//임시 위치
-	endUI = new UICrown();
-	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
-	endUI->ParserXML();
+	////임시 위치
+	//endUI = new UICrown();
+	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	//endUI->ParserXML();
 
 	m_uiPopup = new UIPopup();
 	//info.push_back(m_uiPopup);
@@ -94,8 +95,8 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				mUnit->ParentImg = m_vecGame[unitID + 1];
 				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
+				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
 				unitInfo = mUnit;
 				//UIDeckWnd::m_IsSelectMode = 2;
 
@@ -176,8 +177,8 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 				mUnit->curTile.first = i;
 				mUnit->curTile.second = j;
 				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
+				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
 				mUnit->mMap = mMap;
 				mUnit->teamBlue = true;
 				info.emplace_back(mUnit);
@@ -190,8 +191,6 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 
 }
 
-
-
 void GameScene::Update(float Delta)
 {
 	KeyMgr::GetInstance().CheckKey();
@@ -200,7 +199,7 @@ void GameScene::Update(float Delta)
 		m_bExit = !m_bExit;
 	}
 
-	if (!endflag && !m_bExit) 
+	if (!endflag && !m_bExit && !m_uiTime->IsEndTime()) 
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
@@ -210,7 +209,8 @@ void GameScene::Update(float Delta)
 			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
 				endflag = true;
 		}
-
+		//UI update
+		m_uiTime->Update(Delta);
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
@@ -243,9 +243,10 @@ void GameScene::Update(float Delta)
 	}
 	else
 	{
-		if (endflag)
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			//게임이 끝났으면 업데이트 멈춤
+			endUI->SetTeam(endflag);
 			endUI->Update(Delta);
 		}
 		if (m_bExit)
@@ -289,8 +290,9 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 
 	if(m_uiHpbar!=nullptr)
 	m_uiHpbar->Render(MemG);
+	m_uiTime->Render(MemG);
 
-	if (endflag || m_bExit)
+	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
 		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
@@ -298,7 +300,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
 
-		if (endflag)
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			endUI->Render(MemG);
 		}

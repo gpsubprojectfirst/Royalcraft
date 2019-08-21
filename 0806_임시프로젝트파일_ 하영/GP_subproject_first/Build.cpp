@@ -53,7 +53,7 @@ void Build::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 
-		Gdiplus::Rect Dst1(curPos.X - width / 4, curPos.Y - height / 4 , width /2, height/2);
+		Gdiplus::Rect Dst1(curPosX - width / 4, curPosY - height / 4 , width /2, height/2);
 		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
@@ -122,8 +122,8 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 	}
 
 	restRc = ((Build*)dst)->restRc;
-	curPos.X = ix;
-	curPos.Y = iy;
+	curPosX = ix;
+	curPosY = iy;
 }
 
 void Build::CreateBT(BlackBoard* InBB)
