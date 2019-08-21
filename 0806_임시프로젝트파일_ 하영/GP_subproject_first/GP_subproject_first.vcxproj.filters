@@ -91,6 +91,9 @@
     <ClCompile Include="UIPopup.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h">
@@ -196,6 +199,9 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="UIPopup.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
   </ItemGroup>

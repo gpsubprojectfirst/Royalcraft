@@ -25,6 +25,20 @@ Object::Object(EObject InType)
 {
 
 }
+
+RECT Object::GetRect(void)
+{
+	RECT rc =
+	{
+		long(m_tInfo.fX - m_tInfo.fSizeX / 2),
+		long(m_tInfo.fY - m_tInfo.fSizeY / 2),
+		long(m_tInfo.fX + m_tInfo.fSizeX / 2),
+		long(m_tInfo.fY + m_tInfo.fSizeY / 2)
+	};
+
+	return rc;
+}
+
 Object::~Object()
 {
 

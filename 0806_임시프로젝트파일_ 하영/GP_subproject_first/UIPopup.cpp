@@ -16,6 +16,9 @@ void UIPopup::Init()
 	Gdiplus::Rect tempRC(0, 0, m_popupWnd->GetWidth(), m_popupWnd->GetHeight());
 	this->ParentImg = m_popupWnd;
 	this->rc = tempRC;
+
+	CreateButton();
+
 }
 
  void UIPopup::Update(float Delta)
@@ -44,5 +47,24 @@ void UIPopup::Render(Gdiplus::Graphics* MemG)
 		if (it->Enable == false) continue;
 
 		it->Render(MemG);
+	}
+}
+
+void UIPopup::CreateButton()
+{
+	for (int i = 0; i < 2; ++i)
+	{
+		UIButton* pBtn = new UIButton();
+		pBtn->Init(i);
+		float fx = float((this->rc.Width / 4 + 10) + 200 *  ( i ));
+		float fy = REAL_WINSIZE_Y / 2 - 30;
+		Gdiplus::Rect tempRC(fx, fy, pBtn->ParentImg->GetWidth(), pBtn->ParentImg->GetHeight());
+		pBtn->m_tInfo.fX = fx;
+		pBtn->m_tInfo.fY = fy;
+		pBtn->m_tInfo.fSizeX = pBtn->ParentImg->GetWidth();
+		pBtn->m_tInfo.fSizeY = pBtn->ParentImg->GetHeight();
+		pBtn->rc = tempRC;
+
+		m_vecPopup.push_back(pBtn);
 	}
 }

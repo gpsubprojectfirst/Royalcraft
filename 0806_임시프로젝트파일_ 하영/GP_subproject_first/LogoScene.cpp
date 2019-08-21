@@ -3,10 +3,8 @@
 #include "SoundMgr.h"
 
 
-
 LogoScene::LogoScene()
 {
-	Init();
 	printf("LogoScene init\n");
 }
 

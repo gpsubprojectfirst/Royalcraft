@@ -3,6 +3,20 @@
 #include "state.h"
 #include "MyMap.h"
 #include "SearchTree.h"
+
+typedef struct tagInfo
+{
+	float	fX;
+	float	fY;
+	float	fSizeX;
+	float	fSizeY;
+
+	tagInfo(void) {}
+
+	tagInfo(float _fx, float _fy)
+		: fX(_fx), fY(_fy) {}
+}INFO;
+
 class Object
 {
 public:
@@ -24,6 +38,7 @@ public:
 	virtual void Move(float Delta) {}
 	virtual void Attack(float Delta) {}
 	virtual void ExtraAction(float Delta) {}
+	RECT GetRect(void);
 
 	//계속 변하는 변수
 	Gdiplus::Image* ParentImg;
@@ -36,18 +51,12 @@ public:
 	bool Enable;
 	CString name;
 	int ID;
-
 	MyMap* mMap;
 	StateManager sm;
 
 
-	//static void SetBmp(std::vector<Gdiplus::Image*>* _pvecbmp) { m_pVecImg = _pvecbmp; }
-	//virtual void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
-	//virtual void Release();
+	INFO		m_tInfo;
 
-protected:
-	//INFO		m_tInfo;
-	static std::vector<Gdiplus::Image*>* m_pVecImg;
 
 
 };
