@@ -38,10 +38,10 @@ void UIDeckWnd::Init()
 	CreateDeck(EDeck_type::EDeck_Wizard,TEXT("Asset\\3.game\\4.ui\\Deck\\wizard.png"));
 	
 
-	for (int i = 0;i < 12;i++)
+	//for (int i = 0;i < 12;i++)
 	{
 		DECKINFO* deckInfo = new DECKINFO();
-		deckInfo->pDeck = m_mDeck.at((EDeck_type)i);
+		deckInfo->pDeck = m_mDeck.at((EDeck_KNIGHT));
 		m_liDeckInfo.push_back(deckInfo);
 	}
 	
@@ -56,11 +56,16 @@ void UIDeckWnd::ChooseDeck()
 	viewArray = new Deck*[4];
 	srand(time(nullptr));
 	int k = rand() % 12;
-	for (int i = 0; i < 4; i++)
+	//TODO
+	/*for (int i = 0; i < 4; i++)
 	{
 		arrayNum[i] = (EDeck_type)(k % 12);
 		k++;
-	}
+	}*/
+	arrayNum[0] = EDeck_type::EDeck_KNIGHT;
+	arrayNum[1] = EDeck_type::EDeck_Axeman;
+	arrayNum[2] = EDeck_type::EDeck_Lumberjack;
+	arrayNum[3] = EDeck_type::EDeck_Wizard;
 	for (int i = 0; i < 4; i++)
 	{
 		viewArray[i] = m_mDeck.at(arrayNum[i]);

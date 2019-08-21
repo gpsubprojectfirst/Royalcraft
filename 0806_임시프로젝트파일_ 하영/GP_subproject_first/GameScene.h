@@ -5,6 +5,7 @@
 #include "Command.h"
 #include "ViewUnit.h"
 #include "UICrown.h"
+#include "UIPopup.h"
 
 class GameScene :
 	public Scene
@@ -22,8 +23,10 @@ public:
 	bool	m_Renderflag;
 	ViewUnit* unitInfo;
 	bool m_IsSelectMode;
-	bool endflag;
+	bool endflag;						//게임 승패
+	bool m_bExit;					//게임 종료
 
+	UIPopup* m_uiPopup;
 	//끝났을 때 에니메이션을 위한 변수
 	UICrown* endUI;
 public:
@@ -36,7 +39,7 @@ public:
 	void GetBuffer(Gdiplus::Bitmap* _Buffer);
 	void grayscale(int width, int height, Gdiplus::BitmapData& pData);
 	void CreateObj(CPoint pt,int unitID);
-	void CreateViewUnit(CPoint pt);
+	void CreateViewUnit(CPoint pt, int unitID);
 	void CreateTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);
 	

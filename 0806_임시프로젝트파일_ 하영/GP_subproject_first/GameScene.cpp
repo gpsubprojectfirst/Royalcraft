@@ -5,9 +5,11 @@
 #include "SoundMgr.h"
 
 
+
 GameScene::GameScene()
 {
 	endflag = false;
+	m_bExit = false;
 	printf("GameScene init\n");
 
 	mMap = new MyMap();
@@ -24,6 +26,7 @@ GameScene::GameScene()
 
 	UIDeckWnd* deck = new UIDeckWnd();
 	deck->Init();
+	info.emplace_back(deck);
 	
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
@@ -32,12 +35,15 @@ GameScene::GameScene()
 
 	MouseMgr::GetInstance().Init();
 	//SoundMgr::GetInstance()->SoundPlay(0, 0);
-	info.emplace_back(deck);
+
 
 	//임시 위치
 	endUI = new UICrown();
 	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->ParserXML();
+
+	m_uiPopup = new UIPopup();
+	//info.push_back(m_uiPopup);
 
 	CreateTower();
 	//playUnit.emplace_back();
@@ -46,7 +52,7 @@ GameScene::GameScene()
 }
 
 
-void GameScene::CreateViewUnit(CPoint pt)
+void GameScene::CreateViewUnit(CPoint pt, int unitID)
 {
 	Point mPoint;
 	mPoint.X = pt.x;
@@ -58,29 +64,14 @@ void GameScene::CreateViewUnit(CPoint pt)
 		{
 			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 			{
-				/*
-				ID:
-				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
-				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
-				*/
-				Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png"));
-				//Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png"));
-
 				ViewUnit* mUnit = new ViewUnit();
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
-				mUnit->ParentImg = load;
+				mUnit->ParentImg = m_vecGame[unitID + 1];
+				mUnit->posRc = mMap->Infos[i][j].rc;
+				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
 				unitInfo = mUnit;
-				UIDeckWnd::m_IsSelectMode = 2;
+				//UIDeckWnd::m_IsSelectMode = 2;
 
 			}
 		}
@@ -182,7 +173,7 @@ void GameScene::Init()
 	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
 	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
 `	*/
-	m_vecGame.push_back (new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
+	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
@@ -194,14 +185,21 @@ void GameScene::Init()
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
+
+
+
 }
 
 void GameScene::Update(float Delta)
 {
-	if (!endflag)
+	KeyMgr::GetInstance().CheckKey();
+	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
 	{
+		m_bExit = true;
+	}
 
-		KeyMgr::GetInstance().CheckKey();
+	if (!endflag && !m_bExit) 
+	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
 		{
@@ -214,26 +212,27 @@ void GameScene::Update(float Delta)
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
-			//CreateViewUnit(_cPt);
-			UIDeckWnd::m_IsSelectMode = 2;
+			CreateViewUnit(_cPt, MouseMgr::GetInstance().GetUnitID());
 		}
 
-		if (UIDeckWnd::m_IsSelectMode == 2)
+		//TODO : KEY_LBUTTON
+		if (KeyMgr::GetInstance().GetKey() & KEY_LBUTTON)
 		{
-			//TODO : KEY_LBUTTON
-			if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+			UIDeckWnd::m_IsSelectMode = 2;
+			if (UIDeckWnd::m_IsSelectMode == 2)
 			{
-				//delete(unitInfo);
-				//unitInfo = nullptr;
+				delete(unitInfo);
+				unitInfo = nullptr;
 				UIDeckWnd::m_IsSelectMode = 0;
 				CPoint _cPt(pt.x, pt.y);
-				
+
 				//캐릭터 생성
-				CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
+				//CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
 			}
+			
 		}
 
-		if (KeyMgr::GetInstance().GetKey() & VK_F1)
+		if (KeyMgr::GetInstance().GetKey() & KEY_F1)
 		{
 			bRender = !bRender;
 		}
@@ -242,8 +241,16 @@ void GameScene::Update(float Delta)
 	}
 	else
 	{
-		//게임이 끝났으면 업데이트 멈춤
-		endUI->Update(Delta);
+		if (endflag)
+		{
+			//게임이 끝났으면 업데이트 멈춤
+			endUI->Update(Delta);
+		}
+		if (m_bExit)
+		{
+			m_uiPopup->Update(Delta);
+		}
+		
 	}
 }
 
@@ -276,21 +283,25 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
-	/*if (UIDeckWnd::m_IsSelectMode && UIDeckWnd::m_bOnItem == FALSE)
-	{
-		MouseMgr::GetInstance().Render(MemG);
-	}*/
-
-	if (endflag)
+	if (endflag || m_bExit)
 	{
 		BitmapData pt;
 		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
 		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
-
-		endUI->Render(MemG);
+		
+		if (endflag)
+		{
+			endUI->Render(MemG);
+		}
+			
+		if (m_bExit)
+		{
+			m_uiPopup->Render(MemG);
+		}
 	}
+
 }
 
 void GameScene::Release()
@@ -322,5 +333,4 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
 	CreateObj(point, MouseMgr::GetInstance().GetUnitID());
-
 }

@@ -108,14 +108,19 @@ void Build::ParserXML()
 }
 void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {
-	
 	ID = dst->ID;
-	name - dst->name;
+	name = dst->name;
 	mUnitInfo = dst->mUnitInfo;
 	for (int i = 0; i < 5; i++)
 	{
 		atkRc[i] = dst->atkRc[i];
 	}
+	mUnitInfo = dst->mUnitInfo;
+	for (int i = 0; i < 5; i++)
+	{
+		atkRc[i] = dst->atkRc[i];
+	}
+
 	restRc = ((Build*)dst)->restRc;
 	curPos.X = ix;
 	curPos.Y = iy;
