@@ -48,7 +48,7 @@ void ObjectManager::UnitInfoParser()
 	for (int i = 0; i < 3; i++)
 	{
 		tinyxml2::XMLElement* tempNode = buildNode->FirstChildElement("status");
-		mObj[eObject_Unit].at(i)->ID = buildNode->IntAttribute("ID");
+		mObj[eObject_Build].at(i)->ID = buildNode->IntAttribute("ID");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.hp = tempNode->IntAttribute("hp");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.atk_type = (EAtkType)tempNode->IntAttribute("atk_type");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.atk_speed = tempNode->FloatAttribute("atk_speed");
