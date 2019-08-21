@@ -5,7 +5,6 @@
 #include "SoundMgr.h"
 
 
-
 GameScene::GameScene()
 {
 	endflag = false;
@@ -50,8 +49,13 @@ GameScene::GameScene()
 	//playUnit.emplace_back();
 	//blackBoard->UpdateData(playUnit);
 	//mUnit->CreateBT(blackBoard);
+	std::cout << "LobbyScene()" << std::endl;
 }
 
+GameScene::~GameScene()
+{
+	//Release();
+}
 
 void GameScene::CreateViewUnit(CPoint pt, int unitID)
 {
@@ -187,7 +191,45 @@ void GameScene::Init()
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
 
+	printf("GameScene ()\n");
+	endflag = false;
+	m_bExit = false;
 
+	mMap = new MyMap();
+	mMap->LoadFile();
+
+	mTree = new SearchTree();
+	mTree->Set(mMap);
+
+
+	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
+	blackBoard->UpdateData(this->playUnit);
+
+	ObjectManager& om = ObjectManager::GetInstance();
+
+	UIDeckWnd* deck = new UIDeckWnd();
+	deck->Init();
+	info.emplace_back(deck);
+
+	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
+	blackBoard->UpdateData(this->playUnit);
+
+	MouseMgr::GetInstance().Init();
+	//SoundMgr::GetInstance()->SoundPlay(0, 0);
+
+
+	//임시 위치
+	endUI = new UICrown();
+	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->ParserXML();
+
+	m_uiPopup = new UIPopup();
+	//info.push_back(m_uiPopup);
+
+	CreateTower();
+	//playUnit.emplace_back();
+	//blackBoard->UpdateData(playUnit);
+	//mUnit->CreateBT(blackBoard);
 
 }
 
@@ -196,7 +238,7 @@ void GameScene::Update(float Delta)
 	KeyMgr::GetInstance().CheckKey();
 	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
 	{
-		m_bExit = true;
+		m_bExit = !m_bExit;
 	}
 
 	if (!endflag && !m_bExit) 
@@ -257,13 +299,15 @@ void GameScene::Update(float Delta)
 
 void GameScene::Render(Gdiplus::Graphics* MemG)
 {
+	if (this == nullptr)
+		return;
+
 	if (m_vecGame.size() <= 0)
 		return;
 
 	// 배경
 	Gdiplus::Rect Dst1(0, 0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
 	MemG->DrawImage(m_vecGame[0], Dst1);
-
 	// 타일
 	if (bRender)
 	{
@@ -293,12 +337,12 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
-		
+
 		if (endflag)
 		{
 			endUI->Render(MemG);
 		}
-			
+
 		if (m_bExit)
 		{
 			m_uiPopup->Render(MemG);
@@ -309,8 +353,14 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 
 void GameScene::Release()
 {
-
+	info.clear();
+	m_vecGame.clear();
+	SAFE_DELETE(mMap);
+	SAFE_DELETE(mTree);
+	SAFE_DELETE(blackBoard);
+	SAFE_DELETE(endUI);
 }
+
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
 {
 	this->backBuffer = _Buffer;

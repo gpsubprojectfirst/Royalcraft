@@ -3,38 +3,66 @@
 
 UIButton::UIButton()
 {
+
 }
 
 UIButton::~UIButton()
 {
 
 }
-void UIButton::Init()
+void UIButton::Init(int btnID)
 {
-	//클릭전 
-	btnImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend.png"));
-	Gdiplus::Rect tempRC(0, 0, btnImg->GetWidth(), btnImg->GetHeight());
-	this->ParentImg = btnImg;
-	this->rc = tempRC;
-	
-	//클릭후
-	btnImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend2.png"));
-	Gdiplus::Rect tempRC(0, 0, btnImg->GetWidth(), btnImg->GetHeight());
-	
+	switch (btnID)
+	{
+	case 0: //게임 종료
+		m_ImgBefore = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend.png"));
+		break;
+
+	case 1: //로비 가기
+		m_ImgBefore = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\newstart.png"));
+		break;
+
+	default:
+		break;
+
+	}
+	m_iBtnID = btnID;
+	ParentImg = m_ImgBefore;
 }
+
 
 void UIButton::Update(float Delta)
 {
-	
+	POINT	pt = MouseMgr::GetInstance().GetMousePos();
+
+	if (PtInRect(&GetRect(), pt))
+	{
+		if (KeyMgr::GetInstance().GetKey() & KEY_RBUTTON)
+		{
+			switch (m_iBtnID)
+			{
+			case 0:
+				AfxGetMainWnd()->PostMessage(WM_CLOSE);
+				std::cout << "click!" << m_iBtnID << endl;
+				break;
+
+			case 1:
+				SceneManager::GetInstance().GetCurScene()->Release();
+				SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
+		
+				std::cout << "click!" << m_iBtnID << endl;
+				break;
+			}
+
+		}
+	}
 }
 
 void UIButton::Render(Gdiplus::Graphics* MemG)
 {
-	
 	int width = rc.Width;
 	int height = rc.Height;
 
-	Gdiplus::Rect Dst1(REAL_WINSIZE_X / 2 - width / 2, REAL_WINSIZE_Y / 2 - height / 2, width, height);
+	Gdiplus::Rect Dst1( rc.X, rc.Y, width, height );
 	MemG->DrawImage(ParentImg, Dst1);
-
 }

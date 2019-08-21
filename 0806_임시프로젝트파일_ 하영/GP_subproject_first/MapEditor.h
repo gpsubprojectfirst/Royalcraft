@@ -17,6 +17,7 @@ public:
 
 
 public:
+	void Init();
 	void Set(CPoint pt);
 	void Render(Gdiplus::Graphics* MemG);
 	void SaveFile();

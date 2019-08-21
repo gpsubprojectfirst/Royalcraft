@@ -6,8 +6,7 @@ class SceneManager
 {
 public:
 	SceneManager();
-	void LoadScene(CString& pName);
-	void SetState(EScene _SceneState);
+	void LoadScene(/*EScene _eState*/CString& pName);
 	//static SceneManager& GetInstance();
 	Scene* GetCurScene();
 	
@@ -20,4 +19,3 @@ private:
 	std::vector<Scene*> mScene;
 	Scene* CurScene;
 };
-

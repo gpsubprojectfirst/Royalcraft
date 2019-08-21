@@ -33,6 +33,7 @@ void SceneManager::LoadScene(CString& pName)
 		if (!it->Name.CompareNoCase(pName))
 		{
 			CurScene = it;
+			CurScene->Init();
 			std::wcout << (const wchar_t*)CurScene->Name <<std::endl;
 		}
 	}
