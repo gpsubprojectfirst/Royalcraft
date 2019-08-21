@@ -73,8 +73,8 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
 				mUnit->ParentImg = m_vecGame[unitID + 1];
 				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
+				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
 				unitInfo = mUnit;
 				//UIDeckWnd::m_IsSelectMode = 2;
 
@@ -156,8 +156,8 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 				mUnit->curTile.first = i;
 				mUnit->curTile.second = j;
 				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPos.X = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPos.Y = mUnit->posRc.Y + (TILESIZEY / 2);
+				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
 				mUnit->mMap = mMap;
 				mUnit->teamBlue = true;
 				info.emplace_back(mUnit);

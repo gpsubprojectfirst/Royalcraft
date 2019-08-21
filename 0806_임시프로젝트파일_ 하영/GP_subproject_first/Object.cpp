@@ -8,7 +8,8 @@ Object::Object()
 	, ID(0)
 	, ParentImg(nullptr)
 	,posRc(0,0,0,0)
-	, curPos{ 0, 0 }
+	, curPosX(0.0)
+	, curPosY(0.0)
 	,frame(0)
 {
 	
@@ -20,7 +21,8 @@ Object::Object(EObject InType)
 	, ID(0)
 	, ParentImg(nullptr)
 	, posRc(0, 0, 0, 0)
-	, curPos{ 0, 0 }
+	, curPosX(0.0)
+	, curPosY(0.0)
 	,frame(0)
 {
 

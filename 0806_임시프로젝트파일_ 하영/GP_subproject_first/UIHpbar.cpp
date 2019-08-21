@@ -38,8 +38,8 @@ void UIHpbar::Init()
 
 void UIHpbar::SetPos(MyUnit* unitptr)
 {
-	UnitPos.X = unitptr->curPos.X;
-	UnitPos.Y = unitptr->curPos.Y;
+	UnitPos.X = unitptr->curPosX;
+	UnitPos.Y = unitptr->curPosY;
 
 	barRect->X = UnitPos.X - 60;
 	barRect->Y = UnitPos.Y - 60;

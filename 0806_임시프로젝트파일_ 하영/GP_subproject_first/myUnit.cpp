@@ -32,7 +32,7 @@ void MyUnit::Update(float Delta)
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 20)
+			if (frame > 2400)
 				frame = 0;
 		}
 		//상태 변화, 추후 행동 트리에 추가
@@ -68,7 +68,7 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 		
-		Gdiplus::Rect Dst1(curPos.X - width/4, curPos.Y - height/4, width / 2, height / 2);
+		Gdiplus::Rect Dst1(curPosX - width/4, curPosY - height/4, width / 2, height / 2);
 	
 		Gdiplus::Bitmap* tempBmp = new Bitmap(width, height);
 		Gdiplus::Graphics* tempG = new Gdiplus::Graphics(tempBmp);
@@ -97,8 +97,8 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 		atkRc[i] = dst->atkRc[i];
 	}
 	
-	curPos.X = ix;
-	curPos.Y = iy;
+	curPosX = ix;
+	curPosY = iy;
 }
 
 void MyUnit::ParserXML()
@@ -505,19 +505,20 @@ void MyUnit::Move(float Delta)
 		
 		 //위치 이동
 		
-		curPos.X += (distanceX) / 27 * mUnitInfo.move_speed;
-		curPos.Y += (distanceY) / 22 * mUnitInfo.move_speed;
+		curPosX += (distanceX) / 27 * mUnitInfo.move_speed * 0.5;
+		curPosY += (distanceY) / 22 * mUnitInfo.move_speed * 0.5;
 
-		//현재 목적지에 캐릭터가 들어왔는지
-		if(tempDstTile.Contains(curPos.X,curPos.Y))
+		std::cout << curPosX << " , " << curPosY << std::endl;
+		//현재 목적지에 캐릭터가 도착했는지
+		if(sqrt(pow(tempDstTile.X + 13 - curPosX,2)+ pow(tempDstTile.Y + 11 - curPosY,2))<10)
 		{
 			curTile = moveTilePath.top();
 
 			posRc.X = tempDstTile.X;
 			posRc.Y = tempDstTile.Y;
 
-			curPos.X = posRc.X + TILESIZEX/2;
-			curPos.Y = posRc.Y + TILESIZEY/2;
+			curPosX = posRc.X + TILESIZEX/2;
+			curPosY = posRc.Y + TILESIZEY/2;
 		}
 	}
 }
