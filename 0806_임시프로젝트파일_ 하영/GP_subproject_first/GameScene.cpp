@@ -4,10 +4,9 @@
 #include "BehaviorTree.h"
 #include "SoundMgr.h"
 
-
 GameScene::GameScene()
 {
-	endflag = false;
+	/*endflag = false;
 	m_bExit = false;
 	printf("GameScene init\n");
 
@@ -29,27 +28,28 @@ GameScene::GameScene()
 	
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
-
+*/
 	Init();
 
-	MouseMgr::GetInstance().Init();
-	//SoundMgr::GetInstance()->SoundPlay(0, 0);
+	//MouseMgr::GetInstance().Init();
+	////SoundMgr::GetInstance()->SoundPlay(0, 0);
 
 
-	//임시 위치
-	endUI = new UICrown();
-	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
-	endUI->ParserXML();
+	////임시 위치
+	//endUI = new UICrown();
+	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	//endUI->ParserXML();
 
-	m_uiPopup = new UIPopup();
-	m_uiHpbar = new UIHpbar();
-	//info.push_back(m_uiPopup);
+	//m_uiPopup = new UIPopup();
+	//m_uiHpbar = new UIHpbar();
+	//m_uiTime = new UITime();
+	////info.push_back(m_uiPopup);
 
-	CreateTower();
-	//playUnit.emplace_back();
-	//blackBoard->UpdateData(playUnit);
-	//mUnit->CreateBT(blackBoard);
-	std::cout << "LobbyScene()" << std::endl;
+	//CreateTower();
+	////playUnit.emplace_back();
+	////blackBoard->UpdateData(playUnit);
+	////mUnit->CreateBT(blackBoard);
+	//std::cout << "LobbyScene()" << std::endl;
 }
 
 GameScene::~GameScene()
@@ -220,10 +220,13 @@ void GameScene::Init()
 
 	//임시 위치
 	endUI = new UICrown();
-	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->bluecrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->redcrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\enduired.png"));
 	endUI->ParserXML();
 
 	m_uiPopup = new UIPopup();
+	m_uiHpbar = new UIHpbar();
+	m_uiTime = new UITime();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
@@ -241,7 +244,7 @@ void GameScene::Update(float Delta)
 		m_bExit = !m_bExit;
 	}
 
-	if (!endflag && !m_bExit) 
+	if (!endflag && !m_bExit && !m_uiTime->IsEndTime()) 
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
@@ -251,7 +254,8 @@ void GameScene::Update(float Delta)
 			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
 				endflag = true;
 		}
-
+		//UI update
+		m_uiTime->Update(Delta);
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
@@ -284,9 +288,10 @@ void GameScene::Update(float Delta)
 	}
 	else
 	{
-		if (endflag)
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			//게임이 끝났으면 업데이트 멈춤
+			endUI->SetTeam(endflag);
 			endUI->Update(Delta);
 		}
 		if (m_bExit)
@@ -329,8 +334,9 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	}
 
 	m_uiHpbar->Render(MemG);
+	m_uiTime->Render(MemG);
 
-	if (endflag || m_bExit)
+	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
 		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
@@ -338,7 +344,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
 
-		if (endflag)
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			endUI->Render(MemG);
 		}

@@ -94,6 +94,10 @@
     <ClCompile Include="UIHpbar.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UITime.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h">
@@ -202,6 +206,10 @@
       <Filter>Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIHpbar.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UITime.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
