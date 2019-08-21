@@ -34,7 +34,7 @@ void SceneManager::LoadScene(CString& pName)
 		{
 			CurScene = it;
 			CurScene->Init();
-			std::wcout << (const wchar_t*)CurScene->Name <<std::endl;
+		//	std::wcout << (const wchar_t*)CurScene->Name <<std::endl;
 		}
 	}
 	//CurScene = nullptr;

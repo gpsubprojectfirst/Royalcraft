@@ -43,14 +43,13 @@ void UIButton::Update(float Delta)
 			{
 			case 0:
 				AfxGetMainWnd()->PostMessage(WM_CLOSE);
-				std::cout << "click!" << m_iBtnID << endl;
+				std::cout << m_iBtnID << "click!" << endl;
 				break;
 
 			case 1:
 				SceneManager::GetInstance().GetCurScene()->Release();
 				SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
-		
-				std::cout << "click!" << m_iBtnID << endl;
+				std::cout << m_iBtnID << "click!" << endl; std::cout << "click!"  << endl;
 				break;
 			}
 
