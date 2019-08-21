@@ -65,11 +65,14 @@ void GameScene::Init()
 
 
 	////임시 위치
-	//endUI = new UICrown();
-	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
-	//endUI->ParserXML();
+	endUI = new UICrown();
+	endUI->bluecrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->redcrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\enduired.png"));
+	endUI->ParserXML();
 
 	m_uiPopup = new UIPopup();
+	m_uiTime = new UITime();
+	m_uiHpbar = new UIHpbar();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
