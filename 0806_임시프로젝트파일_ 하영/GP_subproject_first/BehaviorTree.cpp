@@ -94,7 +94,7 @@ bool IsNearObj::Invoke()
 	for (auto it : *bbData->playUnit)
 	{
 		if ((int)sqrt(pow(it->curPosX - actor->obj->curPosX,2)
-			+ pow(it->curPosY - actor->obj->curPosY,2)) < 400 &&
+			+ pow(it->curPosY - actor->obj->curPosY,2)) < 200 &&
 			it != actor->obj &&
 			it->teamBlue != actor->obj->teamBlue &&
 			!it->Isdead )
@@ -124,12 +124,11 @@ bool IsAbleAtk::Invoke()
 }
 bool IsTargetHas::Invoke()
 {
-	if (actor->obj->target != nullptr )
+	if (actor->obj->target != nullptr && !actor->obj->target->Isdead)
 	{
-		if (actor->obj->frame == 0)
+		if (actor->obj->frame % 10 == 0)
 		{
-			actor->obj->frame++;
-			actor->obj->dstTile.first = actor->obj->target->curTile.first;
+ 			actor->obj->dstTile.first = actor->obj->target->curTile.first;
 			actor->obj->dstTile.second = actor->obj->target->curTile.second;
 			actor->obj->Set(bbData->mTree);
 		}
@@ -144,9 +143,18 @@ bool IsBuilt::Invoke()
 	//test°æ·Î
 	if (actor->obj->moveTilePath.empty())
 	{
-		actor->obj->dstTile.first = 10;
-		actor->obj->dstTile.second = 3;
-		actor->obj->Set(bbData->mTree);
+		if (actor->obj->teamBlue)
+		{
+			actor->obj->dstTile.first = 10;
+			actor->obj->dstTile.second = 3;
+			actor->obj->Set(bbData->mTree);
+		}
+		else
+		{
+			actor->obj->dstTile.first = 10;
+			actor->obj->dstTile.second = 30;
+			actor->obj->Set(bbData->mTree);
+		}
 	}
 	return true;
 }
@@ -231,11 +239,12 @@ void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsDead* IsDeadUnit = new IsDead();
 
-	root->AddChild(RootSelector);
 	root->AddChild(IsDeadUnit);
+	root->AddChild(RootSelector);
+	
+	RootSelector->AddChild(seqNearObj);
 	RootSelector->AddChild(actRestUnit);
 
-	RootSelector->AddChild(seqNearObj);
 	//
 	seqNearObj->AddChild(IsNear);
 	seqNearObj->AddChild(seqAttack);

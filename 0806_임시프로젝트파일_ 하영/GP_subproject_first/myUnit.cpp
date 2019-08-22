@@ -575,11 +575,7 @@ void MyUnit::Attack(float Delta)
 			bulletID = 0;
 		if (this->Objtype == eObject_Unit && this->ID ==7)
 			bulletID = 2;
-		if (this->Objtype == eObject_Build && this->ID == 0)
-			bulletID = 2;
-		if (this->Objtype == eObject_Build && this->ID == 1)
-			bulletID = 2;
-		if (this->Objtype == eObject_Build && this->ID == 2)
+		if (this->Objtype == eObject_Build )
 			bulletID = 2;
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
