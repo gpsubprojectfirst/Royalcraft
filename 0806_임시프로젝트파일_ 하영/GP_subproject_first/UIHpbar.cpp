@@ -54,7 +54,7 @@ void UIHpbar::calcRate(int Inhp,int ID,EObject Intype)
 	if(Intype == eObject_Build)
 		fullHp = ((Build*)ObjectManager::GetInstance().GetBuild(ID))->mUnitInfo.hp;
 	curHp = Inhp;
-	rate = ((float)curHp / (float)fullHp);
+	rate = (curHp / fullHp);
 	/*
 	std::cout << "curHp" <<curHp << endl;
 	std::cout << "full" << fullHp << endl;
@@ -73,7 +73,7 @@ void UIHpbar::Render(Gdiplus::Graphics* MemG)
 			Gdiplus::Rect* tempRc = new Rect(0, 0, barRect->Width * 0.2, barRect->Height);
 			tempG->DrawImage(ParentImg, *tempRc, baseRect->X, baseRect->Y, baseRect->Width, baseRect->Height
 				, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
-			tempRc = new Rect(barRect->Width * 0.2, 0, barRect->Width * rate, barRect->Height);
+			tempRc = new Rect(barRect->Width * 0.2, 0, barRect->Width * rate * 0.8, barRect->Height);
 			tempG->DrawImage(ParentImg, *tempRc, hpRect->X, hpRect->Y, hpRect->Width, hpRect->Height
 				, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 

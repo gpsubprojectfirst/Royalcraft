@@ -8,7 +8,7 @@
 #include "UIPopup.h"
 #include "UIHpbar.h"
 #include "UITime.h"
-
+#include "UIElixirbar.h"
 class GameScene :
 	public Scene
 { 
@@ -31,6 +31,7 @@ public:
 	
 	UIPopup* m_uiPopup;
 	UIHpbar* m_uiHpbar;
+	UIElixirbar* m_uiElixbar;
 	UITime* m_uiTime;
 	//끝났을 때 에니메이션을 위한 변수
 	UICrown* endUI;

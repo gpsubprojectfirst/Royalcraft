@@ -225,6 +225,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICrown.h" />
     <ClInclude Include="UIDeckWnd.h" />
+    <ClInclude Include="UIElixirbar.h" />
     <ClInclude Include="UIHpbar.h" />
     <ClInclude Include="UIPopup.h" />
     <ClInclude Include="UITime.h" />
@@ -265,6 +266,7 @@
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICrown.cpp" />
     <ClCompile Include="UIDeckWnd.cpp" />
+    <ClCompile Include="UIEilxirbar.cpp" />
     <ClCompile Include="UIHpbar.cpp" />
     <ClCompile Include="UIPopup.cpp" />
     <ClCompile Include="UITime.cpp" />

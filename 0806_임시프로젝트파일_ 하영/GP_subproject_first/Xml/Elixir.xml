@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Data Name="Elixir.png" Path="E:\GP_teamproject\Royalcraft\0806_임시프로젝트파일_ 하영\GP_subproject_first\Asset\3.game\4.ui\Elixir.png" Count="3">
+        <UV ID="0" Left="0.0038167939" Top="0.01058201" Right="0.21119593" Bottom="0.99470901"/>
+        <UV ID="1" Left="0.31170484" Top="0.021164021" Right="0.54834604" Bottom="1.005291"/>
+        <UV ID="2" Left="0.6145038" Top="0.026455026" Right="0.87913483" Bottom="1.010582"/>
+    </Data>
+</Atlas>
