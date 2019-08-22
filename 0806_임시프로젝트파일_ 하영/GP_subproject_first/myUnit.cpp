@@ -59,6 +59,10 @@ void MyUnit::Update(float Delta)
 			rc = moveRc[0][0];
 		}
 	}
+	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
+	{
+		arrow->Update(Delta);
+	}
 }
 
 void MyUnit::Render(Gdiplus::Graphics* MemG)
@@ -81,6 +85,16 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 
 		MemG->DrawImage(tempBmp, Dst1, 0, 0, width, height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
+	}
+	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
+	{
+		if (arrow->Isarrive == true)
+		{
+			arrow->Release();
+			arrow = nullptr;
+		}
+		else
+			arrow->Render(MemG);
 	}
 }
 void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
@@ -526,7 +540,25 @@ void MyUnit::Move(float Delta)
 void MyUnit::Attack(float Delta)
 {
 	if (target == nullptr) std::cout << "targetnull" << std::endl;
-
+	if (this->mUnitInfo.atk_type == 1 && arrow == nullptr)
+	{
+		arrow = new Bullet();
+		int bulletID = 0;
+		if (this->Objtype == eObject_Unit && this->ID == 5)
+			bulletID = 1;
+		if (this->Objtype == eObject_Unit && this->ID == 11)
+			bulletID = 0;
+		if (this->Objtype == eObject_Unit && this->ID ==7)
+			bulletID = 2;
+		if (this->Objtype == eObject_Build && this->ID == 0)
+			bulletID = 2;
+		if (this->Objtype == eObject_Build && this->ID == 1)
+			bulletID = 2;
+		if (this->Objtype == eObject_Build && this->ID == 2)
+			bulletID = 2;
+		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
+		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
+	}
 	if (target->mUnitInfo.hp > 0)
 		target->mUnitInfo.hp -= this->mUnitInfo.damage;
 	else

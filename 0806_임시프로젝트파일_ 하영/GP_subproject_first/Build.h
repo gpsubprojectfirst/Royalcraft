@@ -5,6 +5,7 @@ class Build :public MyUnit
 {
 public:
 	Build();
+	virtual void Init();
 	virtual void Update(float Delta) override;
 	virtual void Render(Gdiplus::Graphics* MemG) override;
 	virtual void ParserXML() override;

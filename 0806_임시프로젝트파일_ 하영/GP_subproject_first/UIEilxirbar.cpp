@@ -92,4 +92,10 @@ void UIElixirbar::Render(Gdiplus::Graphics* MemG)
 	MemG->DrawImage(tempBitmap, *barRect);
 	MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 }
+
+void UIElixirbar::spendCost(int n)
+{
+	mycost -= n;
+	curGage -= n * 10;
+}
  

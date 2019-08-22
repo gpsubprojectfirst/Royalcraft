@@ -10,7 +10,7 @@ void UITime::Init()
 {
 	displayRc = new RectF(REAL_WINSIZE_X - 100, 0, 100, 30);
 	//시간설정
-	timeMinuite = 0;
+	timeMinuite = 2;
 	timeSecond = 30;
 	AddDelta = 0;
 	runTime = 0;
