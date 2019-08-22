@@ -10,8 +10,8 @@ public:
 	void calcRate(int Inhp,int ID,EObject Intype);
 	virtual void Render(Gdiplus::Graphics* MemG);
 
-	int fullHp;
-	int curHp;
+	float fullHp;
+	float curHp;
 	float rate;
 
 	Gdiplus::Rect* barRect;
