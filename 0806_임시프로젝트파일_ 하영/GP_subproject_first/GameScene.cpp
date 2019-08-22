@@ -281,15 +281,15 @@ void GameScene::Update(float Delta)
 	{
 		m_bExit = !m_bExit;
 	}
-
+	if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
+	{
+		CreateEnemy();
+		m_uiTime->runTime = 0;
+	}
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
-		if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
-		{
-			CreateEnemy();
-			m_uiTime->runTime = 0;
-		}
+		
 		for (auto& it : this->info)
 		{
 			it->Update(Delta);
