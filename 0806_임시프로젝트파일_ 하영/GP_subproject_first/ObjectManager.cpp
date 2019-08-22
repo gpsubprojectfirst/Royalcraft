@@ -18,12 +18,13 @@ ObjectManager::ObjectManager()
 		mObj[eObject_Build].emplace_back(tower);
 	}
 	/* 0- 불, 1- 화살, 2- 대포, 3- 미사일*/
+	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
 	for (int i = 0; i < 4; i++)
 	{
 		Bullet* arrow = new Bullet();
 		arrow->ID = i;
 		arrow->ParserXML();
-		arrow->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
+		arrow->ParentImg = load;
 		mObj[eObject_Bullet].emplace_back(arrow);
 	}
 	UnitInfoParser();

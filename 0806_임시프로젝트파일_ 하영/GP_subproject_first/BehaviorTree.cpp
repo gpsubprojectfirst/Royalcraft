@@ -116,8 +116,10 @@ bool IsAbleAtk::Invoke()
 		< actor->obj->mUnitInfo.atk_distance * 30
 	)
 	{
-			return true;
+		return true;
 	}
+	if (actor->obj->target->Isdead)
+		actor->obj->target = nullptr;
 	return false;
 }
 bool IsTargetHas::Invoke()
@@ -151,9 +153,9 @@ bool IsBuilt::Invoke()
 
 bool IsDead::Invoke()
 {
-	if (!actor->obj->Isdead)
-		return true;
-	return false;
+	if (actor->obj->Isdead)
+		return false;
+	return true;
 }
 BehaviorTree::BehaviorTree(MyUnit* InActor, BlackBoard* InBB)
 	:root(nullptr)
@@ -167,10 +169,10 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	SetActor(InActor);
 	//composite
 	Selector* RootSelector = new Selector();
-	Selector* selMoveTarget = new Selector();
 	Sequence* seqNearObj = new Sequence();
 	Selector* selAttackTarget = new Selector();
 	Sequence* seqAttack = new Sequence();
+	Selector* selMoveTarget = new Selector();
 	Sequence* seqMoveToTarget = new Sequence();
 	Sequence* seqMoveToBuild = new Sequence();
 
@@ -184,6 +186,7 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
 	//트리 구성 추후 xml로 맵핑
+
 	root->AddChild(IsDeadUnit);
 	root->AddChild(RootSelector);
 
@@ -230,7 +233,7 @@ void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
 
 	root->AddChild(RootSelector);
 	root->AddChild(IsDeadUnit);
-	root->AddChild(actRestUnit);
+	RootSelector->AddChild(actRestUnit);
 
 	RootSelector->AddChild(seqNearObj);
 	//
