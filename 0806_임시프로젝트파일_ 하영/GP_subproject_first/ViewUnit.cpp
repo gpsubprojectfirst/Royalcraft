@@ -49,6 +49,6 @@ void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
 	
 	rc = moveRc[4][0];
 	
-	curPos.X = ix;
-	curPos.Y = iy;
+	curPosX = ix;
+	curPosY = iy;
 }
