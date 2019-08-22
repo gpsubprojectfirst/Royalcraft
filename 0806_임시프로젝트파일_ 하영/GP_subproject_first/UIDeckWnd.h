@@ -31,6 +31,7 @@ public:
 	virtual void Release();
 	void CreateDeck(EDeck_type _eType, const WCHAR* str);
 	void ChooseDeck();
+	void ChooseUnit();
 
 public:
 	UIDeckWnd(void);

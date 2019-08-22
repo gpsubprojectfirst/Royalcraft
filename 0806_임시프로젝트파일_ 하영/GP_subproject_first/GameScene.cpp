@@ -7,6 +7,9 @@
 
 GameScene::GameScene()
 {
+	Init();
+	 
+
 	std::cout << "GameScene()" << endl;
 }
 
@@ -65,9 +68,13 @@ void GameScene::Init()
 
 	//임시 위치
 	endUI = new UICrown();
-	endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->bluecrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->redcrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\enduired.png"));
+	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->ParserXML();
-
+	
+	m_uiHpbar = new UIHpbar();
+	m_uiTime = new UITime();
 	m_uiPopup = new UIPopup();
 	//info.push_back(m_uiPopup);
 
@@ -198,7 +205,7 @@ void GameScene::Update(float Delta)
 		m_bExit = !m_bExit;
 	}
 
-	if (!endflag && !m_bExit) 
+	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
@@ -208,7 +215,8 @@ void GameScene::Update(float Delta)
 			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
 				endflag = true;
 		}
-
+		//UI update
+		m_uiTime->Update(Delta);
 		/*if (unitInfo != nullptr)
 		{
 			unitInfo->Update(Delta);
@@ -253,9 +261,10 @@ void GameScene::Update(float Delta)
 	}
 	else
 	{
-		if (endflag)
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			//게임이 끝났으면 업데이트 멈춤
+			endUI->SetTeam(endflag);
 			endUI->Update(Delta);
 		}
 		if (m_bExit)
@@ -299,8 +308,10 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 
 	if(m_uiHpbar!=nullptr)
 	m_uiHpbar->Render(MemG);
+	m_uiTime->Render(MemG);
 
-	if (endflag || m_bExit)
+
+	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
 		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
@@ -308,7 +319,13 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
 
-		if (endflag)
+		if (endUI == nullptr)
+			return;
+
+		if (m_uiPopup == nullptr)
+			return;
+
+		if (endflag || m_uiTime->IsEndTime())
 		{
 			endUI->Render(MemG);
 		}
@@ -324,11 +341,13 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 void GameScene::Release()
 {
 	info.clear();
+	playUnit.clear();
 	m_vecGame.clear();
 	SAFE_DELETE(mMap);
 	SAFE_DELETE(mTree);
 	SAFE_DELETE(blackBoard);
 	SAFE_DELETE(endUI);
+	SAFE_DELETE(m_uiHpbar);
 }
 
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
