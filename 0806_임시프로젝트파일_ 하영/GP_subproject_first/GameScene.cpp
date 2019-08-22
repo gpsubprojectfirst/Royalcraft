@@ -69,6 +69,7 @@ void GameScene::Init()
 	endUI->ParserXML();
 	
 	m_uiHpbar = new UIHpbar();
+	m_uiElixbar = new UIElixirbar();
 	m_uiTime = new UITime();
 	m_uiPopup = new UIPopup();
 	//info.push_back(m_uiPopup);
@@ -214,6 +215,7 @@ void GameScene::Update(float Delta)
 		}
 		//UI update
 		m_uiTime->Update(Delta);
+		m_uiElixbar->Update(Delta);
 		/*if (unitInfo != nullptr)
 		{
 			unitInfo->Update(Delta);
@@ -306,6 +308,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	if(m_uiHpbar!=nullptr)
 	m_uiHpbar->Render(MemG);
 	m_uiTime->Render(MemG);
+	m_uiElixbar->Render(MemG);
 
 
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
