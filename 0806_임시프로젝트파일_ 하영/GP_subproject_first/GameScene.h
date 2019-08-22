@@ -47,6 +47,7 @@ public:
 	void CreateObj(CPoint pt, MOUSEINFO MInfo);
 	void CreateViewUnit(CPoint pt, int unitID);
 	void CreateTower();
+	void CreateMyTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);
 	
 	GameScene();
