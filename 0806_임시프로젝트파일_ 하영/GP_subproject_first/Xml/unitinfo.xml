@@ -49,5 +49,14 @@
 			<subtowerR ID="2" Objtype="Build">
 				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
 			</subtowerR>
+			<kingtowerB ID="3" Objtype="Build">
+				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
+			</kingtowerB>
+			<subtowerLB ID="4" Objtype="Build">
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
+			</subtowerLB>
+			<subtowerRB ID="5" Objtype="Build">
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
+			</subtowerRB>
 		</tower>
 	</character>

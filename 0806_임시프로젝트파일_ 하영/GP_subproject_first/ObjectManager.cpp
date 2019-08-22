@@ -55,7 +55,7 @@ void ObjectManager::UnitInfoParser()
 	Node = Node->NextSiblingElement("tower");
 	tinyxml2::XMLElement* buildNode = Node->FirstChildElement("kingtower");
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		tinyxml2::XMLElement* tempNode = buildNode->FirstChildElement("status");
 		mObj[eObject_Build].at(i)->ID = buildNode->IntAttribute("ID");
@@ -66,6 +66,8 @@ void ObjectManager::UnitInfoParser()
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.cost = tempNode->IntAttribute("cost");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.atk_distance = tempNode->FloatAttribute("atk_distance");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.damage = tempNode->IntAttribute("damage");
+
+		buildNode = buildNode->NextSiblingElement();
 	}
 
 }
