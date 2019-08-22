@@ -4,10 +4,13 @@
 #include "BehaviorTree.h"
 #include "SoundMgr.h"
 
+
 GameScene::GameScene()
 {
+	Init();
+	 
+
 	std::cout << "GameScene()" << endl;
-  Init();
 }
 
 GameScene::~GameScene()
@@ -59,16 +62,19 @@ void GameScene::Init()
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
 
-
 	MouseMgr::GetInstance().Init();
 	//SoundMgr::GetInstance()->SoundPlay(0, 0);
 
 
-	////임시 위치
-	//endUI = new UICrown();
+	//임시 위치
+	endUI = new UICrown();
+	endUI->bluecrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
+	endUI->redcrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\enduired.png"));
 	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
-	//endUI->ParserXML();
-
+	endUI->ParserXML();
+	
+	m_uiHpbar = new UIHpbar();
+	m_uiTime = new UITime();
 	m_uiPopup = new UIPopup();
 	//info.push_back(m_uiPopup);
 
@@ -98,8 +104,7 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
 				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
 				unitInfo = mUnit;
-				//UIDeckWnd::m_IsSelectMode = 2;
-
+				UIDeckWnd::m_IsSelectMode = 2;
 			}
 		}
 	}
@@ -185,6 +190,7 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 				playUnit.emplace_back(mUnit);
 				blackBoard->UpdateData(playUnit);
 				mUnit->CreateBT(blackBoard);
+				UIDeckWnd::m_IsSelectMode = 3;
 			}
 		}
 	}
@@ -199,7 +205,7 @@ void GameScene::Update(float Delta)
 		m_bExit = !m_bExit;
 	}
 
-	if (!endflag && !m_bExit && !m_uiTime->IsEndTime()) 
+	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
 		for (auto& it : this->info)
@@ -211,28 +217,40 @@ void GameScene::Update(float Delta)
 		}
 		//UI update
 		m_uiTime->Update(Delta);
+		/*if (unitInfo != nullptr)
+		{
+			unitInfo->Update(Delta);
+		}*/
+
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
 			CreateViewUnit(_cPt, MouseMgr::GetInstance().GetUnitID());
+			
 		}
+		
 
+		/*
 		//TODO : KEY_LBUTTON
 		if (KeyMgr::GetInstance().GetKey() & KEY_LBUTTON)
 		{
 			UIDeckWnd::m_IsSelectMode = 2;
 			if (UIDeckWnd::m_IsSelectMode == 2)
 			{
-				delete(unitInfo);
-				unitInfo = nullptr;
+				if (unitInfo != nullptr)
+				{
+					delete(unitInfo);
+					unitInfo = nullptr;
+				}
+
 				UIDeckWnd::m_IsSelectMode = 0;
 				CPoint _cPt(pt.x, pt.y);
 
 				//캐릭터 생성
 				//CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
 			}
-			
 		}
+		*/
 
 		if (KeyMgr::GetInstance().GetKey() & KEY_F1)
 		{
@@ -292,6 +310,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	m_uiHpbar->Render(MemG);
 	m_uiTime->Render(MemG);
 
+
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
@@ -299,6 +318,12 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
+
+		if (endUI == nullptr)
+			return;
+
+		if (m_uiPopup == nullptr)
+			return;
 
 		if (endflag || m_uiTime->IsEndTime())
 		{
@@ -316,11 +341,13 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 void GameScene::Release()
 {
 	info.clear();
+	playUnit.clear();
 	m_vecGame.clear();
 	SAFE_DELETE(mMap);
 	SAFE_DELETE(mTree);
 	SAFE_DELETE(blackBoard);
 	SAFE_DELETE(endUI);
+	SAFE_DELETE(m_uiHpbar);
 }
 
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
@@ -345,7 +372,18 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 		}
 	}
 }
+
 void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 {
-	CreateObj(point, MouseMgr::GetInstance().GetUnitID());
+	if (UIDeckWnd::m_IsSelectMode == 2)
+	{
+		if (unitInfo != nullptr)
+		{
+			delete(unitInfo);
+			unitInfo = nullptr;
+		}
+
+		
+		CreateObj(point, MouseMgr::GetInstance().GetUnitID());
+	}
 }

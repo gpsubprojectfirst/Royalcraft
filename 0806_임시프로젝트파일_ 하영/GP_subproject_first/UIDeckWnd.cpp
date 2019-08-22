@@ -38,10 +38,10 @@ void UIDeckWnd::Init()
 	CreateDeck(EDeck_type::EDeck_Wizard,TEXT("Asset\\3.game\\4.ui\\Deck\\wizard.png"));
 	
 
-	//for (int i = 0;i < 12;i++)
+	for (int i = 0;i < 12;i++)
 	{
 		DECKINFO* deckInfo = new DECKINFO();
-		deckInfo->pDeck = m_mDeck.at((EDeck_KNIGHT));
+		deckInfo->pDeck = m_mDeck.at((EDeck_type)i);
 		m_liDeckInfo.push_back(deckInfo);
 	}
 	
@@ -57,15 +57,12 @@ void UIDeckWnd::ChooseDeck()
 	srand(time(nullptr));
 	int k = rand() % 12;
 	//TODO
-	/*for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		arrayNum[i] = (EDeck_type)(k % 12);
 		k++;
-	}*/
-	arrayNum[0] = EDeck_type::EDeck_KNIGHT;
-	arrayNum[1] = EDeck_type::EDeck_Axeman;
-	arrayNum[2] = EDeck_type::EDeck_Lumberjack;
-	arrayNum[3] = EDeck_type::EDeck_Wizard;
+	}
+
 	for (int i = 0; i < 4; i++)
 	{
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
@@ -77,6 +74,34 @@ void UIDeckWnd::ChooseDeck()
 	viewArray[3]->CopyObj(473, 808);
 
 }
+
+void UIDeckWnd::ChooseUnit()
+{
+	m_IsSelectMode = 4;
+	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
+	viewArray = new Deck * [4];
+	srand(time(nullptr));
+	int k = rand() % 12;
+	
+	int idx = m_iSelectedCell;
+	
+	arrayNum[idx] = (EDeck_type)(k % 12);
+	
+
+	for (int i = 0; i < 4; i++)
+	{
+		if( i  == idx)
+		{
+			viewArray[idx] = m_mDeck.at(arrayNum[idx]);
+			viewArray[idx]->typeNum = arrayNum[idx];
+		}
+		viewArray[i] = m_mDeck.at(arrayNum[i]);
+		viewArray[i]->typeNum = arrayNum[i];
+	}
+
+	m_IsSelectMode = 0;
+}
+
 void UIDeckWnd::Update(float Delta)
 {
 	POINT pt = MouseMgr::GetMousePos();
@@ -116,7 +141,12 @@ void UIDeckWnd::Update(float Delta)
 		SelectItem();
 	}
 
-	
+	if (m_IsSelectMode == 3)
+	{
+		ChooseUnit();
+	}
+
+
 	for (int i = 0; i<4; i++)
 	{
 		if (viewArray == nullptr) continue;
