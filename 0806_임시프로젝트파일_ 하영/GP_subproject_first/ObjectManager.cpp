@@ -17,6 +17,15 @@ ObjectManager::ObjectManager()
 		tower->ParserXML();
 		mObj[eObject_Build].emplace_back(tower);
 	}
+	/* 0- 불, 1- 화살, 2- 대포, 3- 미사일*/
+	for (int i = 0; i < 4; i++)
+	{
+		Bullet* arrow = new Bullet();
+		arrow->ID = i;
+		arrow->ParserXML();
+		arrow->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
+		mObj[eObject_Bullet].emplace_back(arrow);
+	}
 	UnitInfoParser();
 }
 
@@ -56,7 +65,6 @@ void ObjectManager::UnitInfoParser()
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.cost = tempNode->IntAttribute("cost");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.atk_distance = tempNode->FloatAttribute("atk_distance");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.damage = tempNode->IntAttribute("damage");
-
 	}
 
 }
@@ -73,4 +81,8 @@ Object* ObjectManager::GetMyUnit(int InID)
 Object* ObjectManager::GetBuild(int InID)
 {
 	return mObj[eObject_Build].at(InID);
+}
+Object* ObjectManager::GetBullet(int InID)
+{
+	return mObj[eObject_Bullet].at(InID);
 }

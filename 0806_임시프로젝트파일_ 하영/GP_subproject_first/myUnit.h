@@ -3,6 +3,8 @@
 #include "MyMap.h"
 #include "BehaviorTree.h"
 #include "stack"
+
+class Bullet;
 struct UnitInfo
 {
 	int damage;
@@ -41,7 +43,7 @@ public:
 	float AddDelta;
 	BehaviorTree* UnitBt;
 	MyUnit* target; //목적 오브젝트
-
+	Bullet* arrow;
 	//Tile Position
 	std::pair<int,int> curTile; //현재 타일의 좌표
 	std::pair<int,int> dstTile; //목적 타일의 좌표

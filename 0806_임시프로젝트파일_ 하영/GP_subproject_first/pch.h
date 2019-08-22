@@ -26,6 +26,7 @@
 #include "KeyMgr.h"
 #include "MyUnit.h"
 #include "Build.h"
+#include "bullet.h"
 #include "LogoScene.h"
 #include "LobbyScene.h"
 #include "GameScene.h"

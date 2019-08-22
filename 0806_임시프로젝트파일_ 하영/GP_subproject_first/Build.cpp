@@ -2,20 +2,18 @@
 
 Build::Build()
 {
+	Init();
+}
+void Build::Init()
+{
 	Objtype = eObject_Build;
 	curTile = std::make_pair(0, 0);
-	
-	/*mUnitInfo.hp = 500;
-	mUnitInfo.move_speed = 0;
-	mUnitInfo.atk_distance = 300;
-	mUnitInfo.damage = 45;
-	*/
+
 	Isdead = false;
 
 	sm.Add(new State_Idle);
 	sm.Add(new State_Attack);
 }
-
 void Build::Update(float Delta)
 {
 	if (!Isdead)
@@ -45,6 +43,10 @@ void Build::Update(float Delta)
 			//rc = atkRc[0];
 		}
 	}
+	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
+	{
+		arrow->Update(Delta);
+	}
 }
 void Build::Render(Gdiplus::Graphics* MemG)
 {
@@ -57,6 +59,16 @@ void Build::Render(Gdiplus::Graphics* MemG)
 		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
+	}
+	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
+	{
+		if (arrow->Isarrive == true)
+		{
+			arrow->Release();
+			arrow = nullptr;
+		}
+		else
+			arrow->Render(MemG);
 	}
 }
 void Build::ParserXML()
@@ -110,11 +122,6 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	ID = dst->ID;
 	name = dst->name;
-	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < 5; i++)
-	{
-		atkRc[i] = dst->atkRc[i];
-	}
 	mUnitInfo = dst->mUnitInfo;
 	for (int i = 0; i < 5; i++)
 	{
