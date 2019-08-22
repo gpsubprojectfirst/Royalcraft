@@ -162,37 +162,40 @@ void GameScene::CreateTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	Point mPoint;
-	mPoint.X = pt.x;
-	mPoint.Y = pt.y;
-
-	for (int i = 0; i < TILECNTX; ++i)
+	if (MInfo.iElixir <= m_uiElixbar->mycost)
 	{
-		for (int j = 0; j < TILECNTY; ++j)
+		Point mPoint;
+		mPoint.X = pt.x;
+		mPoint.Y = pt.y;
+
+		for (int i = 0; i < TILECNTX; ++i)
 		{
-			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
+			for (int j = 0; j < TILECNTY; ++j)
 			{
-				MyUnit* mUnit = new MyUnit();
-				int unitID = MInfo.unitID;
-				int cost = MInfo.iElixir;
-				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
-				mUnit->ParentImg = m_vecGame[unitID +1];
-				mUnit->curTile.first = i;
-				mUnit->curTile.second = j;
-				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
-				mUnit->mMap = mMap;
-				mUnit->teamBlue = true;
-				info.emplace_back(mUnit);
-				playUnit.emplace_back(mUnit);
-				blackBoard->UpdateData(playUnit);
-				mUnit->CreateBT(blackBoard);
-				UIDeckWnd::m_IsSelectMode = 3;
+				if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
+				{
+					MyUnit* mUnit = new MyUnit();
+					int unitID = MInfo.unitID;
+					int cost = MInfo.iElixir;
+					mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
+					mUnit->ParentImg = m_vecGame[unitID + 1];
+					mUnit->curTile.first = i;
+					mUnit->curTile.second = j;
+					mUnit->posRc = mMap->Infos[i][j].rc;
+					mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+					mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+					mUnit->mMap = mMap;
+					mUnit->teamBlue = true;
+					info.emplace_back(mUnit);
+					playUnit.emplace_back(mUnit);
+					blackBoard->UpdateData(playUnit);
+					mUnit->CreateBT(blackBoard);
+					m_uiElixbar->spendCost(cost);
+					UIDeckWnd::m_IsSelectMode = 3;
+				}
 			}
 		}
 	}
-
 }
 
 void GameScene::Update(float Delta)

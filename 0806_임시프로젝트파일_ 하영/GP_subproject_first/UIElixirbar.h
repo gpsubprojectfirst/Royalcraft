@@ -5,10 +5,10 @@ class UIElixirbar : public Object
 {
 public:
 	UIElixirbar();
-	void Init();
+	virtual void Init();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
-	
+	void spendCost(int n);
 	float full;
 	float curGage;
 	float rate;

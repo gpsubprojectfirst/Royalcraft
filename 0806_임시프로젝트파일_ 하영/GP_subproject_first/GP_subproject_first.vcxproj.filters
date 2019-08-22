@@ -101,6 +101,9 @@
     <ClCompile Include="UIEilxirbar.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h">
@@ -218,6 +221,9 @@
     <ClInclude Include="UIElixirbar.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Object\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Manager">
@@ -273,6 +279,9 @@
     </Filter>
     <Filter Include="Pattern\6.Action">
       <UniqueIdentifier>{00076d26-e9be-485a-a473-93be1b96d91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Bullet">
+      <UniqueIdentifier>{c727d566-6b46-4cdd-9caa-83f649983633}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

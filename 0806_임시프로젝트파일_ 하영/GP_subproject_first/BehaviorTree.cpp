@@ -93,7 +93,7 @@ bool IsNearObj::Invoke()
 	
 	for (auto it : *bbData->playUnit)
 	{
-		if (sqrt(pow(it->curPosX - actor->obj->curPosX,2)
+		if ((int)sqrt(pow(it->curPosX - actor->obj->curPosX,2)
 			+ pow(it->curPosY - actor->obj->curPosY,2)) < 400 &&
 			it != actor->obj &&
 			it->teamBlue != actor->obj->teamBlue &&
