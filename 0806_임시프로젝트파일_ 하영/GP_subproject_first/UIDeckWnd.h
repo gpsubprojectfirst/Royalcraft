@@ -32,6 +32,7 @@ public:
 	void CreateDeck(EDeck_type _eType, const WCHAR* str);
 	void ChooseDeck();
 	void ChangeDeck();
+	int CheckDeck(int idx);
 
 public:
 	UIDeckWnd(void);
