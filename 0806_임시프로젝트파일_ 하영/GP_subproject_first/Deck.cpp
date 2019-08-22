@@ -5,9 +5,10 @@ Deck::Deck()
 {
 }
 
-Deck::Deck(Gdiplus::Image* img)
+Deck::Deck(Gdiplus::Image* img, int cost)
 {
 	ParentImg = img;
+	m_iCost = cost;
 }
 
 Deck::~Deck()

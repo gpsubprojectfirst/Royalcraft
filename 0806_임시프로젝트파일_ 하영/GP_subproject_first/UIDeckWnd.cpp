@@ -8,7 +8,6 @@ int UIDeckWnd::m_IsSelectMode = 0;
 
 UIDeckWnd::UIDeckWnd()
 {
-
 	Init();
 }
 
@@ -56,7 +55,7 @@ void UIDeckWnd::ChooseDeck()
 	viewArray = new Deck*[4];
 	srand(time(nullptr));
 	int k = rand() % 12;
-	//TODO
+
 	for (int i = 0; i < 4; i++)
 	{
 		arrayNum[i] = (EDeck_type)(k % 12);
@@ -67,6 +66,7 @@ void UIDeckWnd::ChooseDeck()
 	{
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
+		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
 	}
 	viewArray[0]->CopyObj(167, 808);
 	viewArray[1]->CopyObj(269, 808);
@@ -79,7 +79,6 @@ void UIDeckWnd::ChooseUnit()
 {
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
-	viewArray = new Deck * [4];
 	srand(time(nullptr));
 	int k = rand() % 12;
 	
@@ -143,7 +142,7 @@ void UIDeckWnd::Update(float Delta)
 
 	if (m_IsSelectMode == 3)
 	{
-		ChooseUnit();
+		//ChooseUnit();
 	}
 
 
@@ -157,7 +156,8 @@ void UIDeckWnd::Update(float Delta)
 void UIDeckWnd::CreateDeck(EDeck_type _eType, const WCHAR* str)
 {
 	Gdiplus::Image* deckIcon = new Gdiplus::Image(str);
-	Deck* m_deck = new Deck(deckIcon);
+	int cost = ((MyUnit*)ObjectManager::GetInstance().GetMyUnit(_eType))->mUnitInfo.cost;
+	Deck* m_deck = new Deck(deckIcon, cost);
 	m_mDeck.insert(make_pair(_eType, m_deck));
 }
 
@@ -210,23 +210,19 @@ void UIDeckWnd::SelectItem()
 	{
 	case 0:
 		tempInfo.unitID = viewArray[0]->typeNum;
-		//tempInfo.iSize = viewArray[0]->iSize;
-		//tempInfo.iElixir = 3;
+		tempInfo.iElixir = viewArray[0]->m_iCost;
 		break;
 	case 1:
 		tempInfo.unitID = viewArray[1]->typeNum;
-		//tempInfo.iSize = viewArray[0]->iSize;
-		//tempInfo.iElixir = 3;
+		tempInfo.iElixir = viewArray[1]->m_iCost;
 		break;
 	case 2:
 		tempInfo.unitID = viewArray[2]->typeNum;
-		//tempInfo.iSize = viewArray[0]->iSize;
-		//tempInfo.iElixir = 3;
+		tempInfo.iElixir = viewArray[2]->m_iCost;
 		break;
 	case 3:
 		tempInfo.unitID = viewArray[3]->typeNum;
-		//tempInfo.iSize = viewArray[0]->iSize;
-		//tempInfo.iElixir = 3;
+		tempInfo.iElixir = viewArray[3]->m_iCost;
 		break;
 
 	default:

@@ -7,15 +7,11 @@
 
 GameScene::GameScene()
 {
-	Init();
-	 
-
 	std::cout << "GameScene()" << endl;
 }
 
 GameScene::~GameScene()
 {
-	//Release();
 }
 
 void GameScene::Init()
@@ -56,7 +52,6 @@ void GameScene::Init()
 	ObjectManager& om = ObjectManager::GetInstance();
 
 	UIDeckWnd* deck = new UIDeckWnd();
-	deck->Init();
 	info.emplace_back(deck);
 
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
@@ -165,7 +160,7 @@ void GameScene::CreateTower()
 	towerSubB->CreateBT(blackBoard);
 }
 
-void GameScene::CreateObj(CPoint pt,int unitID)
+void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
 	Point mPoint;
 	mPoint.X = pt.x;
@@ -178,6 +173,8 @@ void GameScene::CreateObj(CPoint pt,int unitID)
 			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 			{
 				MyUnit* mUnit = new MyUnit();
+				int unitID = MInfo.unitID;
+				int cost = MInfo.iElixir;
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
 				mUnit->ParentImg = m_vecGame[unitID +1];
 				mUnit->curTile.first = i;
@@ -387,6 +384,6 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 		}
 
 		
-		CreateObj(point, MouseMgr::GetInstance().GetUnitID());
+		CreateObj(point, MouseMgr::GetInstance().GetMouseInfo());
 	}
 }

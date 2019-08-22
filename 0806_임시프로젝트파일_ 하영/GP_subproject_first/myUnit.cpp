@@ -508,7 +508,7 @@ void MyUnit::Move(float Delta)
 		curPosX += (distanceX) / 27 * mUnitInfo.move_speed * 0.5;
 		curPosY += (distanceY) / 22 * mUnitInfo.move_speed * 0.5;
 
-		std::cout << curPosX << " , " << curPosY << std::endl;
+		//std::cout << curPosX << " , " << curPosY << std::endl;
 		//현재 목적지에 캐릭터가 도착했는지
 		if(sqrt(pow(tempDstTile.X + 13 - curPosX,2)+ pow(tempDstTile.Y + 11 - curPosY,2))<10)
 		{
