@@ -182,17 +182,17 @@ void GameScene::CreateMyTower()
 	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtowerblue.png"));
 
 	towerKing->curTile.first = 11;
-	towerKing->curTile.second = 18;
+	towerKing->curTile.second = 30;
 
 	towerSubA->curTile.first = 5;
-	towerSubA->curTile.second = 14;
+	towerSubA->curTile.second = 26;
 
 	towerSubB->curTile.first = 16;
-	towerSubB->curTile.second = 14;
+	towerSubB->curTile.second = 26;
 
-	towerKing->posRc = mMap->Infos[11][18].rc;
-	towerSubA->posRc = mMap->Infos[5][14].rc;
-	towerSubB->posRc = mMap->Infos[16][14].rc;
+	towerKing->posRc = mMap->Infos[11][30].rc;
+	towerSubA->posRc = mMap->Infos[5][26].rc;
+	towerSubB->posRc = mMap->Infos[16][26].rc;
 
 	towerKing->teamBlue = true;
 	towerSubA->teamBlue = true;
@@ -250,7 +250,30 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 		}
 	}
 }
+void GameScene::CreateEnemy()
+{
+	srand(time(nullptr));
+	int x = rand() % 5 + 10;
+	int y = rand() % 5 + 5;
 
+	mMap->Infos[x][y].rc;
+	
+	MyUnit* mUnit = new MyUnit();
+	int unitID = rand() % 12;
+	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
+	mUnit->ParentImg = m_vecGame[unitID + 1];
+	mUnit->curTile.first = x;
+	mUnit->curTile.second = y;
+	mUnit->posRc = mMap->Infos[x][y].rc;
+	mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
+	mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+	mUnit->mMap = mMap;
+	mUnit->teamBlue = false;
+	info.emplace_back(mUnit);
+	playUnit.emplace_back(mUnit);
+	blackBoard->UpdateData(playUnit);
+	mUnit->CreateBT(blackBoard);
+}
 void GameScene::Update(float Delta)
 {
 	KeyMgr::GetInstance().CheckKey();
@@ -262,6 +285,11 @@ void GameScene::Update(float Delta)
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
+		if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
+		{
+			CreateEnemy();
+			m_uiTime->runTime = 0;
+		}
 		for (auto& it : this->info)
 		{
 			it->Update(Delta);
@@ -272,10 +300,7 @@ void GameScene::Update(float Delta)
 		//UI update
 		m_uiTime->Update(Delta);
 		m_uiElixbar->Update(Delta);
-		/*if (unitInfo != nullptr)
-		{
-			unitInfo->Update(Delta);
-		}*/
+		
 
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{

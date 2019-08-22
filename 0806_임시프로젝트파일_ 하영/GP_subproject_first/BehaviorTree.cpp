@@ -124,12 +124,11 @@ bool IsAbleAtk::Invoke()
 }
 bool IsTargetHas::Invoke()
 {
-	if (actor->obj->target != nullptr )
+	if (actor->obj->target != nullptr && !actor->obj->target->Isdead)
 	{
 		if (actor->obj->frame % 10 == 0)
 		{
-			actor->obj->frame++;
-			actor->obj->dstTile.first = actor->obj->target->curTile.first;
+ 			actor->obj->dstTile.first = actor->obj->target->curTile.first;
 			actor->obj->dstTile.second = actor->obj->target->curTile.second;
 			actor->obj->Set(bbData->mTree);
 		}
@@ -144,9 +143,18 @@ bool IsBuilt::Invoke()
 	//test°æ·Î
 	if (actor->obj->moveTilePath.empty())
 	{
-		actor->obj->dstTile.first = 10;
-		actor->obj->dstTile.second = 3;
-		actor->obj->Set(bbData->mTree);
+		if (actor->obj->teamBlue)
+		{
+			actor->obj->dstTile.first = 10;
+			actor->obj->dstTile.second = 3;
+			actor->obj->Set(bbData->mTree);
+		}
+		else
+		{
+			actor->obj->dstTile.first = 10;
+			actor->obj->dstTile.second = 30;
+			actor->obj->Set(bbData->mTree);
+		}
 	}
 	return true;
 }

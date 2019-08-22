@@ -122,12 +122,13 @@ void Build::ParserXML()
 		doc->LoadFile("Xml\\kingtowerblue.xml");
 		tinyxml2::XMLElement* Root = doc->RootElement();
 		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-		atkRc[0].emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
 		for (int i = 0; i < 18; i++)
 		{
+			atkRc[0].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+
 			restRc.emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
@@ -141,12 +142,12 @@ void Build::ParserXML()
 		doc->LoadFile("Xml\\subtowerblue.xml");
 		tinyxml2::XMLElement* Root = doc->RootElement();
 		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-		atkRc[0].emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
 		for (int i = 0; i < 19; i++)
 		{
+			atkRc[0].emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
 			restRc.emplace_back(Node->IntAttribute("x")
 				, Node->IntAttribute("y")
 				, Node->IntAttribute("w")
