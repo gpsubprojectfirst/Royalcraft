@@ -15,6 +15,11 @@ void Bullet::Init()
 }
 void Bullet::Update(float Delta)
 {
+	if (target == nullptr)
+	{
+		Isarrive = true;
+		return;
+	}
 	AddDelta += Delta;
 	if (AddDelta > 0.01f)
 	{
@@ -36,8 +41,7 @@ void Bullet::Update(float Delta)
 
 	int frame_ = frame % moveRc->size();
 	rc = moveRc[0][frame_];
-
-	if (target->posRc.Contains(curPosX,curPosY))
+	if(target->posRc.Contains(curPosX,curPosY))
 	{
 		Isarrive = true;
 	}

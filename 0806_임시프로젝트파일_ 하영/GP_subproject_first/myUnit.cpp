@@ -512,19 +512,28 @@ void MyUnit::Move(float Delta)
 		
 		//거리 계산
 		//this->curPos.first += this->move_speed * Delta;
+		/*
 		int distanceX = tempDstTile.X - strTile.X;
 		int distanceY = tempDstTile.Y - strTile.Y;
+		*/
+		float distanceX = tempDstTile.X + (TILESIZEX / 2) - this->curPosX;
+		float distanceY = tempDstTile.Y + (TILESIZEY / 2) - this->curPosY;
 
-		CalcDirection(distanceX, distanceY);
+		float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
+		float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
+
+		CalcDirection(xvec, yvec);
 		
 		 //위치 이동
 		
-		curPosX += (distanceX) / 27 * mUnitInfo.move_speed * 0.5;
-		curPosY += (distanceY) / 22 * mUnitInfo.move_speed * 0.5;
+		curPosX += xvec * mUnitInfo.move_speed * 0.5;
+		curPosY += yvec * mUnitInfo.move_speed * 0.5;
 
 		//std::cout << curPosX << " , " << curPosY << std::endl;
 		//현재 목적지에 캐릭터가 도착했는지
-		if(sqrt(pow(tempDstTile.X + 13 - curPosX,2)+ pow(tempDstTile.Y + 11 - curPosY,2))<10)
+		//if(sqrt(pow(tempDstTile.X + 13 - curPosX,2)+ pow(tempDstTile.Y + 11 - curPosY,2))<10)
+		if (pow(tempDstTile.X + (TILESIZEX / 2) - curPosX,2) +
+			pow(tempDstTile.Y + (TILESIZEY / 2) - curPosY,2) < 2)
 		{
 			curTile = moveTilePath.top();
 
@@ -539,7 +548,23 @@ void MyUnit::Move(float Delta)
 
 void MyUnit::Attack(float Delta)
 {
-	if (target == nullptr) std::cout << "targetnull" << std::endl;
+	if (target == nullptr)
+	{
+		return;
+	}
+	//타입이 nonmelee라면 atk_type = 1
+	if (target->mUnitInfo.hp > 0)
+		target->mUnitInfo.hp -= this->mUnitInfo.damage;
+	else
+	{
+		target->Isdead = true;
+		target = nullptr;
+		if (this->mUnitInfo.atk_type == 1 && arrow != nullptr)
+		{
+			arrow->Release();
+			arrow = nullptr;
+		}
+	}
 	if (this->mUnitInfo.atk_type == 1 && arrow == nullptr)
 	{
 		arrow = new Bullet();
@@ -559,13 +584,7 @@ void MyUnit::Attack(float Delta)
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
 	}
-	if (target->mUnitInfo.hp > 0)
-		target->mUnitInfo.hp -= this->mUnitInfo.damage;
-	else
-	{
-		target->Isdead = true;
-		target = nullptr;
-	}
+	
 }
 
 void MyUnit::ExtraAction(float Delta)
