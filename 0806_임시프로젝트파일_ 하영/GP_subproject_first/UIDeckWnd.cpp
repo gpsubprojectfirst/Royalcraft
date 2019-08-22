@@ -19,9 +19,9 @@ UIDeckWnd::~UIDeckWnd()
 void UIDeckWnd::Init()
 {
 	/*
-				ID:
-				0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
-				6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
+		ID:
+		0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
+		6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
 	*/
 	CreateDeck(EDeck_type::EDeck_KNIGHT,TEXT("Asset\\3.game\\4.ui\\Deck\\Knight.png"));
 	CreateDeck(EDeck_type::EDeck_Axeman,TEXT("Asset\\3.game\\4.ui\\Deck\\axeman.png"));
@@ -68,6 +68,7 @@ void UIDeckWnd::ChooseDeck()
 		viewArray[i]->typeNum = arrayNum[i];
 		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
 	}
+
 	viewArray[0]->CopyObj(167, 808);
 	viewArray[1]->CopyObj(269, 808);
 	viewArray[2]->CopyObj(371, 808);
@@ -75,7 +76,7 @@ void UIDeckWnd::ChooseDeck()
 
 }
 
-void UIDeckWnd::ChooseUnit()
+void UIDeckWnd::ChangeDeck()
 {
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
@@ -86,7 +87,6 @@ void UIDeckWnd::ChooseUnit()
 	
 	arrayNum[idx] = (EDeck_type)(k % 12);
 	
-
 	for (int i = 0; i < 4; i++)
 	{
 		if( i  == idx)
@@ -97,6 +97,11 @@ void UIDeckWnd::ChooseUnit()
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
 	}
+
+	viewArray[0]->CopyObj(167, 808);
+	viewArray[1]->CopyObj(269, 808);
+	viewArray[2]->CopyObj(371, 808);
+	viewArray[3]->CopyObj(473, 808);
 
 	m_IsSelectMode = 0;
 }
@@ -142,15 +147,19 @@ void UIDeckWnd::Update(float Delta)
 
 	if (m_IsSelectMode == 3)
 	{
-		//ChooseUnit();
+		ChangeDeck();
 	}
-
 
 	for (int i = 0; i<4; i++)
 	{
 		if (viewArray == nullptr) continue;
 		viewArray[i]->Update(Delta);
 	}
+
+	viewArray[0]->CopyObj(167, 808);
+	viewArray[1]->CopyObj(269, 808);
+	viewArray[2]->CopyObj(371, 808);
+	viewArray[3]->CopyObj(473, 808);
 }
 
 void UIDeckWnd::CreateDeck(EDeck_type _eType, const WCHAR* str)
@@ -204,25 +213,29 @@ void UIDeckWnd::SelectItem()
 
 	MOUSEINFO tempInfo;
 	memset(&tempInfo, 0, sizeof(tempInfo));
-	m_IsSelectMode = 1;
+	
 	
 	switch (m_iSelectedCell)
 	{
 	case 0:
 		tempInfo.unitID = viewArray[0]->typeNum;
 		tempInfo.iElixir = viewArray[0]->m_iCost;
+		m_IsSelectMode = 1;
 		break;
 	case 1:
 		tempInfo.unitID = viewArray[1]->typeNum;
 		tempInfo.iElixir = viewArray[1]->m_iCost;
+		m_IsSelectMode = 1;
 		break;
 	case 2:
 		tempInfo.unitID = viewArray[2]->typeNum;
 		tempInfo.iElixir = viewArray[2]->m_iCost;
+		m_IsSelectMode = 1;
 		break;
 	case 3:
 		tempInfo.unitID = viewArray[3]->typeNum;
 		tempInfo.iElixir = viewArray[3]->m_iCost;
+		m_IsSelectMode = 1;
 		break;
 
 	default:
@@ -230,7 +243,7 @@ void UIDeckWnd::SelectItem()
 	}
 	
 	MouseMgr::GetInstance().SetMouseInfo(tempInfo);
-}
+	}
 
 
 void UIDeckWnd::Release()
