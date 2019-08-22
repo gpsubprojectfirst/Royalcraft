@@ -43,7 +43,7 @@ public:
 
 	void GetBuffer(Gdiplus::Bitmap* _Buffer);
 	void grayscale(int width, int height, Gdiplus::BitmapData& pData);
-	void CreateObj(CPoint pt,int unitID);
+	void CreateObj(CPoint pt, MOUSEINFO MInfo);
 	void CreateViewUnit(CPoint pt, int unitID);
 	void CreateTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);

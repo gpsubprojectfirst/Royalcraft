@@ -14,9 +14,10 @@ public:
 	virtual void Render(Gdiplus::Graphics* MemG);
 
 	EDeck_type typeNum;
+	int				  m_iCost;
 public:
 	Deck();
-	Deck(Gdiplus::Image* img);
+	Deck(Gdiplus::Image* img, int cost);
 	~Deck();
 };
 
