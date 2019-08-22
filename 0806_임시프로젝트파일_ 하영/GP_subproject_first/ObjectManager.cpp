@@ -10,7 +10,7 @@ ObjectManager::ObjectManager()
 		mUnit->ParserXML();
 		mObj[eObject_Unit].emplace_back(mUnit);
 	}
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		Build* tower = new Build();
 		tower->ID = i;

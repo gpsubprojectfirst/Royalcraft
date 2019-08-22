@@ -117,6 +117,25 @@ void Build::ParserXML()
 			Node = Node->NextSiblingElement();
 		}
 	}
+	if (ID == 3 || ID == 4 || ID == 5)
+	{
+		doc->LoadFile("Xml\\kingtowerblue.xml");
+		tinyxml2::XMLElement* Root = doc->RootElement();
+		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
+		atkRc[0].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		for (int i = 0; i < 18; i++)
+		{
+			restRc.emplace_back(Node->IntAttribute("x")
+				, Node->IntAttribute("y")
+				, Node->IntAttribute("w")
+				, Node->IntAttribute("h"));
+			Node = Node->NextSiblingElement();
+		}
+		
+	}
 }
 void Build::CopyObj(MyUnit* dst, int ix, int iy)
 {

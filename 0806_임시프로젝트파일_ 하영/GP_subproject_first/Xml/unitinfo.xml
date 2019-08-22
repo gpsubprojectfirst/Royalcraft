@@ -41,13 +41,13 @@
 		</unit>
 		<tower>
 			<kingtower ID="0" Objtype="Build">
-				<status hp="5000" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="450" />
+				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
 			</kingtower>
 			<subtowerL ID="1" Objtype="Build">
-				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
 			</subtowerL>
 			<subtowerR ID="2" Objtype="Build">
-				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
 			</subtowerR>
 		</tower>
 	</character>

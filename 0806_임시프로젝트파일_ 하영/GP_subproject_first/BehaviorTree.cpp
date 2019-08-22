@@ -94,7 +94,7 @@ bool IsNearObj::Invoke()
 	for (auto it : *bbData->playUnit)
 	{
 		if ((int)sqrt(pow(it->curPosX - actor->obj->curPosX,2)
-			+ pow(it->curPosY - actor->obj->curPosY,2)) < 400 &&
+			+ pow(it->curPosY - actor->obj->curPosY,2)) < 200 &&
 			it != actor->obj &&
 			it->teamBlue != actor->obj->teamBlue &&
 			!it->Isdead )
@@ -126,7 +126,7 @@ bool IsTargetHas::Invoke()
 {
 	if (actor->obj->target != nullptr )
 	{
-		if (actor->obj->frame == 0)
+		if (actor->obj->frame % 10 == 0)
 		{
 			actor->obj->frame++;
 			actor->obj->dstTile.first = actor->obj->target->curTile.first;
@@ -231,11 +231,12 @@ void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsDead* IsDeadUnit = new IsDead();
 
-	root->AddChild(RootSelector);
 	root->AddChild(IsDeadUnit);
+	root->AddChild(RootSelector);
+	
+	RootSelector->AddChild(seqNearObj);
 	RootSelector->AddChild(actRestUnit);
 
-	RootSelector->AddChild(seqNearObj);
 	//
 	seqNearObj->AddChild(IsNear);
 	seqNearObj->AddChild(seqAttack);
