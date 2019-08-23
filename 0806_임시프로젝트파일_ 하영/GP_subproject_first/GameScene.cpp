@@ -254,8 +254,8 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 void GameScene::CreateEnemy()
 {
 	srand(time(nullptr));
-	int x = rand() % 5 + 10;
-	int y = rand() % 5 + 5;
+	int x = 10;
+	int y = 8;
 
 	mMap->Infos[x][y].rc;
 	
