@@ -10,7 +10,7 @@ ObjectManager::ObjectManager()
 		mUnit->ParserXML();
 		mObj[eObject_Unit].emplace_back(mUnit);
 	}
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		Build* tower = new Build();
 		tower->ID = i;
@@ -18,12 +18,13 @@ ObjectManager::ObjectManager()
 		mObj[eObject_Build].emplace_back(tower);
 	}
 	/* 0- 불, 1- 화살, 2- 대포, 3- 미사일*/
+	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
 	for (int i = 0; i < 4; i++)
 	{
 		Bullet* arrow = new Bullet();
 		arrow->ID = i;
 		arrow->ParserXML();
-		arrow->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
+		arrow->ParentImg = load;
 		mObj[eObject_Bullet].emplace_back(arrow);
 	}
 	UnitInfoParser();
@@ -54,7 +55,7 @@ void ObjectManager::UnitInfoParser()
 	Node = Node->NextSiblingElement("tower");
 	tinyxml2::XMLElement* buildNode = Node->FirstChildElement("kingtower");
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		tinyxml2::XMLElement* tempNode = buildNode->FirstChildElement("status");
 		mObj[eObject_Build].at(i)->ID = buildNode->IntAttribute("ID");
@@ -65,6 +66,8 @@ void ObjectManager::UnitInfoParser()
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.cost = tempNode->IntAttribute("cost");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.atk_distance = tempNode->FloatAttribute("atk_distance");
 		((Build*)mObj[eObject_Build].at(i))->mUnitInfo.damage = tempNode->IntAttribute("damage");
+
+		buildNode = buildNode->NextSiblingElement();
 	}
 
 }

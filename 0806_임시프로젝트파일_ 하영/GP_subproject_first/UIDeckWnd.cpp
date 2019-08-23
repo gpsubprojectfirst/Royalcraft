@@ -99,14 +99,14 @@ int UIDeckWnd::CheckDeck(int randnum)
 	return randnum;
 }
 
-
 void UIDeckWnd::ChangeDeck()
 {
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
 	srand(time(nullptr));
-
+	
 	int idx = m_iSelectedCell;
+
 	int randnum = rand() % 12;
 	arrayNum[idx] = (EDeck_type)CheckDeck(randnum);
 	

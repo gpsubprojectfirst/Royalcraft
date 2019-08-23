@@ -34,6 +34,7 @@ public:
 	void ChangeDeck();
 	int CheckDeck(int idx);
 
+
 public:
 	UIDeckWnd(void);
 	~UIDeckWnd(void);

@@ -3,25 +3,25 @@
     <character>
 		<unit>
 			<knight ID="0" Objtype="Unit">
-				<status hp="2000" atk_type="0" atk_speed="1.1" move_speed="1" cost="3" atk_distance="1" damage="210" />
+				<status hp="2000" atk_type="0" atk_speed="1.1" move_speed="1" cost="3" atk_distance="2" damage="210" />
 			</knight>
 			<axeman ID="1" Objtype="Unit">
-				<status hp="1500" atk_type="1" atk_speed="2.4" move_speed="1" cost="5" atk_distance="4.5" damage="170" />
+				<status hp="1500" atk_type="0" atk_speed="2.4" move_speed="1" cost="5" atk_distance="2" damage="170" />
 			</axeman>
 			<darknight ID="2" Objtype="Unit">
-				<status hp="1400" atk_type="1" atk_speed="1.4" move_speed="2" cost="4" atk_distance="1" damage="300" />
+				<status hp="1400" atk_type="0" atk_speed="1.4" move_speed="2" cost="4" atk_distance="1" damage="300" />
 			</darknight>
 			<electric ID="3" Objtype="Unit">
 				<status hp="850" atk_type="1" atk_speed="1.8" move_speed="2" cost="4" atk_distance="5" damage="280" />
 			</electric>
 			<giant ID="4" Objtype="Unit">
-				<status hp="4800" atk_type="0" atk_speed="1.5" move_speed="0.5" cost="5" atk_distance="1" damage="100" />
+				<status hp="4800" atk_type="0" atk_speed="1.5" move_speed="0.5" cost="5" atk_distance="2" damage="100" />
 			</giant>
 			<archer ID="5" Objtype="Unit">
-				<status hp="370" atk_type="1" atk_speed="1.2" move_speed="1" cost="3" atk_distance="5" damage="100" />
+				<status hp="1070" atk_type="1" atk_speed="1.2" move_speed="1" cost="3" atk_distance="5" damage="100" />
 			</archer>
 			<lumberjack ID="6" Objtype="Unit">
-				<status hp="1440" atk_type="0" atk_speed="0.7" move_speed="3.5" cost="4" atk_distance="1" damage="290" />
+				<status hp="1440" atk_type="0" atk_speed="0.7" move_speed="2" cost="4" atk_distance="2" damage="290" />
 			</lumberjack>
 			<musket ID="7" Objtype="Unit">
 				<status hp="870" atk_type="1" atk_speed="1.1" move_speed="1" cost="4" atk_distance="6" damage="250" />
@@ -30,10 +30,10 @@
 				<status hp="2250" atk_type="0" atk_speed="1.5" move_speed="1" cost="4" atk_distance="1" damage="300" />
 			</varkirey>
 			<vavarian ID="9" Objtype="Unit">
-				<status hp="920" atk_type="0" atk_speed="1.5" move_speed="1" cost="5" atk_distance="1" damage="230" />
+				<status hp="1920" atk_type="0" atk_speed="1.5" move_speed="1" cost="5" atk_distance="1" damage="230" />
 			</vavarian>
 			<vendit ID="10" Objtype="Unit">
-				<status hp="1100" atk_type="0" atk_speed="1" move_speed="3" cost="3" atk_distance="1" damage="300" />
+				<status hp="2100" atk_type="0" atk_speed="1" move_speed="2" cost="3" atk_distance="1" damage="300" />
 			</vendit>
 			<wizard ID="11" Objtype="Unit">
 				<status hp="870" atk_type="1" atk_speed="1.4" move_speed="1" cost="5" atk_distance="5.5" damage="330" />
@@ -41,13 +41,22 @@
 		</unit>
 		<tower>
 			<kingtower ID="0" Objtype="Build">
-				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="500" />
+				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
 			</kingtower>
 			<subtowerL ID="1" Objtype="Build">
-				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="400" />
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
 			</subtowerL>
 			<subtowerR ID="2" Objtype="Build">
-				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="400" />
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
 			</subtowerR>
+			<kingtowerB ID="3" Objtype="Build">
+				<status hp="3500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="350" />
+			</kingtowerB>
+			<subtowerLB ID="4" Objtype="Build">
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
+			</subtowerLB>
+			<subtowerRB ID="5" Objtype="Build">
+				<status hp="2500" atk_type="1" atk_speed="1.5" move_speed="0" cost="0" atk_distance="7" damage="250" />
+			</subtowerRB>
 		</tower>
 	</character>

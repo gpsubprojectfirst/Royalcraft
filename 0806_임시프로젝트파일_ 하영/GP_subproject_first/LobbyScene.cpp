@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "LobbyScene.h"
+#include "SoundMgr.h"
 
 LobbyScene::LobbyScene()
 {
@@ -10,13 +11,14 @@ void LobbyScene::Init()
 {
 	std::cout << "LobbyScene Init()" << std::endl;
 	bgImg = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex.png"));
-
+	SoundMgr::GetInstance()->SoundPlay(2, 0);
 }
 
 void LobbyScene::Update(float Delta)
 {
 	if (GetAsyncKeyState(VK_SPACE) & 0x8001)
 	{
+		SoundMgr::GetInstance()->SoundStop(2);
 		SceneManager::GetInstance().LoadScene(CString("GameScene"));
 		return;
 	}

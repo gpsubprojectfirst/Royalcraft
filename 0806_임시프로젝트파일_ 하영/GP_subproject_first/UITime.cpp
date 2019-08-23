@@ -22,6 +22,7 @@ void UITime::Update(float Delta)
 	if (AddDelta > 1.0f)
 	{
 		timeSecond--;
+		runTime++;
 		AddDelta = 0;
 	}
 	if (timeSecond < 0)
