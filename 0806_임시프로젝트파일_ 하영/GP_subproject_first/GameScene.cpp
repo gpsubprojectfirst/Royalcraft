@@ -23,6 +23,7 @@ void GameScene::Init()
 	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
 	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
 `	*/
+	SoundMgr::GetInstance()->SoundPlay(0, 0);
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
 	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
@@ -253,8 +254,8 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 void GameScene::CreateEnemy()
 {
 	srand(time(nullptr));
-	int x = rand() % 5 + 10;
-	int y = rand() % 5 + 5;
+	int x = 10;
+	int y = 8;
 
 	mMap->Infos[x][y].rc;
 	
@@ -281,15 +282,15 @@ void GameScene::Update(float Delta)
 	{
 		m_bExit = !m_bExit;
 	}
-
+	if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
+	{
+		CreateEnemy();
+		m_uiTime->runTime = 0;
+	}
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
-		if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
-		{
-			CreateEnemy();
-			m_uiTime->runTime = 0;
-		}
+		
 		for (auto& it : this->info)
 		{
 			it->Update(Delta);

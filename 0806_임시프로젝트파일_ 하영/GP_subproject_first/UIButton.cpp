@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "UIButton.h"
+#include "SoundMgr.h"
 
 UIButton::UIButton()
 {
@@ -46,11 +47,13 @@ void UIButton::Update(float Delta)
 			switch (m_iBtnID)
 			{
 			case 0:
+				SoundMgr::GetInstance()->SoundStop(0);
 				AfxGetMainWnd()->PostMessage(WM_CLOSE);
 				std::cout << m_iBtnID << "click!" << endl;
 				break;
 
 			case 1:
+				SoundMgr::GetInstance()->SoundStop(0);
 				SceneManager::GetInstance().GetCurScene()->Release();
 				SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
 				std::cout << m_iBtnID << "click!" << endl; std::cout << "click!"  << endl;

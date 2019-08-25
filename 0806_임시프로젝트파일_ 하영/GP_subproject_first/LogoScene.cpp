@@ -9,10 +9,13 @@ LogoScene::LogoScene()
 }
 
 void LogoScene::Init()
-{
+{//Waltz
 	//sound load
-	//SoundMgr::GetInstance()->Init();
-	//SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\1st_crown_01.wav"));
+	SoundMgr::GetInstance()->Init();
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Pluto.wav"));   //bg
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Waltz.wav"));   //bg
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\SeconeRun.wav"));  //bg
+	//SoundMgr::GetInstance()->SoundPlay(3, 0);
 	std::cout << "LogoScene Init()" << endl;
 	m_vecLogo.push_back(new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png")));
 }

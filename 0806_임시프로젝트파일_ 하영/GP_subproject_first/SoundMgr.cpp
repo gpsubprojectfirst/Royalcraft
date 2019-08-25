@@ -132,3 +132,20 @@ bool SoundMgr::SoundPlaying(int iIndex)
 	return false;
 }
 
+
+
+
+/////////////////////////////////////////////
+/*
+void SoundMgr::SoundPlay(int iIndex)
+{
+	if (iIndex < 0 || iIndex >(signed)m_vecSoundBuff.size())
+		return;
+
+	DWORD			dwFre;
+	dwFre = m_vecSoundBuff[iIndex]->LoadWAV(AfxGetMainWnd()->GetSafeHwnd(), m_vecSoundBuff[iIndex]->strName);
+	m_vecSoundBuff[iIndex]->PlayWAV(AfxGetMainWnd()->GetSafeHwnd(), dwFre);
+
+}
+*/
+

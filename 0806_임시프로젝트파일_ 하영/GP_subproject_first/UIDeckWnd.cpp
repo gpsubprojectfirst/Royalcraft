@@ -76,16 +76,39 @@ void UIDeckWnd::ChooseDeck()
 
 }
 
+int UIDeckWnd::CheckDeck(int randnum)
+{
+	srand(time(nullptr));
+	bool bFlag = true;
+	while (bFlag)
+	{
+		bFlag = false;
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (viewArray[i]->typeNum == randnum)
+			{
+				bFlag = true;
+				int k = rand() % 12;
+				randnum = k;
+			}
+			if (bFlag)
+				continue;
+		}
+	}
+	return randnum;
+}
+
 void UIDeckWnd::ChangeDeck()
 {
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
 	srand(time(nullptr));
-	int k = rand() % 12;
 	
 	int idx = m_iSelectedCell;
-	
-	arrayNum[idx] = (EDeck_type)(k % 12);
+
+	int randnum = rand() % 12;
+	arrayNum[idx] = (EDeck_type)CheckDeck(randnum);
 	
 	for (int i = 0; i < 4; i++)
 	{
