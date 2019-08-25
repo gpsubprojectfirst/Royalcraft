@@ -69,8 +69,8 @@ void GameScene::Init()
 	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->ParserXML();
 	
-	m_uiHpbar = new UIHpbar();
-	m_uiElixbar = new UIElixirbar();
+	m_uiHPBar = new UIHPBar();
+	m_uiElixBar = new UIElixirBar();
 	m_uiTime = new UITime();
 	m_uiPopup = new UIPopup();
 	//info.push_back(m_uiPopup);
@@ -216,7 +216,7 @@ void GameScene::CreateMyTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	if (MInfo.iElixir <= m_uiElixbar->mycost)
+	if (MInfo.iElixir <= m_uiElixBar->mycost)
 	{
 		Point mPoint;
 		mPoint.X = pt.x;
@@ -244,7 +244,7 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 					playUnit.emplace_back(mUnit);
 					blackBoard->UpdateData(playUnit);
 					mUnit->CreateBT(blackBoard);
-					m_uiElixbar->spendCost(cost);
+					m_uiElixBar->spendCost(cost);
 					UIDeckWnd::m_IsSelectMode = 3;
 				}
 			}
@@ -300,7 +300,7 @@ void GameScene::Update(float Delta)
 		}
 		//UI update
 		m_uiTime->Update(Delta);
-		m_uiElixbar->Update(Delta);
+		m_uiElixBar->Update(Delta);
 		
 
 		if (UIDeckWnd::m_IsSelectMode == 1)
@@ -387,10 +387,10 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
-	if(m_uiHpbar!=nullptr)
-	m_uiHpbar->Render(MemG);
+	if(m_uiHPBar!=nullptr)
+	m_uiHPBar->Render(MemG);
 	m_uiTime->Render(MemG);
-	m_uiElixbar->Render(MemG);
+	m_uiElixBar->Render(MemG);
 
 
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
@@ -429,7 +429,7 @@ void GameScene::Release()
 	SAFE_DELETE(mTree);
 	SAFE_DELETE(blackBoard);
 	SAFE_DELETE(endUI);
-	SAFE_DELETE(m_uiHpbar);
+	SAFE_DELETE(m_uiHPBar);
 }
 
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)

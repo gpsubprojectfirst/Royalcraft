@@ -1,12 +1,12 @@
 #include"pch.h"
-#include "UIHpbar.h"
+#include "UIHPBar.h"
 
-UIHpbar::UIHpbar()
+UIHPBar::UIHPBar()
 {
 	Init();
 }
 
-void UIHpbar::Init()
+void UIHPBar::Init()
 {
 	barRect = new Rect(0,0,0,0);
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\uihp.png"));
@@ -36,7 +36,7 @@ void UIHpbar::Init()
 
 }
 
-void UIHpbar::SetPos(MyUnit* unitptr)
+void UIHPBar::SetPos(MyUnit* unitptr)
 {
 	UnitPos.X = unitptr->curPosX;
 	UnitPos.Y = unitptr->curPosY;
@@ -47,7 +47,7 @@ void UIHpbar::SetPos(MyUnit* unitptr)
 	barRect->Height = 20;
 
 }
-void UIHpbar::calcRate(int Inhp,int ID,EObject Intype)
+void UIHPBar::calcRate(int Inhp,int ID,EObject Intype)
 {
 	if(Intype == eObject_Unit)
 		fullHp = ((MyUnit*)ObjectManager::GetInstance().GetMyUnit(ID))->mUnitInfo.hp;
@@ -60,7 +60,7 @@ void UIHpbar::calcRate(int Inhp,int ID,EObject Intype)
 	std::cout << "full" << fullHp << endl;
 	std::cout << "rate" << rate << endl;*/
 }
-void UIHpbar::Render(Gdiplus::Graphics* MemG) 
+void UIHPBar::Render(Gdiplus::Graphics* MemG) 
 {
 	for (auto it : ((GameScene*)SceneManager::GetInstance().GetCurScene())->playUnit)
 	{

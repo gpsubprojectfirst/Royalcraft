@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "UIElixirbar.h"
+#include "UIElixirBar.h"
 
-UIElixirbar::UIElixirbar()
+UIElixirBar::UIElixirBar()
 {
 	Init();
 }
 
-void UIElixirbar::Init()
+void UIElixirBar::Init()
 {
 	full = 100.0;
 	curGage = 0.0;
 	mycost = 0;
 	AddDelta = 0.0;
-	barRect = new Rect(160, 900, 385, 60);
+	barRect = new Gdiplus::Rect(160, 900, 385, 60);
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\Elixir.png"));
 
 	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
@@ -47,7 +47,7 @@ void UIElixirbar::Init()
 	barImgRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
 }
 
-void UIElixirbar::Update(float Delta)
+void UIElixirBar::Update(float Delta)
 {
 	AddDelta += Delta;
 	if (AddDelta > 0.01f)
@@ -65,22 +65,27 @@ void UIElixirbar::Update(float Delta)
 	if (curGage / 100.0 >= 1)
 		mycost = 10;
 }
-void UIElixirbar::Render(Gdiplus::Graphics* MemG)
+void UIElixirBar::Render(Gdiplus::Graphics* MemG)
 {
 	Gdiplus::Bitmap* tempBitmap = new Bitmap(barRect->Width, barRect->Height);
 	Gdiplus::Graphics* tempG = new Gdiplus::Graphics(tempBitmap);
-	Gdiplus::Rect* tempRc = new Rect(0, 0, barRect->Width, barRect->Height);
+	Gdiplus::Rect* tempRc = new Gdiplus::Rect(0, 0, barRect->Width, barRect->Height);
 	
 	tempG->DrawImage(ParentImg, *tempRc, barImgRect->X, barImgRect->Y, barImgRect->Width, barImgRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
-	tempRc = new Rect(0, 0, barRect->Width * 0.2, barRect->Height);
+	tempRc->X = 0;
+	tempRc->Y = 0;
+	tempRc->Width = barRect->Width * 0.2;
+	tempRc->Height = barRect->Height;
 	tempG->DrawImage(ParentImg, *tempRc, baseRect->X, baseRect->Y, baseRect->Width, baseRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
-	tempRc = new Rect(barRect->Width * 0.2, 1, barRect->Width * rate * 0.8, barRect->Height);
+	tempRc->X = barRect->Width * 0.2;
+	tempRc->Y = 1;
+	tempRc->Width = barRect->Width * rate * 0.8;
+	tempRc->Height = barRect->Height;
 	tempG->DrawImage(ParentImg, *tempRc, elixirRect->X, elixirRect->Y, elixirRect->Width, elixirRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	
-	//엘릭서 정수 코스트
 	Gdiplus::Font font(_T("Times New Roman"), 30, FontStyleBold, UnitPixel);
 	SolidBrush sbrush(Gdiplus::Color::Black);
 	StringFormat format;
@@ -91,9 +96,11 @@ void UIElixirbar::Render(Gdiplus::Graphics* MemG)
 	Gdiplus::RectF* tempFRc = new Gdiplus::RectF(150, 920, 80, 30);
 	MemG->DrawImage(tempBitmap, *barRect);
 	MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
+
+
 }
 
-void UIElixirbar::spendCost(int n)
+void UIElixirBar::spendCost(int n)
 {
 	mycost -= n;
 	curGage -= n * 10;

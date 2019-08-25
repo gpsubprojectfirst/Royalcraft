@@ -258,28 +258,6 @@ void BehaviorTree::SetActor(MyUnit* InActor)
 	root->actor->obj = InActor;
 }
 
-void BehaviorTree::RunSelector(Selector _InSelector)
-{
-	for (auto& it : _InSelector.GetChildren())
-	{
-		if (it->Invoke())
-		{
-			;
-		}
-	}
-}
-
-void BehaviorTree::RunSequencer(Sequence _InSequence)
-{
-	for (auto& it : _InSequence.GetChildren())
-	{
-		if (!it->Invoke())
-		{
-			;
-		}
-	}
-}
-
 void BehaviorTree::Tick()
 {
 	root->Invoke();

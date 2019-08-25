@@ -30,8 +30,8 @@ public:
 
 	
 	UIPopup* m_uiPopup;
-	UIHpbar* m_uiHpbar;
-	UIElixirbar* m_uiElixbar;
+	UIHPBar* m_uiHPBar;
+	UIElixirBar* m_uiElixBar;
 	UITime* m_uiTime;
 	//끝났을 때 에니메이션을 위한 변수
 	UICrown* endUI;

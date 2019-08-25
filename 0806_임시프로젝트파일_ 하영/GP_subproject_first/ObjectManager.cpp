@@ -69,7 +69,6 @@ void ObjectManager::UnitInfoParser()
 
 		buildNode = buildNode->NextSiblingElement();
 	}
-
 }
 
 Object* ObjectManager::GetObj(int InID)
