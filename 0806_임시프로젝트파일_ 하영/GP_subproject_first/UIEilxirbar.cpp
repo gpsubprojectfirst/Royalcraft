@@ -58,13 +58,13 @@ void UIElixirBar::Render(Gdiplus::Graphics* MemG)
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	
 	Gdiplus::Font font(_T("Times New Roman"), 30, FontStyleBold, UnitPixel);
-	SolidBrush sbrush(Gdiplus::Color::Black);
+	SolidBrush sbrush(Gdiplus::Color::White);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	string tempstr = std::to_string(mycost);
 	wstring wide_string = wstring(tempstr.begin(), tempstr.end());
 	const WCHAR* result = wide_string.c_str();
-	Gdiplus::RectF* tempFRc = new Gdiplus::RectF(150, 920, 80, 30);
+	Gdiplus::RectF* tempFRc = new Gdiplus::RectF(155, 915, 80, 30);
 	MemG->DrawImage(tempBitmap, *barRect);
 	MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 

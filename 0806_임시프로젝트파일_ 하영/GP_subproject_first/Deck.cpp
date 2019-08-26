@@ -20,19 +20,12 @@ void Deck::Init()
 	
 }
 
-void Deck::CopyObj(int ix, int iy)
-{
-
- 	Gdiplus::Rect Dst(ix, iy, 72, 92);
-	rc = Dst;
-}
-
 void Deck::Update(float Delta)
 {
 }
 
 void Deck::Render(Gdiplus::Graphics* MemG)
 {
-	Gdiplus::Rect Dst1(rc.X, rc.Y, rc.Width, rc.Height);
+	Gdiplus::Rect Dst1(m_tInfo.fX, m_tInfo.fY, m_tInfo.fSizeX, m_tInfo.fSizeY);
 	MemG->DrawImage(ParentImg, Dst1);
 }
