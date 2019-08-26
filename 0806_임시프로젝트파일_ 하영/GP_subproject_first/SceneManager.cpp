@@ -1,12 +1,17 @@
 #include "pch.h"
 #include "SceneManager.h"
-
+#include "SoundMgr.h"
 
 SceneManager::SceneManager()
 	: CurScene(nullptr)
 {
+	//sound load
+	SoundMgr::GetInstance()->Init();
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Pluto.wav"));   
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Waltz.wav"));   
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\SeconeRun.wav"));
+
 	ObjectManager& om  = ObjectManager::GetInstance();
-	//씬을 채워야함
 	
 	LogoScene* logo = new LogoScene();
 	logo->Name = "LogoScene";
@@ -64,6 +69,7 @@ void SceneManager::SendLButtonDown(UINT nFlags, CPoint point)
 void SceneManager::Update(float Delta)
 {
 	if (CurScene == nullptr) return;
+	KeyMgr::GetInstance().CheckKey();
 	CurScene->Update(Delta);
 }
 

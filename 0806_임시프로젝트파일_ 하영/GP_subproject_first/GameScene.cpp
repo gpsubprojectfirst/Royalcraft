@@ -276,7 +276,7 @@ void GameScene::CreateEnemy()
 }
 void GameScene::Update(float Delta)
 {
-	KeyMgr::GetInstance().CheckKey();
+	
 	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
 	{
 		m_bExit = !m_bExit;
@@ -308,29 +308,6 @@ void GameScene::Update(float Delta)
 			CreateViewUnit(_cPt, MouseMgr::GetInstance().GetUnitID());
 			
 		}
-		
-
-		/*
-		//TODO : KEY_LBUTTON
-		if (KeyMgr::GetInstance().GetKey() & KEY_LBUTTON)
-		{
-			UIDeckWnd::m_IsSelectMode = 2;
-			if (UIDeckWnd::m_IsSelectMode == 2)
-			{
-				if (unitInfo != nullptr)
-				{
-					delete(unitInfo);
-					unitInfo = nullptr;
-				}
-
-				UIDeckWnd::m_IsSelectMode = 0;
-				CPoint _cPt(pt.x, pt.y);
-
-				//캐릭터 생성
-				//CreateObj(_cPt, MouseMgr::GetInstance().GetUnitID());
-			}
-		}
-		*/
 
 		if (KeyMgr::GetInstance().GetKey() & KEY_F1)
 		{
