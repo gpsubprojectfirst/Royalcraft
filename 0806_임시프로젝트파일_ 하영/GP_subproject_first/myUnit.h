@@ -22,7 +22,6 @@ public:
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(SearchTree* mTree);
-	virtual void ParserXML();
 	virtual void CopyObj( MyUnit* dst, int ix, int iy );
 	
 	virtual void Move(float Delta);

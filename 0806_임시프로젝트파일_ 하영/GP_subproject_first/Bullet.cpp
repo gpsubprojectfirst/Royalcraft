@@ -36,8 +36,8 @@ void Bullet::Update(float Delta)
 	int yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
 
 	
-	curPosX += 5 * xvec;
-	curPosY += 5 * yvec;
+	curPosX += 3 * xvec;
+	curPosY += 3 * yvec;
 
 	int frame_ = frame % moveRc->size();
 	rc = moveRc[0][frame_];
@@ -71,78 +71,7 @@ void Bullet::Release()
 {
 	delete this;
 }
-void Bullet::ParserXML()
-{
-	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
-	
-	if (ID == 0)
-	{
-		doc->LoadFile("Xml\\bullet.xml");
-		tinyxml2::XMLElement* Root = doc->RootElement();
-		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
 
-		//for (int i = 0; i < 13; i++)
-		{
-			moveRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-		}
-	}
-	if (ID == 1)
-	{
-		doc->LoadFile("Xml\\bullet.xml");
-		tinyxml2::XMLElement* Root = doc->RootElement();
-		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-
-		for (int i = 0; i < 12; i++)
-		{
-			Node = Node->NextSiblingElement();
-		}
-		//for (int i = 12; i < 27; i++)
-		{
-			moveRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-		}
-	}
-	if (ID == 2)
-	{
-		doc->LoadFile("Xml\\bullet.xml");
-		tinyxml2::XMLElement* Root = doc->RootElement();
-		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-		
-		for (int i = 0; i < 26; i++)
-		{
-			Node = Node->NextSiblingElement();
-		}
-		moveRc[0].emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
-	}
-	if (ID == 3)
-	{
-		doc->LoadFile("Xml\\bullet.xml");
-		tinyxml2::XMLElement* Root = doc->RootElement();
-		tinyxml2::XMLElement* Node = Root->FirstChildElement("sprite");
-
-		for (int i = 0; i < 28; i++)
-		{
-			Node = Node->NextSiblingElement();
-		}
-		for (int i = 28; i < 86; i++)
-		{
-			moveRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			Node = Node->NextSiblingElement();
-		}
-	}
-
-}
 void Bullet::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	ID = dst->ID;

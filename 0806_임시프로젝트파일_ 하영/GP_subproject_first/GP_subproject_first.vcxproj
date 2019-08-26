@@ -231,6 +231,7 @@
     <ClInclude Include="UIPopup.h" />
     <ClInclude Include="UITime.h" />
     <ClInclude Include="ViewUnit.h" />
+    <ClInclude Include="XmlManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
@@ -273,6 +274,7 @@
     <ClCompile Include="UIPopup.cpp" />
     <ClCompile Include="UITime.cpp" />
     <ClCompile Include="ViewUnit.cpp" />
+    <ClCompile Include="XmlManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GPsubprojectfirst.rc" />

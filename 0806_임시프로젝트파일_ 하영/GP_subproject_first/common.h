@@ -21,7 +21,7 @@
 #define TOWER_BLUE_SUBR_X 16
 #define TOWER_BLUE_SUBR_Y 26
 //time define
-#define ENEMY_CREATE_TERM 10
+#define ENEMY_CREATE_TERM 120
 #define TIME_MAX_MINUITE 2
 #define TIME_MAX_SECOND 30
 #define TIME_DISPLAY_X 493

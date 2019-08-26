@@ -9,7 +9,6 @@ class ObjectManager
 public:
 	ObjectManager();
 
-	void UnitInfoParser();
 	Object* GetObj(int n);
 	Object* GetMyUnit(int n);
 	Object* GetBuild(int n);
