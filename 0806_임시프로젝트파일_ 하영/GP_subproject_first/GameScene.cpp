@@ -114,34 +114,34 @@ void GameScene::CreateTower()
 	//tower
 	Build* towerKing = new Build();
 	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(0)
-		, mMap->Infos[11][3].rc.X + TILESIZEX / 2
-		, mMap->Infos[11][3].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
 	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(1)
-		, mMap->Infos[5][7].rc.X + TILESIZEX / 2
-		, mMap->Infos[5][7].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
 	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(2)
-		, mMap->Infos[16][7].rc.X + TILESIZEX / 2
-		, mMap->Infos[16][7].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.Y + TILESIZEY / 2);
 
 	towerKing->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\kingtower.png"));
 	towerSubA->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtower.png"));
 	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtower.png"));
 
-	towerKing->curTile.first = 11;
-	towerKing->curTile.second = 3;
+	towerKing->curTile.first = TOWER_RED_KING_X;
+	towerKing->curTile.second = TOWER_RED_KING_Y;
 
-	towerSubA->curTile.first = 5;
-	towerSubA->curTile.second = 7;
+	towerSubA->curTile.first = TOWER_RED_SUBL_X;
+	towerSubA->curTile.second = TOWER_RED_SUBL_Y;
 
-	towerSubB->curTile.first = 16;
-	towerSubB->curTile.second = 7;
+	towerSubB->curTile.first = TOWER_RED_SUBR_X;
+	towerSubB->curTile.second = TOWER_RED_SUBR_Y;
 
-	towerKing->posRc = mMap->Infos[11][3].rc;
-	towerSubA->posRc = mMap->Infos[5][7].rc;
-	towerSubB->posRc = mMap->Infos[16][7].rc;
+	towerKing->posRc = mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc;
+	towerSubA->posRc = mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc;
+	towerSubB->posRc = mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc;
 
 	towerKing->teamBlue = false;
 	towerSubA->teamBlue = false;
@@ -166,34 +166,34 @@ void GameScene::CreateMyTower()
 	//tower
 	Build* towerKing = new Build();
 	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(3)
-		, mMap->Infos[11][30].rc.X + TILESIZEX / 2
-		, mMap->Infos[11][30].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
 	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(4)
-		, mMap->Infos[5][26].rc.X + TILESIZEX / 2
-		, mMap->Infos[5][26].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
 	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(5)
-		, mMap->Infos[16][26].rc.X + TILESIZEX / 2
-		, mMap->Infos[16][26].rc.Y + TILESIZEY / 2);
+		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.X + TILESIZEX / 2
+		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.Y + TILESIZEY / 2);
 
 	towerKing->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\kingtowerblue.png"));
 	towerSubA->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtowerblue.png"));
 	towerSubB->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\5.build\\asset\\subtowerblue.png"));
 
-	towerKing->curTile.first = 11;
-	towerKing->curTile.second = 30;
+	towerKing->curTile.first = TOWER_BLUE_KING_X;
+	towerKing->curTile.second = TOWER_BLUE_KING_Y;
 
-	towerSubA->curTile.first = 5;
-	towerSubA->curTile.second = 26;
+	towerSubA->curTile.first = TOWER_BLUE_SUBL_X;
+	towerSubA->curTile.second = TOWER_BLUE_SUBL_Y;
 
-	towerSubB->curTile.first = 16;
-	towerSubB->curTile.second = 26;
+	towerSubB->curTile.first = TOWER_BLUE_SUBR_X;
+	towerSubB->curTile.second = TOWER_BLUE_SUBR_Y;
 
-	towerKing->posRc = mMap->Infos[11][30].rc;
-	towerSubA->posRc = mMap->Infos[5][26].rc;
-	towerSubB->posRc = mMap->Infos[16][26].rc;
+	towerKing->posRc = mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc;
+	towerSubA->posRc = mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc;
+	towerSubB->posRc = mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc;
 
 	towerKing->teamBlue = true;
 	towerSubA->teamBlue = true;
@@ -229,7 +229,7 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 				if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 				{
 					MyUnit* mUnit = new MyUnit();
-					int unitID = MInfo.unitID;
+					EUnit_ID unitID = (EUnit_ID)MInfo.unitID;
 					int cost = MInfo.iElixir;
 					mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
 					mUnit->ParentImg = m_vecGame[unitID + 1];
@@ -254,13 +254,12 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 void GameScene::CreateEnemy()
 {
 	srand(time(nullptr));
+	
 	int x = 10;
 	int y = 8;
 
-	mMap->Infos[x][y].rc;
-	
 	MyUnit* mUnit = new MyUnit();
-	int unitID = rand() % 12;
+	EUnit_ID unitID = (EUnit_ID)(rand() % 12);
 	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
 	mUnit->ParentImg = m_vecGame[unitID + 1];
 	mUnit->curTile.first = x;
@@ -282,15 +281,15 @@ void GameScene::Update(float Delta)
 	{
 		m_bExit = !m_bExit;
 	}
-	if (m_uiTime->runTime == 30 && m_uiTime->runTime > 0)
-	{
-		CreateEnemy();
-		m_uiTime->runTime = 0;
-	}
+	
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
-		
+		if (m_uiTime->runTime == ENEMY_CREATE_TERM && m_uiTime->runTime > 0)
+		{
+			CreateEnemy();
+			m_uiTime->runTime = 0;
+		}
 		for (auto& it : this->info)
 		{
 			it->Update(Delta);
@@ -378,7 +377,6 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	{
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
-
 		it->Render(MemG);
 	}
 

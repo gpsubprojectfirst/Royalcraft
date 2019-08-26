@@ -41,7 +41,7 @@ void Bullet::Update(float Delta)
 
 	int frame_ = frame % moveRc->size();
 	rc = moveRc[0][frame_];
-	if(target->posRc.Contains(curPosX,curPosY))
+	if(target->posRc.Contains(curPosX,curPosY) || target->Isdead)
 	{
 		Isarrive = true;
 	}
@@ -63,6 +63,9 @@ void Bullet::Render(Gdiplus::Graphics* MemG)
 	//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
 	MemG->DrawImage(tempBmp, Dst1, 0, 0, width, height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
+	
+	delete tempBmp;
+	delete tempG;
 }
 void Bullet::Release()
 {
