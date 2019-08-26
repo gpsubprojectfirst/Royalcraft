@@ -21,7 +21,7 @@
 #define TOWER_BLUE_SUBR_X 16
 #define TOWER_BLUE_SUBR_Y 26
 //time define
-#define ENEMY_CREATE_TERM 3
+#define ENEMY_CREATE_TERM 10
 #define TIME_MAX_MINUITE 2
 #define TIME_MAX_SECOND 30
 #define TIME_DISPLAY_X 493
@@ -120,7 +120,7 @@ enum EBullet_ID
 	eBullet_Bullet,
 	eBullet_Misile,
 	eBullet_Cnt,
-
+};
 enum EDeck_type
 {
 	EDeck_Knight,

@@ -255,7 +255,7 @@ void GameScene::CreateEnemy()
 {
 	srand(time(nullptr));
 	
-	int x = 10;
+	int x = rand()% 10 + 5;
 	int y = 8;
 
 	MyUnit* mUnit = new MyUnit();
