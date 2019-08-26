@@ -31,6 +31,7 @@
 #include "LobbyScene.h"
 #include "GameScene.h"
 
+#include "XmlManager.h"
 #include "ObjectManager.h"
 #include "SceneManager.h"
 

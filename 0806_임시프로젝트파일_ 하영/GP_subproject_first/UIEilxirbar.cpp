@@ -15,36 +15,7 @@ void UIElixirBar::Init()
 	barRect = new Gdiplus::Rect(160, 900, 385, 60);
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\Elixir.png"));
 
-	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
-	doc->LoadFile("Xml\\Elixir.xml");
-	tinyxml2::XMLElement* Root = doc->RootElement();
-	tinyxml2::XMLElement* Node = Root->FirstChildElement("Data");
-	tinyxml2::XMLElement* subNode = Node->FirstChildElement("UV");
-
-	float x = subNode->FloatAttribute("Left") * ParentImg->GetWidth();
-	float y = subNode->FloatAttribute("Top") * ParentImg->GetHeight();
-	float width = (subNode->FloatAttribute("Right") * ParentImg->GetWidth()) - x;
-	float height = (subNode->FloatAttribute("Bottom") * ParentImg->GetHeight()) - y;
-
-	baseRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
-
-	subNode = subNode->NextSiblingElement();
-
-	x = subNode->FloatAttribute("Left") * ParentImg->GetWidth();
-	y = subNode->FloatAttribute("Top") * ParentImg->GetHeight();
-	width = (subNode->FloatAttribute("Right") * ParentImg->GetWidth()) - x;
-	height = (subNode->FloatAttribute("Bottom") * ParentImg->GetHeight()) - y;
-
-	elixirRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
-
-	subNode = subNode->NextSiblingElement();
-
-	x = subNode->FloatAttribute("Left") * ParentImg->GetWidth();
-	y = subNode->FloatAttribute("Top") * ParentImg->GetHeight();
-	width = (subNode->FloatAttribute("Right") * ParentImg->GetWidth()) - x;
-	height = (subNode->FloatAttribute("Bottom") * ParentImg->GetHeight()) - y;
-
-	barImgRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
+	XmlManager::GetInstance().UIElixirBarParser(this);
 }
 
 void UIElixirBar::Update(float Delta)

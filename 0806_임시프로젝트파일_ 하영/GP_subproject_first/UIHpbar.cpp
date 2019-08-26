@@ -10,30 +10,7 @@ void UIHPBar::Init()
 {
 	barRect = new Rect(0,0,0,0);
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\uihp.png"));
-
-	tinyxml2::XMLDocument* doc = new tinyxml2::XMLDocument();
-	doc->LoadFile("Xml\\uiHp.xml");
-	tinyxml2::XMLElement* Root = doc->RootElement();
-	tinyxml2::XMLElement* Node = Root->FirstChildElement("Data");
-	tinyxml2::XMLElement* subNode = Node->FirstChildElement("UV");
-
-	float x = subNode->FloatAttribute("Left") * ParentImg->GetWidth();
-	float y = subNode->FloatAttribute("Top") * ParentImg->GetHeight();
-	float width = (subNode->FloatAttribute("Right") * ParentImg->GetWidth()) - x;
-	float height =(subNode->FloatAttribute("Bottom") * ParentImg->GetHeight()) - y;
-	
-
-	baseRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
-	
-	subNode = subNode->NextSiblingElement();
-
-	x = subNode->FloatAttribute("Left") * ParentImg->GetWidth();
-	y = subNode->FloatAttribute("Top") * ParentImg->GetHeight();
-	width = (subNode->FloatAttribute("Right") * ParentImg->GetWidth()) - x;
-	height =(subNode->FloatAttribute("Bottom") * ParentImg->GetHeight()) - y;
-
-	hpRect = new Gdiplus::Rect((int)(x + 0.5f), (int)(y + 0.5f), (int)(width + 0.5f), (int)(height + 0.5f));
-
+	XmlManager::GetInstance().UIHPBarParser(this);
 }
 
 void UIHPBar::SetPos(MyUnit* unitptr)
