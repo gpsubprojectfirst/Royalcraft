@@ -344,13 +344,8 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		return;
 
 	//// 배경
-	//Gdiplus::Rect Dst1(0, 0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
-	//MemG->DrawImage(m_vecGame[0], Dst1);
-
-	for (auto& it : m_vecImg[EScene_Game])
-	{
-		MemG->DrawImage(m_imgDst, m_rcDst);
-	}
+	Gdiplus::Rect Dst1(0, 0, m_vecImg[EScene_Game][0]->GetWidth(), m_vecImg[EScene_Game][0]->GetHeight());
+	MemG->DrawImage(m_vecImg[EScene_Game][0], Dst1);
 
 	// 타일
 	if (bRender)
