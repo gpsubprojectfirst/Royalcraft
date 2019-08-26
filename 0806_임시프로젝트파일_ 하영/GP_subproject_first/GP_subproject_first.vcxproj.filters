@@ -239,9 +239,6 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{378d2aec-e3ec-4161-b3d8-21d1ef4525ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Astar">
-      <UniqueIdentifier>{cbf85ebf-987e-4b31-a033-a21692811dc9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{ec34d80e-bdc7-426c-a4a7-9520ee66b942}</UniqueIdentifier>
     </Filter>

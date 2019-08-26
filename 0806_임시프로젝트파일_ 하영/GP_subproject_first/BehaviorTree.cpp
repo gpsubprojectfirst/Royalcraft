@@ -25,16 +25,6 @@ void BtNode::Set(BlackBoard* InBB)
 	bbData = InBB;
 }
 
-bool CheckUnit::Invoke()
-{
-	node_state = eBTState_RUN;
-
-	//
-
-	node_state = eBTState_SUCC;
-	return true;
-}
-
 bool AttackUnit::Invoke()
 {
 	EAction action = eAction_Attack;
@@ -94,7 +84,7 @@ bool IsNearObj::Invoke()
 	for (auto it : *bbData->playUnit)
 	{
 		if ((int)sqrt(pow(it->curPosX - actor->obj->curPosX,2)
-			+ pow(it->curPosY - actor->obj->curPosY,2)) < 200 &&
+			+ pow(it->curPosY - actor->obj->curPosY,2)) < RECOGNITION_DISTANCE &&
 			it != actor->obj &&
 			it->teamBlue != actor->obj->teamBlue &&
 			!it->Isdead )
@@ -113,7 +103,7 @@ bool IsAbleAtk::Invoke()
 	//유닛 사거리내에 타겟이 있으면 true
 	if (sqrt(pow(actor->obj->target->curPosX - actor->obj->curPosX,2)
 			+ pow(actor->obj->target->curPosY - actor->obj->curPosY,2)) 
-		< actor->obj->mUnitInfo.atk_distance * 30
+		< actor->obj->mUnitInfo.atk_distance * ATTACK_DISTANCE
 	)
 	{
 		return true;
@@ -126,7 +116,7 @@ bool IsTargetHas::Invoke()
 {
 	if (actor->obj->target != nullptr && !actor->obj->target->Isdead)
 	{
-		if (actor->obj->frame % 10 == 0)
+		if (actor->obj->frame % CALC_PATH_PER_FRAME == 0)
 		{
  			actor->obj->dstTile.first = actor->obj->target->curTile.first;
 			actor->obj->dstTile.second = actor->obj->target->curTile.second;
@@ -145,14 +135,14 @@ bool IsBuilt::Invoke()
 	{
 		if (actor->obj->teamBlue)
 		{
-			actor->obj->dstTile.first = 10;
-			actor->obj->dstTile.second = 3;
+			actor->obj->dstTile.first = TOWER_RED_KING_X;
+			actor->obj->dstTile.second = TOWER_RED_KING_Y;
 			actor->obj->Set(bbData->mTree);
 		}
 		else
 		{
-			actor->obj->dstTile.first = 10;
-			actor->obj->dstTile.second = 30;
+			actor->obj->dstTile.first = TOWER_BLUE_KING_X;
+			actor->obj->dstTile.second = TOWER_BLUE_KING_Y;
 			actor->obj->Set(bbData->mTree);
 		}
 	}
@@ -256,28 +246,6 @@ void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
 void BehaviorTree::SetActor(MyUnit* InActor)
 {
 	root->actor->obj = InActor;
-}
-
-void BehaviorTree::RunSelector(Selector _InSelector)
-{
-	for (auto& it : _InSelector.GetChildren())
-	{
-		if (it->Invoke())
-		{
-			;
-		}
-	}
-}
-
-void BehaviorTree::RunSequencer(Sequence _InSequence)
-{
-	for (auto& it : _InSequence.GetChildren())
-	{
-		if (!it->Invoke())
-		{
-			;
-		}
-	}
 }
 
 void BehaviorTree::Tick()

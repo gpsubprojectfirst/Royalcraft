@@ -8,10 +8,10 @@ UITime::UITime()
 
 void UITime::Init()
 {
-	displayRc = new RectF(REAL_WINSIZE_X - 100, 0, 100, 30);
+	displayRc = new RectF(TIME_DISPLAY_X,TIME_DISPLAY_Y, TIME_DISPLAY_WIDTH, TIME_DISPLAY_HEIGHT);
 	//시간설정
-	timeMinuite = 2;
-	timeSecond = 30;
+	timeMinuite = TIME_MAX_MINUITE;
+	timeSecond = TIME_MAX_SECOND;
 	AddDelta = 0;
 	runTime = 0;
 }
@@ -28,7 +28,7 @@ void UITime::Update(float Delta)
 	if (timeSecond < 0)
 	{
 		timeMinuite--;
-		timeSecond += 60;
+		timeSecond += 60; // 1min = 60 sec
 	}
 }
 

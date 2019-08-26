@@ -1,10 +1,10 @@
 #pragma once
 #include "Object.h"
 
-class UIHpbar : public Object
+class UIHPBar : public Object
 {
 public:
-	UIHpbar();
+	UIHPBar();
 	void Init();
 	void SetPos(MyUnit* unitptr);
 	void calcRate(int Inhp,int ID,EObject Intype);

@@ -7,6 +7,32 @@
 #define REAL_WINSIZE_Y 960
 #define KING CString("king")
 
+//tower position define
+#define TOWER_RED_KING_X 11
+#define TOWER_RED_KING_Y 3
+#define TOWER_RED_SUBL_X 5
+#define TOWER_RED_SUBL_Y 7
+#define TOWER_RED_SUBR_X 16
+#define TOWER_RED_SUBR_Y 7
+#define TOWER_BLUE_KING_X 11
+#define TOWER_BLUE_KING_Y 30
+#define TOWER_BLUE_SUBL_X 5
+#define TOWER_BLUE_SUBL_Y 26
+#define TOWER_BLUE_SUBR_X 16
+#define TOWER_BLUE_SUBR_Y 26
+//time define
+#define ENEMY_CREATE_TERM 3
+#define TIME_MAX_MINUITE 2
+#define TIME_MAX_SECOND 30
+#define TIME_DISPLAY_X 493
+#define TIME_DISPLAY_Y 0
+#define TIME_DISPLAY_WIDTH 100
+#define TIME_DISPLAY_HEIGHT 30
+//behavior define
+#define RECOGNITION_DISTANCE 200
+#define ATTACK_DISTANCE 30
+#define CALC_PATH_PER_FRAME 10
+
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
 
@@ -60,6 +86,40 @@ enum EScene
 	EScene_Game,
 	EScene_End,
 };
+
+enum EUnit_ID
+{
+	eUnit_Knight,
+	eUnit_Axeman,
+	eUnit_Darknight,
+	eUnit_Electric,
+	eUnit_Giant,
+	eUnit_Archer,
+	eUnit_Lumberjack,
+	eUnit_Musket,
+	eUnit_Varkirey,
+	eUnit_Vavarian,
+	eUnit_Vendit,
+	eUnit_Wizard,
+	eUnit_Cnt,
+};
+enum EBuild_ID
+{
+	eBuild_RedKing,
+	eBuild_RedSubL,
+	eBuild_RedSubR,
+	eBuild_BlueKing,
+	eBuild_BlueSubL,
+	eBuild_BlueSubR,
+	eBuild_Cnt,
+};
+enum EBullet_ID
+{
+	eBullet_Fire,
+	eBullet_Arrow,
+	eBullet_Bullet,
+	eBullet_Misile,
+	eBullet_Cnt,
 
 enum EDeck_type
 {

@@ -1,10 +1,10 @@
 #pragma once
 #include "Object.h"
 
-class UIElixirbar : public Object
+class UIElixirBar : public Object
 {
 public:
-	UIElixirbar();
+	UIElixirBar();
 	virtual void Init();
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
