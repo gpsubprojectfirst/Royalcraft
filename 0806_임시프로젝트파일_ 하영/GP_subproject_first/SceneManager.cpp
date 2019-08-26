@@ -7,7 +7,7 @@ SceneManager::SceneManager()
 {
 	//sound load
 	SoundMgr::GetInstance()->Init();
-	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Pluto.wav"));   
+	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\2min_loop_battle_01_.wav"));   
 	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Waltz.wav"));   
 	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\SeconeRun.wav"));
 

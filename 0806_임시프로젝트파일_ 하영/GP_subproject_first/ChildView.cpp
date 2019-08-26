@@ -46,23 +46,7 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	ObjectManager::GetInstance();
 	return TRUE;
 }
-void grayscale(int width, int height, Gdiplus::BitmapData& pData)
-{
-	BYTE* pt = static_cast<BYTE*>(pData.Scan0);
-	BYTE* pt2 = pt;
-	for (int i = 0; i < height; ++i)
-	{
-		pt = pt2 + i * pData.Width * 4;
-		for (int j = 0; j < width; ++j)
-		{
-			BYTE calc = *(pt) * 0.299 + *(pt + 1) * 0.587 + *(pt + 2) * 0.114;
-			*(pt) = calc;
-			*(pt + 1) = calc;
-			*(pt + 2) = calc;
-			pt += 4;
-		}
-	}
-}
+
 void CChildView::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
@@ -79,24 +63,12 @@ void CChildView::OnPaint()
 
 	Gdiplus::SolidBrush WhiteBrush(Gdiplus::Color(255, 0, 0, 0));
 	MemG.FillRectangle(&WhiteBrush, rc2);
-	//sm.Update();
-	//그리기
 
 	if (SceneManager::GetInstance().GetCurScene() == nullptr)
 		return;
 	SceneManager::GetInstance().GetCurScene()->GetBuffer(&BackBuffer);
  	SceneManager::GetInstance().RenderScene(&MemG);
 
-	/*if (((GameScene*)SceneManager::GetInstance().GetCurScene())->endflag  == true)
-	{
-		BitmapData pt;
-		Gdiplus::Rect rc3(0, 0, rc.Width(), rc.Height());
-		BackBuffer.LockBits(&rc3, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
-		grayscale(rc3.Width , rc3.Height, pt);
-		BackBuffer.UnlockBits(&pt);
-	}*/
-	//CGPsubprojectfirstApp::bRender = true;
-	
 	MainG.DrawImage(&BackBuffer, 0, 0, rc.Width(), rc.Height());
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	
