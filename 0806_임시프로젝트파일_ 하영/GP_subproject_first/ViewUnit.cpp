@@ -25,30 +25,23 @@ void ViewUnit::Update(float Delta)
 
 void ViewUnit::Render(Gdiplus::Graphics* MemG)
 {
-	{
-		int width = rc.Width;
-		int height = rc.Height;
+	int width = rc.Width;
+	int height = rc.Height;
 
-		//Gdiplus::Rect Dst1(curPos.X - width / 4, curPos.Y - height / 4, width / 2, height / 2);
-		Gdiplus::Rect Dst1(MouseMgr::GetInstance().GetMousePos().x - width / 4, MouseMgr::GetInstance().GetMousePos().y - height /4 , width /2, height / 2);
-		ImageAttributes imageAtt;
-		imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault,
-			ColorAdjustTypeBitmap);
-		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
-			&imageAtt);
-	}
+	Gdiplus::Rect Dst1(MouseMgr::GetInstance().GetMousePos().x - width / 4, MouseMgr::GetInstance().GetMousePos().y - height /4 , width /2, height / 2);
+	
+	ImageAttributes imageAtt;
+	imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault,
+		ColorAdjustTypeBitmap);
+	MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, rc.Width, rc.Height, Gdiplus::Unit::UnitPixel,
+		&imageAtt);
+
 }
+
 void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	ID = dst->ID;
 	name = dst->name;
-	for (int i = 0; i < 5; i++)
-	{
-		moveRc[i] = dst->moveRc[i];
-	}
+	rc = dst->moveRc[4][0];
 	
-	rc = moveRc[4][0];
-	
-	curPosX = ix;
-	curPosY = iy;
 }

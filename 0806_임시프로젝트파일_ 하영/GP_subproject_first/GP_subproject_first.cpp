@@ -190,7 +190,7 @@ UINT CGPsubprojectfirstApp::funcThread(LPVOID pParam)
 
 				if (StaticTick > 1000)
 				{
-					//std::cout << "frame: " << CallCount << endl;
+					std::cout << "frame: " << CallCount << endl;
 					CallCount = 0;
 					StaticTick = 0;
 				}

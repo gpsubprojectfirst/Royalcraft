@@ -13,8 +13,6 @@ class GameScene :
 	public Scene
 { 
 public:
-	std::vector<Gdiplus::Image*>	m_vecGame;
-
 	MyMap* mMap;
 	MapEditor* editor;
 	SearchTree* mTree;
@@ -22,7 +20,6 @@ public:
 	std::vector<MyUnit*> playUnit;
 	BlackBoard* blackBoard;
 	bool bRender = false;
-	bool	m_Renderflag;
 	ViewUnit* unitInfo;
 	bool m_IsSelectMode;
 	bool endflag;						//°ÔÀÓ ½ÂÆÐ

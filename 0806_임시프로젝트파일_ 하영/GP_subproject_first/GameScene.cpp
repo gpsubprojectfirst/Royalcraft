@@ -17,25 +17,29 @@ GameScene::~GameScene()
 void GameScene::Init()
 {
 	std::cout << "GameScene Init()" << endl;
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png")));
+	
+	m_imgDst = new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png"));
+	m_rcDst = Gdiplus::Rect(0,0, m_imgDst->GetWidth(), m_imgDst->GetHeight());
+	m_vecImg[EScene_Game].push_back(m_imgDst);
+	
 	/*
 	ID:
 	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
 	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
 `	*/
 	SoundMgr::GetInstance()->SoundPlay(0, 0);
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
-	m_vecGame.push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\electric.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\giant.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\archer.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\lumberjack.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\musket.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\varkirey.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vavarian.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\vendit.png")));
+	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\wizard.png")));
 
 	endflag = false;
 	m_bExit = false;
@@ -59,14 +63,11 @@ void GameScene::Init()
 	blackBoard->UpdateData(this->playUnit);
 
 	MouseMgr::GetInstance().Init();
-	//SoundMgr::GetInstance()->SoundPlay(0, 0);
-
 
 	//임시 위치
 	endUI = new UICrown();
 	endUI->bluecrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->redcrown = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\enduired.png"));
-	//endUI->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\endcrown.png"));
 	endUI->ParserXML();
 	
 	m_uiHPBar = new UIHPBar();
@@ -97,10 +98,8 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 			{
 				ViewUnit* mUnit = new ViewUnit();
 				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
-				mUnit->ParentImg = m_vecGame[unitID + 1]; //image vector index에 들어간 ID값
-				mUnit->posRc = mMap->Infos[i][j].rc;
-				mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-				mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+				mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1]; //image vector index에 들어간 ID값
+				//mUnit->posRc = mMap->Infos[i][j].rc;
 				unitInfo = mUnit;
 				UIDeckWnd::m_IsSelectMode = 2;
 			}
@@ -232,7 +231,7 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 					EUnit_ID unitID = (EUnit_ID)MInfo.unitID;
 					int cost = MInfo.iElixir;
 					mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
-					mUnit->ParentImg = m_vecGame[unitID + 1];
+					mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1];
 					mUnit->curTile.first = i;
 					mUnit->curTile.second = j;
 					mUnit->posRc = mMap->Infos[i][j].rc;
@@ -261,7 +260,7 @@ void GameScene::CreateEnemy()
 	MyUnit* mUnit = new MyUnit();
 	EUnit_ID unitID = (EUnit_ID)(rand() % 12);
 	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
-	mUnit->ParentImg = m_vecGame[unitID + 1];
+	mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1];
 	mUnit->curTile.first = x;
 	mUnit->curTile.second = y;
 	mUnit->posRc = mMap->Infos[x][y].rc;
@@ -321,6 +320,7 @@ void GameScene::Update(float Delta)
 		if (endflag || m_uiTime->IsEndTime())
 		{
 			//게임이 끝났으면 업데이트 멈춤
+			SoundMgr::GetInstance()->SoundStop(0);
 			endUI->SetTeam(endflag);
 			endUI->Update(Delta);
 		}
@@ -337,12 +337,15 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	if (this == nullptr)
 		return;
 
-	if (m_vecGame.size() <= 0)
-		return;
+	//// 배경
+	//Gdiplus::Rect Dst1(0, 0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
+	//MemG->DrawImage(m_vecGame[0], Dst1);
 
-	// 배경
-	Gdiplus::Rect Dst1(0, 0, m_vecGame[0]->GetWidth(), m_vecGame[0]->GetHeight());
-	MemG->DrawImage(m_vecGame[0], Dst1);
+	for (auto& it : m_vecImg[EScene_Game])
+	{
+		MemG->DrawImage(m_imgDst, m_rcDst);
+	}
+
 	// 타일
 	if (bRender)
 	{
@@ -352,8 +355,8 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	// 게임 오브젝트
 	for (auto& it : this->info)
 	{
-		if (it == nullptr) continue;
-		if (it->Enable == false) continue;
+		if (it == nullptr) return;
+		if (it->Enable == false) return;
 		it->Render(MemG);
 	}
 
@@ -371,7 +374,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
-		Gdiplus::Rect rc(0, 0, Dst1.Width, Dst1.Height);
+		Gdiplus::Rect rc(0, 0, m_rcDst.Width, m_rcDst.Height);
 		backBuffer->LockBits(&rc, ImageLockModeWrite, PixelFormat32bppARGB, &pt);
 		grayscale(rc.Width, rc.Height, pt);
 		backBuffer->UnlockBits(&pt);
@@ -399,7 +402,7 @@ void GameScene::Release()
 {
 	info.clear();
 	playUnit.clear();
-	m_vecGame.clear();
+	m_vecImg[EScene_Game].clear();
 	SAFE_DELETE(mMap);
 	SAFE_DELETE(mTree);
 	SAFE_DELETE(blackBoard);
