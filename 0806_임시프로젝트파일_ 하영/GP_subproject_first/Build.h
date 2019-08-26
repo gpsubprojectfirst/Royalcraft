@@ -4,6 +4,10 @@
 class Build :public MyUnit
 {
 public:
+	int pivotVal;
+	int adjustedVal;
+
+public:
 	Build();
 	virtual void Init();
 	virtual void Update(float Delta) override;

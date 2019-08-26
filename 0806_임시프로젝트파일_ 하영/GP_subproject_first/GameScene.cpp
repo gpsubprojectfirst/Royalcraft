@@ -112,15 +112,18 @@ void GameScene::CreateTower()
 {
 	//tower
 	Build* towerKing = new Build();
+	towerKing->pivotVal = 286;
 	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(0)
 		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
+	towerSubA->pivotVal = 198;
 	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(1)
 		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
+	towerSubB->pivotVal = 198;
 	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(2)
 		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.Y + TILESIZEY / 2);
@@ -164,15 +167,18 @@ void GameScene::CreateMyTower()
 {
 	//tower
 	Build* towerKing = new Build();
+	towerKing->pivotVal = 236;
 	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(3)
 		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
+	towerSubA->pivotVal = 210;
 	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(4)
 		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
+	towerSubB->pivotVal = 210;
 	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(5)
 		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.Y + TILESIZEY / 2);

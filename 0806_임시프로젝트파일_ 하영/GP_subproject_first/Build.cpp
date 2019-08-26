@@ -30,6 +30,7 @@ void Build::Update(float Delta)
 		UnitBt->Tick();
 		if (sm.GetCurState() == eState_Idle)
 		{
+			adjustedVal = rc.Height - pivotVal;
 			int frame_ = frame % restRc.size();
 			rc = restRc[frame_];
 		}
@@ -55,8 +56,7 @@ void Build::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 
-		Gdiplus::Rect Dst1(curPosX - width / 4, curPosY - height / 4 , width /2, height/2);
-		//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);
+		Gdiplus::Rect Dst1(curPosX - width / 4, curPosY - height / 4 - adjustedVal/4 , width /2, height/2);
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 	}
