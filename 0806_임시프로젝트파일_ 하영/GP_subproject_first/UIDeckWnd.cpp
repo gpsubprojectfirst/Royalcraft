@@ -37,43 +37,42 @@ void UIDeckWnd::Init()
 	CreateDeck(EDeck_type::EDeck_Wizard,TEXT("Asset\\3.game\\4.ui\\Deck\\wizard.png"));
 	
 
-	for (int i = 0;i < 12;i++)
-	{
-		DECKINFO* deckInfo = new DECKINFO();
-		deckInfo->pDeck = m_mDeck.at((EDeck_type)i);
-		m_liDeckInfo.push_back(deckInfo);
-	}
-	
 	ChooseDeck();
 	m_dwKey = 0x00000000;
 
 	m_iSelectedCell = -1;
 }
+
 void UIDeckWnd::ChooseDeck()
 {
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
-	viewArray = new Deck*[4];
+	viewArray = new Deck*[SLOTCNT];
 	srand(time(nullptr));
 	int k = rand() % 12;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < SLOTCNT; i++)
 	{
 		arrayNum[i] = (EDeck_type)(k % 12);
 		k++;
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < SLOTCNT; i++)
 	{
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
 		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
+		viewArray[i]->m_tInfo.fX = 167 + (102 * (i));
+		viewArray[i]->m_tInfo.fY = 808;
+		viewArray[i]->m_tInfo.fSizeX = 72;
+		viewArray[i]->m_tInfo.fSizeY = 92;
 	}
 
-	viewArray[0]->CopyObj(167, 808);
-	viewArray[1]->CopyObj(269, 808);
-	viewArray[2]->CopyObj(371, 808);
-	viewArray[3]->CopyObj(473, 808);
-
+	/*
+	Slot1 (167, 808); // gap : 102
+	Slot2 (269, 808);
+	Slot3 (371, 808);
+	Slot4 (473, 808);
+	*/
 }
 
 int UIDeckWnd::CheckDeck(int randnum)
@@ -84,7 +83,7 @@ int UIDeckWnd::CheckDeck(int randnum)
 	{
 		bFlag = false;
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < SLOTCNT; i++)
 		{
 			if (viewArray[i]->typeNum == randnum)
 			{
@@ -110,7 +109,7 @@ void UIDeckWnd::ChangeDeck()
 	int randnum = rand() % 12;
 	arrayNum[idx] = (EDeck_type)CheckDeck(randnum);
 	
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < SLOTCNT; i++)
 	{
 		if( i  == idx)
 		{
@@ -119,12 +118,11 @@ void UIDeckWnd::ChangeDeck()
 		}
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
+		viewArray[i]->m_tInfo.fX = 167 + (102 * i);
+		viewArray[i]->m_tInfo.fY = 808;
+		viewArray[i]->m_tInfo.fSizeX = 72;
+		viewArray[i]->m_tInfo.fSizeY = 92;
 	}
-
-	viewArray[0]->CopyObj(167, 808);
-	viewArray[1]->CopyObj(269, 808);
-	viewArray[2]->CopyObj(371, 808);
-	viewArray[3]->CopyObj(473, 808);
 
 	m_IsSelectMode = 0;
 }
@@ -135,34 +133,15 @@ void UIDeckWnd::Update(float Delta)
 
 	m_dwKey = KeyMgr::GetInstance().GetKey();
 	
-	m_pt.x = LONG(pt.x);
-	m_pt.y = LONG(pt.y);
-
-	//167,808 slot1
-	//slot 2 269,808
-	//slot 371,808
-	//slot 473,808
-	if ((m_pt.x > 167) && (m_pt.x < 239) && (m_pt.y > 808) && (m_pt.y < 900))
+	for (int i = 0; i < SLOTCNT; ++i)
 	{
-		m_iSelectedCell = 0;
-		UIDeckWnd::m_bOnItem = true;
+		if (PtInRect(&viewArray[i]->GetRect(), pt))
+		{
+			m_iSelectedCell = i;
+			UIDeckWnd::m_bOnItem = true;
+		}
 	}
-	if ((m_pt.x > 269) && (m_pt.x < 341) && (m_pt.y > 808) && (m_pt.y < 900))
-	{
-		m_iSelectedCell = 1;
-		UIDeckWnd::m_bOnItem = true;
-	}
-	if ((m_pt.x > 371) && (m_pt.x < 443) && (m_pt.y > 808) && (m_pt.y < 900))
-	{
-		m_iSelectedCell = 2;
-		UIDeckWnd::m_bOnItem = true;
-	}
-	if ((m_pt.x > 473) && (m_pt.x < 545) && (m_pt.y > 808) && (m_pt.y < 900))
-	{
-		m_iSelectedCell = 3;
-		UIDeckWnd::m_bOnItem = true;
-	}
-
+	
 	if (m_dwKey & KEY_LBUTTON)
 	{
 		SelectItem();
@@ -173,16 +152,12 @@ void UIDeckWnd::Update(float Delta)
 		ChangeDeck();
 	}
 
-	for (int i = 0; i<4; i++)
+	for (int i = 0; i< SLOTCNT; i++)
 	{
 		if (viewArray == nullptr) continue;
 		viewArray[i]->Update(Delta);
 	}
 
-	viewArray[0]->CopyObj(167, 808);
-	viewArray[1]->CopyObj(269, 808);
-	viewArray[2]->CopyObj(371, 808);
-	viewArray[3]->CopyObj(473, 808);
 }
 
 void UIDeckWnd::CreateDeck(EDeck_type _eType, const WCHAR* str)
@@ -196,32 +171,24 @@ void UIDeckWnd::CreateDeck(EDeck_type _eType, const WCHAR* str)
 void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 {
 	Gdiplus::Pen pen(Color(255, 255, 255), 5.0f);
-
+	Gdiplus::Rect tempRect[SLOTCNT];
 	if (UIDeckWnd::m_bOnItem)
 	{
-		//167,808 slot1
-		if (m_iSelectedCell == 0)
+		for (int i = 0; i < SLOTCNT; ++i)
 		{
-			MemG->DrawRectangle(&pen, 167, 808, 72, 92);
+			if (m_iSelectedCell == i)
+			{
+				tempRect[i].X = viewArray[i]->GetRect().left;
+				tempRect[i].Y = viewArray[i]->GetRect().top;
+				tempRect[i].Width = viewArray[i]->m_tInfo.fSizeX;
+				tempRect[i].Height= viewArray[i]->m_tInfo.fSizeY;
+				MemG->DrawRectangle(&pen, tempRect[i]);
+			}
 		}
-		if (m_iSelectedCell == 1)
-		{
-			//slot 2 269,808
-			MemG->DrawRectangle(&pen, 269, 808, 72, 92);
-		}
-		if (m_iSelectedCell == 2)
-		{
-			//slot 371,808
-			MemG->DrawRectangle(&pen, 371, 808, 72, 92);
-		}
-		if (m_iSelectedCell == 3)
-		{
-			//slot 473,808
-			MemG->DrawRectangle(&pen, 473, 808, 72, 92);
-		}
+		
 	}
 	
-	for (int i = 0; i<4 ; i++)
+	for (int i = 0; i< SLOTCNT; i++)
 	{
 		viewArray[i]->Render(MemG);
 	}

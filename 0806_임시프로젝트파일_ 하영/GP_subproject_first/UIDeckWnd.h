@@ -2,20 +2,17 @@
 #include "Object.h"
 #include "Deck.h"
 
+#define SLOTCNT 4
 class UIDeckWnd :
 	public Object
 {
 private:
 	std::map<EDeck_type, Deck*> m_mDeck;
-	std::list<DECKINFO*>	m_liDeckInfo;		//slot
-	
 	Deck** viewArray;
-	EDeck_type arrayNum[4];
+	EDeck_type arrayNum[SLOTCNT];
 	
-	POINT		m_pt;
-	//POINT		pSet;
 	int			m_iSelectedCell;
-	DWORD	m_dwKey;
+	DWORD		m_dwKey;
 
 private:
 	void SelectItem();
@@ -33,7 +30,6 @@ public:
 	void ChooseDeck();
 	void ChangeDeck();
 	int CheckDeck(int idx);
-
 
 public:
 	UIDeckWnd(void);
