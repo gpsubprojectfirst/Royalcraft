@@ -30,4 +30,8 @@ void KeyMgr::CheckKey(void)
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
 		m_dwKey |= KEY_ESC;
+
+	if (GetAsyncKeyState(VK_RETURN) & 0x0001)
+		m_dwKey |= KEY_ENTER;
+	
 }

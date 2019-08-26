@@ -3,13 +3,14 @@
 class LogoScene :
 	public Scene
 {
-public:
-	std::vector<Gdiplus::Image*>	m_vecLogo;
-	LogoScene();
 
-	void Init();
-	void Update(float Delta);
-	void Render(Gdiplus::Graphics* MemG/*CDC* pDC*/);
-	void Release();
+public:
+	virtual void Init();
+	virtual void Update(float Delta);
+	virtual void Render(Gdiplus::Graphics* MemG);
+	virtual void Release();
+
+	LogoScene();
+	~LogoScene();
 };
 

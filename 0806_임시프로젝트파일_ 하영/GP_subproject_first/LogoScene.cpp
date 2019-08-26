@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "LogoScene.h"
-#include "SoundMgr.h"
+
 
 
 LogoScene::LogoScene()
@@ -8,36 +8,40 @@ LogoScene::LogoScene()
 	std::cout << "LogoScene()" << endl;
 }
 
+LogoScene::~LogoScene()
+{
+}
+
 void LogoScene::Init()
-{//Waltz
-	//sound load
-	SoundMgr::GetInstance()->Init();
-	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Pluto.wav"));   //bg
-	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\Waltz.wav"));   //bg
-	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\SeconeRun.wav"));  //bg
-	//SoundMgr::GetInstance()->SoundPlay(3, 0);
+{
 	std::cout << "LogoScene Init()" << endl;
-	m_vecLogo.push_back(new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png")));
+	m_imgDst = new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png"));
+	int width = m_imgDst->GetWidth();
+	int height = m_imgDst->GetHeight();
+	m_rcDst = Gdiplus::Rect(REAL_WINSIZE_X / 2 - width/2, REAL_WINSIZE_Y / 2 - height / 2, width, height);
+	m_vecImg[EScene_Logo].push_back(m_imgDst);
+	
 }
 
 void LogoScene::Update(float Delta)
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+	if (KeyMgr::GetInstance().GetKey() & KEY_ENTER)
 	{
 		SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
 		return;
 	}
 }
 
-void LogoScene::Render(Gdiplus::Graphics* MemG/*CDC* pDC*/)
+void LogoScene::Render(Gdiplus::Graphics* MemG)
 {
-	int width = m_vecLogo[0]->GetWidth();
-	int height = m_vecLogo[0]->GetHeight();
-	
-	Gdiplus::Rect Dst1(REAL_WINSIZE_X / 2 - width / 2, REAL_WINSIZE_Y /2  - height / 2, width,height);
-	MemG->DrawImage(m_vecLogo[0], Dst1);
+	for (auto& it : m_vecImg[EScene_Logo])
+	{
+		MemG->DrawImage(m_imgDst, m_rcDst);
+	}
 }
+
 
 void LogoScene::Release()
 {
+
 }

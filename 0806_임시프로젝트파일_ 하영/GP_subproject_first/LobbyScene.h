@@ -5,7 +5,6 @@ class LobbyScene :
 	public Scene
 {
 public:
-	Gdiplus::Image* bgImg;
 	LobbyScene();
 
 	void Init();
