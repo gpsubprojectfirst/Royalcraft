@@ -8,8 +8,9 @@ public:
 	void Init();
 	void SetPos(MyUnit* unitptr);
 	void calcRate(int Inhp,int ID,EObject Intype);
+	void EraseBmp();
 	virtual void Render(Gdiplus::Graphics* MemG);
-
+	virtual void Release();
 	float fullHp;
 	float curHp;
 	float rate;
@@ -17,5 +18,9 @@ public:
 	Gdiplus::Rect* barRect;
 	Gdiplus::Rect* baseRect;
 	Gdiplus::Rect* hpRect;
+
+	Gdiplus::Bitmap* tempBitmap;
+	Gdiplus::Graphics* tempG;
+	Gdiplus::Rect* tempRc;
 	COORD UnitPos;
 };

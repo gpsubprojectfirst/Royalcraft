@@ -56,7 +56,7 @@ void MyUnit::Update(float Delta)
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
-			rc = moveRc[0][0];
+			rc = moveRc[eDirection_Bottom][0];
 		}
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
@@ -102,11 +102,11 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
  	ID = dst->ID;
 	name = dst->name;
 	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		moveRc[i] = dst->moveRc[i];
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		atkRc[i] = dst->atkRc[i];
 	}
@@ -191,7 +191,17 @@ void MyUnit::Attack(float Delta)
 	}
 	//타입이 nonmelee라면 atk_type = 1
 	if (target->mUnitInfo.hp > 0)
+	{
+		float distanceX = target->curPosX - this->curPosX;
+		float distanceY = target->curPosY - this->curPosY;
+
+		float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
+		float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
+		
+		CalcDirection(xvec, yvec);
+
 		target->mUnitInfo.hp -= this->mUnitInfo.damage;
+	}
 	else
 	{
 		target->Isdead = true;
@@ -236,41 +246,41 @@ void MyUnit::CalcDirection(int xvec,int yvec)
 	if (xvec == 0 && yvec > 0)
 	{
 		flipF = true;
-		direction = 0;
+		direction = eDirection_Bottom;
 	}
 	if (xvec == 0 && yvec < 0)
 	{
 		flipF = false;
-		direction = 4;
+		direction = eDirection_Top;
 	}
 	if (xvec > 0 && yvec > 0)
 	{
 		flipF = false;
-		direction = 1;
+		direction = eDirection_RightBottom;
 	}
 	if (xvec > 0 && yvec == 0)
 	{
 		flipF = false;
-		direction = 2;
+		direction = eDirection_Right;
 	}
 	if (xvec > 0 && yvec < 0)
 	{
 		flipF = false;
-		direction = 3;
+		direction = eDirection_RightTop;
 	}
 	if (xvec < 0 && yvec > 0)
 	{
 		flipF = true;
-		direction = 1;
+		direction = eDirection_RightBottom;
 	}
 	if (xvec < 0 && yvec == 0)
 	{
 		flipF = true;
-		direction = 2;
+		direction = eDirection_Right;
 	}
 	if (xvec < 0 && yvec < 0)
 	{
 		flipF = true;
-		direction = 3;
+		direction = eDirection_RightTop;
 	}
 }

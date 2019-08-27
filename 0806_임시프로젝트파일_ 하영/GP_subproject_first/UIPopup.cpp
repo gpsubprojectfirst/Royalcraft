@@ -3,7 +3,7 @@
 
  UIPopup::UIPopup()
 {
-	 Init();
+	// Init();
 }
 
  UIPopup::~UIPopup()

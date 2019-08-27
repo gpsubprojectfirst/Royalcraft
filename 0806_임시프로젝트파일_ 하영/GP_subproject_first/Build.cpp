@@ -37,7 +37,7 @@ void Build::Update(float Delta)
 		else if (sm.GetCurState() == eState_Attack)
 		{
 			int frame_ = frame % atkRc[direction].size();
-			rc = atkRc[0][frame_];
+			rc = atkRc[direction][frame_];
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
@@ -96,4 +96,54 @@ void Build::CreateBT(BlackBoard* InBB)
 void Build::Rest(float Delta)
 {
 
+}
+
+void Build::CalcDirection(int xvec, int yvec)
+{
+	if (teamBlue)
+	{
+		if (xvec > 0 && yvec != 0)
+		{
+			direction = eDirection_RightTop;//3
+		}
+		if (xvec == 0)
+		{
+			direction = eDirection_Right;//2
+		}
+		if (xvec < 0 && yvec != 0)
+		{
+			direction = eDirection_RightBottom;//1
+		}
+		if (xvec > 0 && yvec == 0)
+		{
+			direction = eDirection_Bottom;//0
+		}
+		if (xvec < 0 && yvec == 0)
+		{
+			direction = eDirection_Top;//4
+		}
+	}
+	if (!teamBlue)
+	{
+		if (xvec > 0 && yvec != 0)
+		{
+			direction = eDirection_RightBottom;//1
+		}
+		if (xvec == 0)
+		{
+			direction = eDirection_Right;//2
+		}
+		if (xvec < 0 && yvec != 0)
+		{
+			direction = eDirection_RightTop;//3
+		}
+		if (xvec > 0 && yvec == 0)
+		{
+			direction = eDirection_Bottom;//0
+		}
+		if (xvec < 0 && yvec == 0)
+		{
+			direction = eDirection_Top;//4
+		}
+	}
 }
