@@ -32,6 +32,25 @@
 #define RECOGNITION_DISTANCE 200
 #define ATTACK_DISTANCE 30
 #define CALC_PATH_PER_FRAME 10
+//ElixirBar define
+#define ELIXIR_DISPLAY_X 155
+#define ELIXIR_DISPLAY_Y 910
+#define ELIXIR_DISPLAY_WIDTH 400
+#define ELIXIR_DISPLAY_HEIGHT 50
+#define ELIXIR_COUNT_WIDTH 80
+#define MY_FONT_SIZE 30
+#define GAGE_FULL 100.0
+#define GAGE_EMPTY 0.0
+#define MAX_COST 10
+#define INCREASE_TIME_TERM 0.01f
+#define INCREASE_GAGE_TERM 0.1f
+//HPBar define
+#define HP_BAR_WIDTH 100
+#define HP_BAR_HEIGHT 20
+#define BASE_RECT_RATE 0.2
+#define GAGE_RECT_RATE 0.8
+#define COLOR_ERASE (Gdiplus::Color(0, 255, 255, 255))
+#define BRUSH_ERASE (Gdiplus::SolidBrush(COLOR_ERASE))
 
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
@@ -55,6 +74,14 @@ enum EState {
 	eState_Cnt,
 };
 
+enum EDirectionType{
+	eDirection_Bottom,
+	eDirection_RightBottom,
+	eDirection_Right,
+	eDirection_RightTop,
+	eDirection_Top,
+	eDirection_Cnt,
+};
 enum EObject
 {
 	eObject_None,

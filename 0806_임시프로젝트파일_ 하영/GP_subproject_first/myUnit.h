@@ -30,7 +30,7 @@ public:
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
 
-	void CalcDirection(int xvec,int yvec);
+	virtual void CalcDirection(int xvec,int yvec);
 	//unit status
 	UnitInfo mUnitInfo;
 	
@@ -49,8 +49,8 @@ public:
 	std::stack<std::pair<int,int>> moveTilePath;
 
 	//Asset Position
-	int direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
+	EDirectionType direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
 	bool flipF; //true면 이미지 대칭 flip
-	std::vector<Gdiplus::Rect> moveRc[5]; // 이동에 쓰일 이미지 위치
-	std::vector<Gdiplus::Rect> atkRc[5]; // 공격에 쓰일 이미지 위치
+	std::vector<Gdiplus::Rect> moveRc[eDirection_Cnt]; // 이동에 쓰일 이미지 위치
+	std::vector<Gdiplus::Rect> atkRc[eDirection_Cnt]; // 공격에 쓰일 이미지 위치
 };

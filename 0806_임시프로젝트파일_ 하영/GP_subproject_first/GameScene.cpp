@@ -71,9 +71,13 @@ void GameScene::Init()
 	endUI->ParserXML();
 	
 	m_uiHPBar = new UIHPBar();
+	m_uiHPBar->Init();
 	m_uiElixBar = new UIElixirBar();
+	m_uiElixBar->Init();
 	m_uiTime = new UITime();
+	m_uiTime->Init();
 	m_uiPopup = new UIPopup();
+	m_uiPopup->Init();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();

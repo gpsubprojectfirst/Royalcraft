@@ -3,7 +3,7 @@
 
 UITime::UITime() 
 {
-	Init();
+	//Init();
 }
 
 void UITime::Init()
