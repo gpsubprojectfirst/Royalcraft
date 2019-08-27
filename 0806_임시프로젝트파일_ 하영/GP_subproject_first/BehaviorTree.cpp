@@ -252,8 +252,3 @@ void BehaviorTree::Tick()
 {
 	root->Invoke();
 }
-
-void BehaviorTree::TraverseTree()
-{
-
-}

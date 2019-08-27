@@ -8,10 +8,10 @@ MyUnit::MyUnit()
 	curTile = std::make_pair(0, 0);
 	dstTile = std::make_pair(0, 0);
 
-	mUnitInfo.hp = 100;
-	mUnitInfo.move_speed = 1;
-	mUnitInfo.atk_distance = 10;
-	mUnitInfo.damage = 10;
+	mUnitInfo.hp = INIT_HP;
+	mUnitInfo.move_speed = INIT_SPEED;
+	mUnitInfo.atk_distance = INIT_ATK_DIST;
+	mUnitInfo.damage = INIT_DAMAGE;
 	
 	Isdead = false;
 
@@ -27,12 +27,12 @@ void MyUnit::Update(float Delta)
 		
 		AddDelta += Delta;
 		
-		if (AddDelta > 0.1f)
+		if (AddDelta > UNIT_FRAME_INC_DELTA)
 		{
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 2400)
+			if (frame > MAX_FRAME)
 				frame = 0;
 		}
 		//상태 변화, 추후 행동 트리에 추가
@@ -56,7 +56,7 @@ void MyUnit::Update(float Delta)
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
-			rc = moveRc[0][0];
+			rc = moveRc[eDirection_Bottom][0];
 		}
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
@@ -102,11 +102,11 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
  	ID = dst->ID;
 	name = dst->name;
 	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		moveRc[i] = dst->moveRc[i];
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		atkRc[i] = dst->atkRc[i];
 	}
@@ -191,7 +191,17 @@ void MyUnit::Attack(float Delta)
 	}
 	//타입이 nonmelee라면 atk_type = 1
 	if (target->mUnitInfo.hp > 0)
+	{
+		float distanceX = target->curPosX - this->curPosX;
+		float distanceY = target->curPosY - this->curPosY;
+
+		float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
+		float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
+		
+		CalcDirection(xvec, yvec);
+
 		target->mUnitInfo.hp -= this->mUnitInfo.damage;
+	}
 	else
 	{
 		target->Isdead = true;
@@ -205,19 +215,20 @@ void MyUnit::Attack(float Delta)
 	if (this->mUnitInfo.atk_type == 1 && arrow == nullptr)
 	{
 		arrow = new Bullet();
-		int bulletID = 0;
-		if (this->Objtype == eObject_Unit && this->ID == 5)
-			bulletID = 1;
-		if (this->Objtype == eObject_Unit && this->ID == 11)
-			bulletID = 0;
-		if (this->Objtype == eObject_Unit && this->ID ==7)
-			bulletID = 2;
+		EBullet_ID bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Archer)
+			bulletID = eBullet_Arrow;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Wizard)
+			bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Electric)
+			bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID ==eUnit_Musket)
+			bulletID = eBullet_Bullet;
 		if (this->Objtype == eObject_Build )
-			bulletID = 2;
+			bulletID = eBullet_Bullet;
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
 	}
-	
 }
 
 void MyUnit::ExtraAction(float Delta)
@@ -236,41 +247,41 @@ void MyUnit::CalcDirection(int xvec,int yvec)
 	if (xvec == 0 && yvec > 0)
 	{
 		flipF = true;
-		direction = 0;
+		direction = eDirection_Bottom;
 	}
 	if (xvec == 0 && yvec < 0)
 	{
 		flipF = false;
-		direction = 4;
+		direction = eDirection_Top;
 	}
 	if (xvec > 0 && yvec > 0)
 	{
 		flipF = false;
-		direction = 1;
+		direction = eDirection_RightBottom;
 	}
 	if (xvec > 0 && yvec == 0)
 	{
 		flipF = false;
-		direction = 2;
+		direction = eDirection_Right;
 	}
 	if (xvec > 0 && yvec < 0)
 	{
 		flipF = false;
-		direction = 3;
+		direction = eDirection_RightTop;
 	}
 	if (xvec < 0 && yvec > 0)
 	{
 		flipF = true;
-		direction = 1;
+		direction = eDirection_RightBottom;
 	}
 	if (xvec < 0 && yvec == 0)
 	{
 		flipF = true;
-		direction = 2;
+		direction = eDirection_Right;
 	}
 	if (xvec < 0 && yvec < 0)
 	{
 		flipF = true;
-		direction = 3;
+		direction = eDirection_RightTop;
 	}
 }

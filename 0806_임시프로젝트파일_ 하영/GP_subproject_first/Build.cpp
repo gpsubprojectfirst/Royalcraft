@@ -24,7 +24,7 @@ void Build::Update(float Delta)
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 10)
+			if (frame > 20)
 				frame = 0;
 		}
 		UnitBt->Tick();
@@ -37,7 +37,7 @@ void Build::Update(float Delta)
 		else if (sm.GetCurState() == eState_Attack)
 		{
 			int frame_ = frame % atkRc[direction].size();
-			rc = atkRc[0][frame_];
+			rc = atkRc[direction][frame_];
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
@@ -77,7 +77,7 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 	ID = dst->ID;
 	name = dst->name;
 	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		atkRc[i] = dst->atkRc[i];
 	}
@@ -96,4 +96,55 @@ void Build::CreateBT(BlackBoard* InBB)
 void Build::Rest(float Delta)
 {
 
+}
+
+void Build::CalcDirection(int xvec, int yvec)
+{
+	// HACK
+	if (teamBlue)
+	{
+		if (xvec > 0 && yvec != 0)
+		{
+			direction = eDirection_RightTop;//3
+		}
+		if (xvec == 0)
+		{
+			direction = eDirection_Right;//2
+		}
+		if (xvec < 0 && yvec != 0)
+		{
+			direction = eDirection_RightBottom;//1
+		}
+		if (xvec > 0 && yvec == 0)
+		{
+			direction = eDirection_Bottom;//0
+		}
+		if (xvec < 0 && yvec == 0)
+		{
+			direction = eDirection_Top;//4
+		}
+	}
+	if (!teamBlue)
+	{
+		if (xvec > 0 && yvec != 0)
+		{
+			direction = eDirection_RightBottom;//1
+		}
+		if (xvec == 0)
+		{
+			direction = eDirection_Right;//2
+		}
+		if (xvec < 0 && yvec != 0)
+		{
+			direction = eDirection_RightTop;//3
+		}
+		if (xvec > 0 && yvec == 0)
+		{
+			direction = eDirection_Bottom;//0
+		}
+		if (xvec < 0 && yvec == 0)
+		{
+			direction = eDirection_Top;//4
+		}
+	}
 }
