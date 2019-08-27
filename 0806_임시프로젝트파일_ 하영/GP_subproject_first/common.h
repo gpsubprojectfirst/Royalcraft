@@ -51,7 +51,13 @@
 #define GAGE_RECT_RATE 0.8
 #define COLOR_ERASE (Gdiplus::Color(0, 255, 255, 255))
 #define BRUSH_ERASE (Gdiplus::SolidBrush(COLOR_ERASE))
-
+//MyUnit define
+#define INIT_HP 100
+#define INIT_SPEED 1
+#define INIT_ATK_DIST 10
+#define INIT_DAMAGE 10
+#define MAX_FRAME 2400
+#define UNIT_FRAME_INC_DELTA 0.1f
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
 
