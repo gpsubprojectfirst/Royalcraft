@@ -77,6 +77,8 @@ void UIDeckWnd::ChooseDeck()
 
 int UIDeckWnd::CheckDeck(int randnum)
 {
+	if (viewArray == nullptr)
+		return -1;
 	srand(time(nullptr));
 	bool bFlag = true;
 	while (bFlag)
@@ -100,6 +102,7 @@ int UIDeckWnd::CheckDeck(int randnum)
 
 void UIDeckWnd::ChangeDeck()
 {
+	if (viewArray == nullptr) return;
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
 	srand(time(nullptr));

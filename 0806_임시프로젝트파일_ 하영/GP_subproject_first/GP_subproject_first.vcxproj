@@ -197,6 +197,7 @@
     <ClInclude Include="Build.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="ChildView.h" />
+    <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Deck.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Build.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ChildView.cpp" />
+    <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="GameScene.cpp" />

@@ -3,11 +3,13 @@
 #include "UIDeckWnd.h"
 #include "BehaviorTree.h"
 #include "SoundMgr.h"
+#include "CollisionMgr.h"
 
 
 GameScene::GameScene()
 {
 	std::cout << "GameScene()" << endl;
+
 }
 
 GameScene::~GameScene()
@@ -17,7 +19,7 @@ GameScene::~GameScene()
 void GameScene::Init()
 {
 	std::cout << "GameScene Init()" << endl;
-	
+	info.reserve(100);
 	m_imgDst = new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png"));
 	m_rcDst = Gdiplus::Rect(0,0, m_imgDst->GetWidth(), m_imgDst->GetHeight());
 	m_vecImg[EScene_Game].push_back(m_imgDst);
@@ -221,7 +223,7 @@ void GameScene::CreateMyTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	if (MInfo.iElixir <= m_uiElixBar->mycost)
+	//if (MInfo.iElixir <= m_uiElixBar->mycost)
 	{
 		Point mPoint;
 		mPoint.X = pt.x;
@@ -281,12 +283,11 @@ void GameScene::CreateEnemy()
 }
 void GameScene::Update(float Delta)
 {
-	
 	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
 	{
 		m_bExit = !m_bExit;
 	}
-	
+
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
@@ -302,11 +303,12 @@ void GameScene::Update(float Delta)
 			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
 				endflag = true;
 		}
+
 		//UI update
 		m_uiTime->Update(Delta);
 		m_uiElixBar->Update(Delta);
 		
-
+		CollisionMgr::GetInstance().Collision(playUnit);
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
@@ -356,9 +358,9 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	// 게임 오브젝트
 	for (auto& it : this->info)
 	{
-		if (it == nullptr) return;
-		if (it->Enable == false) return;
-		it->Render(MemG);
+		if (it == nullptr) continue;
+		if (it->Enable == false) continue;
+		it->Render(MemG);	
 	}
 
 	if (unitInfo != nullptr)
@@ -372,6 +374,8 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	m_uiElixBar->Render(MemG);
 
 
+	///TEST
+	CollisionMgr::GetInstance().Render(playUnit, MemG);
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;
