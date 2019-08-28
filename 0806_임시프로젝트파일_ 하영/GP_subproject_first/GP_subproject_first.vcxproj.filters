@@ -109,6 +109,9 @@
     <ClCompile Include="XmlManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="UITimeEvent.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h">
@@ -166,9 +169,6 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="MainFrm.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="GP_subproject_first.h">
       <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -233,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="XmlManager.h">
       <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UITimeEvent.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GP_subproject_first.h">
+      <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

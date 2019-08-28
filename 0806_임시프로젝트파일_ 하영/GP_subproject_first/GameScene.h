@@ -4,11 +4,14 @@
 #include "SearchTree.h"
 #include "Command.h"
 #include "ViewUnit.h"
+#include "UIDeckWnd.h"
 #include "UICrown.h"
 #include "UIPopup.h"
 #include "UIHpbar.h"
 #include "UITime.h"
 #include "UIElixirbar.h"
+#include "UITimeEvent.h"
+
 class GameScene :
 	public Scene
 { 
@@ -24,12 +27,14 @@ public:
 	bool m_IsSelectMode;
 	bool endflag;						//게임 승패
 	bool m_bExit;					//게임 종료
+	Object* tempObj;
 
-	
+	UIDeckWnd* deck;
 	UIPopup* m_uiPopup;
 	UIHPBar* m_uiHPBar;
 	UIElixirBar* m_uiElixBar;
 	UITime* m_uiTime;
+	UITimeEvent* m_uiTimeEvent;
 	//끝났을 때 에니메이션을 위한 변수
 	UICrown* endUI;
 public:
@@ -42,14 +47,15 @@ public:
 	void GetBuffer(Gdiplus::Bitmap* _Buffer);
 	void grayscale(int width, int height, Gdiplus::BitmapData& pData);
 	void CreateObj(CPoint pt, MOUSEINFO MInfo);
-	void CreateEnemy();
 	void CreateViewUnit(CPoint pt, int unitID);
 	void CreateTower();
 	void CreateMyTower();
 	void SendLButtonDown(UINT nFlags, CPoint point);
-	
+	void SortInfoByYval();
 	GameScene();
 	~GameScene();
+
+	friend UITimeEvent;
 };
 
 
