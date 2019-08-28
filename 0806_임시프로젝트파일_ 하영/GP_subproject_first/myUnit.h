@@ -19,10 +19,11 @@ class MyUnit : public Object
 {
 public:
 	MyUnit();
+	MyUnit(MyUnit* _dst, float fx, float fy);
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(SearchTree* mTree);
-	virtual void CopyObj( MyUnit* dst, int ix, int iy );
+	virtual void CopyObj( MyUnit* dst, float fx, float fy );
 	
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
@@ -31,6 +32,7 @@ public:
 	virtual void CreateBT(BlackBoard* InBB);
 
 	virtual void CalcDirection(int xvec,int yvec);
+
 	//unit status
 	UnitInfo mUnitInfo;
 	

@@ -73,15 +73,15 @@ void Bullet::Release()
 	delete this;
 }
 
-void Bullet::CopyObj(MyUnit* dst, int ix, int iy)
+void Bullet::CopyObj(MyUnit* dst, float fx, float fy)
 {
 	ID = dst->ID;
 	name = dst->name;
 	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
 	moveRc[0] = dst->moveRc[0];
 	ParentImg = dst->ParentImg;
-	curPosX = ix;
-	curPosY = iy;
+	curPosX = fx;
+	curPosY = fy;
 }
 void Bullet::SetTarget(float srcx, float srcy, MyUnit* Intarget)
 {

@@ -48,7 +48,7 @@ void UIButton::Update(float Delta)
 			{
 			case 0:
 			
-				for (int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i )
+				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i )
 				{
 					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
 					{
@@ -62,7 +62,7 @@ void UIButton::Update(float Delta)
 				break;
 
 			case 1:
-				for (int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i)
+				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i)
 				{
 					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
 					{

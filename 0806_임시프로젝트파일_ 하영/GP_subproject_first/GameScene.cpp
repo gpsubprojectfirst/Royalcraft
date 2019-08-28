@@ -228,7 +228,7 @@ void GameScene::CreateMyTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	//if (MInfo.iElixir <= m_uiElixBar->mycost)
+	if (MInfo.iElixir <= m_uiElixBar->mycost)
 	{
 		Point mPoint;
 		mPoint.X = pt.x;
@@ -248,8 +248,8 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 					mUnit->curTile.first = i;
 					mUnit->curTile.second = j;
 					mUnit->posRc = mMap->Infos[i][j].rc;
-					mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-					mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+					mUnit->curPosX = (float)mUnit->posRc.X + (float)(TILESIZEX / 2);
+					mUnit->curPosY = (float)mUnit->posRc.Y + (float)(TILESIZEY / 2);
 					mUnit->mMap = mMap;
 					mUnit->teamBlue = true;
 					info.emplace_back(mUnit);
@@ -265,20 +265,19 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 }
 void GameScene::CreateEnemy()
 {
-	srand(time(nullptr));
+	srand((unsigned int)time(nullptr));
 	
 	int x = rand()% 10 + 5;
 	int y = 8;
-
-	MyUnit* mUnit = new MyUnit();
 	EUnit_ID unitID = (EUnit_ID)(rand() % eUnit_Cnt);
+	MyUnit* mUnit = new MyUnit();
 	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
 	mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1];
 	mUnit->curTile.first = x;
 	mUnit->curTile.second = y;
 	mUnit->posRc = mMap->Infos[x][y].rc;
-	mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-	mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+	mUnit->curPosX = (float)mUnit->posRc.X + (float)(TILESIZEX / 2);
+	mUnit->curPosY = (float)mUnit->posRc.Y + (float)(TILESIZEY / 2);
 	mUnit->mMap = mMap;
 	mUnit->teamBlue = false;
 	info.emplace_back(mUnit);
@@ -453,7 +452,7 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 		pt = pt2 + i * pData.Width * 4;
 		for (int j = 0; j < width; ++j)
 		{
-			BYTE calc = *(pt) * 0.299 + *(pt + 1) * 0.587 + *(pt + 2) * 0.114;
+			BYTE calc = *(pt) * (BYTE)0.299 + *(pt + 1) * (BYTE)0.587 + *(pt + 2) * (BYTE)0.114;
 			*(pt) = calc;
 			*(pt + 1) = calc;
 			*(pt + 2) = calc;

@@ -14,9 +14,9 @@ CollisionMgr::~CollisionMgr()
 
 void CollisionMgr::Collision(vector<MyUnit*> _vecUnit)
 {
-	for (int i = 0; i < _vecUnit.size(); ++i)
+	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
 	{
-		for (int j = i; j < _vecUnit.size(); ++j)
+		for (unsigned int j = i; j < _vecUnit.size(); ++j)
 		{
 			if (i == j)
 				continue;
@@ -43,9 +43,9 @@ void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 	//충돌박스 그리기
 	Pen pen(Color(255, 255, 255), 3);
 
-	for (int i = 0; i < _vecUnit.size(); ++i)
+	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
 	{
-		for (int j = i; j < _vecUnit.size(); ++j)
+		for (unsigned int j = i; j < _vecUnit.size(); ++j)
 		{
 			if (i == j)
 				continue;

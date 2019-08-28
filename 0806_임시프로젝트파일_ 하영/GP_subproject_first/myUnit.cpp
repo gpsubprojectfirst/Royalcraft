@@ -21,6 +21,23 @@ MyUnit::MyUnit()
 	sm.Add(new State_Attack);
 	sm.Add(new State_Dead);
 }
+MyUnit::MyUnit(MyUnit* _dst, float fx, float fy)
+{
+	ID = _dst->ID;
+	name = _dst->name;
+	mUnitInfo = _dst->mUnitInfo;
+	for (int i = 0; i < eDirection_Cnt; i++)
+	{
+		moveRc[i] = _dst->moveRc[i];
+	}
+	for (int i = 0; i < eDirection_Cnt; i++)
+	{
+		atkRc[i] = _dst->atkRc[i];
+	}
+
+	curPosX = fx;
+	curPosY = fy;
+}
 void MyUnit::Update(float Delta)
 {
 	if (!Isdead)
@@ -98,7 +115,7 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 			arrow->Render(MemG);
 	}
 }
-void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
+void MyUnit::CopyObj(MyUnit* dst, float fx, float fy)
 {
  	ID = dst->ID;
 	name = dst->name;
@@ -112,8 +129,8 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 		atkRc[i] = dst->atkRc[i];
 	}
 	
-	curPosX = ix;
-	curPosY = iy;
+	curPosX = fx;
+	curPosY = fy;
 }
 
 
@@ -164,8 +181,8 @@ void MyUnit::Move(float Delta)
 		
 		 //위치 이동
 		
-		curPosX += xvec * mUnitInfo.move_speed * 0.5;
-		curPosY += yvec * mUnitInfo.move_speed * 0.5;
+		curPosX += xvec * mUnitInfo.move_speed * 0.5f;
+		curPosY += yvec * mUnitInfo.move_speed * 0.5f;
 
 		//std::cout << curPosX << " , " << curPosY << std::endl;
 		//현재 목적지에 캐릭터가 도착했는지
