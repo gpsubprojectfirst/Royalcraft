@@ -503,22 +503,22 @@ void XmlManager::BuildParser(Build* InBuild)
 		Node = Node->NextSiblingElement();
 		Node = Node->NextSiblingElement();
 		Node = Node->NextSiblingElement();
-		//8
-		InBuild->restRc.emplace_back(Node->IntAttribute("x")
-			, Node->IntAttribute("y")
-			, Node->IntAttribute("w")
-			, Node->IntAttribute("h"));
-
+		Node = Node->NextSiblingElement();
 		//9
 		InBuild->atkRc[2].emplace_back(Node->IntAttribute("x")
 			, Node->IntAttribute("y")
 			, Node->IntAttribute("w")
 			, Node->IntAttribute("h"));
+		
 		Node = Node->NextSiblingElement();
 		Node = Node->NextSiblingElement();
 		Node = Node->NextSiblingElement();
 		//13
 		InBuild->atkRc[3].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		InBuild->restRc.emplace_back(Node->IntAttribute("x")
 			, Node->IntAttribute("y")
 			, Node->IntAttribute("w")
 			, Node->IntAttribute("h"));
