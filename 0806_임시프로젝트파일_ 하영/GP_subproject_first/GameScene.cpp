@@ -240,7 +240,7 @@ void GameScene::CreateMyTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	//if (MInfo.iElixir <= m_uiElixBar->mycost)
+	if (MInfo.iElixir <= m_uiElixBar->mycost)
 	{
 		Point mPoint;
 		mPoint.X = pt.x;
