@@ -30,6 +30,8 @@
 #define TIME_DISPLAY_Y 0
 #define TIME_DISPLAY_WIDTH 100
 #define TIME_DISPLAY_HEIGHT 30
+#define COLOR_BLACK_ALPHA (Gdiplus::Color(120, 0, 0, 0)) 
+#define BRUSH_BLACK_ALPHA (Gdiplus::SolidBrush(COLOR_BLACK_ALPHA))
 //behavior define
 #define RECOGNITION_DISTANCE 200
 #define ATTACK_DISTANCE 30
