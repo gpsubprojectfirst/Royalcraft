@@ -306,7 +306,7 @@ void GameScene::Update(float Delta)
 		m_uiTime->Update(Delta);
 		m_uiElixBar->Update(Delta);
 		
-		CollisionMgr::GetInstance().Collision(playUnit);
+		//CollisionMgr::GetInstance().IsCollision(playUnit);
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);

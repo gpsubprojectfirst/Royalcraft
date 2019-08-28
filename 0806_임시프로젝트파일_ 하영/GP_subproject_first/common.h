@@ -100,6 +100,17 @@ enum EDirectionType{
 	eDirection_Top,
 	eDirection_Cnt,
 };
+enum EColDirectionType {
+	eColDirection_Bottom,
+	eColDirection_RightBottom,
+	eColDirection_Right,
+	eColDirection_RightTop,
+	eColDirection_Top,
+	eColDirection_LeftTop,
+	eColDirection_Left,
+	eColDirection_LeftBottom,
+	eColDirection_Cnt,
+};
 enum EObject
 {
 	eObject_None,

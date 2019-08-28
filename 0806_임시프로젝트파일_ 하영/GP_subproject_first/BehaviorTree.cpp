@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BehaviorTree.h"
 #include "myUnit.h"
+#include "CollisionMgr.h"
 
 BlackBoard::BlackBoard(Command& InCmQ,SearchTree* InTree)
 {
@@ -155,6 +156,14 @@ bool IsDead::Invoke()
 		return false;
 	return true;
 }
+bool IsCollision::Invoke()
+{
+	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit))
+	{
+		return true;
+	}
+	return false;
+}
 BehaviorTree::BehaviorTree(MyUnit* InActor, BlackBoard* InBB)
 	:root(nullptr)
 {
@@ -173,7 +182,8 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	Selector* selMoveTarget = new Selector();
 	Sequence* seqMoveToTarget = new Sequence();
 	Sequence* seqMoveToBuild = new Sequence();
-
+	Selector* selMove = new Selector();
+	Sequence* seqMoveCol = new Sequence();
 	//action
 	AttackUnit* actAtkUnit = new AttackUnit();
 	MoveUnit* actMoveUnit = new MoveUnit();
@@ -183,6 +193,7 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
+	IsCollision* IsCol = new IsCollision();
 	//트리 구성 추후 xml로 맵핑
 
 	root->AddChild(IsDeadUnit);
@@ -204,11 +215,16 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	seqAttack->AddChild(actAtkUnit);
 	/////
 	seqMoveToTarget->AddChild(IsTarget);
-	seqMoveToTarget->AddChild(actMoveUnit);
+	seqMoveToTarget->AddChild(selMove);
 
 	seqMoveToBuild->AddChild(IsBuild);
-	seqMoveToBuild->AddChild(actMoveUnit);
-	//Tick();
+	seqMoveToBuild->AddChild(selMove);
+	//////
+	selMove->AddChild(seqMoveCol);
+	selMove->AddChild(actMoveUnit);
+	///////
+	seqMoveCol->AddChild(IsCol);
+	seqMoveCol->AddChild(actMoveUnit);
 }
 
 void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
