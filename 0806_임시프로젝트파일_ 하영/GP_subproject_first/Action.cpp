@@ -19,7 +19,7 @@ void AttackAction::execute(Actor* actor, float Delta)
 {
 	if (actor == nullptr || actor->obj == nullptr) return;
 	actor->obj->sm.ChangeState(eState_Attack);
-	if (actor->obj->frame% actor->obj->atkRc->size() == 0)
+	if (actor->obj->frame % actor->obj->mUnitInfo.atk_speed == 0)
 	{
 		actor->obj->Attack(Delta);
 		actor->obj->frame++;

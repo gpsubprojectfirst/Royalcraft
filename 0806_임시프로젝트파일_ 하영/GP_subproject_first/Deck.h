@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.h"
 #include "Object.h"
 class Deck :
 	public Object
@@ -6,7 +7,15 @@ class Deck :
 public:
 	EDeck_type		  typeNum;
 	int				  m_iCost;
-
+	Gdiplus::Image	  costImg;
+	Gdiplus::Rect	  costRc;
+	Gdiplus::RectF tempFRc;
+	Gdiplus::Font font;
+	Gdiplus::SolidBrush sbrush;
+	Gdiplus::StringFormat format;
+	std::string tempstr;
+	std::wstring wide_string;
+	const WCHAR* result;
 public:
 	virtual void Init();
 	virtual void Update(float Delta);

@@ -73,9 +73,13 @@ void GameScene::Init()
 	endUI->ParserXML();
 	
 	m_uiHPBar = new UIHPBar();
+	m_uiHPBar->Init();
 	m_uiElixBar = new UIElixirBar();
+	m_uiElixBar->Init();
 	m_uiTime = new UITime();
+	m_uiTime->Init();
 	m_uiPopup = new UIPopup();
+	m_uiPopup->Init();
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
@@ -99,7 +103,7 @@ void GameScene::CreateViewUnit(CPoint pt, int unitID)
 			if (mMap->Infos[i][j].rc.Contains(mPoint) && mMap->Infos[i][j].flags == 0)
 			{
 				ViewUnit* mUnit = new ViewUnit();
-				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(0), pt.x, pt.y);
+				mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), pt.x, pt.y);
 				mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1]; //image vector index에 들어간 ID값
 				//mUnit->posRc = mMap->Infos[i][j].rc;
 				unitInfo = mUnit;
@@ -115,18 +119,18 @@ void GameScene::CreateTower()
 	//tower
 	Build* towerKing = new Build();
 	towerKing->pivotVal = 286;
-	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(0)
+	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_RedKing)
 		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_KING_X][TOWER_RED_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
 	towerSubA->pivotVal = 198;
-	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(1)
+	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_RedSubL)
 		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_SUBL_X][TOWER_RED_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
 	towerSubB->pivotVal = 198;
-	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(2)
+	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_RedSubR)
 		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_RED_SUBR_X][TOWER_RED_SUBR_Y].rc.Y + TILESIZEY / 2);
 
@@ -170,18 +174,18 @@ void GameScene::CreateMyTower()
 	//tower
 	Build* towerKing = new Build();
 	towerKing->pivotVal = 236;
-	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(3)
+	towerKing->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_BlueKing)
 		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_KING_X][TOWER_BLUE_KING_Y].rc.Y + TILESIZEY / 2);
 	towerKing->name = "king";
 	Build* towerSubA = new Build();
 	towerSubA->pivotVal = 210;
-	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(4)
+	towerSubA->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_BlueSubL)
 		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_SUBL_X][TOWER_BLUE_SUBL_Y].rc.Y + TILESIZEY / 2);
 	Build* towerSubB = new Build();
 	towerSubB->pivotVal = 210;
-	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(5)
+	towerSubB->CopyObj((Build*)ObjectManager::GetInstance().GetBuild(eBuild_BlueSubR)
 		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.X + TILESIZEX / 2
 		, mMap->Infos[TOWER_BLUE_SUBR_X][TOWER_BLUE_SUBR_Y].rc.Y + TILESIZEY / 2);
 
@@ -266,7 +270,7 @@ void GameScene::CreateEnemy()
 	int y = 8;
 
 	MyUnit* mUnit = new MyUnit();
-	EUnit_ID unitID = (EUnit_ID)(rand() % 12);
+	EUnit_ID unitID = (EUnit_ID)(rand() % eUnit_Cnt);
 	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
 	mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1];
 	mUnit->curTile.first = x;

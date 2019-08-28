@@ -42,6 +42,6 @@ void ViewUnit::CopyObj(MyUnit* dst, int ix, int iy)
 {
 	ID = dst->ID;
 	name = dst->name;
-	rc = dst->moveRc[4][0];
+	rc = dst->moveRc[eDirection_Top][0];
 	
 }

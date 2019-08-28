@@ -36,7 +36,6 @@ void UIDeckWnd::Init()
 	CreateDeck(EDeck_type::EDeck_Vendit,TEXT("Asset\\3.game\\4.ui\\Deck\\vendit.png"));
 	CreateDeck(EDeck_type::EDeck_Wizard,TEXT("Asset\\3.game\\4.ui\\Deck\\wizard.png"));
 	
-
 	ChooseDeck();
 	m_dwKey = 0x00000000;
 
@@ -52,7 +51,7 @@ void UIDeckWnd::ChooseDeck()
 
 	for (int i = 0; i < SLOTCNT; i++)
 	{
-		arrayNum[i] = (EDeck_type)(k % 12);
+		arrayNum[i] = (EDeck_type)(k % EDeck_Cnt);
 		k++;
 	}
 
@@ -61,10 +60,10 @@ void UIDeckWnd::ChooseDeck()
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
 		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
-		viewArray[i]->m_tInfo.fX = 167 + (102 * (i));
-		viewArray[i]->m_tInfo.fY = 808;
-		viewArray[i]->m_tInfo.fSizeX = 72;
-		viewArray[i]->m_tInfo.fSizeY = 92;
+		viewArray[i]->m_tInfo.fX = SLOT_ONE_X + (SLOR_ARRANG_X * (i));
+		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
+		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
+		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
 	}
 
 	/*
@@ -90,7 +89,7 @@ int UIDeckWnd::CheckDeck(int randnum)
 			if (viewArray[i]->typeNum == randnum)
 			{
 				bFlag = true;
-				int k = rand() % 12;
+				int k = rand() % eUnit_Cnt;
 				randnum = k;
 			}
 			if (bFlag)
@@ -109,7 +108,7 @@ void UIDeckWnd::ChangeDeck()
 	
 	int idx = m_iSelectedCell;
 
-	int randnum = rand() % 12;
+	int randnum = rand() % eUnit_Cnt;
 	arrayNum[idx] = (EDeck_type)CheckDeck(randnum);
 	
 	for (int i = 0; i < SLOTCNT; i++)
@@ -121,10 +120,10 @@ void UIDeckWnd::ChangeDeck()
 		}
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
-		viewArray[i]->m_tInfo.fX = 167 + (102 * i);
-		viewArray[i]->m_tInfo.fY = 808;
-		viewArray[i]->m_tInfo.fSizeX = 72;
-		viewArray[i]->m_tInfo.fSizeY = 92;
+		viewArray[i]->m_tInfo.fX = SLOT_ONE_X + (SLOR_ARRANG_X * (i));
+		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
+		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
+		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
 	}
 
 	m_IsSelectMode = 0;
@@ -188,7 +187,6 @@ void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 				MemG->DrawRectangle(&pen, tempRect[i]);
 			}
 		}
-		
 	}
 	
 	for (int i = 0; i< SLOTCNT; i++)
@@ -210,24 +208,24 @@ void UIDeckWnd::SelectItem()
 	
 	switch (m_iSelectedCell)
 	{
-	case 0:
-		tempInfo.unitID = viewArray[0]->typeNum;
-		tempInfo.iElixir = viewArray[0]->m_iCost;
+	case eDeckSlot_One:
+		tempInfo.unitID = viewArray[eDeckSlot_One]->typeNum;
+		tempInfo.iElixir = viewArray[eDeckSlot_One]->m_iCost;
 		m_IsSelectMode = 1;
 		break;
-	case 1:
-		tempInfo.unitID = viewArray[1]->typeNum;
-		tempInfo.iElixir = viewArray[1]->m_iCost;
+	case eDeckSlot_Two:
+		tempInfo.unitID = viewArray[eDeckSlot_Two]->typeNum;
+		tempInfo.iElixir = viewArray[eDeckSlot_Two]->m_iCost;
 		m_IsSelectMode = 1;
 		break;
-	case 2:
-		tempInfo.unitID = viewArray[2]->typeNum;
-		tempInfo.iElixir = viewArray[2]->m_iCost;
+	case eDeckSlot_Three:
+		tempInfo.unitID = viewArray[eDeckSlot_Three]->typeNum;
+		tempInfo.iElixir = viewArray[eDeckSlot_Three]->m_iCost;
 		m_IsSelectMode = 1;
 		break;
-	case 3:
-		tempInfo.unitID = viewArray[3]->typeNum;
-		tempInfo.iElixir = viewArray[3]->m_iCost;
+	case eDeckSlot_Four:
+		tempInfo.unitID = viewArray[eDeckSlot_Four]->typeNum;
+		tempInfo.iElixir = viewArray[eDeckSlot_Four]->m_iCost;
 		m_IsSelectMode = 1;
 		break;
 

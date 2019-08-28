@@ -5,6 +5,8 @@
 
 #define REAL_WINSIZE_X 593
 #define REAL_WINSIZE_Y 960
+#define MY_FONT_SIZE 30
+#define MY_FONT_SIZE_SMALL 20
 #define KING CString("king")
 
 //tower position define
@@ -21,7 +23,7 @@
 #define TOWER_BLUE_SUBR_X 16
 #define TOWER_BLUE_SUBR_Y 26
 //time define
-#define ENEMY_CREATE_TERM 120
+#define ENEMY_CREATE_TERM 30
 #define TIME_MAX_MINUITE 2
 #define TIME_MAX_SECOND 30
 #define TIME_DISPLAY_X 493
@@ -32,6 +34,39 @@
 #define RECOGNITION_DISTANCE 200
 #define ATTACK_DISTANCE 30
 #define CALC_PATH_PER_FRAME 10
+//ElixirBar define
+#define ELIXIR_DISPLAY_X 155
+#define ELIXIR_DISPLAY_Y 910
+#define ELIXIR_DISPLAY_WIDTH 400
+#define ELIXIR_DISPLAY_HEIGHT 50
+#define ELIXIR_COUNT_WIDTH 80
+#define GAGE_FULL 100.0
+#define GAGE_EMPTY 0.0
+#define MAX_COST 10
+#define INCREASE_TIME_TERM 0.01f
+#define INCREASE_GAGE_TERM 0.1f
+//HPBar define
+#define HP_BAR_WIDTH 100
+#define HP_BAR_HEIGHT 20
+#define BASE_RECT_RATE 0.2
+#define GAGE_RECT_RATE 0.8
+#define COLOR_ERASE (Gdiplus::Color(0, 255, 255, 255))
+#define BRUSH_ERASE (Gdiplus::SolidBrush(COLOR_ERASE))
+//MyUnit define
+#define INIT_HP 100
+#define INIT_SPEED 1
+#define INIT_ATK_DIST 10
+#define INIT_DAMAGE 10
+#define MAX_FRAME 2400
+#define UNIT_FRAME_INC_DELTA 0.1f
+//DeckWnd define
+#define SLOT_ONE_X 167
+#define SLOT_ONE_Y 808
+#define SLOR_ARRANG_X 102
+#define SLOT_SIZE_WIDTH 72
+#define SLOT_SIZE_HEIGHT 92
+#define COST_VIEW_WIDTH 50
+#define COST_VIEW_HEIGHT 50
 
 const static int TILESIZEX = 27;
 const static int TILESIZEY = 22;
@@ -55,6 +90,14 @@ enum EState {
 	eState_Cnt,
 };
 
+enum EDirectionType{
+	eDirection_Bottom,
+	eDirection_RightBottom,
+	eDirection_Right,
+	eDirection_RightTop,
+	eDirection_Top,
+	eDirection_Cnt,
+};
 enum EObject
 {
 	eObject_None,
@@ -135,4 +178,14 @@ enum EDeck_type
 	EDeck_Vavarian,
 	EDeck_Vendit,
 	EDeck_Wizard,
+	EDeck_Cnt,
+};
+
+enum EDeckSlot_Num
+{
+	eDeckSlot_One,
+	eDeckSlot_Two,
+	eDeckSlot_Three,
+	eDeckSlot_Four,
+	eDeckSlot_Cnt,
 };

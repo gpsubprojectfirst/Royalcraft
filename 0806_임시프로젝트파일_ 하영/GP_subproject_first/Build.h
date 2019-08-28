@@ -17,5 +17,7 @@ public:
 	virtual void CreateBT(BlackBoard* InBB) override;
 
 	virtual void Rest(float Delta) override;
+
+	void CalcDirection(int xvec, int yvec) override;
 	std::vector<Gdiplus::Rect> restRc;
 };

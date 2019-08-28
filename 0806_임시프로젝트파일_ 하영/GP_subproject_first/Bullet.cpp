@@ -39,8 +39,9 @@ void Bullet::Update(float Delta)
 	curPosX += 3 * xvec;
 	curPosY += 3 * yvec;
 
-	int frame_ = frame % moveRc->size();
-	rc = moveRc[0][frame_];
+	//int frame_ = frame % moveRc->size();
+	rc = moveRc[0][0];
+	
 	if(target->posRc.Contains(curPosX,curPosY) || target->Isdead)
 	{
 		Isarrive = true;
@@ -57,7 +58,7 @@ void Bullet::Render(Gdiplus::Graphics* MemG)
 	tempG->DrawImage(ParentImg, tempRc, rc.X, rc.Y, width, height, Gdiplus::Unit::UnitPixel,
 		nullptr, 0, nullptr);
 
-	if (ID == 1)
+	if (ID == eBullet_Arrow)
 		tempBmp->RotateFlip(Rotate270FlipNone);
 
 	//Gdiplus::Rect Dst1(posRc.X, posRc.Y, width /2, height / 2);

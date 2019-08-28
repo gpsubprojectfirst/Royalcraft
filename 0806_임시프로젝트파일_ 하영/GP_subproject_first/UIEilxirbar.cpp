@@ -2,29 +2,38 @@
 #include "UIElixirBar.h"
 
 UIElixirBar::UIElixirBar()
+	:font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
+	,sbrush(Gdiplus::Color::White)
 {
-	Init();
+	//Init();
 }
 
 void UIElixirBar::Init()
 {
-	full = 100.0;
-	curGage = 0.0;
+	full = GAGE_FULL;
+	curGage = GAGE_EMPTY;
 	mycost = 0;
 	AddDelta = 0.0;
-	barRect = new Gdiplus::Rect(160, 900, 385, 60);
+
+	barRect = new Gdiplus::Rect(ELIXIR_DISPLAY_X, ELIXIR_DISPLAY_Y, ELIXIR_DISPLAY_WIDTH, ELIXIR_DISPLAY_HEIGHT);
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\Elixir.png"));
 
+	tempBitmap = new Bitmap(barRect->Width, barRect->Height);
+	tempG = new Gdiplus::Graphics(tempBitmap);
+	tempRc = new Gdiplus::Rect(0, 0, barRect->Width, barRect->Height);
+	tempFRc = new Gdiplus::RectF(ELIXIR_DISPLAY_X, ELIXIR_DISPLAY_Y + 5, ELIXIR_COUNT_WIDTH, ELIXIR_DISPLAY_HEIGHT);
+	
+	format.SetAlignment(StringAlignmentCenter);
 	XmlManager::GetInstance().UIElixirBarParser(this);
 }
 
 void UIElixirBar::Update(float Delta)
 {
 	AddDelta += Delta;
-	if (AddDelta > 0.01f)
+	if (AddDelta > INCREASE_TIME_TERM)
 	{
 		if(curGage < full)
-			curGage += 0.1f;
+			curGage += INCREASE_GAGE_TERM;
 		else if (curGage >= full)
 			curGage = full;
 		AddDelta = 0;
@@ -32,48 +41,62 @@ void UIElixirBar::Update(float Delta)
 	
 	rate = curGage / full;
 
-	mycost = (int)curGage / 10;
-	if (curGage / 100.0 >= 1)
-		mycost = 10;
+	mycost = (int)curGage / MAX_COST;
+	if (curGage / GAGE_FULL >= 1)
+		mycost = MAX_COST;
 }
 void UIElixirBar::Render(Gdiplus::Graphics* MemG)
 {
-	Gdiplus::Bitmap* tempBitmap = new Bitmap(barRect->Width, barRect->Height);
-	Gdiplus::Graphics* tempG = new Gdiplus::Graphics(tempBitmap);
-	Gdiplus::Rect* tempRc = new Gdiplus::Rect(0, 0, barRect->Width, barRect->Height);
-	
 	tempG->DrawImage(ParentImg, *tempRc, barImgRect->X, barImgRect->Y, barImgRect->Width, barImgRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	tempRc->X = 0;
 	tempRc->Y = 0;
-	tempRc->Width = barRect->Width * 0.2;
-	tempRc->Height = barRect->Height;
+	tempRc->Width = ELIXIR_DISPLAY_WIDTH * BASE_RECT_RATE;
+	tempRc->Height = ELIXIR_DISPLAY_HEIGHT;
 	tempG->DrawImage(ParentImg, *tempRc, baseRect->X, baseRect->Y, baseRect->Width, baseRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
-	tempRc->X = barRect->Width * 0.2;
+	tempRc->X = barRect->Width * BASE_RECT_RATE;
 	tempRc->Y = 1;
-	tempRc->Width = barRect->Width * rate * 0.8;
-	tempRc->Height = barRect->Height;
+	tempRc->Width = ELIXIR_DISPLAY_WIDTH * rate * GAGE_RECT_RATE;
+	tempRc->Height = ELIXIR_DISPLAY_HEIGHT;
 	tempG->DrawImage(ParentImg, *tempRc, elixirRect->X, elixirRect->Y, elixirRect->Width, elixirRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	
-	Gdiplus::Font font(_T("Times New Roman"), 30, FontStyleBold, UnitPixel);
-	SolidBrush sbrush(Gdiplus::Color::White);
-	StringFormat format;
-	format.SetAlignment(StringAlignmentCenter);
-	string tempstr = std::to_string(mycost);
-	wstring wide_string = wstring(tempstr.begin(), tempstr.end());
-	const WCHAR* result = wide_string.c_str();
-	Gdiplus::RectF* tempFRc = new Gdiplus::RectF(155, 915, 80, 30);
+	tempstr = std::to_string(mycost);
+	wide_string = wstring(tempstr.begin(), tempstr.end());
+	result = wide_string.c_str();
+	
 	MemG->DrawImage(tempBitmap, *barRect);
 	MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 
-
+	EraseBmp();
 }
 
+void UIElixirBar::Release()
+{
+	delete barRect;
+	delete baseRect;
+	delete elixirRect;
+	delete barImgRect;
+	delete tempBitmap;
+	delete tempG;
+	delete tempRc;
+	delete tempFRc;
+}
+void UIElixirBar::EraseBmp()
+{
+	tempRc->X = 0;
+	tempRc->Y = 0;
+	tempRc->Width = ELIXIR_DISPLAY_WIDTH;
+	tempRc->Height = ELIXIR_DISPLAY_HEIGHT;
+
+	tempG->SetCompositingMode(Gdiplus::CompositingMode::CompositingModeSourceCopy);
+	tempG->FillRectangle(&BRUSH_ERASE, *tempRc);
+	tempG->SetCompositingMode(Gdiplus::CompositingMode::CompositingModeSourceOver);
+}
 void UIElixirBar::spendCost(int n)
 {
 	mycost -= n;
-	curGage -= n * 10;
+	curGage -= n * MAX_COST;
 }
  

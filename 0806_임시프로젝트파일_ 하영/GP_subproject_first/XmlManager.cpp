@@ -20,16 +20,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 {
 	EUnit_ID ID = (EUnit_ID)InUnit->ID;
 	Init();
-	if (ID == 0)
+	if (ID == eUnit_Knight)
 	{
 		doc->LoadFile("Xml\\knight.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 12; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -38,11 +38,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 		}
 
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 14; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -50,16 +50,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 1)
+	if (ID == eUnit_Axeman)
 	{
 		doc->LoadFile("Xml\\axeman.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -67,11 +67,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -79,16 +79,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 2)
+	if (ID == eUnit_Darknight)
 	{
 		doc->LoadFile("Xml\\darknight.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -96,11 +96,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -108,16 +108,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 3)
+	if (ID == eUnit_Electric)
 	{
 		doc->LoadFile("Xml\\electric.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -126,11 +126,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 		}
 
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 7; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -138,16 +138,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 4)
+	if (ID == eUnit_Giant)
 	{
 		doc->LoadFile("Xml\\giant.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 16; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -157,11 +157,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 
 		// idle
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -169,16 +169,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 5)
+	if (ID == eUnit_Archer)
 	{
 		doc->LoadFile("Xml\\archer.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -186,11 +186,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -198,16 +198,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 6)
+	if (ID == eUnit_Lumberjack)
 	{
 		doc->LoadFile("Xml\\lumberjack.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -215,11 +215,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -227,17 +227,17 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 7)
+	if (ID == eUnit_Musket)
 	{
 		doc->LoadFile("Xml\\musket.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -245,11 +245,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -257,16 +257,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 8)
+	if (ID == eUnit_Varkirey)
 	{
 		doc->LoadFile("Xml\\varkirey.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -274,11 +274,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 12; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -286,16 +286,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 9)
+	if (ID == eUnit_Vavarian)
 	{
 		doc->LoadFile("Xml\\vavarian.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -303,11 +303,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -315,16 +315,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 10)
+	if (ID == eUnit_Vendit)
 	{
 		doc->LoadFile("Xml\\vendit.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -332,11 +332,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -344,16 +344,16 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 	}
-	if (ID == 11)
+	if (ID == eUnit_Wizard)
 	{
 		doc->LoadFile("Xml\\wizard.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				InUnit->moveRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->moveRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -361,11 +361,11 @@ void XmlManager::UnitParser(MyUnit* InUnit)
 			}
 		}
 		//공격
-		for (int k = 0; k < 5; k++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
 			for (int i = 0; i < 7; i++)
 			{
-				InUnit->atkRc[k].emplace_back(Node->IntAttribute("x")
+				InUnit->atkRc[direction].emplace_back(Node->IntAttribute("x")
 					, Node->IntAttribute("y")
 					, Node->IntAttribute("w")
 					, Node->IntAttribute("h"));
@@ -379,7 +379,7 @@ void XmlManager::BuildParser(Build* InBuild)
 {
 	EBuild_ID ID = (EBuild_ID)InBuild->ID;
 	Init();
-	if (ID == 0)
+	if (ID == eBuild_RedKing)
 	{
 		doc->LoadFile("Xml\\kingtower.xml");
 		this->Root = doc->RootElement();
@@ -393,72 +393,145 @@ void XmlManager::BuildParser(Build* InBuild)
 				, Node->IntAttribute("h"));
 			Node = Node->NextSiblingElement();
 		}
-		for (int i = 0; i < 15; i++)
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
-			InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			Node = Node->NextSiblingElement();
+			for (int i = 0; i < 3; i++)
+			{
+				InBuild->atkRc[direction].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				Node = Node->NextSiblingElement();
+			}
 		}
 	}
-	if (ID == 1 || ID == 2)
+	if (ID == eBuild_RedSubL || ID == eBuild_RedSubR)
 	{
 		doc->LoadFile("Xml\\subtower.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
 
-		for (int i = 0; i < 17; i++)
-		{
-			InBuild->restRc.emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
+		//0
+		InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//3
+		InBuild->atkRc[1].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//8
+		InBuild->restRc.emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
 
-			Node = Node->NextSiblingElement();
-		}
+		//9
+		InBuild->atkRc[2].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//13
+		InBuild->atkRc[3].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//19
+		InBuild->atkRc[4].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
 	}
-	if (ID == 3)
+	if (ID == eBuild_BlueKing)
 	{
 		doc->LoadFile("Xml\\kingtowerblue.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int i = 0; i < 18; i++)
+		
+		InBuild->restRc.emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		for (int direction = 0; direction < eDirection_Cnt; direction++)
 		{
-			InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
+			for (int i = 0; i < 3; i++)
+			{
+				InBuild->atkRc[direction].emplace_back(Node->IntAttribute("x")
+					, Node->IntAttribute("y")
+					, Node->IntAttribute("w")
+					, Node->IntAttribute("h"));
+				
 
-			InBuild->restRc.emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			Node = Node->NextSiblingElement();
+				Node = Node->NextSiblingElement();
+			}
 		}
-
 	}
-	if (ID == 4 || ID == 5)
+	if (ID == eBuild_BlueSubL || ID == eBuild_BlueSubR)
 	{
 		doc->LoadFile("Xml\\subtowerblue.xml");
 		this->Root = doc->RootElement();
 		this->Node = Root->FirstChildElement("sprite");
-		for (int i = 0; i < 19; i++)
-		{
-			InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			InBuild->restRc.emplace_back(Node->IntAttribute("x")
-				, Node->IntAttribute("y")
-				, Node->IntAttribute("w")
-				, Node->IntAttribute("h"));
-			Node = Node->NextSiblingElement();
-		}
+		
+		//0
+		InBuild->atkRc[0].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//3
+		InBuild->atkRc[1].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//9
+		InBuild->atkRc[2].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//13
+		InBuild->atkRc[3].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		InBuild->restRc.emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		Node = Node->NextSiblingElement();
+		//19
+		InBuild->atkRc[4].emplace_back(Node->IntAttribute("x")
+			, Node->IntAttribute("y")
+			, Node->IntAttribute("w")
+			, Node->IntAttribute("h"));
 	}
 	Release();
 }
@@ -466,7 +539,7 @@ void XmlManager::BulletParser(Bullet* InBullet)
 {
 	EBullet_ID ID = (EBullet_ID)InBullet->ID;
 	Init();
-	if (ID == 0)
+	if (ID == eBullet_Fire)
 	{
 		doc->LoadFile("Xml\\bullet.xml");
 		this->Root = doc->RootElement();
@@ -480,7 +553,7 @@ void XmlManager::BulletParser(Bullet* InBullet)
 				, Node->IntAttribute("h"));
 		}
 	}
-	if (ID == 1)
+	if (ID == eBullet_Arrow)
 	{
 		doc->LoadFile("Xml\\bullet.xml");
 		this->Root = doc->RootElement();
@@ -498,7 +571,7 @@ void XmlManager::BulletParser(Bullet* InBullet)
 				, Node->IntAttribute("h"));
 		}
 	}
-	if (ID == 2)
+	if (ID == eBullet_Bullet)
 	{
 		doc->LoadFile("Xml\\bullet.xml");
 		this->Root = doc->RootElement();
@@ -513,7 +586,7 @@ void XmlManager::BulletParser(Bullet* InBullet)
 			, Node->IntAttribute("w")
 			, Node->IntAttribute("h"));
 	}
-	if (ID == 3)
+	if (ID == eBullet_Misile)
 	{
 		doc->LoadFile("Xml\\bullet.xml");
 		this->Root = doc->RootElement();
