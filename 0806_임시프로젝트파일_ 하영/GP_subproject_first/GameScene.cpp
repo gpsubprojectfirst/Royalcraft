@@ -20,6 +20,8 @@ void GameScene::Init()
 {
 	std::cout << "GameScene Init()" << endl;
 	info.reserve(100);
+	SoundMgr::GetInstance()->SoundPlay(8, 0);
+	SoundMgr::GetInstance()->SoundPlay(1,1);
 	m_imgDst = new Gdiplus::Image(TEXT("Asset\\3.game\\2.map\\level_spell_arena_tex.png"));
 	m_rcDst = Gdiplus::Rect(0,0, m_imgDst->GetWidth(), m_imgDst->GetHeight());
 	m_vecImg[EScene_Game].push_back(m_imgDst);
@@ -29,7 +31,6 @@ void GameScene::Init()
 	0- knight, 1- axeman, 2- darknight,3- electric,4- giant,5- archer,
 	6- lumberjack, 7- musket,8- varkirey,9- vavarian,10- vendit,11- wizard
 `	*/
-	SoundMgr::GetInstance()->SoundPlay(0, 1);
 	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\knight.png")));
 	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\axeman.png")));
 	m_vecImg[EScene_Game].push_back(new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\darknight.png")));
@@ -302,7 +303,15 @@ void GameScene::Update(float Delta)
 		}
 		for (auto& it : this->info)
 		{
+			if (it == nullptr) continue;
+			if (it->Enable == false) continue;
+			if (it->Objtype == eObject_Unit)
+			{
+				if (((MyUnit*)it)->Isdead == true)
+					continue;
+			}
 			it->Update(Delta);
+		
 			//str비교연산 추후 수정 필요
 			if (((Build*)it)->Isdead && it->name.Compare(KING) == 0)
 				endflag = true;
@@ -332,7 +341,7 @@ void GameScene::Update(float Delta)
 		if (endflag || m_uiTime->IsEndTime())
 		{
 			//게임이 끝났으면 업데이트 멈춤
-			SoundMgr::GetInstance()->SoundStop(0);
+			SoundMgr::GetInstance()->SoundStop(1);
 			endUI->SetTeam(endflag);
 			endUI->Update(Delta);
 		}
@@ -364,6 +373,11 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 	{
 		if (it == nullptr) continue;
 		if (it->Enable == false) continue;
+		if (it->Objtype == eObject_Unit)
+		{
+			if (((MyUnit*)it)->Isdead == true)
+				continue;
+		}
 		it->Render(MemG);	
 	}
 
@@ -394,9 +408,15 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		if (m_uiPopup == nullptr)
 			return;
 
+
 		if (endflag || m_uiTime->IsEndTime())
 		{
 			endUI->Render(MemG);
+			if (endUI->bSoundOn)
+			{
+				SoundMgr::GetInstance()->SoundPlay(6, 0);
+				endUI->bSoundOn = false;
+			}
 		}
 
 		if (m_bExit)

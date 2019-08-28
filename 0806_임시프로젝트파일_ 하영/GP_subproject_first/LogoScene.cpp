@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "LogoScene.h"
-
+#include "SoundMgr.h"
 
 
 LogoScene::LogoScene()
@@ -15,6 +15,7 @@ LogoScene::~LogoScene()
 void LogoScene::Init()
 {
 	std::cout << "LogoScene Init()" << endl;
+	SoundMgr::GetInstance()->SoundPlay(7, 0);
 	m_imgDst = new Gdiplus::Image(TEXT("Asset\\1.logo\\supercell_logo.png"));
 	int width = m_imgDst->GetWidth();
 	int height = m_imgDst->GetHeight();
@@ -27,6 +28,7 @@ void LogoScene::Update(float Delta)
 {
 	if (KeyMgr::GetInstance().GetKey() & KEY_ENTER)
 	{
+		SoundMgr::GetInstance()->SoundStop(7);
 		SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
 		return;
 	}

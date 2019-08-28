@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MyUnit.h"
+#include "SoundMgr.h"
 
 MyUnit::MyUnit()
 	: Object(EObject::eObject_Unit)
@@ -217,14 +218,19 @@ void MyUnit::Attack(float Delta)
 		arrow = new Bullet();
 		EBullet_ID bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Archer)
+			SoundMgr::GetInstance()->SoundPlay(2,0);
 			bulletID = eBullet_Arrow;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Wizard)
+			SoundMgr::GetInstance()->SoundPlay(13, 0);
 			bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Electric)
+			SoundMgr::GetInstance()->SoundPlay(12, 0);
 			bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID ==eUnit_Musket)
+			SoundMgr::GetInstance()->SoundPlay(11,0);
 			bulletID = eBullet_Bullet;
 		if (this->Objtype == eObject_Build )
+			SoundMgr::GetInstance()->SoundPlay(10,0);
 			bulletID = eBullet_Bullet;
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
