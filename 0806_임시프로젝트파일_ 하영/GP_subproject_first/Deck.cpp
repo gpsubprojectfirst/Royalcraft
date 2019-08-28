@@ -3,7 +3,7 @@
 
 Deck::Deck()
 	: costImg(TEXT("Asset\\3.game\\4.ui\\uicost.png"))
-	, costRc(0, 0, 30, 30)
+	, costRc(0, 0, 0, 0)
 	,tempFRc(0,0,0,0)
 	, font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
@@ -12,7 +12,7 @@ Deck::Deck()
 
 Deck::Deck(Gdiplus::Image* img, int cost)
 	: costImg(TEXT("Asset\\3.game\\4.ui\\uicost.png"))
-	, costRc(0, 0, 30, 30)
+	, costRc(0, 0, 0, 0)
 	,font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
 {

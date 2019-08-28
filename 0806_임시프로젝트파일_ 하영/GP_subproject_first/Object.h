@@ -11,10 +11,15 @@ typedef struct tagInfo
 	float	fSizeX;
 	float	fSizeY;
 
-	tagInfo(void) {}
+	tagInfo(void) 
+	:fX(0.0)
+	,fY(0.0)
+	,fSizeX(0.0)
+	,fSizeY(0.0)
+	{}
 
 	tagInfo(float _fx, float _fy)
-		: fX(_fx), fY(_fy) {}
+		: fX(_fx), fY(_fy),fSizeX(0.0),fSizeY(0.0) {}
 }INFO;
 
 class Object

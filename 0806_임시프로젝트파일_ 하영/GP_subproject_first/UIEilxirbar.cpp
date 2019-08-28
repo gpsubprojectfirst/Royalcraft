@@ -4,6 +4,20 @@
 UIElixirBar::UIElixirBar()
 	:font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
 	,sbrush(Gdiplus::Color::White)
+	,barRect(nullptr)
+	,barImgRect(nullptr)
+	,baseRect(nullptr)
+	,elixirRect(nullptr)
+	,tempRc(nullptr)
+	,tempG(nullptr)
+	,tempFRc(nullptr)
+	,tempBitmap(nullptr)
+	,result(nullptr)
+	,full(100.0)
+	,rate(0.0)
+	,curGage(0.0)
+	,AddDelta(0.0)
+	,mycost(0)
 {
 	//Init();
 }
@@ -51,14 +65,14 @@ void UIElixirBar::Render(Gdiplus::Graphics* MemG)
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	tempRc->X = 0;
 	tempRc->Y = 0;
-	tempRc->Width = ELIXIR_DISPLAY_WIDTH * BASE_RECT_RATE;
-	tempRc->Height = ELIXIR_DISPLAY_HEIGHT;
+	tempRc->Width = (int)(ELIXIR_DISPLAY_WIDTH * BASE_RECT_RATE);
+	tempRc->Height = (int)(ELIXIR_DISPLAY_HEIGHT);
 	tempG->DrawImage(ParentImg, *tempRc, baseRect->X, baseRect->Y, baseRect->Width, baseRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
-	tempRc->X = barRect->Width * BASE_RECT_RATE;
+	tempRc->X = (int)(barRect->Width * BASE_RECT_RATE);
 	tempRc->Y = 1;
-	tempRc->Width = ELIXIR_DISPLAY_WIDTH * rate * GAGE_RECT_RATE;
-	tempRc->Height = ELIXIR_DISPLAY_HEIGHT;
+	tempRc->Width = (int)(ELIXIR_DISPLAY_WIDTH * rate * GAGE_RECT_RATE);
+	tempRc->Height = (int)(ELIXIR_DISPLAY_HEIGHT);
 	tempG->DrawImage(ParentImg, *tempRc, elixirRect->X, elixirRect->Y, elixirRect->Width, elixirRect->Height
 		, Gdiplus::Unit::UnitPixel, nullptr, 0, nullptr);
 	

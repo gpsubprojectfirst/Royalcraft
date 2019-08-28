@@ -6,6 +6,16 @@
 
 
 GameScene::GameScene()
+	: mMap(nullptr)
+	, editor(nullptr)
+	, mTree(nullptr)
+	, blackBoard(nullptr)
+	, unitInfo(nullptr)
+	, m_uiTime(nullptr)
+	, m_uiPopup(nullptr)
+	, m_uiHPBar(nullptr)
+	, m_uiElixBar(nullptr)
+	, endUI(nullptr)
 {
 	std::cout << "GameScene()" << endl;
 }
@@ -413,6 +423,8 @@ void GameScene::Release()
 	SAFE_DELETE(blackBoard);
 	SAFE_DELETE(endUI);
 	SAFE_DELETE(m_uiHPBar);
+	SAFE_DELETE(m_uiElixBar);
+	SAFE_DELETE(m_uiTime);
 }
 
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
