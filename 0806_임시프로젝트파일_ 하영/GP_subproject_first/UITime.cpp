@@ -1,7 +1,16 @@
 #include "pch.h"
 #include "UITime.h"
 
-UITime::UITime() 
+UITime::UITime()
+	: font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
+	,sbrush(Gdiplus::Color::Black)
+	,pen(Gdiplus::Color::Black)
+	,timeMinuite(0)
+	,timeSecond(0)
+	,runTime(0)
+	,AddDelta(0.0)
+	,result(nullptr)
+	,displayRc(nullptr)
 {
 	//Init();
 }
@@ -14,6 +23,7 @@ void UITime::Init()
 	timeSecond = TIME_MAX_SECOND;
 	AddDelta = 0;
 	runTime = 0;
+	format.SetAlignment(StringAlignmentCenter);
 }
 
 void UITime::Update(float Delta)
@@ -34,23 +44,21 @@ void UITime::Update(float Delta)
 
 void UITime::Render(Gdiplus::Graphics* MemG)
 {
-	Gdiplus::Font font(_T("Times New Roman"), 30, FontStyleBold, UnitPixel);
-	SolidBrush sbrush(Gdiplus::Color::Black);
-	Pen pen(Gdiplus::Color::Black);
-	StringFormat format;
-	format.SetAlignment(StringAlignmentCenter);
-	string minstr = std::to_string(timeMinuite);
-	string secstr = std::to_string(timeSecond);
-	string s = minstr +" : "+ secstr;
-	wstring wide_string = wstring(s.begin(), s.end());
-	const WCHAR* result = wide_string.c_str();
+	
+	minStr = std::to_string(timeMinuite);
+	secStr = std::to_string(timeSecond);
+	timeStr = minStr + " : " + secStr;
+	wide_string = wstring(timeStr.begin(), timeStr.end());
+	result = wide_string.c_str();
+
 	MemG->DrawRectangle(&pen, *displayRc);
 	MemG->DrawString(result,-1,&font,*displayRc,&format,&sbrush);
 }
 
 void UITime::Release()
 {
-
+	SAFE_DELETE(result);
+	SAFE_DELETE(displayRc);
 }
 
 bool UITime::IsEndTime()

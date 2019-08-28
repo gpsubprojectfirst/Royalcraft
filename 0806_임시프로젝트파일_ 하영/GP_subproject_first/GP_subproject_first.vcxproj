@@ -231,6 +231,7 @@
     <ClInclude Include="UIHpbar.h" />
     <ClInclude Include="UIPopup.h" />
     <ClInclude Include="UITime.h" />
+    <ClInclude Include="UITimeEvent.h" />
     <ClInclude Include="ViewUnit.h" />
     <ClInclude Include="XmlManager.h" />
   </ItemGroup>
@@ -275,6 +276,7 @@
     <ClCompile Include="UIHpbar.cpp" />
     <ClCompile Include="UIPopup.cpp" />
     <ClCompile Include="UITime.cpp" />
+    <ClCompile Include="UITimeEvent.cpp" />
     <ClCompile Include="ViewUnit.cpp" />
     <ClCompile Include="XmlManager.cpp" />
   </ItemGroup>

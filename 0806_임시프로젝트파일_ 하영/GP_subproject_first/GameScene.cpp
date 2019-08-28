@@ -7,6 +7,16 @@
 
 
 GameScene::GameScene()
+	: mMap(nullptr)
+	, editor(nullptr)
+	, mTree(nullptr)
+	, blackBoard(nullptr)
+	, unitInfo(nullptr)
+	, m_uiTime(nullptr)
+	, m_uiPopup(nullptr)
+	, m_uiHPBar(nullptr)
+	, m_uiElixBar(nullptr)
+	, endUI(nullptr)
 {
 	std::cout << "GameScene()" << endl;
 
@@ -58,8 +68,8 @@ void GameScene::Init()
 
 	ObjectManager& om = ObjectManager::GetInstance();
 
-	UIDeckWnd* deck = new UIDeckWnd();
-	info.emplace_back(deck);
+	deck = new UIDeckWnd();
+	//info.emplace_back(deck);
 
 	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
 	blackBoard->UpdateData(this->playUnit);
@@ -80,6 +90,8 @@ void GameScene::Init()
 	m_uiTime->Init();
 	m_uiPopup = new UIPopup();
 	m_uiPopup->Init();
+	m_uiTimeEvent = new UITimeEvent();
+	m_uiTimeEvent->Init(this);
 	//info.push_back(m_uiPopup);
 
 	CreateTower();
@@ -262,29 +274,7 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 		}
 	}
 }
-void GameScene::CreateEnemy()
-{
-	srand(time(nullptr));
-	
-	int x = rand()% 10 + 5;
-	int y = 8;
 
-	MyUnit* mUnit = new MyUnit();
-	EUnit_ID unitID = (EUnit_ID)(rand() % eUnit_Cnt);
-	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID),0,0);
-	mUnit->ParentImg = m_vecImg[EScene_Game][unitID + 1];
-	mUnit->curTile.first = x;
-	mUnit->curTile.second = y;
-	mUnit->posRc = mMap->Infos[x][y].rc;
-	mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-	mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
-	mUnit->mMap = mMap;
-	mUnit->teamBlue = false;
-	info.emplace_back(mUnit);
-	playUnit.emplace_back(mUnit);
-	blackBoard->UpdateData(playUnit);
-	mUnit->CreateBT(blackBoard);
-}
 void GameScene::Update(float Delta)
 {
 	if (KeyMgr::GetInstance().GetKey() & KEY_ESC)
@@ -295,11 +285,14 @@ void GameScene::Update(float Delta)
 	if (!endflag && !m_bExit && !m_uiTime->IsEndTime())
 	{
 		POINT pt = MouseMgr::GetInstance().GetMousePos();
-		if (m_uiTime->runTime == ENEMY_CREATE_TERM && m_uiTime->runTime > 0)
+		/*if (m_uiTime->runTime == ENEMY_CREATE_TERM && m_uiTime->runTime > 0)
 		{
 			CreateEnemy();
 			m_uiTime->runTime = 0;
-		}
+		}*/
+
+		m_uiTimeEvent->Update(m_uiTime->runTime);
+
 		for (auto& it : this->info)
 		{
 			it->Update(Delta);
@@ -309,6 +302,7 @@ void GameScene::Update(float Delta)
 		}
 
 		//UI update
+		deck->Update(Delta);
 		m_uiTime->Update(Delta);
 		m_uiElixBar->Update(Delta);
 		
@@ -359,6 +353,7 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		mMap->Render(MemG);
 	}
 
+	SortInfoByYval();
 	// 게임 오브젝트
 	for (auto& it : this->info)
 	{
@@ -372,11 +367,16 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 		unitInfo->Render(MemG);
 	}
 
-	if(m_uiHPBar!=nullptr)
-	m_uiHPBar->Render(MemG);
-	m_uiTime->Render(MemG);
-	m_uiElixBar->Render(MemG);
+	if (deck != nullptr)
+		deck->Render(MemG);
+	if (m_uiTime != nullptr)
+		m_uiTime->Render(MemG);
+	if (m_uiElixBar != nullptr)
+		m_uiElixBar->Render(MemG);
+	if (m_uiHPBar != nullptr)
+		m_uiHPBar->Render(MemG);
 
+	m_uiTimeEvent->Render(MemG);
 
 	///TEST
 	CollisionMgr::GetInstance().Render(playUnit, MemG);
@@ -417,6 +417,8 @@ void GameScene::Release()
 	SAFE_DELETE(blackBoard);
 	SAFE_DELETE(endUI);
 	SAFE_DELETE(m_uiHPBar);
+	SAFE_DELETE(m_uiElixBar);
+	SAFE_DELETE(m_uiTime);
 }
 
 void GameScene::GetBuffer(Gdiplus::Bitmap* _Buffer)
@@ -452,7 +454,23 @@ void GameScene::SendLButtonDown(UINT nFlags, CPoint point)
 			unitInfo = nullptr;
 		}
 
-		
 		CreateObj(point, MouseMgr::GetInstance().GetMouseInfo());
+	}
+}
+
+void GameScene::SortInfoByYval()
+{
+	//curPosY에 따라 info를 버블 소트
+	for (int i = info.size() - 1; i > 0 ; i--)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (info.at(j)->curPosY > info.at(j+1)->curPosY)
+			{
+				tempObj = info.at(j);
+				info.at(j) = info.at(j + 1);
+				info.at(j + 1) = tempObj;
+			}
+		}
 	}
 }

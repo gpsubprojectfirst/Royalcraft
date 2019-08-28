@@ -2,6 +2,15 @@
 #include "UIHPBar.h"
 
 UIHPBar::UIHPBar()
+	: fullHp(0.0)
+	, curHp(0.0)
+	, rate(0.0)
+	, barRect(nullptr)
+	, baseRect(nullptr)
+	, hpRect(nullptr)
+	, tempBitmap(nullptr)
+	, tempG(nullptr)
+	, tempRc(nullptr)
 {
 	//Init();
 }
@@ -81,5 +90,10 @@ void UIHPBar::EraseBmp()
 
 void UIHPBar::Release()
 {
-
+	SAFE_DELETE(barRect);
+	SAFE_DELETE(baseRect);
+	SAFE_DELETE(hpRect);
+	SAFE_DELETE(tempBitmap);
+	SAFE_DELETE(tempG);
+	SAFE_DELETE(tempRc);
 }
