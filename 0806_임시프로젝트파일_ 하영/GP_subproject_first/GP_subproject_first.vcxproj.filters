@@ -112,6 +112,7 @@
     <ClCompile Include="UITimeEvent.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h">
@@ -240,6 +241,7 @@
     <ClInclude Include="GP_subproject_first.h">
       <Filter>App</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Manager">
