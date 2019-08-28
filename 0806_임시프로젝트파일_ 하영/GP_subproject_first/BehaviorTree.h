@@ -119,7 +119,6 @@ public:
 	void InitTower(MyUnit* InActor, BlackBoard* InBB);
 
 	void Tick();
-	void TraverseTree();
 private:
 	Sequence* root;
 };

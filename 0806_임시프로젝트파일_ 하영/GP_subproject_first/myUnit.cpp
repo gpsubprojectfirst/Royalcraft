@@ -8,10 +8,10 @@ MyUnit::MyUnit()
 	curTile = std::make_pair(0, 0);
 	dstTile = std::make_pair(0, 0);
 
-	mUnitInfo.hp = 100;
-	mUnitInfo.move_speed = 1;
-	mUnitInfo.atk_distance = 10;
-	mUnitInfo.damage = 10;
+	mUnitInfo.hp = INIT_HP;
+	mUnitInfo.move_speed = INIT_SPEED;
+	mUnitInfo.atk_distance = INIT_ATK_DIST;
+	mUnitInfo.damage = INIT_DAMAGE;
 	
 	Isdead = false;
 
@@ -27,12 +27,12 @@ void MyUnit::Update(float Delta)
 		
 		AddDelta += Delta;
 		
-		if (AddDelta > 0.1f)
+		if (AddDelta > UNIT_FRAME_INC_DELTA)
 		{
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 2400)
+			if (frame > MAX_FRAME)
 				frame = 0;
 		}
 		//상태 변화, 추후 행동 트리에 추가
@@ -215,19 +215,20 @@ void MyUnit::Attack(float Delta)
 	if (this->mUnitInfo.atk_type == 1 && arrow == nullptr)
 	{
 		arrow = new Bullet();
-		int bulletID = 0;
-		if (this->Objtype == eObject_Unit && this->ID == 5)
-			bulletID = 1;
-		if (this->Objtype == eObject_Unit && this->ID == 11)
-			bulletID = 0;
-		if (this->Objtype == eObject_Unit && this->ID ==7)
-			bulletID = 2;
+		EBullet_ID bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Archer)
+			bulletID = eBullet_Arrow;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Wizard)
+			bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Electric)
+			bulletID = eBullet_Fire;
+		if (this->Objtype == eObject_Unit && this->ID ==eUnit_Musket)
+			bulletID = eBullet_Bullet;
 		if (this->Objtype == eObject_Build )
-			bulletID = 2;
+			bulletID = eBullet_Bullet;
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
 	}
-	
 }
 
 void MyUnit::ExtraAction(float Delta)

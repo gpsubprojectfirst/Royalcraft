@@ -10,7 +10,7 @@ struct UnitInfo
 	int damage;
 	int hp;
 	EAtkType atk_type;
-	float atk_speed;
+	int atk_speed;
 	float move_speed;
 	int cost;
 	int atk_distance;

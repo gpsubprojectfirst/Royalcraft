@@ -24,7 +24,7 @@ void Build::Update(float Delta)
 			frame++;
 			AddDelta = 0;
 
-			if (frame > 10)
+			if (frame > 20)
 				frame = 0;
 		}
 		UnitBt->Tick();
@@ -77,7 +77,7 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 	ID = dst->ID;
 	name = dst->name;
 	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < eDirection_Cnt; i++)
 	{
 		atkRc[i] = dst->atkRc[i];
 	}
@@ -100,6 +100,7 @@ void Build::Rest(float Delta)
 
 void Build::CalcDirection(int xvec, int yvec)
 {
+	// HACK
 	if (teamBlue)
 	{
 		if (xvec > 0 && yvec != 0)
