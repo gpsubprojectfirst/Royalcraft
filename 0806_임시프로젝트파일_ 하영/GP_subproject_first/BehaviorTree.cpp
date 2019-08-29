@@ -13,7 +13,7 @@ BlackBoard::BlackBoard(Command& InCmQ, SearchTree* InTree, MyMap* InMap)
 };
 void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 {
-	//벡터 포인터
+	//vector pointer
 	playUnit = &vec;
 };
 
@@ -85,8 +85,6 @@ bool Sequence::Invoke()
 
 bool IsNearObj::Invoke()
 {
-	//일정 거리 내에 있으면 target으로 없으면 false
-	
 	for (auto it : *bbData->playUnit)
 	{
 		if ((int)sqrt(pow(it->curPosX - actor->obj->curPosX,2)
@@ -106,7 +104,6 @@ bool IsNearObj::Invoke()
 
 bool IsAbleAtk::Invoke()
 {
-	//유닛 사거리내에 타겟이 있으면 true
 	if (sqrt(pow(actor->obj->target->curPosX - actor->obj->curPosX,2)
 			+ pow(actor->obj->target->curPosY - actor->obj->curPosY,2)) 
 		< actor->obj->mUnitInfo.atk_distance * ATTACK_DISTANCE
@@ -260,7 +257,6 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
 	IsCollision* IsCol = new IsCollision();
-	//트리 구성 추후 xml로 맵핑
 
 	root->AddChild(IsDeadUnit);
 	root->AddChild(RootSelector);

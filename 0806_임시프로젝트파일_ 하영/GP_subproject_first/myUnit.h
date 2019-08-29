@@ -24,15 +24,12 @@ public:
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(SearchTree* mTree);
-
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
-
 	virtual void CalcDirection(float xvec,float yvec);
-
 
 	//unit status
 	UnitInfo mUnitInfo;

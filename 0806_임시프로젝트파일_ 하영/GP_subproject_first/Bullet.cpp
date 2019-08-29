@@ -3,12 +3,14 @@
 
 Bullet::Bullet()
 	:xVec(0.0)
-	,yVec(0.0)
+	, yVec(0.0)
+	, isArrive(false)
 {
 
 }
 
-Bullet::Bullet(MyUnit* dst, float fx, float fy)
+Bullet::Bullet(MyUnit* dst)
+	: isArrive(false)
 {
 	Init();
 	ID = dst->ID;
@@ -16,21 +18,20 @@ Bullet::Bullet(MyUnit* dst, float fx, float fy)
 	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
 	moveRc[0] = dst->moveRc[0];
 	ParentImg = dst->ParentImg;
-	curPosX = fx;
-	curPosY = fy;
+
 }
 
 void Bullet::Init()
 {
 	Objtype = eObject_Bullet;
-	IsArrive = false;
+	isArrive = false;
 	CalcVec();
 }
 void Bullet::Update(float Delta)
 {
 	if (target == nullptr)
 	{
-		IsArrive = true;
+		isArrive = true;
 		return;
 	}
 
@@ -44,14 +45,14 @@ void Bullet::Update(float Delta)
 			frame = 0;
 	}
 	//CalcVec();
-	curPosX += 3.0 * xVec;
-	curPosY += 3.0 * yVec;
+	curPosX += 3.0f * xVec;
+	curPosY += 3.0f * yVec;
 
 	rc = moveRc[0][0];
 	
 	if(target->posRc.Contains((int)curPosX, (int)curPosY) || target->Isdead)
 	{
-		IsArrive = true;
+		isArrive = true;
 	}
 	else
 	{
@@ -62,7 +63,7 @@ void Bullet::Render(Gdiplus::Graphics* MemG)
 {
 	int width = rc.Width;
 	int height = rc.Height;
-	Gdiplus::Rect Dst1(curPosX - width / 2, curPosY - height / 2, width, height);
+	Gdiplus::Rect Dst1(int(curPosX - width / 2), int(curPosY - height / 2), width, height);
 	
 	Gdiplus::Bitmap tempBmp(width, height);
 	Gdiplus::Graphics tempG(&tempBmp);

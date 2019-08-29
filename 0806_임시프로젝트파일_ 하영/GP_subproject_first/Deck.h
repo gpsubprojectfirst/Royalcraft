@@ -6,7 +6,7 @@ class Deck :
 {
 public:
 	EDeck_type		  typeNum;
-	int				  m_iCost;
+	int						  m_iCost;
 	Gdiplus::Image	  costImg;
 	Gdiplus::Rect	  costRc;
 	Gdiplus::RectF tempFRc;
@@ -15,7 +15,8 @@ public:
 	Gdiplus::StringFormat format;
 	std::string tempstr;
 	std::wstring wide_string;
-	const WCHAR* result;
+
+
 public:
 	virtual void Init();
 	virtual void Update(float Delta);

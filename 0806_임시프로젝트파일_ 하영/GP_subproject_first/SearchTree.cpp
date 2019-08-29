@@ -168,13 +168,14 @@ scNode* GetParent(scNode* Node)
 //
 int SearchTree::callHcost(scNode* str, scNode* dst)
 {
-	if (str)//장애물 검사
+		if (str)//장애물 검사
 	{
 		//str->visitF = true;
 		
 		//양수 계산
-		return  10 * sqrt(pow(dst->x - str->x,2) + pow(dst->y - str->y,2));
+		return  int(10 * sqrt(pow(dst->x - str->x,2) + pow(dst->y - str->y,2)));
 	}
+
 }
 
 scNode* SearchTree::NextNode(int n, scNode* InNode)
@@ -227,7 +228,6 @@ void SearchTree::SortList()
 
 void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std::stack<std::pair<int, int>>* vecPath)
 {
-	assert(str.first < TILECNTX || str.second < TILECNTY);
 	strNode = &Map[str.first][str.second];
 	dstNode = &Map[dst.first][dst.second];
 	

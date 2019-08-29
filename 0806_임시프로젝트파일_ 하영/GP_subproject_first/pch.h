@@ -39,6 +39,7 @@
 using namespace Gdiplus;
 using namespace std;
 
+
 #ifdef UNICODE
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
 #else

@@ -76,8 +76,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\하영\source\repos\GP_subproject_first\tinyxml2;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\하영\source\repos\GP_subproject_first\Debug;$(IncludePath)</IncludePath>
+    <LibraryPath>GP_subproject_first\tinyxml2;$(LibraryPath)</LibraryPath>
+    <IncludePath>GP_subproject_first\Debug;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -151,6 +151,8 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>tinyxml2</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tinyxml2Rel.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>

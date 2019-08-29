@@ -59,7 +59,7 @@ void UIPopup::CreateButton()
 		pBtn->Init(i);
 		float fx = float((this->rc.Width / 4 + 10) + 200 *  ( i ));
 		float fy = REAL_WINSIZE_Y / 2 - 30;
-		Gdiplus::Rect tempRC(fx, fy, pBtn->ParentImg->GetWidth(), pBtn->ParentImg->GetHeight());
+		Gdiplus::Rect tempRC((int)fx, (int)fy, (int)pBtn->ParentImg->GetWidth(), (int)pBtn->ParentImg->GetHeight());
 		pBtn->m_tInfo.fX = fx;
 		pBtn->m_tInfo.fY = fy;
 		pBtn->m_tInfo.fSizeX = (float)pBtn->ParentImg->GetWidth();

@@ -44,7 +44,6 @@ void UIDeckWnd::Init()
 
 void UIDeckWnd::ChooseDeck()
 {
-	//보여질 슬롯 덱 4개 고르기
 	viewArray = new Deck*[SLOTCNT];
 
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -108,7 +107,6 @@ void UIDeckWnd::ChangeDeck()
 {
 	if (viewArray == nullptr) return;
 	m_IsSelectMode = 4;
-	//보여질 슬롯 덱 4개 고르기
 
 	std::srand(static_cast<unsigned int>(time(nullptr)));
 

@@ -22,7 +22,7 @@ void UIHPBar::Init()
 	this->ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\uihp.png"));
 	tempBitmap = new Bitmap(HP_BAR_WIDTH, HP_BAR_HEIGHT);
 	tempG = new Gdiplus::Graphics(tempBitmap);
-	tempRc = new Rect(0, 0, HP_BAR_WIDTH * BASE_RECT_RATE, HP_BAR_HEIGHT);
+	tempRc = new Rect(0, 0, int(HP_BAR_WIDTH * BASE_RECT_RATE), HP_BAR_HEIGHT);
 	XmlManager::GetInstance().UIHPBarParser(this);
 }
 
@@ -56,10 +56,9 @@ void UIHPBar::Render(Gdiplus::Graphics* MemG)
 			SetPos(it);
 			calcRate((float)it->mUnitInfo.hp, it->ID,it->Objtype);
 
-			//TODO
-			tempRc->X = barRect->Width * BASE_RECT_RATE;
+			tempRc->X = (int)(barRect->Width * BASE_RECT_RATE);
 			tempRc->Y = 0;
-			tempRc->Width = barRect->Width * rate * GAGE_RECT_RATE;
+			tempRc->Width = (int)(barRect->Width * rate * GAGE_RECT_RATE);
 			tempRc->Height = barRect->Height;
 
 			tempG->DrawImage(ParentImg, *tempRc, hpRect->X, hpRect->Y, hpRect->Width, hpRect->Height
@@ -67,7 +66,7 @@ void UIHPBar::Render(Gdiplus::Graphics* MemG)
 
 			tempRc->X = 0;
 			tempRc->Y = 0;
-			tempRc->Width = barRect->Width * BASE_RECT_RATE;
+			tempRc->Width = (int)(barRect->Width * BASE_RECT_RATE);
 			tempRc->Height = barRect->Height;
 
 			tempG->DrawImage(ParentImg, *tempRc, baseRect->X, baseRect->Y, baseRect->Width, baseRect->Height

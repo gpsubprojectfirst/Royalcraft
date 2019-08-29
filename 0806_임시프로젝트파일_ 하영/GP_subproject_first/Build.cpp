@@ -5,7 +5,7 @@ Build::Build()
 	adjustedVal = 0;
 	pivotVal = 0;
 }
-Build::Build(MyUnit* dst, float fx, float fy)
+Build::Build(MyUnit* dst)
 {
 	Init();
 	ID = dst->ID;
@@ -18,8 +18,6 @@ Build::Build(MyUnit* dst, float fx, float fy)
 
 	restRc = ((Build*)dst)->restRc;
 
-	curPosX = fx;
-	curPosY = fy;
 }
 
 void Build::Init()
@@ -74,13 +72,13 @@ void Build::Render(Gdiplus::Graphics* MemG)
 		int width = rc.Width;
 		int height = rc.Height;
 
-		Gdiplus::Rect Dst1(curPosX - width / 4, curPosY - height / 4 - adjustedVal/4 , width /2, height/2);
+		Gdiplus::Rect Dst1(int(curPosX - width / 4), int(curPosY - height / 4 - adjustedVal / 4 ), int(width / 2), int(height / 2));
 		MemG->DrawImage(ParentImg, Dst1, rc.X, rc.Y, width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
 	{
-		if (arrow->IsArrive == true)
+		if (arrow->isArrive == true)
 		{
 			arrow->Release();
 			arrow = nullptr;
@@ -89,21 +87,6 @@ void Build::Render(Gdiplus::Graphics* MemG)
 			arrow->Render(MemG);
 	}
 }
-
-//void Build::CopyObj(MyUnit* dst, float fx, float fy)
-//{
-//	ID = dst->ID;
-//	name = dst->name;
-//	mUnitInfo = dst->mUnitInfo;
-//	for (int i = 0; i < eDirection_Cnt; i++)
-//	{
-//		atkRc[i] = dst->atkRc[i];
-//	}
-//
-//	restRc = ((Build*)dst)->restRc;
-//	curPosX = fx;
-//	curPosY = fy;
-//}
 
 void Build::CreateBT(BlackBoard* InBB)
 {

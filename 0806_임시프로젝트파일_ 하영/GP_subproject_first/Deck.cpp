@@ -7,7 +7,6 @@ Deck::Deck()
 	, tempFRc(0,0,0,0)
 	, font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
-	, result()
 	, typeNum(EDeck_Knight)
 	, m_iCost(0)
 {
@@ -18,6 +17,8 @@ Deck::Deck(Gdiplus::Image* img, int cost)
 	, costRc(0, 0, 0, 0)
 	, font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
+	, typeNum(EDeck_Knight)
+	, m_iCost(0)
 {
 	ParentImg = img;
 	m_iCost = cost;
@@ -38,7 +39,7 @@ void Deck::Update(float Delta)
 
 void Deck::Render(Gdiplus::Graphics* MemG)
 {
-	Gdiplus::Rect Dst1(m_tInfo.fX, m_tInfo.fY, m_tInfo.fSizeX, m_tInfo.fSizeY);
+	Gdiplus::Rect Dst1(int(m_tInfo.fX), int(m_tInfo.fY), int(m_tInfo.fSizeX), int(m_tInfo.fSizeY));
 
 	costRc.X = Dst1.X + SLOT_SIZE_WIDTH - 30;
 	costRc.Y = Dst1.Y + SLOT_SIZE_HEIGHT - 30;
@@ -52,7 +53,7 @@ void Deck::Render(Gdiplus::Graphics* MemG)
 
 	tempstr = std::to_string(m_iCost);
 	wide_string = wstring(tempstr.begin(), tempstr.end());
-	result = wide_string.c_str();
+	const WCHAR* result = wide_string.c_str();
 
 	MemG->DrawImage(ParentImg, Dst1);
 	MemG->DrawImage(&costImg, costRc);

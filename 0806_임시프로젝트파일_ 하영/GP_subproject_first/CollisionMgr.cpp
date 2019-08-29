@@ -34,13 +34,13 @@ static BOOL Intersect(OUT Gdiplus::Rect& c,
 bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
 {
 	CalcColBox(_vecUnit);
-	src->colRc = Gdiplus::Rect(src->curPosX - (src->rc.Width / 8)
-		, src->curPosY - (src->rc.Height / 8)
+	src->colRc = Gdiplus::Rect(int(src->curPosX - (src->rc.Width / 8))
+		, int(src->curPosY - (src->rc.Height / 8))
 		, (int)(src->rc.Width * 0.25), (int)(src->rc.Height * 0.25));
 
 	if (src == nullptr) return false;
 	
-	for (int i = 0; i < _vecUnit->size(); ++i)
+	for (unsigned int i = 0; i < _vecUnit->size(); ++i)
 	{
 		if (_vecUnit->at(i) == nullptr) continue;
 		if (src == _vecUnit->at(i)) continue;
@@ -66,8 +66,8 @@ void CollisionMgr::CalcColBox(vector<MyUnit*>* _vecUnit)
 	for (auto& it : *_vecUnit)
 	{
 		// HACK
-		it->colRc = Gdiplus::Rect(it->curPosX - (it->rc.Width / 8)
-			, it->curPosY - (it->rc.Height / 8)
+		it->colRc = Gdiplus::Rect(int(it->curPosX - (it->rc.Width / 8))
+			, int(it->curPosY - (it->rc.Height / 8))
 			, (int) (it->rc.Width * 0.25), (int)(it->rc.Height * 0.25));
 
 		//
@@ -79,9 +79,9 @@ void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 
 	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
 	{
-		 _vecUnit[i]->colRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 8
-			 , _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 8
-			 , _vecUnit[i]->rc.Width / 4, _vecUnit[i]->rc.Height / 4);
+		 _vecUnit[i]->colRc = Gdiplus::Rect(int(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 8)
+			 , int(_vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 8)
+			 , int(_vecUnit[i]->rc.Width / 4), int(_vecUnit[i]->rc.Height / 4));
 		 if (!_vecUnit[i]->Isdead)
 			MemG->DrawRectangle(&pen, _vecUnit[i]->colRc);
 	}

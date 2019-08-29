@@ -36,10 +36,7 @@ ObjectManager::ObjectManager()
 	{
 		vecptr[i] = &mObj[i];
 	}
-	
 	XmlManager::GetInstance().UnitInfoParser(vecptr);
-	delete vecptr;
-	
 }
 
 
