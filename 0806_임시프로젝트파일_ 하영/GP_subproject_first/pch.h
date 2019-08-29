@@ -39,7 +39,11 @@
 using namespace Gdiplus;
 using namespace std;
 
+#ifdef UNICODE
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") 
+#endif
 
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 #endif //PCH_H

@@ -72,7 +72,7 @@ void Build::Render(Gdiplus::Graphics* MemG)
 	}
 }
 
-void Build::CopyObj(MyUnit* dst, int ix, int iy)
+void Build::CopyObj(MyUnit* dst, float fx, float fy)
 {
 	ID = dst->ID;
 	name = dst->name;
@@ -83,8 +83,8 @@ void Build::CopyObj(MyUnit* dst, int ix, int iy)
 	}
 
 	restRc = ((Build*)dst)->restRc;
-	curPosX = ix;
-	curPosY = iy;
+	curPosX = fx;
+	curPosY = fy;
 }
 
 void Build::CreateBT(BlackBoard* InBB)

@@ -182,8 +182,8 @@ void UIDeckWnd::Render(Gdiplus::Graphics* MemG)
 			{
 				tempRect[i].X = viewArray[i]->GetRect().left;
 				tempRect[i].Y = viewArray[i]->GetRect().top;
-				tempRect[i].Width = viewArray[i]->m_tInfo.fSizeX;
-				tempRect[i].Height= viewArray[i]->m_tInfo.fSizeY;
+				tempRect[i].Width = (int)viewArray[i]->m_tInfo.fSizeX;
+				tempRect[i].Height= (int)viewArray[i]->m_tInfo.fSizeY;
 				MemG->DrawRectangle(&pen, tempRect[i]);
 			}
 		}
