@@ -46,7 +46,7 @@ bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
 		
 		if (Intersect(temprc, src->colRc,_vecUnit->at(i)->colRc)
 			&& !_vecUnit->at(i)->Isdead)
-    {
+		{
 			float distanceX = _vecUnit->at(i)->curPosX - src->curPosX;
 			float distanceY = _vecUnit->at(i)->curPosY - src->curPosY;
 
@@ -74,7 +74,6 @@ void CollisionMgr::CalcColBox(vector<MyUnit*>* _vecUnit)
 }
 void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 {
-	//Ãæµ¹¹Ú½º ±×¸®±â
 	Pen pen(Color(255, 255, 255), 3);
 
 	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
