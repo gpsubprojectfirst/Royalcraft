@@ -18,6 +18,6 @@ public:
 
 	virtual void Rest(float Delta) override;
 
-	void CalcDirection(int xvec, int yvec) override;
+	void CalcDirection(float xvec, float yvec) override;
 	std::vector<Gdiplus::Rect> restRc;
 };

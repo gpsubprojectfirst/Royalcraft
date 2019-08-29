@@ -46,7 +46,7 @@ void UIDeckWnd::ChooseDeck()
 {
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
 	viewArray = new Deck*[SLOTCNT];
-	srand(time(nullptr));
+	srand(static_cast<unsigned int>(time(nullptr)));
 	int k = rand() % 12;
 
 	for (int i = 0; i < SLOTCNT; i++)
@@ -60,10 +60,10 @@ void UIDeckWnd::ChooseDeck()
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
 		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
-		viewArray[i]->m_tInfo.fX = SLOT_ONE_X + (SLOR_ARRANG_X * (i));
-		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
-		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
-		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
+		viewArray[i]->m_tInfo.fX = (float)(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
+		viewArray[i]->m_tInfo.fY = (float)(SLOT_ONE_Y);
+		viewArray[i]->m_tInfo.fSizeX = (float)(SLOT_SIZE_WIDTH);
+		viewArray[i]->m_tInfo.fSizeY = (float)(SLOT_SIZE_HEIGHT);
 	}
 
 	/*
@@ -78,7 +78,8 @@ int UIDeckWnd::CheckDeck(int randnum)
 {
 	if (viewArray == nullptr)
 		return -1;
-	srand(time(nullptr));
+	std::srand(static_cast<unsigned int>(time(nullptr)));
+
 	bool bFlag = true;
 	while (bFlag)
 	{
@@ -104,7 +105,7 @@ void UIDeckWnd::ChangeDeck()
 	if (viewArray == nullptr) return;
 	m_IsSelectMode = 4;
 	//º¸¿©Áú ½½·Ô µ¦ 4°³ °í¸£±â
-	srand(time(nullptr));
+	std::srand(static_cast<unsigned int>(time(nullptr)));
 	
 	int idx = m_iSelectedCell;
 
@@ -120,10 +121,10 @@ void UIDeckWnd::ChangeDeck()
 		}
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
-		viewArray[i]->m_tInfo.fX = SLOT_ONE_X + (SLOR_ARRANG_X * (i));
-		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
-		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
-		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
+		viewArray[i]->m_tInfo.fX = (float)(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
+		viewArray[i]->m_tInfo.fY = (float)(SLOT_ONE_Y);
+		viewArray[i]->m_tInfo.fSizeX = (float)(SLOT_SIZE_WIDTH);
+		viewArray[i]->m_tInfo.fSizeY = (float)(SLOT_SIZE_HEIGHT);
 	}
 
 	m_IsSelectMode = 0;

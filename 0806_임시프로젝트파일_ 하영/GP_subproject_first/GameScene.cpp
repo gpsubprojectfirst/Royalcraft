@@ -7,16 +7,21 @@
 
 
 GameScene::GameScene()
-	: mMap(nullptr)
+	: m_bExit(false)
+	, endflag(false)
+	, mMap(nullptr)
 	, editor(nullptr)
 	, mTree(nullptr)
 	, blackBoard(nullptr)
 	, unitInfo(nullptr)
+	, deck(nullptr)
+	, m_uiTimeEvent(nullptr)
 	, m_uiTime(nullptr)
 	, m_uiPopup(nullptr)
 	, m_uiHPBar(nullptr)
 	, m_uiElixBar(nullptr)
 	, endUI(nullptr)
+	, tempObj(nullptr)
 {
 	std::cout << "GameScene()" << endl;
 
@@ -256,8 +261,8 @@ void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 					mUnit->curTile.first = i;
 					mUnit->curTile.second = j;
 					mUnit->posRc = mMap->Infos[i][j].rc;
-					mUnit->curPosX = mUnit->posRc.X + (TILESIZEX / 2);
-					mUnit->curPosY = mUnit->posRc.Y + (TILESIZEY / 2);
+					mUnit->curPosX = (float)(mUnit->posRc.X + (TILESIZEX / 2));
+					mUnit->curPosY = (float)(mUnit->posRc.Y + (TILESIZEY / 2));
 					mUnit->mMap = mMap;
 					mUnit->teamBlue = true;
 					info.emplace_back(mUnit);
@@ -441,7 +446,7 @@ void GameScene::grayscale(int width, int height, Gdiplus::BitmapData& pData)
 		pt = pt2 + i * pData.Width * 4;
 		for (int j = 0; j < width; ++j)
 		{
-			BYTE calc = *(pt) * 0.299 + *(pt + 1) * 0.587 + *(pt + 2) * 0.114;
+			BYTE calc = (BYTE)(*(pt) * 0.299 + *(pt + 1) * 0.587 + *(pt + 2) * 0.114);
 			*(pt) = calc;
 			*(pt + 1) = calc;
 			*(pt + 2) = calc;

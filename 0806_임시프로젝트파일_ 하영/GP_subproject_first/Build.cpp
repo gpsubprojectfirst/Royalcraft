@@ -62,7 +62,7 @@ void Build::Render(Gdiplus::Graphics* MemG)
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
 	{
-		if (arrow->Isarrive == true)
+		if (arrow->IsArrive == true)
 		{
 			arrow->Release();
 			arrow = nullptr;
@@ -98,7 +98,7 @@ void Build::Rest(float Delta)
 
 }
 
-void Build::CalcDirection(int xvec, int yvec)
+void Build::CalcDirection(float xvec, float yvec)
 {
 	// HACK
 	if (teamBlue)

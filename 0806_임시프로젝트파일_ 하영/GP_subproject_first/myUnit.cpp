@@ -92,21 +92,22 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 		
 		Gdiplus::Rect Dst1(curPosX - width/4, curPosY - height/4, width / 2, height / 2);
 	
-		Gdiplus::Bitmap* tempBmp = new Bitmap(width, height);
-		Gdiplus::Graphics* tempG = new Gdiplus::Graphics(tempBmp);
+		Gdiplus::Bitmap tempBmp(width, height);
+		Gdiplus::Graphics tempG(&tempBmp);
 		Gdiplus::Rect tempRc(0, 0, width, height);
-		tempG->DrawImage(ParentImg,tempRc,rc.X,rc.Y,width,height, Gdiplus::Unit::UnitPixel,
+		tempG.DrawImage(ParentImg,tempRc,rc.X,rc.Y,width,height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
 		
 		if(flipF)
-			tempBmp->RotateFlip(RotateNoneFlipX);
+			tempBmp.RotateFlip(RotateNoneFlipX);
 
-		MemG->DrawImage(tempBmp, Dst1, 0, 0, width, height, Gdiplus::Unit::UnitPixel,
+		MemG->DrawImage(&tempBmp, Dst1, 0, 0, width, height, Gdiplus::Unit::UnitPixel,
 			nullptr, 0, nullptr);
+
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
 	{
-		if (arrow->Isarrive == true)
+		if (arrow->IsArrive == true)
 		{
 			arrow->Release();
 			arrow = nullptr;
@@ -174,9 +175,11 @@ void MyUnit::Move(float Delta)
 		float distanceX = tempDstTile.X + (TILESIZEX / 2) - this->curPosX;
 		float distanceY = tempDstTile.Y + (TILESIZEY / 2) - this->curPosY;
 
-		float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
-		float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
-
+		float length = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
+		
+		float xvec = (float)(length == 0.0 ? 0.0 : distanceX / length);
+		float yvec = (float)(length == 0.0 ? 0.0 : distanceY / length);
+		
 		CalcDirection(xvec, yvec);
 		
 		 //위치 이동
@@ -235,22 +238,33 @@ void MyUnit::Attack(float Delta)
 		arrow = new Bullet();
 		EBullet_ID bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Archer)
-			SoundMgr::GetInstance()->SoundPlay(2,0);
+		{
+			SoundMgr::GetInstance()->SoundPlay(2, 0);
 			bulletID = eBullet_Arrow;
+		}
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Wizard)
+		{
 			SoundMgr::GetInstance()->SoundPlay(13, 0);
 			bulletID = eBullet_Fire;
+		}
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Electric)
+		{
 			SoundMgr::GetInstance()->SoundPlay(12, 0);
 			bulletID = eBullet_Fire;
-		if (this->Objtype == eObject_Unit && this->ID ==eUnit_Musket)
-			SoundMgr::GetInstance()->SoundPlay(11,0);
+		}
+		if (this->Objtype == eObject_Unit && this->ID == eUnit_Musket)
+		{
+			SoundMgr::GetInstance()->SoundPlay(11, 0);
 			bulletID = eBullet_Bullet;
-		if (this->Objtype == eObject_Build )
-			SoundMgr::GetInstance()->SoundPlay(10,0);
+		}
+		if (this->Objtype == eObject_Build)
+		{
+			SoundMgr::GetInstance()->SoundPlay(10, 0);
 			bulletID = eBullet_Bullet;
+		}
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);
+		arrow->Init();
 	}
 }
 
@@ -265,7 +279,7 @@ void MyUnit::CreateBT(BlackBoard* InBB)
 	UnitBt->Init(this, InBB);
 }
 
-void MyUnit::CalcDirection(int xvec,int yvec)
+void MyUnit::CalcDirection(float xvec,float yvec)
 {
 	if (xvec == 0 && yvec > 0)
 	{
