@@ -4,10 +4,9 @@
 
 UITimeEvent::UITimeEvent()
 	:runTime(0)
-	,curTime(0)
-	,tempFRc(nullptr)
-	,result(nullptr)
-	,curScene(nullptr)
+	, curTime(0)
+	, tempFRc(nullptr)
+	, curScene(nullptr)
 	, blackWnd(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y)
 	, font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
@@ -50,7 +49,7 @@ void UITimeEvent::Update(int inTime)
 		{
 			CreateEnemy();
 		}
-		if (inTime == 90)
+		if (inTime < 90)
 		{
 			//std::cout << "rutime: 90" << std::endl;
 		}
@@ -84,6 +83,8 @@ void UITimeEvent::CreateEnemy()
 {
 	if (curScene == nullptr) return;
 
+	srand((unsigned int)time(nullptr));
+
 	int x = rand() % 10 + 5;
 	int y = 8;
 
@@ -94,10 +95,8 @@ void UITimeEvent::CreateEnemy()
 	mUnit->curTile.first = x;
 	mUnit->curTile.second = y;
 	mUnit->posRc = curScene->mMap->Infos[x][y].rc;
-
 	mUnit->curPosX = (float)mUnit->posRc.X + (float)(TILESIZEX / 2);
 	mUnit->curPosY = (float)mUnit->posRc.Y + (float)(TILESIZEY / 2);
-
 	mUnit->mMap = curScene->mMap;
 	mUnit->teamBlue = false;
 	curScene->info.emplace_back(mUnit);

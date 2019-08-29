@@ -44,11 +44,9 @@ void UIDeckWnd::Init()
 
 void UIDeckWnd::ChooseDeck()
 {
-	//Î≥¥Ïó¨Ïßà Ïä¨Î°Ø Îç± 4Í∞ú Í≥†Î•¥Í∏∞
+	//∫∏ø©¡˙ ΩΩ∑‘ µ¶ 4∞≥ ∞Ì∏£±‚
 	viewArray = new Deck*[SLOTCNT];
-
-	srand(static_cast<unsigned int>(time(nullptr)));
-
+	srand((unsigned int)time(nullptr));
 	int k = rand() % 12;
 
 	for (int i = 0; i < SLOTCNT; i++)
@@ -62,12 +60,10 @@ void UIDeckWnd::ChooseDeck()
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
 		viewArray[i]->m_iCost = m_mDeck.at(arrayNum[i])->m_iCost;
-
-		viewArray[i]->m_tInfo.fX = (float)(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
-		viewArray[i]->m_tInfo.fY = (float)(SLOT_ONE_Y);
-		viewArray[i]->m_tInfo.fSizeX = (float)(SLOT_SIZE_WIDTH);
-		viewArray[i]->m_tInfo.fSizeY = (float)(SLOT_SIZE_HEIGHT);
-
+		viewArray[i]->m_tInfo.fX = float(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
+		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
+		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
+		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
 	}
 
 	/*
@@ -82,8 +78,7 @@ int UIDeckWnd::CheckDeck(int randnum)
 {
 	if (viewArray == nullptr)
 		return -1;
-	std::srand(static_cast<unsigned int>(time(nullptr)));
-
+	srand((unsigned int)time(nullptr));
 	bool bFlag = true;
 	while (bFlag)
 	{
@@ -108,10 +103,8 @@ void UIDeckWnd::ChangeDeck()
 {
 	if (viewArray == nullptr) return;
 	m_IsSelectMode = 4;
-	//Î≥¥Ïó¨Ïßà Ïä¨Î°Ø Îç± 4Í∞ú Í≥†Î•¥Í∏∞
-
-	std::srand(static_cast<unsigned int>(time(nullptr)));
-
+	//∫∏ø©¡˙ ΩΩ∑‘ µ¶ 4∞≥ ∞Ì∏£±‚
+	srand((unsigned int)time(nullptr));
 	
 	int idx = m_iSelectedCell;
 
@@ -127,12 +120,10 @@ void UIDeckWnd::ChangeDeck()
 		}
 		viewArray[i] = m_mDeck.at(arrayNum[i]);
 		viewArray[i]->typeNum = arrayNum[i];
-
-		viewArray[i]->m_tInfo.fX = (float)(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
-		viewArray[i]->m_tInfo.fY = (float)(SLOT_ONE_Y);
-		viewArray[i]->m_tInfo.fSizeX = (float)(SLOT_SIZE_WIDTH);
-		viewArray[i]->m_tInfo.fSizeY = (float)(SLOT_SIZE_HEIGHT);
-
+		viewArray[i]->m_tInfo.fX = float(SLOT_ONE_X + (SLOR_ARRANG_X * (i)));
+		viewArray[i]->m_tInfo.fY = SLOT_ONE_Y;
+		viewArray[i]->m_tInfo.fSizeX = SLOT_SIZE_WIDTH;
+		viewArray[i]->m_tInfo.fSizeY = SLOT_SIZE_HEIGHT;
 	}
 
 	m_IsSelectMode = 0;

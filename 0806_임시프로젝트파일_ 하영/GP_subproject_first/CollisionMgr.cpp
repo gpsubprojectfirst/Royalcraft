@@ -3,7 +3,6 @@
 
 
 CollisionMgr::CollisionMgr()
-	:direction(eColDirection_Bottom)
 {
 
 }
