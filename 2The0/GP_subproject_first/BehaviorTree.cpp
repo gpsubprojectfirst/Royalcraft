@@ -132,8 +132,7 @@ bool IsTargetHas::Invoke()
 }
 bool IsBuilt::Invoke()
 {
-	if (actor->obj->moveTilePath.empty() 
-		|| actor->obj->frame % 50 == 0)
+	if (actor->obj->moveTilePath.empty())
 	{
 		if (actor->obj->teamBlue)
 		{
@@ -160,7 +159,7 @@ bool IsDead::Invoke()
 bool IsCollision::Invoke()
 {
 	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit)
-		&& actor->obj->frame % 5 == 0)
+		&& actor->obj->frame % CALC_PATH_PER_FRAME == 0)
 	{
 		int curX = actor->obj->curTile.first;
 		int curY = actor->obj->curTile.second;

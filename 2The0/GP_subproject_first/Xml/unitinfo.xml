@@ -9,10 +9,10 @@
 				<status hp="1500" atk_type="0" atk_speed="10" move_speed="1" cost="5" atk_distance="2" damage="170" />
 			</axeman>
 			<darknight ID="2" Objtype="Unit">
-				<status hp="1400" atk_type="0" atk_speed="8" move_speed="2" cost="4" atk_distance="1" damage="300" />
+				<status hp="1400" atk_type="0" atk_speed="8" move_speed="1.5" cost="4" atk_distance="2" damage="300" />
 			</darknight>
 			<electric ID="3" Objtype="Unit">
-				<status hp="850" atk_type="1" atk_speed="7" move_speed="2" cost="4" atk_distance="5" damage="280" />
+				<status hp="850" atk_type="1" atk_speed="7" move_speed="1.5" cost="4" atk_distance="5" damage="280" />
 			</electric>
 			<giant ID="4" Objtype="Unit">
 				<status hp="4800" atk_type="0" atk_speed="16" move_speed="0.5" cost="5" atk_distance="2" damage="100" />
@@ -21,19 +21,19 @@
 				<status hp="1070" atk_type="1" atk_speed="8" move_speed="1" cost="3" atk_distance="5" damage="100" />
 			</archer>
 			<lumberjack ID="6" Objtype="Unit">
-				<status hp="1440" atk_type="0" atk_speed="7" move_speed="2" cost="4" atk_distance="2" damage="290" />
+				<status hp="1440" atk_type="0" atk_speed="7" move_speed="1.5" cost="4" atk_distance="2" damage="290" />
 			</lumberjack>
 			<musket ID="7" Objtype="Unit">
 				<status hp="870" atk_type="1" atk_speed="10" move_speed="1" cost="4" atk_distance="6" damage="250" />
 			</musket>
 			<varkirey ID="8" Objtype="Unit">
-				<status hp="2250" atk_type="0" atk_speed="10" move_speed="1" cost="4" atk_distance="1" damage="300" />
+				<status hp="2250" atk_type="0" atk_speed="10" move_speed="1" cost="4" atk_distance="2" damage="300" />
 			</varkirey>
 			<vavarian ID="9" Objtype="Unit">
-				<status hp="1920" atk_type="0" atk_speed="10" move_speed="1" cost="5" atk_distance="1" damage="230" />
+				<status hp="1920" atk_type="0" atk_speed="10" move_speed="1" cost="5" atk_distance="2" damage="230" />
 			</vavarian>
 			<vendit ID="10" Objtype="Unit">
-				<status hp="2100" atk_type="0" atk_speed="8" move_speed="2" cost="3" atk_distance="1" damage="300" />
+				<status hp="2100" atk_type="0" atk_speed="8" move_speed="1.5" cost="3" atk_distance="2" damage="300" />
 			</vendit>
 			<wizard ID="11" Objtype="Unit">
 				<status hp="870" atk_type="1" atk_speed="12" move_speed="1" cost="5" atk_distance="5.5" damage="330" />

@@ -35,8 +35,9 @@
 #define BRUSH_BLACK_ALPHA (Gdiplus::SolidBrush(COLOR_BLACK_ALPHA))
 //behavior define
 #define RECOGNITION_DISTANCE 200
-#define ATTACK_DISTANCE 40
+#define ATTACK_DISTANCE 30
 #define CALC_PATH_PER_FRAME 10
+
 //ElixirBar define
 #define ELIXIR_DISPLAY_X 155
 #define ELIXIR_DISPLAY_Y 910
@@ -62,6 +63,7 @@
 #define INIT_DAMAGE 10
 #define MAX_FRAME 2400
 #define UNIT_FRAME_INC_DELTA 0.1f
+#define TILE_ARRIVE_DISTANCE 2
 //DeckWnd define
 #define SLOT_ONE_X 167
 #define SLOT_ONE_Y 808

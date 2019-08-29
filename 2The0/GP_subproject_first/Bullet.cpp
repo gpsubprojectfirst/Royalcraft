@@ -50,7 +50,10 @@ void Bullet::Update(float Delta)
 
 	rc = moveRc[0][0];
 	
-	if(target->posRc.Contains((int)curPosX, (int)curPosY) || target->Isdead)
+	if(target->colRc.Contains((int)curPosX, (int)curPosY) 
+		|| target->Isdead
+		|| curPosX < 0 || curPosX > REAL_WINSIZE_X
+		|| curPosY < 0 || curPosY > REAL_WINSIZE_Y)
 	{
 		isArrive = true;
 	}

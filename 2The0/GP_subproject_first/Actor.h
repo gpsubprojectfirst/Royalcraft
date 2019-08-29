@@ -13,6 +13,7 @@ public:
 
 	Actor(EObject _Intype)
 		: obj(nullptr)
+		, actor_type()
 	{
 		if(_Intype == eObject_Unit ||
 			_Intype == eObject_Build ||

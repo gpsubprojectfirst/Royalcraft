@@ -34,9 +34,6 @@ static BOOL Intersect(OUT Gdiplus::Rect& c,
 bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
 {
 	CalcColBox(_vecUnit);
-	src->colRc = Gdiplus::Rect(int(src->curPosX - (src->rc.Width / 8))
-		, int(src->curPosY - (src->rc.Height / 8))
-		, (int)(src->rc.Width * 0.25), (int)(src->rc.Height * 0.25));
 
 	if (src == nullptr) return false;
 	

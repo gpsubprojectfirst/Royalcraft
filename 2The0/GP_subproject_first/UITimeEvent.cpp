@@ -73,9 +73,19 @@ void UITimeEvent::Render(Gdiplus::Graphics* MemG)
 		MemG->DrawImage(startUI.ParentImg, startUI.rc);
 		MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 	}
-	if (runTime == 90)
+	if (runTime >= 90 && runTime <= 91)
 	{
-		//MemG->DrawImage(startText.ParentImg, Text.rc);
+		tempFRc->X = (float)startUI.rc.X;
+		tempFRc->Y = (float)(startUI.rc.Y + 10);
+		tempFRc->Width = (float)startUI.rc.Width;
+		tempFRc->Height = (float)startUI.rc.Height;
+
+		tempstr = "ONE MINUITE LEFT";
+		wide_string = wstring(tempstr.begin(), tempstr.end());
+		result = wide_string.c_str();
+
+		MemG->DrawImage(startUI.ParentImg, startUI.rc);
+		MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 	}
 }
 
