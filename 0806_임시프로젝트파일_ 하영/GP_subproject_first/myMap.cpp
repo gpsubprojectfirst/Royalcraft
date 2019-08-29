@@ -75,5 +75,5 @@ void MyMap::LoadFile()
 		SetMapData(Node);
 	} while (Node != lastNode);
 
-	tinyxml2::XMLDocument Clear();
+	doc->Clear();
 }

@@ -5,7 +5,19 @@ Bullet::Bullet()
 	:xVec(0.0)
 	,yVec(0.0)
 {
-	
+
+}
+
+Bullet::Bullet(MyUnit* dst, float fx, float fy)
+{
+	Init();
+	ID = dst->ID;
+	name = dst->name;
+	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
+	moveRc[0] = dst->moveRc[0];
+	ParentImg = dst->ParentImg;
+	curPosX = fx;
+	curPosY = fy;
 }
 
 void Bullet::Init()
@@ -37,7 +49,7 @@ void Bullet::Update(float Delta)
 
 	rc = moveRc[0][0];
 	
-	if(target->colRc.Contains(curPosX,curPosY) || target->Isdead)
+	if(target->posRc.Contains((int)curPosX, (int)curPosY) || target->Isdead)
 	{
 		IsArrive = true;
 	}
@@ -71,16 +83,6 @@ void Bullet::Release()
 	delete this;
 }
 
-void Bullet::CopyObj(MyUnit* dst, float fx, float fy)
-{
-	ID = dst->ID;
-	name = dst->name;
-	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
-	moveRc[0] = dst->moveRc[0];
-	ParentImg = dst->ParentImg;
-	curPosX = fx;
-	curPosY = fy;
-}
 void Bullet::CalcVec()
 {
 	if (target == nullptr) return;
@@ -92,6 +94,8 @@ void Bullet::CalcVec()
 	xVec = (float)(length == 0.0 ? 0.0 : distanceX / length);
 	yVec = (float)(length == 0.0 ? 0.0 : distanceY / length);
 }
+
+
 void Bullet::SetTarget(float srcx, float srcy, MyUnit* Intarget)
 {
 	curPosX = srcx;

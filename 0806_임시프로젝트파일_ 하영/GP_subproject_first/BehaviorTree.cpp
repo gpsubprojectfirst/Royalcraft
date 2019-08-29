@@ -3,6 +3,7 @@
 #include "myUnit.h"
 #include "CollisionMgr.h"
 
+
 BlackBoard::BlackBoard(Command& InCmQ, SearchTree* InTree, MyMap* InMap)
 	:playUnit(nullptr)
 {
@@ -12,7 +13,7 @@ BlackBoard::BlackBoard(Command& InCmQ, SearchTree* InTree, MyMap* InMap)
 };
 void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 {
-	//∫§≈Õ ∆˜¿Œ≈Õ
+	//Î≤°ÌÑ∞ Ìè¨Ïù∏ÌÑ∞
 	playUnit = &vec;
 };
 
@@ -20,6 +21,7 @@ void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 BtNode::BtNode()
 	:bbData(nullptr)
 {
+	bbData = nullptr;
 	node_state = eBTState_FAIL;
 	actor = new Actor();
 }
@@ -83,7 +85,7 @@ bool Sequence::Invoke()
 
 bool IsNearObj::Invoke()
 {
-	//¿œ¡§ ∞≈∏Æ ≥ªø° ¿÷¿∏∏È target¿∏∑Œ æ¯¿∏∏È false
+	//ÏùºÏ†ï Í±∞Î¶¨ ÎÇ¥Ïóê ÏûàÏúºÎ©¥ targetÏúºÎ°ú ÏóÜÏúºÎ©¥ false
 	
 	for (auto it : *bbData->playUnit)
 	{
@@ -104,7 +106,7 @@ bool IsNearObj::Invoke()
 
 bool IsAbleAtk::Invoke()
 {
-	//¿Ø¥÷ ªÁ∞≈∏Æ≥ªø° ≈∏∞Ÿ¿Ã ¿÷¿∏∏È true
+	//Ïú†Îãõ ÏÇ¨Í±∞Î¶¨ÎÇ¥Ïóê ÌÉÄÍ≤üÏù¥ ÏûàÏúºÎ©¥ true
 	if (sqrt(pow(actor->obj->target->curPosX - actor->obj->curPosX,2)
 			+ pow(actor->obj->target->curPosY - actor->obj->curPosY,2)) 
 		< actor->obj->mUnitInfo.atk_distance * ATTACK_DISTANCE
@@ -133,8 +135,6 @@ bool IsTargetHas::Invoke()
 }
 bool IsBuilt::Invoke()
 {
-	//∞°±ÓøÓ ∞«π∞¿ª ∏Ò¿˚¡ˆ∑Œ¡ˆ¡§
-	//test∞Ê∑Œ
 	if (actor->obj->moveTilePath.empty() 
 		|| actor->obj->frame % 100 == 0)
 	{
@@ -260,7 +260,7 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
 	IsCollision* IsCol = new IsCollision();
-	//∆Æ∏Æ ±∏º∫ √ﬂ»ƒ xml∑Œ ∏ «Œ
+	//Ìä∏Î¶¨ Íµ¨ÏÑ± Ï∂îÌõÑ xmlÎ°ú ÎßµÌïë
 
 	root->AddChild(IsDeadUnit);
 	root->AddChild(RootSelector);

@@ -2,6 +2,7 @@
 #include "UIPopup.h"
 
  UIPopup::UIPopup()
+	 :m_popupWnd(nullptr)
 {
 	// Init();
 }
@@ -61,8 +62,8 @@ void UIPopup::CreateButton()
 		Gdiplus::Rect tempRC(fx, fy, pBtn->ParentImg->GetWidth(), pBtn->ParentImg->GetHeight());
 		pBtn->m_tInfo.fX = fx;
 		pBtn->m_tInfo.fY = fy;
-		pBtn->m_tInfo.fSizeX = pBtn->ParentImg->GetWidth();
-		pBtn->m_tInfo.fSizeY = pBtn->ParentImg->GetHeight();
+		pBtn->m_tInfo.fSizeX = (float)pBtn->ParentImg->GetWidth();
+		pBtn->m_tInfo.fSizeY = (float)pBtn->ParentImg->GetHeight();
 		pBtn->rc = tempRC;
 
 		m_vecPopup.push_back(pBtn);

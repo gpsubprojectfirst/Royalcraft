@@ -11,6 +11,7 @@ UITimeEvent::UITimeEvent()
 	, blackWnd(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y)
 	, font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
+	, result()
 {
 
 }
@@ -51,7 +52,7 @@ void UITimeEvent::Update(int inTime)
 		}
 		if (inTime == 90)
 		{
-			std::cout << "rutime: 90" << std::endl;
+			//std::cout << "rutime: 90" << std::endl;
 		}
 	}
 	curTime = inTime;
@@ -86,15 +87,17 @@ void UITimeEvent::CreateEnemy()
 	int x = rand() % 10 + 5;
 	int y = 8;
 
-	MyUnit* mUnit = new MyUnit();
 	EUnit_ID unitID = (EUnit_ID)(rand() % eUnit_Cnt);
-	mUnit->CopyObj((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID), 0, 0);
+	MyUnit* mUnit = new MyUnit((MyUnit*)ObjectManager::GetInstance().GetMyUnit(unitID));
+
 	mUnit->ParentImg = curScene->m_vecImg[EScene_Game][unitID + 1];
 	mUnit->curTile.first = x;
 	mUnit->curTile.second = y;
 	mUnit->posRc = curScene->mMap->Infos[x][y].rc;
-	mUnit->curPosX = (float)(mUnit->posRc.X + (TILESIZEX / 2));
-	mUnit->curPosY = (float)(mUnit->posRc.Y + (TILESIZEY / 2));
+
+	mUnit->curPosX = (float)mUnit->posRc.X + (float)(TILESIZEX / 2);
+	mUnit->curPosY = (float)mUnit->posRc.Y + (float)(TILESIZEY / 2);
+
 	mUnit->mMap = curScene->mMap;
 	mUnit->teamBlue = false;
 	curScene->info.emplace_back(mUnit);

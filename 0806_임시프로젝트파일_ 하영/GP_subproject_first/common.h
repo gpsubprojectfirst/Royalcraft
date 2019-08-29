@@ -1,5 +1,6 @@
 #pragma once
 #define SAFE_DELETE(p)	if(p) {delete p; p = nullptr;}
+#define SAFE_DELETE_ARRAY(p)	if(p) {delete[] p; p = nullptr;}
 #define WINSIZE_X  613
 #define WINSIZE_Y 1003
 
