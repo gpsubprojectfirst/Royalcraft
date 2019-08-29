@@ -35,7 +35,7 @@
 #define BRUSH_BLACK_ALPHA (Gdiplus::SolidBrush(COLOR_BLACK_ALPHA))
 //behavior define
 #define RECOGNITION_DISTANCE 200
-#define ATTACK_DISTANCE 30
+#define ATTACK_DISTANCE 40
 #define CALC_PATH_PER_FRAME 10
 //ElixirBar define
 #define ELIXIR_DISPLAY_X 155

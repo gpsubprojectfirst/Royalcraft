@@ -11,7 +11,6 @@ UITimeEvent::UITimeEvent()
 	, blackWnd(0,0, REAL_WINSIZE_X, REAL_WINSIZE_Y)
 	, font(_T("Times New Roman"), MY_FONT_SIZE, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
-	, result()
 {
 
 }
