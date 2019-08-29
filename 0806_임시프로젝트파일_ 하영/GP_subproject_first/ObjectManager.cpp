@@ -5,7 +5,7 @@ ObjectManager::ObjectManager()
 	//ÀüÃ¼ À¯´Ö ÆÄ½Ì
 	for (int i = 0; i < eUnit_Cnt; i++)
 	{
-		MyUnit* mUnit = new MyUnit();
+		MyUnit* mUnit = new  MyUnit();
 		mUnit->ID = i;
 		XmlManager::GetInstance().UnitParser(mUnit);
 		//mUnit->ParserXML();
@@ -30,6 +30,7 @@ ObjectManager::ObjectManager()
 		arrow->ParentImg = load;
 		mObj[eObject_Bullet].emplace_back(arrow);
 	}
+
 	std::vector<Object*>** vecptr = new vector<Object*>*[4];
 	for (int i = 0; i < 4; i++)
 	{
@@ -37,8 +38,8 @@ ObjectManager::ObjectManager()
 	}
 	
 	XmlManager::GetInstance().UnitInfoParser(vecptr);
-	
 	delete vecptr;
+	
 }
 
 

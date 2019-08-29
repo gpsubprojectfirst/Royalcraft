@@ -15,22 +15,21 @@ struct UnitInfo
 	int cost;
 	int atk_distance;
 };
+
 class MyUnit : public Object
 {
 public:
 	MyUnit();
-	MyUnit(MyUnit* _dst, float fx, float fy);
+	MyUnit(MyUnit* _dst);
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Set(SearchTree* mTree);
-	virtual void CopyObj( MyUnit* dst, float fx, float fy );
-	
+
 	virtual void Move(float Delta);
 	virtual void Attack(float Delta);
 	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
-
 	virtual void CalcDirection(int xvec,int yvec);
 
 	//unit status
@@ -38,21 +37,21 @@ public:
 	
 	//game flag
 	bool Isdead;
-	bool teamBlue; //true = blud, false = red
+	bool teamBlue; //true = blue, false = red
 	
 	//utill
 	float AddDelta;
 	BehaviorTree* UnitBt;
-	MyUnit* target; //목적 오브젝트
+	MyUnit* target; //target object
 	Bullet* arrow;
 	//Tile Position
-	std::pair<int,int> curTile; //현재 타일의 좌표
-	std::pair<int,int> dstTile; //목적 타일의 좌표
+	std::pair<int,int> curTile; 
+	std::pair<int,int> dstTile; 
 	std::stack<std::pair<int,int>> moveTilePath;
 
 	//Asset Position
-	EDirectionType direction; // 0 -하, 1-좌하단, 2- 좌, 3- 우상단, 4-상
-	bool flipF; //true면 이미지 대칭 flip
-	std::vector<Gdiplus::Rect> moveRc[eDirection_Cnt]; // 이동에 쓰일 이미지 위치
-	std::vector<Gdiplus::Rect> atkRc[eDirection_Cnt]; // 공격에 쓰일 이미지 위치
+	EDirectionType direction; // 0 -bottom, 1-Right bottom, 2- Rigth, 3- Rigth Top, 4- Top
+	bool flipF;
+	std::vector<Gdiplus::Rect> moveRc[eDirection_Cnt]; // move to img pos
+	std::vector<Gdiplus::Rect> atkRc[eDirection_Cnt]; // attack  to img pos
 };

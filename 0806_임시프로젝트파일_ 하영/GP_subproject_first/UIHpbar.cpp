@@ -5,6 +5,7 @@ UIHPBar::UIHPBar()
 	: fullHp(0.0)
 	, curHp(0.0)
 	, rate(0.0)
+	, UnitPos()
 	, barRect(nullptr)
 	, baseRect(nullptr)
 	, hpRect(nullptr)
@@ -27,8 +28,8 @@ void UIHPBar::Init()
 
 void UIHPBar::SetPos(MyUnit* unitptr)
 {
-	UnitPos.X = unitptr->curPosX;
-	UnitPos.Y = unitptr->curPosY;
+	UnitPos.X = (short)unitptr->curPosX;
+	UnitPos.Y = (short)unitptr->curPosY;
 
 	barRect->X = UnitPos.X - 60;
 	barRect->Y = UnitPos.Y - 60;
@@ -36,12 +37,12 @@ void UIHPBar::SetPos(MyUnit* unitptr)
 	barRect->Height = HP_BAR_HEIGHT;
 
 }
-void UIHPBar::calcRate(int Inhp,int ID,EObject Intype)
+void UIHPBar::calcRate(float Inhp,int ID,EObject Intype)
 {
 	if(Intype == eObject_Unit)
-		fullHp = ((MyUnit*)ObjectManager::GetInstance().GetMyUnit(ID))->mUnitInfo.hp;
+		fullHp = float(((MyUnit*)ObjectManager::GetInstance().GetMyUnit(ID))->mUnitInfo.hp);
 	if(Intype == eObject_Build)
-		fullHp = ((Build*)ObjectManager::GetInstance().GetBuild(ID))->mUnitInfo.hp;
+		fullHp = float(((Build*)ObjectManager::GetInstance().GetBuild(ID))->mUnitInfo.hp);
 	curHp = Inhp;
 	rate = (curHp / fullHp);
 }
@@ -53,8 +54,9 @@ void UIHPBar::Render(Gdiplus::Graphics* MemG)
 		if (!it->Isdead)
 		{
 			SetPos(it);
-			calcRate(it->mUnitInfo.hp, it->ID,it->Objtype);
+			calcRate((float)it->mUnitInfo.hp, it->ID,it->Objtype);
 
+			//TODO
 			tempRc->X = barRect->Width * BASE_RECT_RATE;
 			tempRc->Y = 0;
 			tempRc->Width = barRect->Width * rate * GAGE_RECT_RATE;

@@ -4,16 +4,19 @@
 Deck::Deck()
 	: costImg(TEXT("Asset\\3.game\\4.ui\\uicost.png"))
 	, costRc(0, 0, 0, 0)
-	,tempFRc(0,0,0,0)
+	, tempFRc(0,0,0,0)
 	, font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
+	, result()
+	, typeNum(EDeck_Knight)
+	, m_iCost(0)
 {
 }
 
 Deck::Deck(Gdiplus::Image* img, int cost)
 	: costImg(TEXT("Asset\\3.game\\4.ui\\uicost.png"))
 	, costRc(0, 0, 0, 0)
-	,font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
+	, font(_T("Times New Roman"), MY_FONT_SIZE_SMALL, FontStyleBold, UnitPixel)
 	, sbrush(Gdiplus::Color::White)
 {
 	ParentImg = img;
@@ -42,10 +45,10 @@ void Deck::Render(Gdiplus::Graphics* MemG)
 	costRc.Width = COST_VIEW_WIDTH;
 	costRc.Height = COST_VIEW_HEIGHT;
 	
-	tempFRc.X = Dst1.X + SLOT_SIZE_WIDTH - 13;
-	tempFRc.Y = Dst1.Y + SLOT_SIZE_HEIGHT - 15;
-	tempFRc.Width = costRc.Width;
-	tempFRc.Height = costRc.Height;
+	tempFRc.X =Gdiplus::REAL(Dst1.X + SLOT_SIZE_WIDTH - 13);
+	tempFRc.Y = Gdiplus::REAL(Dst1.Y + SLOT_SIZE_HEIGHT - 15);
+	tempFRc.Width = Gdiplus::REAL(costRc.Width);
+	tempFRc.Height = Gdiplus::REAL(costRc.Height);
 
 	tempstr = std::to_string(m_iCost);
 	wide_string = wstring(tempstr.begin(), tempstr.end());

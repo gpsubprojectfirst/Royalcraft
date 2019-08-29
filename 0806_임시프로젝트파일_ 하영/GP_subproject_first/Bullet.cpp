@@ -3,7 +3,19 @@
 
 Bullet::Bullet()
 {
+
+}
+
+Bullet::Bullet(MyUnit* dst, float fx, float fy)
+{
 	Init();
+	ID = dst->ID;
+	name = dst->name;
+	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
+	moveRc[0] = dst->moveRc[0];
+	ParentImg = dst->ParentImg;
+	curPosX = fx;
+	curPosY = fy;
 }
 
 void Bullet::Init()
@@ -32,8 +44,9 @@ void Bullet::Update(float Delta)
 	float distanceX = target->curPosX - curPosX;
 	float distanceY = target->curPosY - curPosY;
 
-	int xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
-	int yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
+	//TODO
+	float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
+	float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
 
 	
 	curPosX += 3 * xvec;
@@ -42,7 +55,7 @@ void Bullet::Update(float Delta)
 	//int frame_ = frame % moveRc->size();
 	rc = moveRc[0][0];
 	
-	if(target->posRc.Contains(curPosX,curPosY) || target->Isdead)
+	if(target->posRc.Contains((float)curPosX, (float)curPosY) || target->Isdead)
 	{
 		Isarrive = true;
 	}
@@ -73,16 +86,16 @@ void Bullet::Release()
 	delete this;
 }
 
-void Bullet::CopyObj(MyUnit* dst, float fx, float fy)
-{
-	ID = dst->ID;
-	name = dst->name;
-	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
-	moveRc[0] = dst->moveRc[0];
-	ParentImg = dst->ParentImg;
-	curPosX = fx;
-	curPosY = fy;
-}
+//void Bullet::CopyObj(MyUnit* dst, float fx, float fy)
+//{
+//	ID = dst->ID;
+//	name = dst->name;
+//	mUnitInfo.move_speed = dst->mUnitInfo.move_speed;
+//	moveRc[0] = dst->moveRc[0];
+//	ParentImg = dst->ParentImg;
+//	curPosX = fx;                         
+//	curPosY = fy;
+//}
 void Bullet::SetTarget(float srcx, float srcy, MyUnit* Intarget)
 {
 	curPosX = srcx;

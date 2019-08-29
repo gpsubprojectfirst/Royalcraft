@@ -7,7 +7,7 @@ public:
 	UIHPBar();
 	void Init();
 	void SetPos(MyUnit* unitptr);
-	void calcRate(int Inhp,int ID,EObject Intype);
+	void calcRate(float Inhp,int ID,EObject Intype);
 	void EraseBmp();
 	virtual void Render(Gdiplus::Graphics* MemG);
 	virtual void Release();

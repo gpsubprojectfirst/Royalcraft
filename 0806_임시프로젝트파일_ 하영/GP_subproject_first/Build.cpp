@@ -2,8 +2,26 @@
 
 Build::Build()
 {
-	Init();
+	adjustedVal = 0;
+	pivotVal = 0;
 }
+Build::Build(MyUnit* dst, float fx, float fy)
+{
+	Init();
+	ID = dst->ID;
+	name = dst->name;
+	mUnitInfo = dst->mUnitInfo;
+	for (int i = 0; i < eDirection_Cnt; i++)
+	{
+		atkRc[i] = dst->atkRc[i];
+	}
+
+	restRc = ((Build*)dst)->restRc;
+
+	curPosX = fx;
+	curPosY = fy;
+}
+
 void Build::Init()
 {
 	Objtype = eObject_Build;
@@ -72,20 +90,20 @@ void Build::Render(Gdiplus::Graphics* MemG)
 	}
 }
 
-void Build::CopyObj(MyUnit* dst, float fx, float fy)
-{
-	ID = dst->ID;
-	name = dst->name;
-	mUnitInfo = dst->mUnitInfo;
-	for (int i = 0; i < eDirection_Cnt; i++)
-	{
-		atkRc[i] = dst->atkRc[i];
-	}
-
-	restRc = ((Build*)dst)->restRc;
-	curPosX = fx;
-	curPosY = fy;
-}
+//void Build::CopyObj(MyUnit* dst, float fx, float fy)
+//{
+//	ID = dst->ID;
+//	name = dst->name;
+//	mUnitInfo = dst->mUnitInfo;
+//	for (int i = 0; i < eDirection_Cnt; i++)
+//	{
+//		atkRc[i] = dst->atkRc[i];
+//	}
+//
+//	restRc = ((Build*)dst)->restRc;
+//	curPosX = fx;
+//	curPosY = fy;
+//}
 
 void Build::CreateBT(BlackBoard* InBB)
 {

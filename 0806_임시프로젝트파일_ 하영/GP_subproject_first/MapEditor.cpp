@@ -4,6 +4,9 @@
 
 
 MapEditor::MapEditor()
+	:map(nullptr)
+	, subelement(nullptr)
+	, element(nullptr)
 {
 }
 
@@ -126,7 +129,7 @@ void MapEditor::LoadFile()
 		SetMapData(Node);
 	} while (Node != lastNode);
 
-	tinyxml2::XMLDocument Clear();
+	doc->Clear();
 
 	
 }

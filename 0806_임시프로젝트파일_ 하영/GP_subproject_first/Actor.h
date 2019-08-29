@@ -5,8 +5,10 @@ class Actor
 {
 public:
 	Actor()
+		: obj(nullptr)
+		, actor_type()
 	{
-
+		
 	}
 
 	Actor(EObject _Intype)

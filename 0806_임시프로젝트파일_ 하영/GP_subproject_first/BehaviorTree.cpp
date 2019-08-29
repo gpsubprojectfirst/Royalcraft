@@ -3,6 +3,7 @@
 #include "myUnit.h"
 
 BlackBoard::BlackBoard(Command& InCmQ,SearchTree* InTree)
+	:playUnit(nullptr)
 {
 	cmQ = &InCmQ;
 	mTree = InTree;
@@ -16,6 +17,7 @@ void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 
 BtNode::BtNode()
 {
+	bbData = nullptr;
 	node_state = eBTState_FAIL;
 	actor = new Actor();
 }
