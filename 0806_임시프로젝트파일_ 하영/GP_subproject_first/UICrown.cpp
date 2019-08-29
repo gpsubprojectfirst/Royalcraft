@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "UICrown.h"
+#include "SoundMgr.h"
 
 UICrown::UICrown()
 {
-
+	bSoundOn = true;
 }
 void UICrown::ParserXML()
 {

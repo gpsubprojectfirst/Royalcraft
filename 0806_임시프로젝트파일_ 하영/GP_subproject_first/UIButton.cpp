@@ -47,13 +47,29 @@ void UIButton::Update(float Delta)
 			switch (m_iBtnID)
 			{
 			case 0:
-				SoundMgr::GetInstance()->SoundStop(0);
+			
+				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i )
+				{
+					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
+					{
+						SoundMgr::GetInstance()->SoundStop(i);
+					}
+				}
+
+				
 				AfxGetMainWnd()->PostMessage(WM_CLOSE);
 				std::cout << m_iBtnID << "click!" << endl;
 				break;
 
 			case 1:
-				SoundMgr::GetInstance()->SoundStop(0);
+				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i)
+				{
+					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
+					{
+						SoundMgr::GetInstance()->SoundStop(i);
+						std::cout << i << std::endl;
+					}
+				}
 				SceneManager::GetInstance().GetCurScene()->Release();
 				SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
 				std::cout << m_iBtnID << "click!" << endl; std::cout << "click!"  << endl;

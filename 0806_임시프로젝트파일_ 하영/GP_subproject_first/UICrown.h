@@ -5,6 +5,8 @@ class UICrown :
 	public Object
 {
 public:
+	bool bSoundOn;
+public:
 	UICrown();
 	//엔딩 에니메이션을 위한 변수들 추후 수정필요
 	std::vector<Gdiplus::Rect> animRc[2];

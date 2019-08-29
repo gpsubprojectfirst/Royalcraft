@@ -133,7 +133,8 @@ bool IsBuilt::Invoke()
 {
 	//가까운 건물을 목적지로지정
 	//test경로
-	if (actor->obj->moveTilePath.empty() || actor->obj->frame % 10 == 0)
+	if (actor->obj->moveTilePath.empty() 
+		|| actor->obj->frame % 100 == 0)
 	{
 		if (actor->obj->teamBlue)
 		{
@@ -159,8 +160,8 @@ bool IsDead::Invoke()
 }
 bool IsCollision::Invoke()
 {
-	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit) &&
-		actor->obj->frame % 20 == 0)
+	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit)
+		&& actor->obj->frame % 10 == 0)
 	{
 		int curX = actor->obj->curTile.first;
 		int curY = actor->obj->curTile.second;

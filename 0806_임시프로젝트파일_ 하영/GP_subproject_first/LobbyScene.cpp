@@ -10,17 +10,17 @@ LobbyScene::LobbyScene()
 void LobbyScene::Init()
 {
 	std::cout << "LobbyScene Init()" << std::endl;
+	SoundMgr::GetInstance()->SoundPlay(5, 0);
 	m_imgDst = new  Gdiplus::Image(TEXT("Asset\\2.lobby\\loading_tex.png"));
 	m_rcDst = Gdiplus::Rect(0, 0, REAL_WINSIZE_X, REAL_WINSIZE_Y);
 	m_vecImg[EScene_Lobby].push_back(m_imgDst);
-	SoundMgr::GetInstance()->SoundPlay(2, 0);
 }
 
 void LobbyScene::Update(float Delta)
 {
 	if (KeyMgr::GetInstance().GetKey() & KEY_SPACE)
 	{
-		SoundMgr::GetInstance()->SoundStop(2);
+		SoundMgr::GetInstance()->SoundStop(5);
 		SceneManager::GetInstance().LoadScene(CString("GameScene"));
 		return;
 	}

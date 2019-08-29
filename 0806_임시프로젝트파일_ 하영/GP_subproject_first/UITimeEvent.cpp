@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "UITimeEvent.h"
+#include "SoundMgr.h"
 
 UITimeEvent::UITimeEvent()
 	:runTime(0)
@@ -14,7 +15,7 @@ UITimeEvent::UITimeEvent()
 void UITimeEvent::Init(GameScene* inScene)
 {
 	if (inScene == nullptr) return;
-	
+	SoundMgr::GetInstance()->SoundPlay(8, 0);
 	curScene = inScene;
 
 	startUI.ParentImg = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gamestart.png"));
@@ -45,7 +46,7 @@ void UITimeEvent::Update(int inTime)
 		{
 			CreateEnemy();
 		}
-		if (inTime == 90)
+		if (inTime < 90)
 		{
 			std::cout << "rutime: 90" << std::endl;
 		}

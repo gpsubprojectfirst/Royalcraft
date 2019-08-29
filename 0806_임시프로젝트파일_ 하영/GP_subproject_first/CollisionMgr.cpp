@@ -18,6 +18,7 @@ static BOOL Intersect(OUT Gdiplus::Rect& c,
 	IN const Gdiplus::Rect& a,
 	IN const Gdiplus::Rect& b)
 {
+
 	INT right = min(a.GetRight(), b.GetRight());
 	INT bottom = min(a.GetBottom(), b.GetBottom());
 	INT left = max(a.GetLeft(), b.GetLeft());
@@ -73,10 +74,9 @@ void CollisionMgr::CalcColBox(vector<MyUnit*>* _vecUnit)
 }
 void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 {
-	//충돌박스 그리기
 	Pen pen(Color(255, 255, 255), 3);
 
-	for (int i = 0; i < _vecUnit.size(); ++i)
+	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
 	{
 		 _vecUnit[i]->colRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 8
 			 , _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 8

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MyUnit.h"
+#include "SoundMgr.h"
 
 MyUnit::MyUnit()
 	: Object(EObject::eObject_Unit)
@@ -19,6 +20,23 @@ MyUnit::MyUnit()
 	sm.Add(new State_Move);
 	sm.Add(new State_Attack);
 	sm.Add(new State_Dead);
+}
+MyUnit::MyUnit(MyUnit* _dst, float fx, float fy)
+{
+	ID = _dst->ID;
+	name = _dst->name;
+	mUnitInfo = _dst->mUnitInfo;
+	for (int i = 0; i < eDirection_Cnt; i++)
+	{
+		moveRc[i] = _dst->moveRc[i];
+	}
+	for (int i = 0; i < eDirection_Cnt; i++)
+	{
+		atkRc[i] = _dst->atkRc[i];
+	}
+
+	curPosX = fx;
+	curPosY = fy;
 }
 void MyUnit::Update(float Delta)
 {
@@ -97,7 +115,7 @@ void MyUnit::Render(Gdiplus::Graphics* MemG)
 			arrow->Render(MemG);
 	}
 }
-void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
+void MyUnit::CopyObj(MyUnit* dst, float fx, float fy)
 {
  	ID = dst->ID;
 	name = dst->name;
@@ -111,8 +129,8 @@ void MyUnit::CopyObj(MyUnit* dst, int ix, int iy)
 		atkRc[i] = dst->atkRc[i];
 	}
 	
-	curPosX = ix;
-	curPosY = iy;
+	curPosX = fx;
+	curPosY = fy;
 }
 
 
@@ -163,8 +181,8 @@ void MyUnit::Move(float Delta)
 		
 		 //위치 이동
 		
-		curPosX += xvec * mUnitInfo.move_speed * 0.5;
-		curPosY += yvec * mUnitInfo.move_speed * 0.5;
+		curPosX += xvec * mUnitInfo.move_speed * 0.5f;
+		curPosY += yvec * mUnitInfo.move_speed * 0.5f;
 
 		//std::cout << curPosX << " , " << curPosY << std::endl;
 		//현재 목적지에 캐릭터가 도착했는지
@@ -217,14 +235,19 @@ void MyUnit::Attack(float Delta)
 		arrow = new Bullet();
 		EBullet_ID bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Archer)
+			SoundMgr::GetInstance()->SoundPlay(2,0);
 			bulletID = eBullet_Arrow;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Wizard)
+			SoundMgr::GetInstance()->SoundPlay(13, 0);
 			bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID == eUnit_Electric)
+			SoundMgr::GetInstance()->SoundPlay(12, 0);
 			bulletID = eBullet_Fire;
 		if (this->Objtype == eObject_Unit && this->ID ==eUnit_Musket)
+			SoundMgr::GetInstance()->SoundPlay(11,0);
 			bulletID = eBullet_Bullet;
 		if (this->Objtype == eObject_Build )
+			SoundMgr::GetInstance()->SoundPlay(10,0);
 			bulletID = eBullet_Bullet;
 		arrow->CopyObj((Bullet*)ObjectManager::GetInstance().GetBullet(bulletID), curPosX, curPosY);
 		arrow->SetTarget(this->curPosX,this->curPosY,this->target);

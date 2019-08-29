@@ -50,8 +50,8 @@
 //HPBar define
 #define HP_BAR_WIDTH 100
 #define HP_BAR_HEIGHT 20
-#define BASE_RECT_RATE 0.2
-#define GAGE_RECT_RATE 0.8
+#define BASE_RECT_RATE 0.2f
+#define GAGE_RECT_RATE 0.8f
 #define COLOR_ERASE (Gdiplus::Color(0, 255, 255, 255))
 #define BRUSH_ERASE (Gdiplus::SolidBrush(COLOR_ERASE))
 //MyUnit define
