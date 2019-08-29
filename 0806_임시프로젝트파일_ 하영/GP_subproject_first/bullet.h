@@ -13,6 +13,8 @@ public:
 	virtual void Release();
 	//virtual void CopyObj(MyUnit* dst, float fx, float fy) override;
 	void SetTarget(float srcx, float srcy,MyUnit* Intarget);
-
-	bool Isarrive;
+	void CalcVec();
+	bool IsArrive;
+	float xVec;
+	float yVec;
 };
