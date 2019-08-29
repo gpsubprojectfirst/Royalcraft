@@ -3,10 +3,11 @@
 #include "myUnit.h"
 #include "CollisionMgr.h"
 
-BlackBoard::BlackBoard(Command& InCmQ,SearchTree* InTree)
+BlackBoard::BlackBoard(Command& InCmQ, SearchTree* InTree, MyMap* InMap)
 {
 	cmQ = &InCmQ;
 	mTree = InTree;
+	mMap = InMap;
 };
 void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 {
@@ -132,7 +133,7 @@ bool IsBuilt::Invoke()
 {
 	//가까운 건물을 목적지로지정
 	//test경로
-	if (actor->obj->moveTilePath.empty())
+	if (actor->obj->moveTilePath.empty() || actor->obj->frame % 10 == 0)
 	{
 		if (actor->obj->teamBlue)
 		{
@@ -158,8 +159,70 @@ bool IsDead::Invoke()
 }
 bool IsCollision::Invoke()
 {
-	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit))
+	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit) &&
+		actor->obj->frame % 20 == 0)
 	{
+		int curX = actor->obj->curTile.first;
+		int curY = actor->obj->curTile.second;
+
+		if (CollisionMgr::GetInstance().direction == eColDirection_Bottom)
+		{
+			bbData->mTree->SetTile(curX - 1, curY +1);
+			bbData->mTree->SetTile(curX , curY + 1);
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_RightBottom)
+		{
+			bbData->mTree->SetTile(curX + 1, curY);
+			bbData->mTree->SetTile(curX , curY + 1);
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Right)
+		{
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			bbData->mTree->SetTile(curX + 1, curY );
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_RightTop)
+		{
+			bbData->mTree->SetTile(curX + 1, curY );
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			bbData->mTree->SetTile(curX , curY - 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Top)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX, curY - 1);
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_LeftTop)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Left)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_LeftBottom)
+		{
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX , curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+
+		bbData->mTree->Set(bbData->mMap);
 		return true;
 	}
 	return false;

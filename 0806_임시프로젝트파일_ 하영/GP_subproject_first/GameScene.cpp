@@ -62,17 +62,13 @@ void GameScene::Init()
 	mTree = new SearchTree();
 	mTree->Set(mMap);
 
-
-	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
+	blackBoard = new BlackBoard(this->CommandQueue, this->mTree, this->mMap);
 	blackBoard->UpdateData(this->playUnit);
 
 	ObjectManager& om = ObjectManager::GetInstance();
 
 	deck = new UIDeckWnd();
 	//info.emplace_back(deck);
-
-	blackBoard = new BlackBoard(this->CommandQueue, this->mTree);
-	blackBoard->UpdateData(this->playUnit);
 
 	MouseMgr::GetInstance().Init();
 
@@ -239,7 +235,7 @@ void GameScene::CreateMyTower()
 
 void GameScene::CreateObj(CPoint pt, MOUSEINFO MInfo)
 {
-	//if (MInfo.iElixir <= m_uiElixBar->mycost)
+	if (MInfo.iElixir <= m_uiElixBar->mycost)
 	{
 		Point mPoint;
 		mPoint.X = pt.x;
@@ -292,6 +288,8 @@ void GameScene::Update(float Delta)
 		}*/
 
 		m_uiTimeEvent->Update(m_uiTime->runTime);
+		
+		CollisionMgr::GetInstance().CalcColBox(&playUnit);
 
 		for (auto& it : this->info)
 		{
@@ -306,7 +304,7 @@ void GameScene::Update(float Delta)
 		m_uiTime->Update(Delta);
 		m_uiElixBar->Update(Delta);
 		
-		//CollisionMgr::GetInstance().IsCollision(playUnit);
+		
 		if (UIDeckWnd::m_IsSelectMode == 1)
 		{
 			CPoint _cPt(pt.x, pt.y);
@@ -378,8 +376,8 @@ void GameScene::Render(Gdiplus::Graphics* MemG)
 
 	m_uiTimeEvent->Render(MemG);
 
-	///TEST
-	CollisionMgr::GetInstance().Render(playUnit, MemG);
+	//CollisionMgr::GetInstance().Render(playUnit, MemG);
+	
 	if (endflag || m_bExit || m_uiTime->IsEndTime())
 	{
 		BitmapData pt;

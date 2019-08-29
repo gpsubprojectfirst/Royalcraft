@@ -12,23 +12,38 @@ CollisionMgr::~CollisionMgr()
 
 }
 
+Gdiplus::Rect temprc;
+
+static BOOL Intersect(OUT Gdiplus::Rect& c,
+	IN const Gdiplus::Rect& a,
+	IN const Gdiplus::Rect& b)
+{
+	INT right = min(a.GetRight(), b.GetRight());
+	INT bottom = min(a.GetBottom(), b.GetBottom());
+	INT left = max(a.GetLeft(), b.GetLeft());
+	INT top = max(a.GetTop(), b.GetTop());
+
+	c.X = left;
+	c.Y = top;
+	c.Width = right - left;
+	c.Height = bottom - top;
+	return !c.IsEmptyArea();
+}
 bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
 {
+	CalcColBox(_vecUnit);
+	src->colRc = Gdiplus::Rect(src->curPosX - (src->rc.Width / 8)
+		, src->curPosY - (src->rc.Height / 8)
+		, (int)(src->rc.Width * 0.25), (int)(src->rc.Height * 0.25));
+
 	if (src == nullptr) return false;
+	
 	for (int i = 0; i < _vecUnit->size(); ++i)
 	{
 		if (_vecUnit->at(i) == nullptr) continue;
-		// HACK
-		_vecUnit->at(i)->colRc = Gdiplus::Rect(_vecUnit->at(i)->curPosX - _vecUnit->at(i)->rc.Width / 4
-			, _vecUnit->at(i)->curPosY - _vecUnit->at(i)->rc.Height / 4
-			, _vecUnit->at(i)->rc.Width / 2, _vecUnit->at(i)->rc.Height / 2);
-		if (src == _vecUnit->at(i))
-		{
-			src->colRc = _vecUnit->at(i)->colRc;
-			continue;
-		}
-		//
-		if (_vecUnit->at(i)->colRc.Intersect(src->colRc)
+		if (src == _vecUnit->at(i)) continue;
+		
+		if (Intersect(temprc, src->colRc,_vecUnit->at(i)->colRc)
 			&& !_vecUnit->at(i)->Isdead)
 		{
 			float distanceX = _vecUnit->at(i)->curPosX - src->curPosX;
@@ -44,7 +59,18 @@ bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
 	}
 	return false;
 }
+void CollisionMgr::CalcColBox(vector<MyUnit*>* _vecUnit)
+{
+	for (auto& it : *_vecUnit)
+	{
+		// HACK
+		it->colRc = Gdiplus::Rect(it->curPosX - (it->rc.Width / 8)
+			, it->curPosY - (it->rc.Height / 8)
+			, (int) (it->rc.Width * 0.25), (int)(it->rc.Height * 0.25));
 
+		//
+	}
+}
 void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 {
 	//충돌박스 그리기
@@ -52,12 +78,15 @@ void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 
 	for (int i = 0; i < _vecUnit.size(); ++i)
 	{
-		 _vecUnit[i]->colRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 4, _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 4, _vecUnit[i]->rc.Width / 2, _vecUnit[i]->rc.Height / 2);
-		MemG->DrawRectangle(&pen, _vecUnit[i]->colRc);
+		 _vecUnit[i]->colRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 8
+			 , _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 8
+			 , _vecUnit[i]->rc.Width / 4, _vecUnit[i]->rc.Height / 4);
+		 if (!_vecUnit[i]->Isdead)
+			MemG->DrawRectangle(&pen, _vecUnit[i]->colRc);
 	}
 }
 
-void CollisionMgr::CalcDirection(int xvec, int yvec)
+void CollisionMgr::CalcDirection(float xvec, float yvec)
 {
 	if (xvec == 0 && yvec > 0)
 	{
