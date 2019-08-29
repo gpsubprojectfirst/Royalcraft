@@ -37,12 +37,23 @@ void SearchTree::Set(MyMap* mMap)
 	{
 		for (int j = 0; j < TILECNTY; j++)
 		{
+			Map[i][j].visitF = false;
+		}
+	}
+	for (int i = 0; i < TILECNTX; i++)
+	{
+		for (int j = 0; j < TILECNTY; j++)
+		{
 			if(mMap->Infos[i][j].flags == 1 )
 				Map[i][j].visitF = true;
 		}
 	}
 }
+void SearchTree::SetTile(int x, int y)
+{
+	Map[x][y].visitF = true;
 
+}
 void SearchTree::Delete()
 {
 	Init();

@@ -34,7 +34,7 @@ public:
 	bool CompareCost(const scNode* first,const scNode* second);
 	void SetChild(scNode* Node, int x, int y);
 	scNode** GetChild(scNode* parentNode);
-	
+	void SetTile(int x, int y);
 	//int callDist(scNode* str, scNode* dst);
 	int callHcost(scNode* str, scNode* dst);
 	

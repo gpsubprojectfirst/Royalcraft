@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "BehaviorTree.h"
 #include "myUnit.h"
+#include "CollisionMgr.h"
 
-BlackBoard::BlackBoard(Command& InCmQ,SearchTree* InTree)
+BlackBoard::BlackBoard(Command& InCmQ, SearchTree* InTree, MyMap* InMap)
 {
 	cmQ = &InCmQ;
 	mTree = InTree;
+	mMap = InMap;
 };
 void BlackBoard::UpdateData(std::vector<MyUnit*>& vec)
 {
@@ -131,7 +133,7 @@ bool IsBuilt::Invoke()
 {
 	//가까운 건물을 목적지로지정
 	//test경로
-	if (actor->obj->moveTilePath.empty())
+	if (actor->obj->moveTilePath.empty() || actor->obj->frame % 10 == 0)
 	{
 		if (actor->obj->teamBlue)
 		{
@@ -155,6 +157,76 @@ bool IsDead::Invoke()
 		return false;
 	return true;
 }
+bool IsCollision::Invoke()
+{
+	if (CollisionMgr::GetInstance().IsCollision(actor->obj,bbData->playUnit) &&
+		actor->obj->frame % 20 == 0)
+	{
+		int curX = actor->obj->curTile.first;
+		int curY = actor->obj->curTile.second;
+
+		if (CollisionMgr::GetInstance().direction == eColDirection_Bottom)
+		{
+			bbData->mTree->SetTile(curX - 1, curY +1);
+			bbData->mTree->SetTile(curX , curY + 1);
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_RightBottom)
+		{
+			bbData->mTree->SetTile(curX + 1, curY);
+			bbData->mTree->SetTile(curX , curY + 1);
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Right)
+		{
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			bbData->mTree->SetTile(curX + 1, curY );
+			bbData->mTree->SetTile(curX + 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_RightTop)
+		{
+			bbData->mTree->SetTile(curX + 1, curY );
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			bbData->mTree->SetTile(curX , curY - 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Top)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX, curY - 1);
+			bbData->mTree->SetTile(curX + 1, curY - 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_LeftTop)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_Left)
+		{
+			bbData->mTree->SetTile(curX - 1, curY - 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+		if (CollisionMgr::GetInstance().direction == eColDirection_LeftBottom)
+		{
+			bbData->mTree->SetTile(curX - 1, curY + 1);
+			bbData->mTree->SetTile(curX - 1, curY );
+			bbData->mTree->SetTile(curX , curY + 1);
+			actor->obj->Set(bbData->mTree);
+		}
+
+		bbData->mTree->Set(bbData->mMap);
+		return true;
+	}
+	return false;
+}
 BehaviorTree::BehaviorTree(MyUnit* InActor, BlackBoard* InBB)
 	:root(nullptr)
 {
@@ -173,7 +245,8 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	Selector* selMoveTarget = new Selector();
 	Sequence* seqMoveToTarget = new Sequence();
 	Sequence* seqMoveToBuild = new Sequence();
-
+	Selector* selMove = new Selector();
+	Sequence* seqMoveCol = new Sequence();
 	//action
 	AttackUnit* actAtkUnit = new AttackUnit();
 	MoveUnit* actMoveUnit = new MoveUnit();
@@ -183,6 +256,7 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	IsTargetHas* IsTarget = new IsTargetHas();
 	IsBuilt* IsBuild = new IsBuilt();
 	IsDead* IsDeadUnit = new IsDead();
+	IsCollision* IsCol = new IsCollision();
 	//트리 구성 추후 xml로 맵핑
 
 	root->AddChild(IsDeadUnit);
@@ -204,11 +278,16 @@ void BehaviorTree::Init(MyUnit* InActor, BlackBoard* InBB)
 	seqAttack->AddChild(actAtkUnit);
 	/////
 	seqMoveToTarget->AddChild(IsTarget);
-	seqMoveToTarget->AddChild(actMoveUnit);
+	seqMoveToTarget->AddChild(selMove);
 
 	seqMoveToBuild->AddChild(IsBuild);
-	seqMoveToBuild->AddChild(actMoveUnit);
-	//Tick();
+	seqMoveToBuild->AddChild(selMove);
+	//////
+	selMove->AddChild(seqMoveCol);
+	selMove->AddChild(actMoveUnit);
+	///////
+	seqMoveCol->AddChild(IsCol);
+	seqMoveCol->AddChild(actMoveUnit);
 }
 
 void BehaviorTree::InitTower(MyUnit* InActor, BlackBoard* InBB)
