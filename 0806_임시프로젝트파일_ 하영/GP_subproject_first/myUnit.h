@@ -30,7 +30,9 @@ public:
 	virtual void Rest(float Delta) {}
 	virtual void ExtraAction(float Delta);
 	virtual void CreateBT(BlackBoard* InBB);
-	virtual void CalcDirection(int xvec,int yvec);
+
+	virtual void CalcDirection(float xvec,float yvec);
+
 
 	//unit status
 	UnitInfo mUnitInfo;
