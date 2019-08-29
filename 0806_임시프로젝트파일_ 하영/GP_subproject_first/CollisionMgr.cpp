@@ -12,55 +12,112 @@ CollisionMgr::~CollisionMgr()
 
 }
 
-void CollisionMgr::Collision(vector<MyUnit*> _vecUnit)
+Gdiplus::Rect temprc;
+
+static BOOL Intersect(OUT Gdiplus::Rect& c,
+	IN const Gdiplus::Rect& a,
+	IN const Gdiplus::Rect& b)
 {
-	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
+
+	INT right = min(a.GetRight(), b.GetRight());
+	INT bottom = min(a.GetBottom(), b.GetBottom());
+	INT left = max(a.GetLeft(), b.GetLeft());
+	INT top = max(a.GetTop(), b.GetTop());
+
+	c.X = left;
+	c.Y = top;
+	c.Width = right - left;
+	c.Height = bottom - top;
+	return !c.IsEmptyArea();
+}
+bool CollisionMgr::IsCollision(MyUnit* src, vector<MyUnit*>* _vecUnit)
+{
+	CalcColBox(_vecUnit);
+	src->colRc = Gdiplus::Rect(src->curPosX - (src->rc.Width / 8)
+		, src->curPosY - (src->rc.Height / 8)
+		, (int)(src->rc.Width * 0.25), (int)(src->rc.Height * 0.25));
+
+	if (src == nullptr) return false;
+	
+	for (int i = 0; i < _vecUnit->size(); ++i)
 	{
-		for (unsigned int j = i; j < _vecUnit.size(); ++j)
+		if (_vecUnit->at(i) == nullptr) continue;
+		if (src == _vecUnit->at(i)) continue;
+		
+		if (Intersect(temprc, src->colRc,_vecUnit->at(i)->colRc)
+			&& !_vecUnit->at(i)->Isdead)
 		{
-			if (i == j)
-				continue;
+			float distanceX = _vecUnit->at(i)->curPosX - src->curPosX;
+			float distanceY = _vecUnit->at(i)->curPosY - src->curPosY;
 
-			if (_vecUnit[i]->Objtype == eObject_Unit && _vecUnit[i]->teamBlue == true)
-			{
-				_vecUnit[i]->tempRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 4, _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 4, _vecUnit[i]->rc.Width / 2, _vecUnit[i]->rc.Height / 2);
-				_vecUnit[j]->tempRc = Gdiplus::Rect(_vecUnit[j]->curPosX - _vecUnit[j]->rc.Width / 4, _vecUnit[j]->curPosY - _vecUnit[j]->rc.Height / 4, _vecUnit[j]->rc.Width / 2, _vecUnit[j]->rc.Height / 2);
+			float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
+			float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
 
-				if (_vecUnit[i]->tempRc.Intersect(_vecUnit[j]->tempRc))
-				{
-					std::cout << "col" << std::endl;
-
-				}
-			}
-
-
+			CalcDirection(xvec,yvec);
+			
+			return true;
 		}
 	}
+	return false;
 }
+void CollisionMgr::CalcColBox(vector<MyUnit*>* _vecUnit)
+{
+	for (auto& it : *_vecUnit)
+	{
+		// HACK
+		it->colRc = Gdiplus::Rect(it->curPosX - (it->rc.Width / 8)
+			, it->curPosY - (it->rc.Height / 8)
+			, (int) (it->rc.Width * 0.25), (int)(it->rc.Height * 0.25));
 
+		//
+	}
+}
 void CollisionMgr::Render(vector<MyUnit*> _vecUnit, Gdiplus::Graphics* MemG)
 {
-	//충돌박스 그리기
 	Pen pen(Color(255, 255, 255), 3);
 
 	for (unsigned int i = 0; i < _vecUnit.size(); ++i)
 	{
-		for (unsigned int j = i; j < _vecUnit.size(); ++j)
-		{
-			if (i == j)
-				continue;
+		 _vecUnit[i]->colRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 8
+			 , _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 8
+			 , _vecUnit[i]->rc.Width / 4, _vecUnit[i]->rc.Height / 4);
+		 if (!_vecUnit[i]->Isdead)
+			MemG->DrawRectangle(&pen, _vecUnit[i]->colRc);
+	}
+}
 
-			if (_vecUnit[i]->Objtype == eObject_Unit && _vecUnit[i]->teamBlue == true)
-			{
-				 _vecUnit[i]->tempRc = Gdiplus::Rect(_vecUnit[i]->curPosX - _vecUnit[i]->rc.Width / 4, _vecUnit[i]->curPosY - _vecUnit[i]->rc.Height / 4, _vecUnit[i]->rc.Width / 2, _vecUnit[i]->rc.Height / 2);
-				_vecUnit[j]->tempRc = Gdiplus::Rect(_vecUnit[j]->curPosX - _vecUnit[j]->rc.Width / 4, _vecUnit[j]->curPosY - _vecUnit[j]->rc.Height / 4, _vecUnit[j]->rc.Width / 2, _vecUnit[j]->rc.Height / 2);
-
-				MemG->DrawRectangle(&pen, _vecUnit[i]->tempRc);
-				MemG->DrawRectangle(&pen, _vecUnit[j]->tempRc);
-
-
-			}
-
-		}
+void CollisionMgr::CalcDirection(float xvec, float yvec)
+{
+	if (xvec == 0 && yvec > 0)
+	{
+		direction = eColDirection_Bottom;
+	}
+	if (xvec == 0 && yvec < 0)
+	{
+		direction = eColDirection_Top;
+	}
+	if (xvec > 0 && yvec > 0)
+	{
+		direction = eColDirection_RightBottom;
+	}
+	if (xvec > 0 && yvec == 0)
+	{
+		direction = eColDirection_Right;
+	}
+	if (xvec > 0 && yvec < 0)
+	{
+		direction = eColDirection_RightTop;
+	}
+	if (xvec < 0 && yvec > 0)
+	{
+		direction = eColDirection_LeftBottom;
+	}
+	if (xvec < 0 && yvec == 0)
+	{
+		direction = eColDirection_Left;
+	}
+	if (xvec < 0 && yvec < 0)
+	{
+		direction = eColDirection_LeftTop;
 	}
 }

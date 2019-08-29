@@ -14,8 +14,9 @@ enum BTState {
 class BlackBoard
 {
 public:
-	BlackBoard(Command& InCmQ,SearchTree* InTree);
+	BlackBoard(Command& InCmQ,SearchTree* InTree,MyMap* InMap);
 	void UpdateData(std::vector<MyUnit*>& vec);
+	MyMap* mMap;
 	Command* cmQ;
 	SearchTree* mTree;
 	std::vector<MyUnit*>* playUnit;
@@ -106,6 +107,11 @@ public:
 	virtual bool Invoke() override;
 };
 class IsDead : public ConditionNode
+{
+public:
+	virtual bool Invoke() override;
+};
+class IsCollision : public ConditionNode
 {
 public:
 	virtual bool Invoke() override;

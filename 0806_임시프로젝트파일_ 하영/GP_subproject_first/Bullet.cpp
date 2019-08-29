@@ -41,21 +41,20 @@ void Bullet::Update(float Delta)
 		if (frame > 10)
 			frame = 0;
 	}
+
 	float distanceX = target->curPosX - curPosX;
 	float distanceY = target->curPosY - curPosY;
 
-	//TODO
-	float xvec = distanceX == 0 ? 0 : distanceX / abs(distanceX);
-	float yvec = distanceY == 0 ? 0 : distanceY / abs(distanceY);
+	float xvec = distanceX == (float)0.0 ? 0.0 : distanceX / abs(distanceX);
+	float yvec = distanceY == (float)0.0 ? 0.0 : distanceY / abs(distanceY);
 
-	
-	curPosX += 3 * xvec;
-	curPosY += 3 * yvec;
+	curPosX += 3.0 * xvec; // distanceX * 0.01;
+	curPosY += 3.0 * yvec; // distanceY * 0.01;
 
 	//int frame_ = frame % moveRc->size();
 	rc = moveRc[0][0];
 	
-	if(target->posRc.Contains((float)curPosX, (float)curPosY) || target->Isdead)
+	if(target->posRc.Contains((int)curPosX, (int)curPosY) || target->Isdead)
 	{
 		Isarrive = true;
 	}
