@@ -166,16 +166,10 @@ scNode* GetParent(scNode* Node)
 	return Node->parent;
 }
 //
-int SearchTree::callHcost(scNode* str, scNode* dst)
-{
-		if (str)//장애물 검사
-	{
-		//str->visitF = true;
-		
-		//양수 계산
-		return  int(10 * sqrt(pow(dst->x - str->x,2) + pow(dst->y - str->y,2)));
-	}
-
+int SearchTree::calcHcost(scNode* str, scNode* dst)
+{	
+	//양수 계산
+	return  int(INCREASE_GCOST_FOWARD * sqrt(pow(dst->x - str->x,2) + pow(dst->y - str->y,2)));
 }
 
 scNode* SearchTree::NextNode(int n, scNode* InNode)
@@ -190,7 +184,7 @@ void copyNode(scNode& src, scNode& dst)
 	dst.visitF = src.visitF;
 	dst.parent = src.parent;
 	
-	for(int i =0 ; i<8 ; i++)
+	for(int i =0 ; i< 8 ; i++)
 		dst.child[i] = src.child[i];
 }
 bool SearchTree::CompareCost(const scNode* first,const scNode* second)
@@ -242,7 +236,6 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std:
 	{
 		strNode = openList.front();
 		openList.pop_front();
-		//cout << strNode->x << " , " << strNode->y << endl;
 		if (strNode == dstNode)
 		{
 			while (strNode != nullptr)
@@ -254,7 +247,7 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std:
 		}
 		else
 		{
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < eColDirection_LeftBottom; i++)
 			{
 				auto temp = GetChild(strNode);
 				auto tempChild = temp[i];
@@ -271,25 +264,25 @@ void SearchTree::FindPath(std::pair<int, int> str, std::pair<int, int> dst, std:
 					tempChild->visitF = true;
 					tempChild->parent = strNode;
 
-					//자식 노드 위치에 따라 Gcost 증가
-					if (i == 0 || i == 2 || i == 5 || i == 7)
+					//calc Gcost by child pos
+					if (i == eColDirection_Bottom || i == eColDirection_Right 
+						|| i == eColDirection_LeftTop || i == eColDirection_LeftBottom)
 					{
-						tempChild->Gcost = tempChild->parent->Gcost + 14;
+						tempChild->Gcost = tempChild->parent->Gcost + INCREASE_GCOST_DIAGONAL;
 					}
 					else
 					{
-						tempChild->Gcost = tempChild->parent->Gcost + 10;
+						tempChild->Gcost = tempChild->parent->Gcost + INCREASE_GCOST_FOWARD;
 					}
 
-					Hcost = callHcost(tempChild, dstNode);
+					Hcost = calcHcost(tempChild, dstNode);
 					tempChild->Hcost = Hcost;
 
 					openList.push_back(tempChild);
 				}
 			}
-			//열린리스트 정렬
+			//sort openlist
 			SortList();
-			//openList.sort();
 		}
 	}
 	Delete();
