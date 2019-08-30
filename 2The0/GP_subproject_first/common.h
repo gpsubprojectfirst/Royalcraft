@@ -33,11 +33,15 @@
 #define TIME_DISPLAY_HEIGHT 30
 #define COLOR_BLACK_ALPHA (Gdiplus::Color(120, 0, 0, 0)) 
 #define BRUSH_BLACK_ALPHA (Gdiplus::SolidBrush(COLOR_BLACK_ALPHA))
+#define TIME_START_EVENT 3
+#define TIME_BOOST_EVENT 90
 //behavior define
 #define RECOGNITION_DISTANCE 200
 #define ATTACK_DISTANCE 30
 #define CALC_PATH_PER_FRAME 10
-
+//search define
+#define INCREASE_GCOST_FOWARD 10
+#define INCREASE_GCOST_DIAGONAL 14
 //ElixirBar define
 #define ELIXIR_DISPLAY_X 155
 #define ELIXIR_DISPLAY_Y 910
