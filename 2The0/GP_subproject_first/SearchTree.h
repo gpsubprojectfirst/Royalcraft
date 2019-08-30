@@ -13,6 +13,8 @@ public:
 	
 	scNode* parent;
 	scNode* child[8];//8πÊ«‚
+
+
 };
 class SearchTree
 {
@@ -33,7 +35,8 @@ public:
 	void SetChild(scNode* Node, int x, int y);
 	scNode** GetChild(scNode* parentNode);
 	void SetTile(int x, int y);
-	int calcHcost(scNode* str, scNode* dst);
+	//int callDist(scNode* str, scNode* dst);
+	int callHcost(scNode* str, scNode* dst);
 	
 	scNode* NextNode(int n, scNode* InNode);
 	void FindPath(std::pair<int, int> str, std::pair<int, int> dst, std::stack<std::pair<int, int>>* vecPath);

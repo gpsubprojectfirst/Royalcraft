@@ -1,5 +1,5 @@
 #pragma once
-//action who obj, unit, build, bullet
+//action À» ÇÏ´Â obj, unit, build, bullet
 class MyUnit;
 class Actor
 {

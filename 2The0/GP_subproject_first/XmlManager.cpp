@@ -608,8 +608,7 @@ void XmlManager::BulletParser(Bullet* InBullet)
 
 	Release();
 }
-
-void XmlManager::UnitInfoParser(std::vector<Object*> objVector[])
+void XmlManager::UnitInfoParser(std::vector<Object*>** objVector)
 {
 	Init();
 	doc->LoadFile("Xml\\unitinfo.xml");
@@ -619,8 +618,8 @@ void XmlManager::UnitInfoParser(std::vector<Object*> objVector[])
 	for (int i = 0; i < eUnit_Cnt; i++)
 	{//TODO
 		tinyxml2::XMLElement* tempNode = unitNode->FirstChildElement("status");
-		objVector[eObject_Unit].at(i)->ID = unitNode->IntAttribute("ID");
-		MyUnit* tempptr = (MyUnit*)objVector[eObject_Unit].at(i);
+		objVector[eObject_Unit]->at(i)->ID = unitNode->IntAttribute("ID");
+		MyUnit* tempptr = (MyUnit*)objVector[eObject_Unit]->at(i);
 		tempptr->mUnitInfo.hp = tempNode->IntAttribute("hp");
 		tempptr->mUnitInfo.atk_type = (EAtkType)tempNode->IntAttribute("atk_type");
 		tempptr->mUnitInfo.atk_speed = (int)tempNode->FloatAttribute("atk_speed");
@@ -637,14 +636,14 @@ void XmlManager::UnitInfoParser(std::vector<Object*> objVector[])
 	for (int i = 0; i < eBuild_Cnt; i++)
 	{
 		tinyxml2::XMLElement* tempNode = buildNode->FirstChildElement("status");
-		objVector[eObject_Build].at(i)->ID = buildNode->IntAttribute("ID");
-		Build* tempptr = (Build*)objVector[eObject_Build].at(i);
+		objVector[eObject_Build]->at(i)->ID = buildNode->IntAttribute("ID");
+		Build* tempptr = (Build*)objVector[eObject_Build]->at(i);
 		tempptr->mUnitInfo.hp = tempNode->IntAttribute("hp");
 		tempptr->mUnitInfo.atk_type = (EAtkType)tempNode->IntAttribute("atk_type");
 		tempptr->mUnitInfo.atk_speed = (int)tempNode->IntAttribute("atk_speed");
 		tempptr->mUnitInfo.move_speed = tempNode->FloatAttribute("move_speed");
 		tempptr->mUnitInfo.cost = tempNode->IntAttribute("cost");
-		tempptr->mUnitInfo.atk_distance = tempNode->IntAttribute("atk_distance");
+		tempptr->mUnitInfo.atk_distance =tempNode->IntAttribute("atk_distance");
 		tempptr->mUnitInfo.damage = tempNode->IntAttribute("damage");
 
 		buildNode = buildNode->NextSiblingElement();
