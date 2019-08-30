@@ -13,6 +13,7 @@ public:
 	void RenderScene(Gdiplus::Graphics* MemG);
 	void Update(float Delta);
 	void SendLButtonDown(UINT nFlags, CPoint point);	
+	void Release();
 	
 private:
 	std::vector<Scene*> mScene;

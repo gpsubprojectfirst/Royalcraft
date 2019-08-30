@@ -12,6 +12,7 @@ public:
 	virtual void Init(void);
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
+	virtual void Release(void);
 	void CreateButton(void);
 
 public:

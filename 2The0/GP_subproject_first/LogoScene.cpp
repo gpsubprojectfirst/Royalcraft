@@ -45,5 +45,9 @@ void LogoScene::Render(Gdiplus::Graphics* MemG)
 
 void LogoScene::Release()
 {
-
+	for (auto& it : m_vecImg[EScene_Logo])
+	{
+		SAFE_DELETE(it);
+	}
+	vecInfo[EScene_Logo].clear();
 }

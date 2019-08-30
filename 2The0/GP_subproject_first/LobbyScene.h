@@ -6,10 +6,12 @@ class LobbyScene :
 {
 public:
 	LobbyScene();
+	~LobbyScene();
 
 	void Init();
 	void Update(float Delta);
 	void Render(Gdiplus::Graphics* MemG);
+	void CreateButton();
 	void Release();
 };
 

@@ -15,14 +15,14 @@ void UIButton::Init(int btnID)
 {
 	switch (btnID)
 	{
-	case 0: //게임 종료
-		m_ImgBefore = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend.png"));
-		m_ImgAfter = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend2.png"));
-		break;
-
-	case 1: //로비 가기
+	case 0: //로비 가기
 		m_ImgBefore = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\newstart.png"));
 		m_ImgAfter = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\newstart2.png"));
+		break;
+
+	case 1: //게임 종료
+		m_ImgBefore = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend.png"));
+		m_ImgAfter = new Gdiplus::Image(TEXT("Asset\\3.game\\4.ui\\gameend2.png"));
 		break;
 
 	default:
@@ -39,6 +39,8 @@ void UIButton::Update(float Delta)
 {
 	POINT	pt = MouseMgr::GetInstance().GetMousePos();
 	m_bColBtn = false;
+
+	CString curSceneName = SceneManager::GetInstance().GetCurScene()->Name;
 	if (PtInRect(&GetRect(), pt))
 	{
 		m_bColBtn = true;
@@ -46,33 +48,44 @@ void UIButton::Update(float Delta)
 		{
 			switch (m_iBtnID)
 			{
-			case 0:
-			
-				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i )
+			case 0: 
+				if (!curSceneName.Compare(CString("LobbyScene")))
 				{
-					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
-					{
-						SoundMgr::GetInstance()->SoundStop(i);
-					}
+					//게임씬가기
+					SoundMgr::GetInstance()->SoundStop(5);
+					SceneManager::GetInstance().LoadScene(CString("GameScene"));
 				}
-
+				else if (!curSceneName.Compare(CString("GameScene")))
+				{
+					//로비가기
+					for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i)
+					{
+						if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
+						{
+							SoundMgr::GetInstance()->SoundStop(i);
+							std::cout << i << std::endl;
+						}
+					}
+					SceneManager::GetInstance().GetCurScene()->Release();
+					SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
+				}
+			
 				
-				AfxGetMainWnd()->PostMessage(WM_CLOSE);
-				std::cout << m_iBtnID << "click!" << endl;
+
 				break;
 
-			case 1:
+
+			case 1: //게임종료
 				for (unsigned int i = 0; i < SoundMgr::GetInstance()->m_vecSoundBuff.size(); ++i)
 				{
 					if (SoundMgr::GetInstance()->SoundPlaying(i) == true)
 					{
 						SoundMgr::GetInstance()->SoundStop(i);
-						std::cout << i << std::endl;
 					}
 				}
-				SceneManager::GetInstance().GetCurScene()->Release();
-				SceneManager::GetInstance().LoadScene(CString("LobbyScene"));
-				std::cout << m_iBtnID << "click!" << endl; std::cout << "click!"  << endl;
+
+				AfxGetMainWnd()->PostMessage(WM_CLOSE);
+
 				break;
 			}
 
@@ -98,5 +111,9 @@ void UIButton::Render(Gdiplus::Graphics* MemG)
 	Gdiplus::Rect Dst1( rc.X, rc.Y, width, height );
 	MemG->DrawImage(ParentImg, Dst1);
 
+}
 
+void UIButton::Release()
+{
+	
 }

@@ -23,8 +23,6 @@ SceneManager::SceneManager()
 	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\electro_wiz_atk_02.wav"));			//12.electric_fire effect		
 	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\magic_archer_fire_01.wav"));		//13.wizard_fire effect		
 	SoundMgr::GetInstance()->LoadWave(TEXT("Asset\\4.sound\\npc_die_02.wav"));						//14.die effect		
-
-	
 	
 	ObjectManager& om  = ObjectManager::GetInstance();
 	
@@ -93,4 +91,12 @@ Scene* SceneManager::GetCurScene()
 	return CurScene;
 }
 
-
+void SceneManager::Release()
+{
+	for (auto& it : mScene)
+	{
+		//SAFE_DELETE(it);
+		it->Release();
+	}
+	mScene.clear();
+}

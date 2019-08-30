@@ -14,6 +14,7 @@ public:
 	virtual void Init(int btnID);
 	virtual void Update(float Delta);
 	virtual void Render(Gdiplus::Graphics* MemG);
+	virtual void Release();
 
 public:
 	UIButton();

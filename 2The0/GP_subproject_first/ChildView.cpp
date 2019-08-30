@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_ERASEBKGND()
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -101,4 +102,11 @@ int CChildView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
 	CWinThread* pThread = AfxBeginThread(&CGPsubprojectfirstApp::funcThread, NULL);
 	return 0;
+}
+
+
+void CChildView::OnDestroy()
+{
+	CWnd::OnDestroy();
+	SceneManager::GetInstance().Release();
 }

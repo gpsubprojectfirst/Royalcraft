@@ -9,6 +9,8 @@
 
  UIPopup::~UIPopup()
 {
+	 Release();
+	 std::cout << "popup Release()" << endl;
 }
 
 void UIPopup::Init()
@@ -68,4 +70,15 @@ void UIPopup::CreateButton()
 
 		m_vecPopup.push_back(pBtn);
 	}
+}
+
+void UIPopup::Release()
+{
+	SAFE_DELETE(m_popupWnd);
+
+	for (auto& it : m_vecPopup)
+	{
+		SAFE_DELETE(it);
+	}
+	m_vecPopup.clear();
 }

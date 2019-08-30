@@ -109,7 +109,7 @@ void UITimeEvent::CreateEnemy()
 
 	mUnit->mMap = curScene->mMap;
 	mUnit->teamBlue = false;
-	curScene->info.emplace_back(mUnit);
+	curScene->vecInfo[EScene_Game].emplace_back(mUnit);
 	curScene->playUnit.emplace_back(mUnit);
 	curScene->blackBoard->UpdateData(curScene->playUnit);
 	mUnit->CreateBT(curScene->blackBoard);
