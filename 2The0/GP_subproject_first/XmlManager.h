@@ -15,7 +15,7 @@ public:
 	void UnitParser(MyUnit* InUnit);
 	void BuildParser(Build* InBuild);
 	void BulletParser(Bullet* InBullet);
-	void UnitInfoParser(std::vector<Object*>** objVector);
+	void UnitInfoParser(std::vector<Object*> objVector[]);
 	void UIHPBarParser(UIHPBar* InUI);
 	void UIElixirBarParser(UIElixirBar* InUI);
 	
