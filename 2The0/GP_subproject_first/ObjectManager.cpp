@@ -2,6 +2,7 @@
 
 ObjectManager::ObjectManager()
 {
+	//전체 유닛 파싱
 	for (int i = 0; i < eUnit_Cnt; i++)
 	{
 		MyUnit* mUnit = new  MyUnit();
@@ -18,6 +19,7 @@ ObjectManager::ObjectManager()
 		//tower->ParserXML();
 		mObj[eObject_Build].emplace_back(tower);
 	}
+	/* 0- 불, 1- 화살, 2- 대포, 3- 미사일*/
 	Gdiplus::Image* load = new Gdiplus::Image(TEXT("Asset\\3.game\\1.unit\\bullet.png"));
 	for (int i = 0; i < eBullet_Cnt; i++)
 	{
@@ -29,7 +31,12 @@ ObjectManager::ObjectManager()
 		mObj[eObject_Bullet].emplace_back(arrow);
 	}
 
-	XmlManager::GetInstance().UnitInfoParser(mObj);
+	std::vector<Object*>** vecptr = new vector<Object*>*[4];
+	for (int i = 0; i < 4; i++)
+	{
+		vecptr[i] = &mObj[i];
+	}
+	XmlManager::GetInstance().UnitInfoParser(vecptr);
 }
 
 

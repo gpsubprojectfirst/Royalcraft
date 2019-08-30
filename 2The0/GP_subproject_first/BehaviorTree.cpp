@@ -104,15 +104,6 @@ bool IsNearObj::Invoke()
 
 bool IsAbleAtk::Invoke()
 {
-	if (actor->obj->target->Isdead)
-	{
-		actor->obj->target = nullptr;
-		while (!actor->obj->moveTilePath.empty())
-		{
-			actor->obj->moveTilePath.pop();
-		}
-		return false;
-	}
 	if (sqrt(pow(actor->obj->target->curPosX - actor->obj->curPosX,2)
 			+ pow(actor->obj->target->curPosY - actor->obj->curPosY,2)) 
 		< actor->obj->mUnitInfo.atk_distance * ATTACK_DISTANCE
@@ -120,7 +111,8 @@ bool IsAbleAtk::Invoke()
 	{
 		return true;
 	}
-	
+	if (actor->obj->target->Isdead)
+		actor->obj->target = nullptr;
 	return false;
 }
 bool IsTargetHas::Invoke()

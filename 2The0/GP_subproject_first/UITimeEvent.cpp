@@ -41,7 +41,7 @@ void UITimeEvent::Update(int inTime)
 	runTime = inTime;
 	if (runTime != curTime)
 	{
-		if (inTime >= 0 && inTime <= TIME_START_EVENT)
+		if (inTime >= 0 && inTime <= 3)
 		{
 			std::cout << "start" << std::endl;
 		}
@@ -49,7 +49,7 @@ void UITimeEvent::Update(int inTime)
 		{
 			CreateEnemy();
 		}
-		if (inTime == TIME_BOOST_EVENT)
+		if (inTime == 90)
 		{
 			//std::cout << "rutime: 90" << std::endl;
 		}
@@ -73,14 +73,13 @@ void UITimeEvent::Render(Gdiplus::Graphics* MemG)
 		MemG->DrawImage(startUI.ParentImg, startUI.rc);
 		MemG->DrawString(result, -1, &font, *tempFRc, &format, &sbrush);
 	}
-	if (runTime >= TIME_BOOST_EVENT && runTime <= TIME_BOOST_EVENT + 1)
+	if (runTime >= 90 && runTime <= 91)
 	{
 		tempFRc->X = (float)startUI.rc.X;
 		tempFRc->Y = (float)(startUI.rc.Y + 10);
 		tempFRc->Width = (float)startUI.rc.Width;
 		tempFRc->Height = (float)startUI.rc.Height;
 
-		sbrush.SetColor(Gdiplus::Color::Red);
 		tempstr = "ONE MINUITE LEFT";
 		wide_string = wstring(tempstr.begin(), tempstr.end());
 		result = wide_string.c_str();

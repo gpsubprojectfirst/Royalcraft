@@ -57,7 +57,7 @@ void Build::Update(float Delta)
 		}
 		else if (sm.GetCurState() == eState_Dead)
 		{
-			//TODO;
+			//rc = atkRc[0];
 		}
 	}
 	if (mUnitInfo.atk_type == 1 && arrow != nullptr)
