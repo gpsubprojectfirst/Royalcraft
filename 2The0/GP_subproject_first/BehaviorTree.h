@@ -10,7 +10,7 @@ enum BTState {
 	eBTState_RUN,
 };
 
-//Behavior Tree에 필요한 정보를 가지고 있는 클래스
+//this has information that Behavior Tree need
 class BlackBoard
 {
 public:
@@ -41,11 +41,7 @@ public:
 private:
 	//EAction action_num;
 };
-class CheckUnit : public ActionNode
-{
-public:
-	virtual bool Invoke();
-};
+
 class AttackUnit : public ActionNode
 {
 public:
